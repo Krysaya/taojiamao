@@ -14,6 +14,7 @@
 #import "TJHomeSignController.h"
 #import "TJNoticeController.h"
 #import "TJHomeController.h"
+#import "TJSearchController.h"
 #define LEFTBTN  546146
 #define RIGHTBTN  556148
 #define Big_Scroll  7368
@@ -21,7 +22,7 @@
 #define NEWS_Scroll  9556
 #define CLASSS_CollectionV  569845
 #define Columns_CollectionV 475525
-@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate>
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSTimer *timer_news;
 @property (nonatomic,assign) NSInteger currentIndex;/* 当前滑动到了哪个位置**/
@@ -44,8 +45,7 @@
     [super viewWillAppear:animated];
     //设置导航栏背景图片为一个空的image，这样就透明了
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    
-    //去掉透明后导航栏下边的黑边
+   //去掉透明后导航栏下边的黑边
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 }
 
@@ -110,7 +110,7 @@
     midView.layer.cornerRadius = 15;
     midView.layer.masksToBounds = YES;
     UISearchBar *searchB = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 285, 30)];
-  
+    searchB.delegate = self;
     searchB.searchBarStyle = UISearchBarStyleDefault;
     [midView addSubview:searchB];
     self.navigationItem.titleView = midView;
@@ -295,7 +295,32 @@
     [collectionV registerNib:[UINib nibWithNibName:@"TJClassTwoCell" bundle:nil] forCellWithReuseIdentifier:@"ClassTwoCell"];
     [self.big_ScrollView addSubview:collectionV];
 }
+#pragma mark - search
 
+-(void)searchClick{
+    // 1. Create an Array of popular search
+    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+    // 2. Create a search view controller
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"PYExampleSearchPlaceholderText", @"怪味少女装") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        TJSearchController * result = [[TJSearchController alloc] init];
+        result.searchText = searchText;
+        [searchViewController.navigationController pushViewController:result animated:YES];
+    }];
+    // 3. Set style for popular search and search history
+    searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
+    searchViewController.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
+    
+    // 4. Set delegate
+    searchViewController.delegate = self;
+    // 5. Present a navigation controller
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:nav animated:NO completion:nil];
+}
+#pragma mark - searchbardelegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"点了--");
+}
 #pragma mark - btndelegte
 - (void)buttonClick:(UIButton *)but{
     if (but.tag ==LEFTBTN) {
@@ -427,7 +452,12 @@
       }else{
           TJHPMidCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MidCell" forIndexPath:indexPath];
           cell.imgView.image = [UIImage imageNamed:@"kddq"];
-          cell.titleLab.text = @"快递代取";
+          if (indexPath.section==0) {
+              cell.titleLab.text = @[@"快递代取",@"推荐好货",@"女装",@"大牌美妆",@"母婴"][indexPath.row];
+          }else{
+              cell.titleLab.text = @[@"男装",@"数码",@"美食",@"鞋包",@"更多"][indexPath.row];
+          }
+          
           return cell;}
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

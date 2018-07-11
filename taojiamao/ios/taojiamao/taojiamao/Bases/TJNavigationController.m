@@ -38,15 +38,15 @@
 }
 -(void)setBackButtonWithVC:(UIViewController*)vc{
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setImage:[UIImage imageNamed:@"navigationButtonReturn"] forState:UIControlStateNormal];
-    [backButton setImage:[UIImage imageNamed:@"navigationButtonReturnClick"] forState:UIControlStateHighlighted];
-    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+//    [backButton setTitle:@" " forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"back_left"] forState:UIControlStateNormal];
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"bake_left"] forState:UIControlStateNormal];
+//    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [backButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [backButton sizeToFit];
     // 注意:一定要在按钮内容有尺寸的时候,设置才有效果
-    backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -25, 0, 0);
+    backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0);
     vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 }
 

@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.title = @"签到";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     //    you边按钮
 
     UIButton *btn = [[UIButton alloc]init];
@@ -44,13 +44,9 @@
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
     //创建一个数组记录已经签过到的天
-//    _dataArr=[[NSMutableArray alloc]initWithObjects:@"2017-05-21",@"2017-05-22",@"2017-05-23",@"2017-05-12",@"2017-04-12",@"2017-03-12",@"2017-05-17",nil];
-//    for (int i=0; i<_dataArr.count; i++) {
-//        [self.calendar selectDate:[self.dateFormatter dateFromString:_dataArr[i]] scrollToDate:YES];
-//    }
-//
-//    self.calendar.accessibilityIdentifier = @"calendar";
-    
+    _dataArr=[[NSMutableArray alloc]initWithObjects:@"2017-07-01",@"2017-07-02",@"2017-07-05",@"2017-07-07",nil];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
     
     [self setCalendarCollectionView];
     
@@ -97,10 +93,17 @@
     FSCalendar *calendar = [[FSCalendar alloc]initWithFrame:CGRectMake(0, 0, S_W-50, 300)];
     calendar.dataSource = self;
     calendar.delegate = self;
+    calendar.headerHeight = 0.f;
+    calendar.scrollEnabled = NO;
 
+    calendar.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];//设置为中文
+    calendar.appearance.caseOptions = FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
+    
     calendar.appearance.weekdayTextColor=RGB(51, 51, 51);
     calendar.appearance.headerTitleColor=RGB(153, 153, 153);
     calendar.allowsMultipleSelection = NO;
+    [[calendar valueForKeyPath:@"topBorder"] setValue:@YES forKey:@"hidden"];
+    [[calendar valueForKeyPath:@"bottomBorder"] setValue:@YES forKey:@"hidden"];
     [bgView addSubview:calendar];
     
     
@@ -136,8 +139,17 @@
 // 对有事件的显示一个点,默认是显示三个点
 - (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date
 {
-    return 1;
+    if ([_dataArr containsObject:[self.dateFormatter stringFromDate:date]]) {
+        return 1;}else{
+            return 0;
+        }
 }
+//颜色
+- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date
+{
+    return @[KALLRGB];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
