@@ -42,7 +42,7 @@
     return timeStr;
        
 }
-- (NSString *)sortingAndMD5SignWithParam:(NSMutableDictionary *)param withSecert:(NSString *)secert{
+- (NSString *)sortingAndMD5SignWithParam:(NSMutableDictionary *)param withSecert:(NSString *)secret{
     
     ////    排序
     //    NSMutableDictionary *param = @{@"page":@"5",
@@ -61,7 +61,7 @@
         }
     }
     //    最后拼接secret
-    [tempStr appendString:secert];
+    [tempStr appendString:[NSString stringWithFormat:@"secret=%@",secret]];
     
     //-----加密
     NSString *md5String = [self md5:tempStr];

@@ -38,17 +38,17 @@
         self.FWData = [NSArray arrayWithArray:(NSArray*)info];
         
         if (select == 2) {
-            DSLog(@"领券");
-            [self showDifferentViewWithLQ];
-        }else if (select==3){
-            DSLog(@"服务");
-            [self showDifferentViewWithFW];
-        }else if (select==4){
-            DSLog(@"参数");
-            [self showDifferentViewWithCS];
-        }else if (select==5){
             DSLog(@"淘口令");
             [self showDifferentViewWithTKL];
+
+//            [self showDifferentViewWithLQ];
+//        }else if (select==3){
+//            DSLog(@"服务");
+//            [self showDifferentViewWithFW];
+//        }else if (select==4){
+//            DSLog(@"参数");
+//            [self showDifferentViewWithCS];
+//        }else if (select==5){
         }
     }
     return self;

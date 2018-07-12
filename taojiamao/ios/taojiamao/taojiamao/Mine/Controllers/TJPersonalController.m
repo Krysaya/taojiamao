@@ -18,6 +18,11 @@
 #import "TJUserInfoController.h"
 #import "TJSettingController.h"
 #import "TJLoginController.h"
+
+
+#import "TJMineAssetController.h"
+#import "TJMineOrderController.h"
+
 #define Setting   9999
 #define Notify    6666
 
@@ -295,8 +300,25 @@
    
         TJHPMidCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MineheadCell" forIndexPath:indexPath];
         cell.imgView.image = [UIImage imageNamed:@"balance_detail"];
-        cell.titleLab.text = @"快递代取";
+        cell.titleLab.text = @[@"我的资产",@"我的订单",@"我的收藏",@"我的足迹"][indexPath.row];
         return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row==0) {
+//        我的资产
+        TJMineAssetController *assetVC = [[TJMineAssetController alloc]init];
+        [self.navigationController pushViewController:assetVC animated:YES];
+    }else if (indexPath.row==1){
+//    我的订单
+        TJMineOrderController *orderVC = [[TJMineOrderController alloc]init];
+        [self.navigationController pushViewController:orderVC animated:YES];
+    }else if (indexPath.row==2){
+//   我的收藏
+    }else{
+//   我的足迹
+    }
+    
 }
 #pragma mark - TJButtonDelegate
 -(void)buttonClick:(UIButton *)but{

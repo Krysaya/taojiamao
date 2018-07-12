@@ -301,25 +301,36 @@
     // 1. Create an Array of popular search
     NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
     // 2. Create a search view controller
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"PYExampleSearchPlaceholderText", @"怪味少女装") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"怪味少女装" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         TJSearchController * result = [[TJSearchController alloc] init];
         result.searchText = searchText;
+
         [searchViewController.navigationController pushViewController:result animated:YES];
     }];
     // 3. Set style for popular search and search history
+ 
+//    searchViewController.searchTextField.backgroundColor = RGB(240, 240, 240);
+//    UIButton *btn = [[UIButton alloc]init];
+//    [btn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+//    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+//    [btn setTitle:@"搜索" forState:UIControlStateNormal];
+//    
+//    [searchViewController setCancelButton:[[UIBarButtonItem alloc]initWithCustomView:btn]];
     searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
     searchViewController.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
+   
     
+//    换位置
+    searchViewController.swapHotSeachWithSearchHistory = YES;
     // 4. Set delegate
-    searchViewController.delegate = self;
     // 5. Present a navigation controller
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:nav animated:NO completion:nil];
 }
 #pragma mark - searchbardelegate
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    NSLog(@"点了--");
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    NSLog(@"点了--");[self searchClick];
+    return NO;
 }
 #pragma mark - btndelegte
 - (void)buttonClick:(UIButton *)but{

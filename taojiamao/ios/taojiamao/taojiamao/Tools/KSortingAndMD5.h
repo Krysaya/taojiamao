@@ -17,5 +17,5 @@
 /*
  排序所有参数 且MD5加密后返回sign
  */
-- (NSString *)sortingAndMD5SignWithParam:(NSMutableDictionary *)param withSecert:(NSString *)secert;
+- (NSString *)sortingAndMD5SignWithParam:(NSMutableDictionary *)param withSecert:(NSString *)secret;
 @end

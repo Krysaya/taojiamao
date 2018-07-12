@@ -402,10 +402,12 @@
     UIView *headerView = [[UIView alloc] init];
     headerView.py_width = PYScreenW;
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
     UIView *hotSearchView = [[UIView alloc] init];
     hotSearchView.py_x = PYSEARCH_MARGIN * 1.5;
     hotSearchView.py_width = headerView.py_width - hotSearchView.py_x * 2;
     hotSearchView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
     UILabel *titleLabel = [self setupTitleLabel:[NSBundle py_localizedStringForKey:PYSearchHotSearchText]];
     self.hotSearchHeader = titleLabel;
     [hotSearchView addSubview:titleLabel];

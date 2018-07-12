@@ -68,38 +68,6 @@
     self.navigationItem.rightBarButtonItems = itemsArr;
     
 }
-#pragma mark -setChooseHeadview
-//-(void)setChooseHeadview{
-//    //按扭
-//    self.triangleBut = [[UIButton alloc]init];
-//    [self.triangleBut setTitle:@"下" forState:UIControlStateNormal];
-//    [self.triangleBut setTitle:@"上" forState:UIControlStateSelected];
-//    [self.triangleBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [self.triangleBut setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-//    [self.triangleBut addTarget:self action:@selector(triangleClick:) forControlEvents:UIControlEventTouchUpInside];
-//    self.triangleBut.backgroundColor =RandomColor;
-//    [self.view addSubview:self.triangleBut];
-//    WeakSelf
-//    [self.triangleBut mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(SafeAreaTopHeight);
-//        make.right.mas_equalTo(weakSelf.view);
-//        make.width.mas_equalTo(RightMargin);
-//        make.height.mas_equalTo(TopHeight);
-//    }];
-//    //遮盖
-//    UIWindow * window = [UIApplication sharedApplication].delegate.window;
-////    [self.view addSubview:self.coverView];
-//    [window addSubview:self.coverView];
-//    self.coverView.hidden = YES;
-//}
-//-(void)triangleClick:(UIButton*)but{
-//    but.selected = !but.selected;
-//    if (but.selected) {
-//        self.coverView.hidden = NO;
-//    }else{
-//        self.coverView.hidden = YES;
-//    }
-//}
 
 -(void)searchClick{
     // 1. Create an Array of popular search

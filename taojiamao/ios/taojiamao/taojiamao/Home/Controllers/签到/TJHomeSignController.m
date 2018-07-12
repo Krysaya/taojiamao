@@ -48,9 +48,11 @@
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
     
-    [self setCalendarCollectionView];
+    
     
     [self setOnClick];
+    [self setCalendarCollectionView];
+    [self setSignBtn];
 }
 
 - (void)setOnClick
@@ -86,11 +88,27 @@
 }
 
 - (void)setCalendarCollectionView{
+    NSDate *date =[NSDate date];//简书 FlyElephant
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     
-    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(25, 25+30+18+SafeAreaTopHeight, S_W-50, 300)];
+    [formatter setDateFormat:@"yyyy"];
+    NSInteger currentYear=[[formatter stringFromDate:date] integerValue];
+    [formatter setDateFormat:@"M"];
+    NSInteger currentMonth=[[formatter stringFromDate:date]integerValue];
+
+    NSString *currentStr = [NSString stringWithFormat:@"%ld.%ld",currentYear,currentMonth];
+    
+    UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(25, 30+18+SafeAreaTopHeight, 100, 50)];
+    titleLab.text = currentStr;
+    titleLab.textColor = RGB(51, 51, 51);
+    titleLab.font = [UIFont boldSystemFontOfSize:20];
+    [self.view addSubview:titleLab];
+    
+    
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(25, 30+18+50+SafeAreaTopHeight, S_W-50, 300)];
     [self.view addSubview:bgView];
     
-    FSCalendar *calendar = [[FSCalendar alloc]initWithFrame:CGRectMake(0, 0, S_W-50, 300)];
+    FSCalendar *calendar = [[FSCalendar alloc]initWithFrame:CGRectMake(0, 0, S_W-50, 260)];
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.headerHeight = 0.f;
@@ -108,6 +126,32 @@
     
     
     
+}
+- (void)setSignBtn{
+    UIButton *signBtn = [[UIButton alloc]init];
+    signBtn.frame =CGRectMake(0, 30+18+50+SafeAreaTopHeight+300, 190, 40);
+    signBtn.center = CGPointMake(self.view.center.x, 30+18+50+SafeAreaTopHeight+300);
+//    [signBtn setBackgroundImage:[UIImage imageNamed:@"signbtn_bg"] forState:UIControlStateNormal];
+    [signBtn setBackgroundColor:KALLRGB];
+    signBtn.layer.cornerRadius = 20;
+    signBtn.layer.masksToBounds = YES;
+    signBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
+    [self.view addSubview:signBtn];
+    
+    UILabel *allLab = [[UILabel alloc]initWithFrame:CGRectMake(signBtn.frame.origin.x+10, signBtn.frame.origin.y+40+6, 100, 25)];
+    allLab.text = @"今日签到总人数：";
+    allLab.textAlignment = NSTextAlignmentRight;
+    allLab.textColor = RGB(153, 153, 153);
+    allLab.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:allLab];
+    
+    UILabel *numLab = [[UILabel alloc]initWithFrame:CGRectMake(allLab.frame.origin.x+100, signBtn.frame.origin.y+40+6, 70, 25)];
+    numLab.text = @"74,546,545";
+    numLab.textAlignment = NSTextAlignmentLeft;
+    numLab.textColor = KALLRGB;
+    numLab.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:numLab];
 }
 - (void)setSelectedTopicScroll{
     

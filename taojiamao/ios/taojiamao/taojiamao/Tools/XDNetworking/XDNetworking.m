@@ -128,7 +128,8 @@ static NSTimeInterval   requestTimeout = 20.f;
     __block XDURLSessionTask *session = nil;
     
     AFHTTPSessionManager *manager = [self manager];
-//    [manager.requestSerializer setValue:@"app" forHTTPHeaderField:@"ios"];
+    [manager.requestSerializer setValue:@"app" forHTTPHeaderField:@"ios"];
+//    [manager.requestSerializer setValue:@"time" forHTTPHeaderField:@"ios"];
     if (networkStatus == XDNetworkStatusNotReachable) {
         if (failBlock) failBlock(XD_ERROR);
         

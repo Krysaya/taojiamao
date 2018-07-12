@@ -9,6 +9,7 @@
 #import "TJJHSuanController.h"
 #import "TJJHSuanCell.h"
 #import "TJGoodsDetailsController.h"
+#import "TJDefaultGoodsDetailController.h"
 
 @interface TJJHSuanController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -71,7 +72,8 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    TJGoodsDetailsController *goodVC = [[TJGoodsDetailsController alloc]init];
+//   
+    TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
