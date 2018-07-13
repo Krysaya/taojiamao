@@ -8,6 +8,16 @@
 //
 
 #import "TJGoodsListCell.h"
+@interface TJGoodsListCell()
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UIButton *btn_quan;
+@property (weak, nonatomic) IBOutlet UILabel *lab_quanh;
+@property (weak, nonatomic) IBOutlet UILabel *lab_yuanjia;
+@property (weak, nonatomic) IBOutlet UILabel *lab_yimai;
+
+
+
+@end
 
 @implementation TJGoodsListCell
 

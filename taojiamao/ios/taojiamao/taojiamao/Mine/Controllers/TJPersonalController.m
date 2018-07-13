@@ -19,7 +19,7 @@
 #import "TJSettingController.h"
 #import "TJLoginController.h"
 
-
+#import "TJCollectController.h"
 #import "TJMineAssetController.h"
 #import "TJMineOrderController.h"
 
@@ -315,6 +315,8 @@
         [self.navigationController pushViewController:orderVC animated:YES];
     }else if (indexPath.row==2){
 //   我的收藏
+        TJCollectController *collectVc = [[TJCollectController alloc]init];
+        [self.navigationController pushViewController:collectVc animated:YES];
     }else{
 //   我的足迹
     }

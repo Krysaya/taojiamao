@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "HYBNetworking.h"
 @interface AppDelegate ()
 
 @end
@@ -23,6 +23,8 @@
     //IQKeyboard
     [self setIQKeyboard];
     
+//    配置请求类
+//HYBNetworking updateBaseUrl:<#(NSString *)#>
     return YES;
 }
 

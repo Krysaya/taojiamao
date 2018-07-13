@@ -8,6 +8,8 @@
 //
 
 #import "TJHomePageController.h"
+#import "SJAttributeWorker.h"
+
 #import "TJHPMidCollectCell.h"
 #import "TJClassOneCell.h"
 #import "TJClassTwoCell.h"
@@ -15,6 +17,12 @@
 #import "TJNoticeController.h"
 #import "TJHomeController.h"
 #import "TJSearchController.h"
+
+
+#import "TJGoodsListCell.h"
+#import "UIViewController+Extension.h"
+
+
 #define LEFTBTN  546146
 #define RIGHTBTN  556148
 #define Big_Scroll  7368
@@ -22,7 +30,12 @@
 #define NEWS_Scroll  9556
 #define CLASSS_CollectionV  569845
 #define Columns_CollectionV 475525
-@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate>
+@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
+
+{
+    CGFloat _currentAlpha;
+}
+
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSTimer *timer_news;
 @property (nonatomic,assign) NSInteger currentIndex;/* 当前滑动到了哪个位置**/
@@ -43,10 +56,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //设置导航栏背景图片为一个空的image，这样就透明了
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-   //去掉透明后导航栏下边的黑边
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+//    //设置导航栏背景图片为一个空的image，这样就透明了
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+//   //去掉透明后导航栏下边的黑边
+//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+//
+    [self setNaviBarAlpha:_currentAlpha];
 }
 
 //视图将要消失时取消隐藏
@@ -54,8 +69,10 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:nil];
+//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:nil];
+    
+    [self setNaviBarAlpha:1];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -68,18 +85,25 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
 
+    
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]init];
     big_ScrollVie.frame = S_F;
-    
+    big_ScrollVie.contentSize = CGSizeMake(0, S_H+300);
     big_ScrollVie.delegate = self;
     big_ScrollVie.showsVerticalScrollIndicator = NO;
     big_ScrollVie.showsHorizontalScrollIndicator = NO;
     big_ScrollVie.tag = Big_Scroll;
     [self.view addSubview:big_ScrollVie];
     self.big_ScrollView = big_ScrollVie;
+    
+    if (@available(iOS 11.0, *)) {
+        self.big_ScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     
     
     [self setupTimer];
@@ -90,6 +114,7 @@
     [self setADScrollView];
     [self setNewsScroll];
     [self setClassCollectionView];
+    [self setBottomTableView];
 }
 
 - (void)setNavgation{
@@ -295,6 +320,71 @@
     [collectionV registerNib:[UINib nibWithNibName:@"TJClassTwoCell" bundle:nil] forCellWithReuseIdentifier:@"ClassTwoCell"];
     [self.big_ScrollView addSubview:collectionV];
 }
+- (void)setBottomTableView{
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 365+55+10+260, S_W, 110)];
+    img.backgroundColor =RandomColor;
+    [self.big_ScrollView addSubview:img];
+    
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 365+55+10+260+110, S_W, 300) style:UITableViewStylePlain];
+    tableView.rowHeight = 150;
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
+    [self.big_ScrollView addSubview:tableView];
+}
+
+#pragma mark - tableViewDelagte
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
+    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
+    });
+    cell.titleLab.attributedText = str;
+    return cell;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return  [self setViewForHeaderInSectionWith:@"精选好物" withFrame:CGRectMake(0, 5, S_W, 68*H_Scale)];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 68;
+}
+#pragma mark - setViewForHeaderInSection
+-(UIView*)setViewForHeaderInSectionWith:(NSString*)title withFrame:(CGRect)frame{
+    UIView * view = [[UIView alloc]initWithFrame:frame];
+    view.backgroundColor = [UIColor whiteColor];
+    TJLabel * titleL = [TJLabel setLabelWith:title font:15 color:RGB(255, 71, 119)];
+    [view addSubview:titleL];
+    [titleL mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(view);
+    }];
+    
+    UIView * left = [[UIView alloc]init];
+    left.backgroundColor =RGB(255, 71, 119);
+    [view addSubview:left];
+    [left mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(titleL);
+        make.right.mas_equalTo(titleL.mas_left).offset(-10);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(1);
+    }];
+    
+    UIView * right = [[UIView alloc]init];
+    right.backgroundColor =RGB(255, 71, 119);
+    [view addSubview:right];
+    [right mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.width.centerY.mas_equalTo(left);
+        make.left.mas_equalTo(titleL.mas_right).offset(10);
+    }];
+    return view;
+}
 #pragma mark - search
 
 -(void)searchClick{
@@ -344,6 +434,19 @@
 }
 
 #pragma make - scrollView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGPoint point = scrollView.contentOffset;
+    float alpha = point.y/SafeAreaTopHeight;
+    alpha = (alpha <= 0)?0:alpha;
+    alpha = (alpha >= 1)?1:alpha;
+    
+    _currentAlpha = alpha;
+    
+    [self setNaviBarAlpha:_currentAlpha];
+}
+
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView.tag==AD_Scroll) {
         double page = scrollView.contentOffset.x / scrollView.bounds.size.width;

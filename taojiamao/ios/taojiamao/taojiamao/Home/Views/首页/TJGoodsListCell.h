@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TJGoodsListCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
 
 @end

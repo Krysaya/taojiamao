@@ -9,6 +9,7 @@
 #ifndef PublicThird_h
 #define PublicThird_h
 
+#import "HYBNetworking.h"
 #import "XDNetworking.h"
 #import "NSString+Hash.h"
 #import "IQKeyboardManager.h"

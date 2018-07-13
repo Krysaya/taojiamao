@@ -8,6 +8,6 @@
 
 #import "WMPageController.h"
 
-@interface TJCollectController : WMPageController
+@interface TJCollectController : UIViewController
 
 @end

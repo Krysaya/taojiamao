@@ -345,6 +345,23 @@
 		C79BBA9820EA141A00506C66 /* TJMineOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79BBA9720EA141A00506C66 /* TJMineOrderController.m */; };
 		C7B3E1A120AEAE85006CEE0A /* TJBottomPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B3E1A020AEAE85006CEE0A /* TJBottomPopupView.m */; };
 		C7B80D9320A5769300C1333B /* TJUserInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B80D9220A5769300C1333B /* TJUserInfoController.m */; };
+		C7B9947420F8461700DFFC98 /* SJAttributesRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947120F8461600DFFC98 /* SJAttributesRecorder.m */; };
+		C7B9947520F8461700DFFC98 /* SJAttributeWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947320F8461600DFFC98 /* SJAttributeWorker.m */; };
+		C7B9947820F84B5800DFFC98 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947720F84B5800DFFC98 /* UIViewController+Extension.m */; };
+		C7B9947B20F84BBD00DFFC98 /* UIImage+JKColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947920F84BBD00DFFC98 /* UIImage+JKColor.m */; };
+		C7B9947F20F87F7F00DFFC98 /* HYBNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947E20F87F7F00DFFC98 /* HYBNetworking.m */; };
+		C7B9949220F884B000DFFC98 /* UIView+ZJFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9948220F884B000DFFC98 /* UIView+ZJFrame.m */; };
+		C7B9949320F884B000DFFC98 /* UIViewController+ZJScrollPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9948420F884B000DFFC98 /* UIViewController+ZJScrollPageController.m */; };
+		C7B9949420F884B000DFFC98 /* ZJCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9948620F884B000DFFC98 /* ZJCollectionView.m */; };
+		C7B9949520F884B000DFFC98 /* ZJContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9948820F884B000DFFC98 /* ZJContentView.m */; };
+		C7B9949620F884B000DFFC98 /* ZJScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9948A20F884B000DFFC98 /* ZJScrollPageView.m */; };
+		C7B9949720F884B000DFFC98 /* ZJScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9948D20F884B000DFFC98 /* ZJScrollSegmentView.m */; };
+		C7B9949820F884B000DFFC98 /* ZJSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9948F20F884B000DFFC98 /* ZJSegmentStyle.m */; };
+		C7B9949920F884B000DFFC98 /* ZJTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9949120F884B000DFFC98 /* ZJTitleView.m */; };
+		C7B9949E20F88FA300DFFC98 /* TJGoodsCollectController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9949D20F88FA300DFFC98 /* TJGoodsCollectController.m */; };
+		C7B994A120F88FC400DFFC98 /* TJContentCollectController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B994A020F88FC400DFFC98 /* TJContentCollectController.m */; };
+		C7B994A920F89B1200DFFC98 /* TJContentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B994A720F89B1200DFFC98 /* TJContentListCell.m */; };
+		C7B994AA20F89B1200DFFC98 /* TJContentListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7B994A820F89B1200DFFC98 /* TJContentListCell.xib */; };
 		C7DE689D2099476000160435 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DE68982099475E00160435 /* FLAnimatedImageView.m */; };
 		C7DE689E2099476000160435 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7DE689B2099475F00160435 /* Info.plist */; };
 		C7DE689F2099476000160435 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DE689C2099476000160435 /* FLAnimatedImage.m */; };
@@ -1067,6 +1084,40 @@
 		C7B3E1A020AEAE85006CEE0A /* TJBottomPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBottomPopupView.m; sourceTree = "<group>"; };
 		C7B80D9120A5769300C1333B /* TJUserInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUserInfoController.h; sourceTree = "<group>"; };
 		C7B80D9220A5769300C1333B /* TJUserInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUserInfoController.m; sourceTree = "<group>"; };
+		C7B9947020F8461600DFFC98 /* SJAttributesRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAttributesRecorder.h; sourceTree = "<group>"; };
+		C7B9947120F8461600DFFC98 /* SJAttributesRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAttributesRecorder.m; sourceTree = "<group>"; };
+		C7B9947220F8461600DFFC98 /* SJAttributeWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAttributeWorker.h; sourceTree = "<group>"; };
+		C7B9947320F8461600DFFC98 /* SJAttributeWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAttributeWorker.m; sourceTree = "<group>"; };
+		C7B9947620F84B5800DFFC98 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
+		C7B9947720F84B5800DFFC98 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
+		C7B9947920F84BBD00DFFC98 /* UIImage+JKColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JKColor.m"; sourceTree = "<group>"; };
+		C7B9947A20F84BBD00DFFC98 /* UIImage+JKColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JKColor.h"; sourceTree = "<group>"; };
+		C7B9947D20F87F7F00DFFC98 /* HYBNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYBNetworking.h; sourceTree = "<group>"; };
+		C7B9947E20F87F7F00DFFC98 /* HYBNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBNetworking.m; sourceTree = "<group>"; };
+		C7B9948120F884B000DFFC98 /* UIView+ZJFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ZJFrame.h"; sourceTree = "<group>"; };
+		C7B9948220F884B000DFFC98 /* UIView+ZJFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZJFrame.m"; sourceTree = "<group>"; };
+		C7B9948320F884B000DFFC98 /* UIViewController+ZJScrollPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZJScrollPageController.h"; sourceTree = "<group>"; };
+		C7B9948420F884B000DFFC98 /* UIViewController+ZJScrollPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZJScrollPageController.m"; sourceTree = "<group>"; };
+		C7B9948520F884B000DFFC98 /* ZJCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJCollectionView.h; sourceTree = "<group>"; };
+		C7B9948620F884B000DFFC98 /* ZJCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJCollectionView.m; sourceTree = "<group>"; };
+		C7B9948720F884B000DFFC98 /* ZJContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJContentView.h; sourceTree = "<group>"; };
+		C7B9948820F884B000DFFC98 /* ZJContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJContentView.m; sourceTree = "<group>"; };
+		C7B9948920F884B000DFFC98 /* ZJScrollPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJScrollPageView.h; sourceTree = "<group>"; };
+		C7B9948A20F884B000DFFC98 /* ZJScrollPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJScrollPageView.m; sourceTree = "<group>"; };
+		C7B9948B20F884B000DFFC98 /* ZJScrollPageViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJScrollPageViewDelegate.h; sourceTree = "<group>"; };
+		C7B9948C20F884B000DFFC98 /* ZJScrollSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJScrollSegmentView.h; sourceTree = "<group>"; };
+		C7B9948D20F884B000DFFC98 /* ZJScrollSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJScrollSegmentView.m; sourceTree = "<group>"; };
+		C7B9948E20F884B000DFFC98 /* ZJSegmentStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJSegmentStyle.h; sourceTree = "<group>"; };
+		C7B9948F20F884B000DFFC98 /* ZJSegmentStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJSegmentStyle.m; sourceTree = "<group>"; };
+		C7B9949020F884B000DFFC98 /* ZJTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJTitleView.h; sourceTree = "<group>"; };
+		C7B9949120F884B000DFFC98 /* ZJTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJTitleView.m; sourceTree = "<group>"; };
+		C7B9949C20F88FA300DFFC98 /* TJGoodsCollectController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJGoodsCollectController.h; sourceTree = "<group>"; };
+		C7B9949D20F88FA300DFFC98 /* TJGoodsCollectController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsCollectController.m; sourceTree = "<group>"; };
+		C7B9949F20F88FC400DFFC98 /* TJContentCollectController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJContentCollectController.h; sourceTree = "<group>"; };
+		C7B994A020F88FC400DFFC98 /* TJContentCollectController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJContentCollectController.m; sourceTree = "<group>"; };
+		C7B994A620F89B1200DFFC98 /* TJContentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJContentListCell.h; sourceTree = "<group>"; };
+		C7B994A720F89B1200DFFC98 /* TJContentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJContentListCell.m; sourceTree = "<group>"; };
+		C7B994A820F89B1200DFFC98 /* TJContentListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJContentListCell.xib; sourceTree = "<group>"; };
 		C7DE68982099475E00160435 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		C7DE68992099475E00160435 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
 		C7DE689A2099475F00160435 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
@@ -1779,6 +1830,10 @@
 		C73FC79C20901BC700732F2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C7B994A420F89A8200DFFC98 /* 我的订单 */,
+				C7B994A220F89A8200DFFC98 /* 我的收藏 */,
+				C7B994A520F89A8200DFFC98 /* 我的资产 */,
+				C7B994A320F89A8200DFFC98 /* 我的足迹 */,
 				C720DE03209414AF0027AD26 /* TJMineListCell.h */,
 				C720DE04209414AF0027AD26 /* TJMineListCell.m */,
 				C77B7AA020F4B003005DD2BD /* TJMineHeaderCell.h */,
@@ -1791,10 +1846,6 @@
 				C742DA3520BBB4310041F1C6 /* TJSearchView.m */,
 				C73D393920E364600004D5B4 /* TJRankingListContentCell.h */,
 				C73D393A20E364600004D5B4 /* TJRankingListContentCell.m */,
-				C73D394520E38F8C0004D5B4 /* TJTBOrderContentCell.h */,
-				C73D394620E38F8C0004D5B4 /* TJTBOrderContentCell.m */,
-				C79BBA3E20E9D2C100506C66 /* TJMallOrdersCell.h */,
-				C79BBA3F20E9D2C100506C66 /* TJMallOrdersCell.m */,
 				C76A61BE20EC621A000B747C /* TJMiddleView.h */,
 				C76A61BF20EC621A000B747C /* TJMiddleView.m */,
 			);
@@ -1804,6 +1855,10 @@
 		C73FC79D20901BC700732F2D /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				C7B9947A20F84BBD00DFFC98 /* UIImage+JKColor.h */,
+				C7B9947920F84BBD00DFFC98 /* UIImage+JKColor.m */,
+				C7B9947620F84B5800DFFC98 /* UIViewController+Extension.h */,
+				C7B9947720F84B5800DFFC98 /* UIViewController+Extension.m */,
 				C7249B0A20A1418400BB385E /* UIImage+TJCircleImage.h */,
 				C7249B0720A1418400BB385E /* UIImage+TJCircleImage.m */,
 				C7249B0920A1418400BB385E /* UIView+Frame.h */,
@@ -1855,6 +1910,7 @@
 		C73FC7A020901BC700732F2D /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				C7B9947C20F87F7F00DFFC98 /* HYBNetworking */,
 				C7808FE820E60E4500938A26 /* KSortingAndMD5.h */,
 				C7808FE920E60E4600938A26 /* KSortingAndMD5.m */,
 				C720EDC0209074CA007AA53C /* Security */,
@@ -1899,6 +1955,8 @@
 		C73FC7A520901BC700732F2D /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
+				C7B9948020F884B000DFFC98 /* ZJScrollPageView */,
+				C7B9946F20F8461600DFFC98 /* SJAttributesFactory */,
 				C77CD3E920F5F7D7003A55FC /* FSCalendar */,
 				C704043B20AE6A5F001D720A /* XHWebImageAutoSize */,
 				C78E5C9820ABB5E600C9C1BF /* MJRefresh */,
@@ -2163,6 +2221,8 @@
 		C74DFFA220F7547100D83ACF /* 我的收藏 */ = {
 			isa = PBXGroup;
 			children = (
+				C7B9949B20F88F8D00DFFC98 /* 内容收藏 */,
+				C7B9949A20F88F8800DFFC98 /* 商品收藏 */,
 				C74DFFA520F756B500D83ACF /* TJCollectController.h */,
 				C74DFFA620F756B500D83ACF /* TJCollectController.m */,
 			);
@@ -2674,6 +2734,103 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		C7B9946F20F8461600DFFC98 /* SJAttributesFactory */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9947020F8461600DFFC98 /* SJAttributesRecorder.h */,
+				C7B9947120F8461600DFFC98 /* SJAttributesRecorder.m */,
+				C7B9947220F8461600DFFC98 /* SJAttributeWorker.h */,
+				C7B9947320F8461600DFFC98 /* SJAttributeWorker.m */,
+			);
+			path = SJAttributesFactory;
+			sourceTree = "<group>";
+		};
+		C7B9947C20F87F7F00DFFC98 /* HYBNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9947D20F87F7F00DFFC98 /* HYBNetworking.h */,
+				C7B9947E20F87F7F00DFFC98 /* HYBNetworking.m */,
+			);
+			path = HYBNetworking;
+			sourceTree = "<group>";
+		};
+		C7B9948020F884B000DFFC98 /* ZJScrollPageView */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9948120F884B000DFFC98 /* UIView+ZJFrame.h */,
+				C7B9948220F884B000DFFC98 /* UIView+ZJFrame.m */,
+				C7B9948320F884B000DFFC98 /* UIViewController+ZJScrollPageController.h */,
+				C7B9948420F884B000DFFC98 /* UIViewController+ZJScrollPageController.m */,
+				C7B9948520F884B000DFFC98 /* ZJCollectionView.h */,
+				C7B9948620F884B000DFFC98 /* ZJCollectionView.m */,
+				C7B9948720F884B000DFFC98 /* ZJContentView.h */,
+				C7B9948820F884B000DFFC98 /* ZJContentView.m */,
+				C7B9948920F884B000DFFC98 /* ZJScrollPageView.h */,
+				C7B9948A20F884B000DFFC98 /* ZJScrollPageView.m */,
+				C7B9948B20F884B000DFFC98 /* ZJScrollPageViewDelegate.h */,
+				C7B9948C20F884B000DFFC98 /* ZJScrollSegmentView.h */,
+				C7B9948D20F884B000DFFC98 /* ZJScrollSegmentView.m */,
+				C7B9948E20F884B000DFFC98 /* ZJSegmentStyle.h */,
+				C7B9948F20F884B000DFFC98 /* ZJSegmentStyle.m */,
+				C7B9949020F884B000DFFC98 /* ZJTitleView.h */,
+				C7B9949120F884B000DFFC98 /* ZJTitleView.m */,
+			);
+			path = ZJScrollPageView;
+			sourceTree = "<group>";
+		};
+		C7B9949A20F88F8800DFFC98 /* 商品收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9949C20F88FA300DFFC98 /* TJGoodsCollectController.h */,
+				C7B9949D20F88FA300DFFC98 /* TJGoodsCollectController.m */,
+			);
+			path = "商品收藏";
+			sourceTree = "<group>";
+		};
+		C7B9949B20F88F8D00DFFC98 /* 内容收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9949F20F88FC400DFFC98 /* TJContentCollectController.h */,
+				C7B994A020F88FC400DFFC98 /* TJContentCollectController.m */,
+			);
+			path = "内容收藏";
+			sourceTree = "<group>";
+		};
+		C7B994A220F89A8200DFFC98 /* 我的收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				C7B994A620F89B1200DFFC98 /* TJContentListCell.h */,
+				C7B994A720F89B1200DFFC98 /* TJContentListCell.m */,
+				C7B994A820F89B1200DFFC98 /* TJContentListCell.xib */,
+			);
+			path = "我的收藏";
+			sourceTree = "<group>";
+		};
+		C7B994A320F89A8200DFFC98 /* 我的足迹 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "我的足迹";
+			sourceTree = "<group>";
+		};
+		C7B994A420F89A8200DFFC98 /* 我的订单 */ = {
+			isa = PBXGroup;
+			children = (
+				C73D394520E38F8C0004D5B4 /* TJTBOrderContentCell.h */,
+				C73D394620E38F8C0004D5B4 /* TJTBOrderContentCell.m */,
+				C79BBA3E20E9D2C100506C66 /* TJMallOrdersCell.h */,
+				C79BBA3F20E9D2C100506C66 /* TJMallOrdersCell.m */,
+			);
+			path = "我的订单";
+			sourceTree = "<group>";
+		};
+		C7B994A520F89A8200DFFC98 /* 我的资产 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "我的资产";
+			sourceTree = "<group>";
+		};
 		C7DE68A3209985DC00160435 /* NewPagedFlowView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2800,6 +2957,7 @@
 				C77CD41B20F5F7D8003A55FC /* Info.plist in Resources */,
 				C75891412092B85D00AC085E /* Info.plist in Resources */,
 				C786473020F33FCD00995A8F /* TJClassOneCell.xib in Resources */,
+				C7B994AA20F89B1200DFFC98 /* TJContentListCell.xib in Resources */,
 				C74DFF9D20F73F0200D83ACF /* TJDafultGoodsTitlesCell.xib in Resources */,
 				C72A72BC209D54B3001CAC75 /* PYSearch.bundle in Resources */,
 				C73FC763209017FD00732F2D /* Main.storyboard in Resources */,
@@ -2862,6 +3020,7 @@
 				C7206BFE20A0031A00957A4A /* XHLaunchAdConst.m in Sources */,
 				C78E5CD220ABB5E700C9C1BF /* MJRefreshGifHeader.m in Sources */,
 				C7249B0F20A1432400BB385E /* TJBalanceDetailsModel.m in Sources */,
+				C7B9947520F8461700DFFC98 /* SJAttributeWorker.m in Sources */,
 				C73FC81C209025CE00732F2D /* UIImageView+AFNetworking.m in Sources */,
 				C7679C6B20EB75E80053A6A8 /* TJPersonalController.m in Sources */,
 				C742A31F2099DA260026311A /* MyPathLayout.m in Sources */,
@@ -2895,6 +3054,7 @@
 				C7292AFF2095CF0F00073099 /* SDWebImageTransition.m in Sources */,
 				C742A3112099DA260026311A /* MyBorderline.m in Sources */,
 				C77D0EA520A3ED5B000F794A /* UIView+YYText.m in Sources */,
+				C7B994A920F89B1200DFFC98 /* TJContentListCell.m in Sources */,
 				C75891522092CCFA00AC085E /* TJLoginController.m in Sources */,
 				C74C31AB20B2C2DF0074AC00 /* TJContentCollectionCell.m in Sources */,
 				C74099CA2091596400DFCC94 /* TJOverallJudge.m in Sources */,
@@ -2920,6 +3080,7 @@
 				C742A3132099DA260026311A /* MyFloatLayout.m in Sources */,
 				C758914B2092B85D00AC085E /* ViewController+MASAdditions.m in Sources */,
 				C78E5CD620ABB5E700C9C1BF /* MJRefreshConst.m in Sources */,
+				C7B9949620F884B000DFFC98 /* ZJScrollPageView.m in Sources */,
 				C776E3B520BE3FBD00CF9901 /* TJMultipleChoiceView.m in Sources */,
 				C7292B032095CF0F00073099 /* UIImage+GIF.m in Sources */,
 				C7249B1520A1519F00BB385E /* TJAssistanceController.m in Sources */,
@@ -2937,6 +3098,7 @@
 				C7E6D48B20A9B02E0019C827 /* TJJFBExchangeController.m in Sources */,
 				C786472F20F33FCD00995A8F /* TJClassOneCell.m in Sources */,
 				C7292AFD2095CF0F00073099 /* SDWebImageManager.m in Sources */,
+				C7B9949520F884B000DFFC98 /* ZJContentView.m in Sources */,
 				C720EDBC20907268007AA53C /* TJNavigationController.m in Sources */,
 				C742A3142099DA260026311A /* MyFlowLayout.m in Sources */,
 				C7206C1220A0323A00957A4A /* TJWebController.m in Sources */,
@@ -2962,6 +3124,7 @@
 				C74099FF2091CF3600DFCC94 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				C7292AA92095CA7700073099 /* TAPageControl.m in Sources */,
 				C73FC825209025CE00732F2D /* XDNetworking.m in Sources */,
+				C7B9949820F884B000DFFC98 /* ZJSegmentStyle.m in Sources */,
 				C73FC811209025CE00732F2D /* AFHTTPSessionManager.m in Sources */,
 				C7292AF12095CF0F00073099 /* SDAnimatedImageRep.m in Sources */,
 				C720EDC3209074CA007AA53C /* NSString+Hash.m in Sources */,
@@ -2971,6 +3134,7 @@
 				C74099FD2091CF3600DFCC94 /* IQTitleBarButtonItem.m in Sources */,
 				C742A31E2099DA260026311A /* MyMaker.m in Sources */,
 				C77CD40B20F5F7D7003A55FC /* FSCalendar+Deprecated.m in Sources */,
+				C7B9949920F884B000DFFC98 /* ZJTitleView.m in Sources */,
 				C77D0EB720A421A4000F794A /* TJOCDContentController.m in Sources */,
 				C74099F72091CF3600DFCC94 /* IQUIWindow+Hierarchy.m in Sources */,
 				C7292AF52095CF0F00073099 /* SDWebImageCoderHelper.m in Sources */,
@@ -2978,6 +3142,7 @@
 				C73FC821209025CE00732F2D /* XDCacheManager.m in Sources */,
 				C78E5CD720ABB5E700C9C1BF /* NSBundle+MJRefresh.m in Sources */,
 				C77D0E9520A3ED5B000F794A /* YYTextDebugOption.m in Sources */,
+				C7B9947B20F84BBD00DFFC98 /* UIImage+JKColor.m in Sources */,
 				C77B7AA220F4B003005DD2BD /* TJMineHeaderCell.m in Sources */,
 				C7249B2F20A1843900BB385E /* TJSettingController.m in Sources */,
 				C7292AAB2095CA7700073099 /* SDCycleScrollView.m in Sources */,
@@ -2993,6 +3158,7 @@
 				C7206C0320A0031A00957A4A /* XHLaunchAdView.m in Sources */,
 				C742DA3920BBD67A0041F1C6 /* TJFiltrateView.m in Sources */,
 				C78E5CCF20ABB5E700C9C1BF /* MJRefreshBackGifFooter.m in Sources */,
+				C7B9947F20F87F7F00DFFC98 /* HYBNetworking.m in Sources */,
 				C78E5CCD20ABB5E700C9C1BF /* MJRefreshAutoNormalFooter.m in Sources */,
 				C77CD40F20F5F7D8003A55FC /* FSCalendarCell.m in Sources */,
 				C77D0ECE20A45D9E000F794A /* WMPageController.m in Sources */,
@@ -3050,6 +3216,7 @@
 				C7292AF92095CF0F00073099 /* SDWebImageDownloaderOperation.m in Sources */,
 				C758CC0120A2E5B3000F1903 /* TJAddEditAddressController.m in Sources */,
 				C7292B062095CF0F00073099 /* UIImageView+HighlightedWebCache.m in Sources */,
+				C7B9949720F884B000DFFC98 /* ZJScrollSegmentView.m in Sources */,
 				C78E5CCB20ABB5E700C9C1BF /* MJRefreshHeader.m in Sources */,
 				C75891432092B85D00AC085E /* MASConstraint.m in Sources */,
 				C75891582092CFF800AC085E /* TJHomeController.m in Sources */,
@@ -3077,6 +3244,7 @@
 				C72A72C5209D9BD0001CAC75 /* TJGetVerifyCode.m in Sources */,
 				C77D0E9420A3ED5B000F794A /* YYTextContainerView.m in Sources */,
 				C77CD41320F5F7D8003A55FC /* FSCalendarDelegationFactory.m in Sources */,
+				C7B9949E20F88FA300DFFC98 /* TJGoodsCollectController.m in Sources */,
 				C7206C0020A0031A00957A4A /* XHLaunchAdDownloader.m in Sources */,
 				C77D0EA120A3ED5B000F794A /* YYTextRunDelegate.m in Sources */,
 				C758915E2092D02E00AC085E /* TJCQuanController.m in Sources */,
@@ -3087,6 +3255,7 @@
 				C7292AF02095CF0F00073099 /* NSImage+WebCache.m in Sources */,
 				C7292AF72095CF0F00073099 /* SDWebImageCompat.m in Sources */,
 				C78E5CC720ABB5E700C9C1BF /* MJRefreshAutoFooter.m in Sources */,
+				C7B9947820F84B5800DFFC98 /* UIViewController+Extension.m in Sources */,
 				C77D0E9C20A3ED5B000F794A /* YYTextSelectionView.m in Sources */,
 				C77D0ECC20A45D9E000F794A /* WMProgressView.m in Sources */,
 				C78E5CE020ABDA0300C9C1BF /* TJDrawMoneyController.m in Sources */,
@@ -3113,8 +3282,12 @@
 				C75891462092B85D00AC085E /* MASViewAttribute.m in Sources */,
 				C7249B1820A152E200BB385E /* TJAssistanceCell.m in Sources */,
 				C704044920AE6A60001D720A /* UICollectionView+XHWebImageAutoSize.m in Sources */,
+				C7B9949420F884B000DFFC98 /* ZJCollectionView.m in Sources */,
+				C7B9947420F8461700DFFC98 /* SJAttributesRecorder.m in Sources */,
 				C73FC81A209025CE00732F2D /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				C7B994A120F88FC400DFFC98 /* TJContentCollectController.m in Sources */,
 				C7181E0C20AABC1B00AEC7D5 /* TJHomeFootShowCell.m in Sources */,
+				C7B9949320F884B000DFFC98 /* UIViewController+ZJScrollPageController.m in Sources */,
 				C74099F42091CF3600DFCC94 /* IQUITextFieldView+Additions.m in Sources */,
 				C73FC817209025CE00732F2D /* AFAutoPurgingImageCache.m in Sources */,
 				C74099F22091CF3600DFCC94 /* IQNSArray+Sort.m in Sources */,
@@ -3144,6 +3317,7 @@
 				C77D0E9720A3ED5B000F794A /* YYTextInput.m in Sources */,
 				C73FC81E209025CE00732F2D /* UIRefreshControl+AFNetworking.m in Sources */,
 				C742DA3620BBB4310041F1C6 /* TJSearchView.m in Sources */,
+				C7B9949220F884B000DFFC98 /* UIView+ZJFrame.m in Sources */,
 				C73FC813209025CE00732F2D /* AFSecurityPolicy.m in Sources */,
 				C73FC815209025CE00732F2D /* AFURLResponseSerialization.m in Sources */,
 				C73FC820209025CE00732F2D /* XD_LRUManager.m in Sources */,
