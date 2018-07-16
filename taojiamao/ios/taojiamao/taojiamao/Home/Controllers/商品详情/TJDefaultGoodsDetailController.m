@@ -16,6 +16,8 @@
 #import "TJBottomPopupView.h"
 #import "TJPopularizeController.h"
 
+#import "UIViewController+Extension.h"
+
 static NSString * const GoodsDetailsTitleCell = @"GoodsDetailsTitleCell";
 static NSString * const GoodsDetailsElectCell = @"GoodsDetailsElectCell";
 static NSString * const GoodsDetailsLFCCell = @"GoodsDetailsLFCCell";
@@ -30,6 +32,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 @interface TJDefaultGoodsDetailController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,SDCycleScrollViewDelegate,TJBottomPopupViewDelegate>
 
+{
+    CGFloat _currentAlpha;
+}
 @property(nonatomic,strong)TJButton * backButton;
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -54,19 +59,20 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //设置导航栏背景图片为一个空的image，这样就透明了
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    //去掉透明后导航栏下边的黑边
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    self.navigationController.navigationBarHidden = YES;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
 }
 
 //视图将要消失时取消隐藏
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    //视图将要消失时取消隐藏
+    self.navigationController.navigationBarHidden = NO;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
     
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:nil];
 }
 
 - (void)viewDidLoad {
@@ -75,7 +81,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [self setBackButton];
 //    [self setUIbanner];
     [self setUIfootView];
-    [self setUIgoTop];
+//    [self setUIgoTop];
 }
 -(void)setUIgoTop{
     WeakSelf
@@ -125,7 +131,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 -(void)setBackButton{
     CGFloat TOP = IsX?26*H_Scale+24:26*H_Scale;
-    self.backButton = [[TJButton alloc]initDelegate:self backColor:RandomColor tag:DetailsBackButton withBackImage:@"back_left"];
+    self.backButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsBackButton withBackImage:@"back_left"];
     [self.view addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(9*W_Scale);
@@ -136,7 +142,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 -(void)setUI{
     CGFloat Y = IsX?-44:-20;
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,Y, S_W, S_H+20-54*H_Scale) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, S_W, S_H+20-54*H_Scale) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell123"];
@@ -181,28 +187,19 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         TJGoodsDetailsCompanyCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsCompanyCell forIndexPath:indexPath];
         
         return cell;
-//        TJGoodsDetailsLFCCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsLFCCell forIndexPath:indexPath];
-//        cell.LFC = @"服务";
-//        cell.content = @"发个非官方个发个非官方个温气温气123温气温的方式大哥大法官的发个非官方个";
-//        cell.isTKL = NO;
-//        return cell;
+
     }else{
         TJGoodsDetailsImagesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsImagesCell forIndexPath:indexPath];
         cell.urlStr = self.imageSSS[indexPath.row];
         return cell;
         
-//        TJGoodsDetailsLFCCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsLFCCell forIndexPath:indexPath];
-//        cell.LFC = @"参数";
-//        cell.content = @"活动符合法规和法国恢复规划法规和法国恢复";
-//        cell.isTKL = NO;
-//        return cell;
     }
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 450*H_Scale;
+        return 471;
     }else if(indexPath.section==1){
         return [tableView fd_heightForCellWithIdentifier:GoodsDetailsElectCell cacheByIndexPath:indexPath configuration:^(TJGoodsDetailsElectCell *cell) {
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
@@ -254,13 +251,15 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat offset=scrollView.contentOffset.y;
-    if (offset<S_H) {
-        self.goTop.alpha = 0.0;
-    }else {
-        CGFloat alpha=1-((SafeAreaTopHeight-offset)/SafeAreaTopHeight);
-        self.goTop.alpha=alpha;
-        //        self.goTop.alpha = 1.0;
-    }
+//    if (offset<S_H) {
+//        self.goTop.alpha = 0.0;
+//    }else {
+//        CGFloat alpha=1-((SafeAreaTopHeight-offset)/SafeAreaTopHeight);
+//        self.goTop.alpha=alpha;
+//        //        self.goTop.alpha = 1.0;
+//    }
+    
+  
 }
 #pragma mark - TJButtonDeletage
 -(void)buttonClick:(UIButton *)but{
@@ -273,10 +272,10 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }else if (but.tag==DetailsPopularize){
         DSLog(@"我要推广");
-        TJPopularizeController * pvc = [[TJPopularizeController alloc]init];
-        pvc.title = @"我要推广";
-        pvc.imagesData = self.imageSSS;
-        [self.navigationController pushViewController:pvc animated:YES];
+//        TJPopularizeController * pvc = [[TJPopularizeController alloc]init];
+//        pvc.title = @"我要推广";
+//        pvc.imagesData = self.imageSSS;
+//        [self.navigationController pushViewController:pvc animated:YES];
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }

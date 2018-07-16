@@ -9,8 +9,12 @@
 
 #import "TJGoodsCollectController.h"
 #import "TJGoodsListCell.h"
+#import "TJGoodsCollectModel.h"
 #import "SJAttributeWorker.h"
 @interface TJGoodsCollectController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
+//@property (nonatomic, assign) BOOL isEditing;
 
 @end
 
@@ -18,11 +22,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _dataArr = @[].mutableCopy;
+    for (int i = 0; i < 20; i ++) {
+        TJGoodsCollectModel *m = [TJGoodsCollectModel new];
+        [_dataArr addObject:m];
+    }
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
     tableView.rowHeight = 150;
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.allowsSelectionDuringEditing = YES;
+    //    tableView.allowsMultipleSelection = YES;
     tableView.tableFooterView = [UIView new];
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:tableView];
@@ -45,8 +56,27 @@
         make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
     });
     cell.titleLab.attributedText = str;
+    [cell cellWithArr:_dataArr forIndexPath:indexPath isEditing:_goodsEditStatus];
+
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+
+    if (_goodsEditStatus) {
+        TJGoodsCollectModel *model = [_dataArr objectAtIndex:indexPath.row];
+        model.isChecked = !model.isChecked;
+        [tableView reloadData];
+    }
+   
+}
+
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    //编辑设置成自定义的必须把系统的设置为None
+//    
+//        return UITableViewCellEditingStyleNone;
+//   
+//}
 
 @end

@@ -10,6 +10,8 @@
 
 @interface TJGoodsListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
-@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
+
+
+- (void)cellWithArr:(NSArray *)arr forIndexPath:(NSIndexPath *)indexPath isEditing:(BOOL)editing;
 
 @end

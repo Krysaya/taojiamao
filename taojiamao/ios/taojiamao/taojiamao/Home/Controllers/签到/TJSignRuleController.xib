@@ -23,11 +23,15 @@
                     <rect key="frame" x="25" y="141.5" width="325" height="384"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="2.散发饿哦我服了你发给客人十五年            2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pMO-uG-0Oy">
-                            <rect key="frame" x="30" y="58" width="265" height="296"/>
+                            <rect key="frame" x="15" y="58" width="295" height="306"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="10"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </textView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—— 签到规则 ——" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qku-fQ-Eop">
                             <rect key="frame" x="90" y="20" width="145" height="21"/>
@@ -38,11 +42,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="pMO-uG-0Oy" secondAttribute="bottom" constant="30" id="0dU-08-lBf"/>
+                        <constraint firstAttribute="bottom" secondItem="pMO-uG-0Oy" secondAttribute="bottom" constant="20" id="0dU-08-lBf"/>
                         <constraint firstItem="qku-fQ-Eop" firstAttribute="centerX" secondItem="zVK-7b-vn3" secondAttribute="centerX" id="Dmn-kj-hq4"/>
                         <constraint firstItem="qku-fQ-Eop" firstAttribute="top" secondItem="zVK-7b-vn3" secondAttribute="top" constant="20" id="Tvu-7n-DNO"/>
-                        <constraint firstAttribute="trailing" secondItem="pMO-uG-0Oy" secondAttribute="trailing" constant="30" id="Wv7-fe-dDR"/>
-                        <constraint firstItem="pMO-uG-0Oy" firstAttribute="leading" secondItem="zVK-7b-vn3" secondAttribute="leading" constant="30" id="jdA-NI-SB7"/>
+                        <constraint firstAttribute="trailing" secondItem="pMO-uG-0Oy" secondAttribute="trailing" constant="15" id="Wv7-fe-dDR"/>
+                        <constraint firstItem="pMO-uG-0Oy" firstAttribute="leading" secondItem="zVK-7b-vn3" secondAttribute="leading" constant="15" id="jdA-NI-SB7"/>
                         <constraint firstAttribute="height" constant="384" id="n6A-px-3lC"/>
                         <constraint firstItem="pMO-uG-0Oy" firstAttribute="top" secondItem="qku-fQ-Eop" secondAttribute="bottom" constant="17" id="rAM-M9-eyw"/>
                     </constraints>

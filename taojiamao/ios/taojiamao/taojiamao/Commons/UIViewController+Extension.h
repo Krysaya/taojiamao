@@ -19,4 +19,7 @@
 
 - (void)setNaviBarTitleHidenAlpha:(CGFloat)alpha title:(NSString *)title;
 
+
+- (void)resetSystemNavibar;
+
 @end

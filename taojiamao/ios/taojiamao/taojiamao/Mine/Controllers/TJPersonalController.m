@@ -22,7 +22,7 @@
 #import "TJCollectController.h"
 #import "TJMineAssetController.h"
 #import "TJMineOrderController.h"
-
+#import "TJMyFootPrintController.h"
 #define Setting   9999
 #define Notify    6666
 
@@ -319,6 +319,8 @@
         [self.navigationController pushViewController:collectVc animated:YES];
     }else{
 //   我的足迹
+        TJMyFootPrintController *footVC = [[TJMyFootPrintController alloc]init];
+        [self.navigationController pushViewController:footVC animated:YES];
     }
     
 }

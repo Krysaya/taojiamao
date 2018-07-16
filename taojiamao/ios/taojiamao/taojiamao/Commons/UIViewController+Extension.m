@@ -77,6 +77,18 @@
     }
 }
 
+- (void)resetSystemNavibar
+{
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [navBar setShadowImage:nil];
+    NSDictionary *dict = @{NSForegroundColorAttributeName : [UIColor darkTextColor]};
+    [navBar setTitleTextAttributes:dict];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+
 BOOL isIPhoneX(void) {
     if ([UIScreen instancesRespondToSelector:@selector(currentMode)]) {
         return CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size);

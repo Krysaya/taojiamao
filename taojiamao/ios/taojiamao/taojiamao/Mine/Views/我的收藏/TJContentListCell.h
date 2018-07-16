@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TJContentListCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *img_cjeck;
+@property (weak, nonatomic) IBOutlet UIButton *select_btn;
+
 
 @end

@@ -10,4 +10,7 @@
 #import "ZJScrollPageViewDelegate.h"
 @interface TJContentCollectController : UIViewController <ZJScrollPageViewChildVcDelegate>
 @property (nonatomic, strong) UITableView *contentTabView;
+//编辑选中
+@property (nonatomic,assign) BOOL  contentEditStatus;
+
 @end

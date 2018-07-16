@@ -20,11 +20,13 @@
 @property(nonatomic,weak) UIView *bottomBgView;
 @property(nonatomic,assign) NSInteger isSelect;
 
+
 @end
 
 @implementation TJCollectController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -46,7 +48,7 @@
     style.selectedTitleColor = KALLRGB;
     style.scrollLineColor = KALLRGB;
     style.scrollLineSize = CGSizeMake(40, 2);
-    
+    style.scrollContentView = NO;
     WeakSelf
     ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc]initWithFrame:CGRectMake(0, 10, 200, 30) segmentStyle:style delegate:self titles:@[@"商品收藏",@"内容收藏"] titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
        [weakSelf.contentView setContentOffSet:CGPointMake(self.contentView.bounds.size.width * index, 0.0) animated:YES];
@@ -66,20 +68,94 @@
     [rightBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     
+    
+    [self setupBottomStatus];
 }
-
+#pragma mark - 编辑
 - (void)editClick:(UIButton *)sender{
+    
     if (self.isSelect==0) {
-        NSLog(@"sp");
+        NSLog(@"sp--%@",sender.titleLabel.text);
         TJGoodsCollectController *vc = _childVCs[0];
-        for (TJGoodsListCell *cell in vc.goodsTabView.visibleCells) {
-            cell.selectBtn.selected = !cell.selectBtn.selected;
-//           编辑
+
+//        点击 编辑--编辑状态
+//           -完成--取消
+        if ([sender.titleLabel.text isEqualToString:@"编辑"]) {
+            [sender setTitle:@"完成" forState:UIControlStateNormal];
+            
+            //           编辑
+                [self updateMasonrys];
+                [UIView animateWithDuration:0.5 animations:^{
+                    vc.goodsTabView.frame = CGRectMake(0, 0, S_W, S_H-50);
+                    [vc.view layoutIfNeeded];
+                    
+                }];
+            
+            vc.goodsEditStatus = YES;
+            
+        }else{
+            [sender setTitle:@"编辑" forState:UIControlStateNormal];
+            TJGoodsCollectController *vc = _childVCs[0];
+    
+            [self resetMasonrys];
+            [UIView animateWithDuration:0.5 animations:^{
+                vc.goodsTabView.frame = CGRectMake(0, 0, S_W, S_H);
+                [vc.view layoutIfNeeded];
+                
+            }];
+            vc.goodsEditStatus = NO;
+        
+
         }
+        
+        [vc.goodsTabView reloadData];
+
     }else{
         NSLog(@"nr");
+        if ([sender.titleLabel.text isEqualToString:@"编辑"]) {
+            [sender setTitle:@"完成" forState:UIControlStateNormal];
+            
+            TJContentCollectController *vc = _childVCs[1];
+            //           编辑
+            [self updateMasonrys];
+            [UIView animateWithDuration:0.5 animations:^{
+                vc.contentTabView.frame = CGRectMake(0, 0, S_W, S_H-50);
+                [vc.view layoutIfNeeded];
+                
+            }];
+            vc.contentEditStatus = YES;
+            
+        }else{
+            [sender setTitle:@"编辑" forState:UIControlStateNormal];
+            TJContentCollectController *vc = _childVCs[1];
+            
+            [self resetMasonrys];
+            [UIView animateWithDuration:0.5 animations:^{
+                vc.contentTabView.frame = CGRectMake(0, 0, S_W, S_H);
+                [vc.view layoutIfNeeded];
+                
+            }];
+            vc.contentEditStatus = NO;
+        }
     }
 }
+
+//Method
+- (void)updateMasonrys{
+    [self.bottomBgView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(0);
+        make.height.mas_equalTo(@50);
+    }];
+}
+- (void)resetMasonrys{
+    [self.bottomBgView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(50);
+        make.height.mas_equalTo(@50);
+    }];
+}
+
 
 //底部
 - (void)setupBottomStatus{
@@ -91,28 +167,22 @@
         make.bottom.equalTo(self.view).offset(44);
         make.height.mas_equalTo(@44);
     }];
-    self.bottomBgView = bottomBgView;
     
-    //左侧全选按钮
-//    [self setLeftSelectAllBtn];
-    //右侧删除按钮
-    [self setRightDeleteBtn];
-}
-//右侧删除按钮
-- (void)setRightDeleteBtn{
     UIButton *btn = [[UIButton alloc]init];
     btn.titleLabel.font = [UIFont systemFontOfSize:13];
     [btn setTitle:@"取消收藏" forState:UIControlStateNormal];
     btn.backgroundColor = KALLRGB;
     btn.layer.masksToBounds = YES;
     btn.layer.cornerRadius = 15;
-    [self.bottomBgView addSubview:btn];
+    [bottomBgView addSubview:btn];
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.top.bottom.equalTo(self.bottomBgView);
+                make.top.mas_equalTo(10);
         make.width.mas_equalTo(82);
         make.height.mas_equalTo(30);
-        make.right.mas_equalTo(self.bottomBgView.mas_right).offset(-12);
+        make.right.mas_equalTo(bottomBgView.mas_right).offset(-12);
     }];
+    self.bottomBgView = bottomBgView;
+
 }
 #pragma mark- ZJScrollPageViewDelegate
 - (NSInteger)numberOfChildViewControllers {
@@ -129,7 +199,6 @@
 {
     return NO;
 }
-
 
 
 @end

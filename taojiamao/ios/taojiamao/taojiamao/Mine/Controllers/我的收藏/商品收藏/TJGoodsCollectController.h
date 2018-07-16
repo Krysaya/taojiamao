@@ -12,4 +12,8 @@
 @interface TJGoodsCollectController : UIViewController <ZJScrollPageViewChildVcDelegate>
 
 @property (nonatomic, strong) UITableView *goodsTabView;
+
+@property (nonatomic,assign) BOOL  goodsEditStatus;
+
+
 @end

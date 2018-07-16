@@ -279,6 +279,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     return nil;
 }
 
+#pragma make - scrollView delegate
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat offset=scrollView.contentOffset.y;
     if (offset<S_H) {
@@ -288,6 +290,10 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         self.goTop.alpha=alpha;
 //        self.goTop.alpha = 1.0;
     }
+    
+   
+    
+    
 }
 #pragma mark - TJButtonDeletage
 -(void)buttonClick:(UIButton *)but{

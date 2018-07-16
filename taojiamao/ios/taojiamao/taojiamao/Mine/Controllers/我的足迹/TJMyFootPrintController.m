@@ -8,6 +8,8 @@
 //
 
 #import "TJMyFootPrintController.h"
+#import "TJMyFootPrintCell.h"
+#import "SJAttributeWorker.h"
 
 @interface TJMyFootPrintController ()
 
@@ -18,11 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的足迹";
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.rowHeight = 120;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJMyFootPrintCell" bundle:nil] forCellReuseIdentifier:@"footPrintCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,18 +38,36 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 3;
+    return 2;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell;
-    
-    // Configure the cell...
-    
+    TJMyFootPrintCell *cell = [tableView dequeueReusableCellWithIdentifier:@"footPrintCell"];
+    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
+    });
+    cell.titleLab.attributedText = str;
     return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor whiteColor];
+    UILabel *lab = [[UILabel alloc]init];
+    [view addSubview:lab];
+    lab.frame = CGRectMake(12, 12, 100, 30);
+    lab.font = [UIFont systemFontOfSize:15];
+    lab.textColor = RGB(153, 153, 153);
+    lab.text = @"7月13号";
+    
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 55;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

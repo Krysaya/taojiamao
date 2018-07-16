@@ -17,10 +17,18 @@
 #import "TJNoticeController.h"
 #import "TJHomeController.h"
 #import "TJSearchController.h"
-
+#import "TJProjectController.h"
 
 #import "TJGoodsListCell.h"
 #import "UIViewController+Extension.h"
+
+
+
+#define AD_H  200
+#define Cloumns_H  165
+#define News_H  55
+#define Class_H  260
+#define TabAd_H  110
 
 
 #define LEFTBTN  546146
@@ -56,11 +64,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    //设置导航栏背景图片为一个空的image，这样就透明了
-//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
-//   //去掉透明后导航栏下边的黑边
-//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
-//
     [self setNaviBarAlpha:_currentAlpha];
 }
 
@@ -68,11 +71,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setShadowImage:nil];
-    
-    [self setNaviBarAlpha:1];
+    [self resetSystemNavibar];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -81,7 +80,7 @@
     //关闭定时器
     [self.timer invalidate];
     [self.timer_news invalidate];
-    //    self.timer==nil;
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,7 +90,7 @@
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]init];
     big_ScrollVie.frame = S_F;
-    big_ScrollVie.contentSize = CGSizeMake(0, S_H+300);
+    big_ScrollVie.contentSize = CGSizeMake(0, S_H+410);
     big_ScrollVie.delegate = self;
     big_ScrollVie.showsVerticalScrollIndicator = NO;
     big_ScrollVie.showsHorizontalScrollIndicator = NO;
@@ -107,7 +106,7 @@
     
     
     [self setupTimer];
-    [self setNewsTimer];
+//    [self setNewsTimer];
 
     
     [self setNavgation];
@@ -147,7 +146,7 @@
   
 //    广告滑动
     self.imgArr = [[NSArray alloc]initWithObjects:@"",@"",@"",@"",@"", nil];
-    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, 200)];
+    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, AD_H)];
     [self.big_ScrollView addSubview:scrollV];
     scrollV.showsVerticalScrollIndicator = NO;
     scrollV.showsHorizontalScrollIndicator = NO;
@@ -192,7 +191,7 @@
     UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
     layou.sectionInset = UIEdgeInsetsMake(18, 10, 10, 10);
     layou.itemSize = CGSizeMake((S_W-100)/5, 50);
-    UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, self.ad_scrollView.frame.size.height, S_W, 165) collectionViewLayout:layou];
+    UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, AD_H, S_W, Cloumns_H) collectionViewLayout:layou];
     collectV.backgroundColor = [UIColor whiteColor];
     collectV.tag = Columns_CollectionV;
 
@@ -204,7 +203,7 @@
 
 - (void)setNewsScroll{
 //    新闻滚动条
-    UIView *bgview = [[UIView alloc]initWithFrame:CGRectMake(0, 365, S_W, 55)];
+    UIView *bgview = [[UIView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H, S_W, News_H)];
     bgview.backgroundColor = [UIColor whiteColor];
     [self.big_ScrollView addSubview:bgview];
     
@@ -254,10 +253,7 @@
     
     TJButton *lastBtn;
     for (int i=0; i<a; i++) {
-//        TJButton *news_btn = [[TJButton alloc]initWithFrame:CGRectMake(0, 55*i, 200, 55)];
-//        news_btn.backgroundColor = [UIColor redColor];
-//        NSLog(@"---newsframe---%@",NSStringFromCGRect(news_btn.frame));
-//        [newsScroll addSubview:news_btn];
+
         TJButton *news_btn = [TJButton new];
         news_btn.backgroundColor = RandomColor;
         [scrollBaseView addSubview:news_btn];
@@ -283,49 +279,25 @@
 
 }
 
-- (void)setimgLab:(NSString *)imgName withLabelTitle:(NSString *)title{
-    UIView *newsView = [[UIView alloc]init];
-    
-    UIImageView *img_lab1 = [[UIImageView alloc]init];
-    img_lab1.image = [UIImage imageNamed:imgName];
-    [newsView addSubview:img_lab1];
-    
-    UILabel *title_Lab1 = [[UILabel alloc]init];
-    title_Lab1.text = title;
-    title_Lab1.textColor = RGB(51, 51, 51);
-    title_Lab1.font = [UIFont systemFontOfSize:13];
-    [newsView addSubview:title_Lab1];
-    
-    [img_lab1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(26);
-        make.height.mas_equalTo(13);
-        make.centerY.mas_equalTo(newsView.mas_centerY);
-    }];
-    [title_Lab1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(img_lab1.mas_right).offset(8);
-        make.right.mas_equalTo(newsView.mas_right).offset(20);
-        make.centerY.mas_equalTo(newsView.mas_centerY);
-    }];
-    
-}
-
+#pragma mark - 模块分类
 -(void)setClassCollectionView{
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
-    UICollectionView *collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 365+55+10, S_W, 260) collectionViewLayout:layout];
+    UICollectionView *collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+10, S_W, Class_H) collectionViewLayout:layout];
     collectionV.delegate = self;
     collectionV.dataSource = self;
+    collectionV.scrollEnabled = NO;
     collectionV.tag = CLASSS_CollectionV;
     [collectionV registerNib:[UINib nibWithNibName:@"TJClassOneCell" bundle:nil] forCellWithReuseIdentifier:@"ClassOneCell"];
     [collectionV registerNib:[UINib nibWithNibName:@"TJClassTwoCell" bundle:nil] forCellWithReuseIdentifier:@"ClassTwoCell"];
     [self.big_ScrollView addSubview:collectionV];
 }
 - (void)setBottomTableView{
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 365+55+10+260, S_W, 110)];
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+10, S_W, TabAd_H)];
     img.backgroundColor =RandomColor;
     [self.big_ScrollView addSubview:img];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 365+55+10+260+110, S_W, 300) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+10, S_W, 368) style:UITableViewStylePlain];
     tableView.rowHeight = 150;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -397,15 +369,7 @@
 
         [searchViewController.navigationController pushViewController:result animated:YES];
     }];
-    // 3. Set style for popular search and search history
- 
-//    searchViewController.searchTextField.backgroundColor = RGB(240, 240, 240);
-//    UIButton *btn = [[UIButton alloc]init];
-//    [btn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
-//    btn.titleLabel.font = [UIFont systemFontOfSize:14];
-//    [btn setTitle:@"搜索" forState:UIControlStateNormal];
-//    
-//    [searchViewController setCancelButton:[[UIBarButtonItem alloc]initWithCustomView:btn]];
+  
     searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
     searchViewController.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
    
@@ -436,14 +400,18 @@
 #pragma make - scrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CGPoint point = scrollView.contentOffset;
-    float alpha = point.y/SafeAreaTopHeight;
-    alpha = (alpha <= 0)?0:alpha;
-    alpha = (alpha >= 1)?1:alpha;
+    if (scrollView == _big_ScrollView) {
+        CGPoint point = scrollView.contentOffset;
+        float alpha = point.y/SafeAreaTopHeight;
+        alpha = (alpha <= 0)?0:alpha;
+        alpha = (alpha >= 1)?1:alpha;
+        
+        _currentAlpha = alpha;
+        
+        [self setNaviBarAlpha:_currentAlpha];
+    }
     
-    _currentAlpha = alpha;
     
-    [self setNaviBarAlpha:_currentAlpha];
 }
 
 
@@ -465,7 +433,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     if (scrollView.tag==AD_Scroll) {
         [self.timer invalidate];}else if (scrollView.tag == NEWS_Scroll){
-            [self.timer_news invalidate];
+            
         }else{
             
         }
@@ -474,33 +442,23 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (scrollView.tag==AD_Scroll) {
         [self setupTimer];}else if (scrollView.tag == NEWS_Scroll){
-            [self setNewsTimer];
+            
         }else{
             
         }
 }
-//- (void)scrollViewDidScroll:(UIScrollView *)sender
-//
-//{
-//
-//    NSInteger index = (_scrollView.contentOffset.x/CGRectGetWidth(_scrollView.frame));
-//
-//    index -- ;
-//
-//    _bannerPageControl.currentPage = index;
+
+//- (void)setNewsTimer{
+//    self.timer_news =  [NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(timerNewsChanged) userInfo:nil repeats:YES];
+//    [[NSRunLoop currentRunLoop] addTimer:self.timer_news forMode:NSRunLoopCommonModes];
+//}
+//- (void)timerNewsChanged{
+//    //启动定时器
+//    CGFloat y = (self.currentIndex+1) * self.news_scrollView.bounds.size.height;
+//    [self.news_scrollView setContentOffset:CGPointMake(0, y) animated:YES];
+//    NSLog(@"%ld---news",self.currentIndex);
 //
 //}
-- (void)setNewsTimer{
-    self.timer_news =  [NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(timerNewsChanged) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer_news forMode:NSRunLoopCommonModes];
-}
-- (void)timerNewsChanged{
-    //启动定时器
-    CGFloat y = (self.currentIndex+1) * self.news_scrollView.bounds.size.height;
-    [self.news_scrollView setContentOffset:CGPointMake(0, y) animated:YES];
-    NSLog(@"%ld---news",self.currentIndex);
-
-}
 - (void)setupTimer{
     self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerChanged) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
@@ -587,7 +545,8 @@
                 case 1:
 //                    推荐好货
                 {
-                    
+                    TJProjectController *vc = [[TJProjectController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;
                 case 2:

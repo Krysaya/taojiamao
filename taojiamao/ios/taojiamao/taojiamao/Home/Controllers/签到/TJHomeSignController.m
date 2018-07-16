@@ -9,6 +9,7 @@
 
 #import "TJHomeSignController.h"
 #import "TJSignRuleController.h"
+#import "TJSignSuccessController.h"
 #import "FSCalendar.h"
 
 
@@ -79,7 +80,7 @@
     [self.view addSubview:label];
 }
 
-#pragma mark - ButtonClick
+#pragma mark - ButtonClick签到规则
 - (void)buttonClick:(UIButton *)but{
     TJSignRuleController *ruleVc = [[TJSignRuleController alloc]init];
     ruleVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
@@ -135,6 +136,7 @@
     [signBtn setBackgroundColor:KALLRGB];
     signBtn.layer.cornerRadius = 20;
     signBtn.layer.masksToBounds = YES;
+    [signBtn addTarget:self action:@selector(signBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     signBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [signBtn setTitle:@"签到" forState:UIControlStateNormal];
     [self.view addSubview:signBtn];
@@ -169,7 +171,15 @@
     scrollV.delegate = self;
     [self.view addSubview:scrollV];
 }
-
+#pragma mark - signBtnClick
+- (void)signBtnClick:(UIButton *)sender
+{
+    NSLog(@"签到了");
+    TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
+    successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+    
+    [self presentViewController:successVc animated:NO completion:nil];
+}
 
 #pragma mark - FSCalendardeleagte
 
