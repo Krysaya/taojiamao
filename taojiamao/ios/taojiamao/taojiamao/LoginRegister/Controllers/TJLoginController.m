@@ -82,7 +82,7 @@
     //
     [self setFourButtons];
     //
-    [self setShareViewSubs];
+
 
 }
 #pragma mark -设置子控件
@@ -142,7 +142,7 @@
         [self.titleBtns addObject:titleBtn];
         
         [titleBtn addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchDown];
-        NSLog(@"---frame--%f--%@",b,NSStringFromCGRect(titleBtn.frame));
+//        NSLog(@"---frame--%f--%@",b,NSStringFromCGRect(titleBtn.frame));
     }
     
 }
@@ -168,7 +168,7 @@
     
     UIScrollView * contentScrollow = [[UIScrollView alloc]init];
     self.contentScrollow = contentScrollow;
-    self.contentScrollow.backgroundColor = RandomColor;
+//    self.contentScrollow.backgroundColor = RandomColor;
     self.contentScrollow.contentSize = CGSizeMake(self.titleBtns.count*S_W, 0);
     [self.loginView addSubview:contentScrollow];
     contentScrollow.delegate = self;
@@ -243,8 +243,8 @@
 #pragma mark -setTextFilesAndUnderline
 -(void)setTextFilesAndUnderline{
     WeakSelf
-    self.userNameF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入账号" image:@"account.jpg" highlightImage:@"account.jpg"];
-    self.passwordF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw.jpg" highlightImage:@"psw.jpg"];
+    self.userNameF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入账号" image:@"account_gray" highlightImage:@"account_light"];
+    self.passwordF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw_gray" highlightImage:@"psw_light"];
     
     [self.userNameLogin addSubview:self.userNameF];
     [self.userNameLogin addSubview:self.passwordF];
@@ -260,8 +260,8 @@
         make.top.mas_equalTo(weakSelf.userNameF.mas_bottom).offset(13*H_Scale);
     }];
     
-    self.phoneNumF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum.jpg" highlightImage:@"phonenum.jpg"];
-    self.verifyF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum.jpg" highlightImage:@"checknum.jpg"];
+    self.phoneNumF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum_gray" highlightImage:@"phonenum_light"];
+    self.verifyF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum_gray" highlightImage:@"checknum_light"];
     [self.phoneNumLogin addSubview:self.phoneNumF];
     [self.phoneNumLogin addSubview:self.verifyF];
     [self.phoneNumF mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -278,8 +278,8 @@
 -(void)setFourButtons{
 
     self.registerbut = [[TJButton alloc]initWith:@"注册账号" delegate:self font:12*W_Scale titleColor:KALLRGB backColor:[UIColor whiteColor] tag:RegisterTag];
-    self.forgetbut = [[TJButton alloc]initWith:@"忘记密码" delegate:self font:12*W_Scale titleColor:KALLRGB backColor:[UIColor whiteColor] tag:ForgetTag];
-    self.loginbut = [[TJButton alloc]initWith:@"登录" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:LoLoginTag cornerRadius:20.0];
+    self.forgetbut = [[TJButton alloc]initWith:@"忘记密码" delegate:self font:12*W_Scale titleColor:RGB(128, 128, 128) backColor:[UIColor whiteColor] tag:ForgetTag];
+    self.loginbut = [[TJButton alloc]initWith:@"登录" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:LoLoginTag cornerRadius:22.0];
     
     [self.view addSubview:self.registerbut];
     [self.view addSubview:self.forgetbut];
@@ -308,7 +308,7 @@
         make.top.mas_equalTo(weakSelf.loginbut.mas_bottom).offset(50*H_Scale);
         make.centerX.mas_equalTo(weakSelf.view);
         make.width.mas_equalTo(S_W-10);
-        make.height.mas_equalTo(81*H_Scale);
+        make.height.mas_equalTo(21);
     }];
     
     //获取验证码
@@ -319,6 +319,34 @@
         make.bottom.mas_equalTo(weakSelf.verifyF).offset(-1);
 
     }];
+    
+//    分享
+    self.shareView = [[UIView alloc]init];
+    self.shareView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.shareView];
+    
+    [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.cutOffRule.mas_bottom).offset(35);
+        
+        make.bottom.left.right.equalTo(weakSelf.view);
+    }];
+    
+    
+    CGFloat btnW = 50*W_Scale;
+    CGFloat btnH = 50*H_Scale;
+    CGFloat b = (S_W-2*35-3*btnW)/2;
+    for (int i = 0; i<3; i++) {
+        UIButton * shareBtn = [[UIButton alloc]init];
+        shareBtn.tag = i;
+        shareBtn.frame = CGRectMake(b+(btnW+35)*i, 0, btnW, btnH);
+        
+        [shareBtn setImage:[UIImage imageNamed:@[@"login_tb",@"login_wx",@"login_qq"][i]] forState:UIControlStateNormal];
+        [self.shareView addSubview:shareBtn];
+        
+        [shareBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchDown];
+        
+        
+    }
     
 }
 #pragma mark - TJButtonDelegate
@@ -382,33 +410,33 @@
 }
 
 #pragma mark - setShareViewSubs
--(void)setShareViewSubs{
-    self.shareView = [[UIView alloc]init];
-    self.shareView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.shareView];
-    WeakSelf
-    [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.top.mas_equalTo(weakSelf.cutOffRule.mas_bottom).offset(50);
-        
-        make.bottom.left.right.mas_equalTo(weakSelf.view);
-    }];
-    
-    
-    CGFloat btnW = 50*W_Scale;
-    CGFloat btnH = 50*H_Scale;
-    CGFloat b = (S_W-2*35-3*btnW)/2;
-    for (int i = 0; i<3; i++) {
-        UIButton * shareBtn = [[UIButton alloc]init];
-        shareBtn.tag = i;
-        shareBtn.frame = CGRectMake(b+(btnW+35)*i, 0, btnW, btnH);
-        shareBtn.backgroundColor = RandomColor;
-        [self.shareView addSubview:shareBtn];
-        
-         [shareBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchDown];
-
-
-    }
-}
+//-(void)setShareViewSubs{
+//    self.shareView = [[UIView alloc]init];
+//    self.shareView.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:self.shareView];
+//    WeakSelf
+//    [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
+//    make.top.mas_equalTo(weakSelf.cutOffRule.mas_bottom).offset(100);
+//
+//        make.bottom.left.right.equalTo(weakSelf.view);
+//    }];
+//
+//
+//    CGFloat btnW = 50*W_Scale;
+//    CGFloat btnH = 50*H_Scale;
+//    CGFloat b = (S_W-2*35-3*btnW)/2;
+//    for (int i = 0; i<3; i++) {
+//        UIButton * shareBtn = [[UIButton alloc]init];
+//        shareBtn.tag = i;
+//        shareBtn.frame = CGRectMake(b+(btnW+35)*i, 0, btnW, btnH);
+//        shareBtn.backgroundColor = RandomColor;
+//        [self.shareView addSubview:shareBtn];
+//
+//         [shareBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchDown];
+//
+//
+//    }
+//}
 
 #pragma mark - 切换登录方式
 - (void)shareBtnClick:(UIButton *)sender

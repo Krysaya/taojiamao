@@ -400,10 +400,12 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         return 30;
-    }else{
+    }
+    
+    
         return 112*W_Scale;
 
-    }
+    
 
 }
 //-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -411,6 +413,8 @@
 //}
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TJMineListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mineCell"];
+//    NSArray *img = @[@"",@"",@"",@"",nil];
+    [cell cellHeaderTitle:@"会员权益" withImageArr:@[@"",@"",@"",@""] withtitleArr:@[@"累计奖金",@"我的粉丝",@"推广业绩",@"热推top"]];
     if (indexPath.section==0) {
         cell.backgroundColor = RGB(245, 245, 245);
         cell.contentView.hidden = YES;
@@ -422,7 +426,7 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return 4;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

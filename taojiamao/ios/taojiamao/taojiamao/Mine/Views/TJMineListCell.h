@@ -12,6 +12,7 @@
 @protocol testTableViewCellDelegate <NSObject>
 
 -(void)uodataTableViewCellHight:(TJMineListCell*)cell andHight:(CGFloat)hight andIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 
@@ -19,5 +20,5 @@
 @property(nonatomic,strong)NSIndexPath *indexPath;
 @property(nonatomic,strong)NSArray *dataArr;
 
-
+- (void)cellHeaderTitle:(NSString *)title withImageArr:(NSArray *)imgArr withtitleArr:(NSArray *)titleArr;
 @end

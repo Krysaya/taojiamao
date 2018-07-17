@@ -40,7 +40,7 @@
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
         make.left.mas_equalTo(5);
-        make.width.height.mas_equalTo(18*W_Scale);
+        make.width.height.mas_equalTo(18);
     }];
     
     self.textfield = [[UITextField alloc]init];
@@ -68,7 +68,7 @@
 #pragma mark -UITextFieldDelegate
 // return NO to disallow editing.
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    self.line.backgroundColor = [UIColor redColor];
+    self.line.backgroundColor = KALLRGB;
     [self.icon setImage:[UIImage imageNamed:self.highlightImage]];
     return YES;
 }
@@ -78,7 +78,7 @@
 }
 // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    self.line.backgroundColor = [UIColor grayColor];
+    self.line.backgroundColor = RGB(204, 204, 204);
     [self.icon setImage:[UIImage imageNamed:self.normalImage]];
     return YES;
 }

@@ -87,13 +87,16 @@
     //    self.pageControl.currentPage = 0;
     
     UIPageControl *pageC = [[UIPageControl alloc]init];
-    pageC.numberOfPages = self.imgArr.count;
-    pageC.frame = CGRectMake(S_W-92, scrollV.frame.origin.y+170, 80, 12);
+    pageC.currentPage = 0;
+    pageC.numberOfPages = 4;
+    NSLog(@"--%ld--arr.count",self.imgArr.count);
+//    pageC.backgroundColor = RGBA(1, 1, 1, 0.5);
+    pageC.frame = CGRectMake(S_W-92, 140, 80, 12);
     pageC.pageIndicatorTintColor = RGB(110, 110, 110);
     pageC.currentPageIndicatorTintColor = KALLRGB;
-    pageC.currentPage = 0;
     [bgView addSubview:pageC];
     self.pageControl = pageC;
+    self.scrollV = scrollV;
     return bgView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

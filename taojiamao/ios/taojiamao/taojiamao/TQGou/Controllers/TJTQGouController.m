@@ -27,7 +27,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@""]];
+//     self.navigationController.navigationBar.translucent = NO;
+
+    UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"tqg"]];
     self.navigationItem.titleView = headerImg;
     [self setPageControllers];
 
@@ -111,8 +113,10 @@
 }
 - (WMMenuItem *)menuView:(WMMenuView *)menu initialMenuItem:(WMMenuItem *)initialMenuItem atIndex:(NSInteger)index{
     
-//    NSString *str = 
-    NSString *time = @"08:00";
+//    for (NSString *str in self.titles) {
+//        NSString *time =
+//    }
+    NSString *time = self.titles[index];
     NSString *status = @"已开抢";
     NSString *info = [NSString stringWithFormat:@"%@\n%@",time,status];
     initialMenuItem.text = info;
@@ -137,7 +141,7 @@
 //}
 
 - (NSArray *)titles {
-    return @[@"08：00已开抢",@"09：00已开抢",@"10：00已开抢",@"11：00已开抢",@"12：00已开抢",@"08：00已开抢"];
+    return @[@"08：00",@"09：00",@"10：00",@"11：00",@"12：00",@"14：00"];
 }
 
 //-(NSMutableArray<TJGoodsCategory *> *)category{

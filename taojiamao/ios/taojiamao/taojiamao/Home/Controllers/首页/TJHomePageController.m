@@ -319,6 +319,7 @@
         make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
         make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
     });
+    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO];
     cell.titleLab.attributedText = str;
     return cell;
 }

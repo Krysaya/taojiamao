@@ -62,7 +62,7 @@
 #pragma mark -setTextFiless
 -(void)setTextFields{
     WeakSelf
-    self.mobile = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum.jpg" highlightImage:@"phonenum.jpg"];
+    self.mobile = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum_gray" highlightImage:@"phonenum_light"];
     [self.view addSubview:self.mobile];
     
     [self.mobile mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,14 +72,14 @@
         make.centerX.mas_equalTo(weakSelf.view);
     }];
     
-    self.verify = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum.jpg" highlightImage:@"checknum.jpg"];
+    self.verify = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum_gray" highlightImage:@"checknum_light"];
     [self.view addSubview:self.verify];
     [self.verify mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.mobile.mas_bottom).offset(13*H_Scale);
         make.centerX.width.height.mas_equalTo(weakSelf.mobile);
     }];
     if (self.isRegister) {
-        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw.jpg" highlightImage:@"psw.jpg"];
+        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw_gray" highlightImage:@"psw_light"];
     }else{
         self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请设置新密码(长度不超过16位)" image:@"morentouxiang" highlightImage:@"backImage"];
     }
@@ -103,7 +103,7 @@
 
     }];
     
-    self.sure = [[TJButton alloc]initWith:@"确认" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:SureTag cornerRadius:20.0];
+    self.sure = [[TJButton alloc]initWith:@"确定" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:SureTag cornerRadius:22.0];
     [self.view addSubview:self.sure];
     [self.sure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.view);

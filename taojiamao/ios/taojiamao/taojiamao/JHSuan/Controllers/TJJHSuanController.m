@@ -19,8 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.barTintColor = KALLRGB;
+
     self.view.backgroundColor = RGB(245, 245, 245);
-    UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@""]];
+    UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"jhs"]];
     self.navigationItem.titleView = headerImg;
     [self setCollectionVc];
 }

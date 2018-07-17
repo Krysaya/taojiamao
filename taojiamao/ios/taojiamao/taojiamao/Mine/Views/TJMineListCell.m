@@ -15,6 +15,10 @@
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UICollectionView *collect;
 
+@property (nonatomic, strong) NSArray *imgArr;
+@property (nonatomic, strong) NSArray *titleArr;
+
+
 @end
 
 @implementation TJMineListCell
@@ -45,7 +49,6 @@
         make.centerX.mas_equalTo(weakSelf.contentView.mas_centerX);
     }];
     self.titleLab = [[UILabel alloc]init];
-    self.titleLab.text = @"快递代取";
     self.titleLab.font = [UIFont systemFontOfSize:15*W_Scale];
     [self.bgView addSubview:self.titleLab];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,9 +78,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJPersonalCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"123" forIndexPath: indexPath];
 //    cell.imgView.backgroundColor = RandomColor;
-    cell.imgView.image = [UIImage imageNamed:@"my_oreder2"];
+    cell.imgView.image = [UIImage imageNamed:self.imgArr[indexPath.row]];
     
-    cell.titleLab.text = @"会员权益";
+    cell.titleLab.text = self.titleArr[indexPath.row];
 //    cell.backgroundColor = [UIColor blackColor];
     
 //    [self updateCollectionViewHight:self.collectionView.collectionViewLayout.collectionViewContentSize.height];
@@ -94,16 +97,16 @@
     return 21.0;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-//    if (self.dataArr.count == 0) {
-//        return 1;
-//    }else{
-//        return self.dataArr.count;
-//    }
+    return 4;
     
-    return 3;
 }
 
+- (void)cellHeaderTitle:(NSString *)title withImageArr:(NSArray *)imgArr withtitleArr:(NSArray *)titleArr{
+    self.titleLab.text = title;
+    self.imgArr = imgArr;
+    self.titleArr = titleArr;
 
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
