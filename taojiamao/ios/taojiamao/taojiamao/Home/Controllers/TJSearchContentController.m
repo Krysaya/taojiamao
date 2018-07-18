@@ -65,7 +65,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150*H_Scale;
+    return 150;
 }
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

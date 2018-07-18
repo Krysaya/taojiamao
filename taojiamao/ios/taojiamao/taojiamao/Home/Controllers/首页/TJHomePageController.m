@@ -57,6 +57,8 @@
 @property (nonatomic, strong) UIScrollView *news_scrollView;
 
 @property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) UIPageControl *pageC_NEWS;
+
 
 //@property (nonatomic, strong) UIView *newsView;
 @end
@@ -107,7 +109,7 @@
     
     
     [self setupTimer];
-//    [self setNewsTimer];
+    [self setNewsTimer];
 
     
     [self setNavgation];
@@ -203,14 +205,15 @@
 }
 
 - (void)setNewsScroll{
-//    新闻滚动条
+//TODO:    新闻滚动条
     UIView *bgview = [[UIView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H, S_W, News_H)];
     bgview.backgroundColor = [UIColor whiteColor];
     [self.big_ScrollView addSubview:bgview];
     
-//    头条图
+    //    头条图
     UIImageView *img = [[UIImageView alloc]init];
-    img.backgroundColor = RandomColor;
+//    img.backgroundColor = RandomColor;
+    img.image = [UIImage imageNamed:@"headline_scroll"];
     [bgview addSubview:img];
 //    WeakSelf
     [img mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -225,9 +228,6 @@
     UIScrollView *newsScroll = [[UIScrollView alloc]init];
     [bgview addSubview:newsScroll];
     self.news_scrollView = newsScroll;
-
-    
-
     newsScroll.showsVerticalScrollIndicator = NO;
     newsScroll.showsHorizontalScrollIndicator = NO;
     newsScroll.pagingEnabled = YES;
@@ -256,6 +256,7 @@
     for (int i=0; i<a; i++) {
 
         TJButton *news_btn = [TJButton new];
+//        点击事件
         news_btn.backgroundColor = RandomColor;
         [scrollBaseView addSubview:news_btn];
         [news_btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -278,6 +279,13 @@
         lastBtn = news_btn;
     }
 
+    UIPageControl *pageC = [[UIPageControl alloc]init];
+    pageC.currentPage = 0;
+    pageC.hidden = YES;
+    pageC.numberOfPages = imgA.count;
+    pageC.currentPageIndicatorTintColor = KALLRGB;
+    [bgview addSubview:pageC];
+    self.pageC_NEWS =   pageC;
 }
 
 #pragma mark - 模块分类
@@ -398,8 +406,43 @@
         [self.navigationController pushViewController:noticeV animated:YES];
     }
 }
+#pragma mark - 定时器
 
-#pragma make - scrollView delegate
+- (void)setupTimer{
+    self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerChanged) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)timerChanged{
+    NSInteger page = (self.pageControl.currentPage + 1) % self.imgArr.count;
+    self.pageControl.currentPage = page;
+//    NSLog(@"%ld---ad",page);
+    [self pageChanged:self.pageControl];
+}
+- (void)pageChanged:(UIPageControl *)pageControl{
+    if (pageControl==self.pageC_NEWS) {
+        CGFloat y = (pageControl.currentPage) * self.news_scrollView.bounds.size.height;
+        [self.news_scrollView setContentOffset:CGPointMake(0,y) animated:YES];
+    }else{
+            CGFloat x = (pageControl.currentPage) * self.ad_scrollView.bounds.size.width;
+            [self.ad_scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
+        
+    }
+}
+
+- (void)setNewsTimer{
+    self.timer_news =  [NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(timerNewsChanged) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer_news forMode:NSRunLoopCommonModes];
+}
+- (void)timerNewsChanged{
+    NSInteger page = (self.pageC_NEWS.currentPage + 1) %3;
+    self.pageC_NEWS.currentPage = page;
+    NSLog(@"%ld---tt88888",page);
+    [self pageChanged:self.pageC_NEWS];
+
+}
+
+#pragma mark - scrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     if (scrollView == _big_ScrollView) {
@@ -411,6 +454,11 @@
         _currentAlpha = alpha;
         
         [self setNaviBarAlpha:_currentAlpha];
+        
+        //滑动scroll的时候关闭定时器
+//        [self.timer invalidate];
+//        [self.timer_news invalidate];
+
     }
     
     
@@ -424,7 +472,9 @@
         self.pageControl.currentPage = page;
     }else if (scrollView.tag == NEWS_Scroll){
       
+        double page = scrollView.contentOffset.y / scrollView.bounds.size.height;
         
+        self.pageC_NEWS.currentPage = page;
         
     }else{
         
@@ -435,7 +485,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     if (scrollView.tag==AD_Scroll) {
         [self.timer invalidate];}else if (scrollView.tag == NEWS_Scroll){
-            
+            [self.timer_news invalidate];
         }else{
             
         }
@@ -444,41 +494,14 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (scrollView.tag==AD_Scroll) {
         [self setupTimer];}else if (scrollView.tag == NEWS_Scroll){
-            
+            [self setNewsTimer];
         }else{
             
         }
 }
 
-//- (void)setNewsTimer{
-//    self.timer_news =  [NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(timerNewsChanged) userInfo:nil repeats:YES];
-//    [[NSRunLoop currentRunLoop] addTimer:self.timer_news forMode:NSRunLoopCommonModes];
-//}
-//- (void)timerNewsChanged{
-//    //启动定时器
-//    CGFloat y = (self.currentIndex+1) * self.news_scrollView.bounds.size.height;
-//    [self.news_scrollView setContentOffset:CGPointMake(0, y) animated:YES];
-//    NSLog(@"%ld---news",self.currentIndex);
-//
-//}
-- (void)setupTimer{
-    self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerChanged) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-    //开启定时器
-//    [self.timer fire];
+//- (void)sc
 
-}
-
-- (void)timerChanged{
-    NSInteger page = (self.pageControl.currentPage + 1) % self.imgArr.count;
-    self.pageControl.currentPage = page;
-    NSLog(@"%ld---ad",page);
-    [self pageChanged:self.pageControl];
-}
-- (void)pageChanged:(UIPageControl *)pageControl{
-    CGFloat x = (pageControl.currentPage) * self.ad_scrollView.bounds.size.width;
-    [self.ad_scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
-}
 #pragma mark - collectiondelegate
 //两个cell之间的间距（同一行的cell的间距）
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{

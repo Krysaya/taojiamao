@@ -11,8 +11,8 @@
 #import "TJSignRuleController.h"
 #import "TJSignSuccessController.h"
 #import "FSCalendar.h"
-
-
+#import "TJSignCalendarCell.h"
+#import "SJAttributeWorker.h"
 #define RIGHTBT  568
 
 @interface TJHomeSignController ()<TJButtonDelegate,UIScrollViewDelegate,FSCalendarDelegate,FSCalendarDataSource>
@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"签到";
+    
     self.view.backgroundColor = [UIColor whiteColor];
 //    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     //    you边按钮
@@ -40,7 +41,7 @@
     [btn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
+
     self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy-MM-dd";
@@ -54,18 +55,15 @@
     [self setOnClick];
     [self setCalendarCollectionView];
     [self setSignBtn];
+    [self setSelectedTopicScroll];
 }
 
 - (void)setOnClick
 {
     UISwitch *switc = [[UISwitch alloc]initWithFrame:CGRectMake(15, 10+SafeAreaTopHeight, 50, 30 )];
     [self.view addSubview:switc];
-    NSLog(@"---switch--frame===%@===%@",NSStringFromCGRect(switc.frame),NSStringFromCGSize(switc.frame.size));
     //缩小或者放大switch的size
     switc.transform = CGAffineTransformMakeScale(0.6, 0.6);
-//    switc.layer.anchorPoint = CGPointMake(0, 0.3);
-    NSLog(@"---switch--frame222===%@==%@",NSStringFromCGRect(switc.frame),NSStringFromCGSize(switc.frame.size));
-
     [switc setOn:YES animated:YES];
     
     switc.tintColor = RGB(204, 204, 204);
@@ -91,7 +89,7 @@
 - (void)setCalendarCollectionView{
     NSDate *date =[NSDate date];//简书 FlyElephant
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    
+    self.dateFormatter = formatter;
     [formatter setDateFormat:@"yyyy"];
     NSInteger currentYear=[[formatter stringFromDate:date] integerValue];
     [formatter setDateFormat:@"M"];
@@ -114,6 +112,8 @@
     calendar.delegate = self;
     calendar.headerHeight = 0.f;
     calendar.scrollEnabled = NO;
+    calendar.allowsSelection = NO;//
+    [calendar registerClass:[TJSignCalendarCell class] forCellReuseIdentifier:@"cell"];
 
     calendar.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];//设置为中文
     calendar.appearance.caseOptions = FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
@@ -157,13 +157,30 @@
 }
 - (void)setSelectedTopicScroll{
     
-    UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(25, S_H-150, 100, 50)];
+    UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(25, S_H-150, 100, 30)];
     titleLab.text = @"精选专题";
     titleLab.textColor = RGB(51, 51, 51);
     titleLab.font = [UIFont systemFontOfSize:20];
     [self.view addSubview:titleLab];
 //    页码
-//    UILabel *numLab = [UILabel alloc]initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    
+    UILabel *numLab = [[UILabel alloc]init];
+    numLab.frame = CGRectMake(S_W-25-20, S_H-150, 30, 30);
+//    numLab.textAlignment = NSTextAlignmentRight;
+    [self.view addSubview:numLab];
+    NSString *str = @"1 /3";
+    NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.font([UIFont systemFontOfSize:18.f]).textColor([UIColor darkTextColor]);
+        make.append(str);
+        make.rangeEdit(NSMakeRange(str.length - 1, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
+            make.font([UIFont systemFontOfSize:13.f]).textColor([UIColor orangeColor]);
+        });
+    });
+    
+    
+    numLab.attributedText = attrStr;
+    
+    
     UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(25, S_H-120, S_W-25, 100)];
     scrollV.showsVerticalScrollIndicator = NO;
     scrollV.showsHorizontalScrollIndicator = NO;
@@ -182,14 +199,24 @@
 }
 
 #pragma mark - FSCalendardeleagte
-
--(UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleSelectionColorForDate:(NSDate *)date{
-
-        return [UIColor blueColor];
+- (__kindof FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position{
+    
+    TJSignCalendarCell *cell  = [calendar dequeueReusableCellWithIdentifier:@"cell" forDate:date atMonthPosition:position];
+    return cell;
 }
-- (UIColor *)calendar:(FSCalendar *)calendar appearance:(nonnull FSCalendarAppearance *)appearance subtitleSelectionColorForDate:(nonnull NSDate *)date{
-    return [UIColor redColor];
+- (void)calendar:(FSCalendar *)calendar willDisplayCell:(FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition: (FSCalendarMonthPosition)monthPosition
+{
+    [self configureCell:cell forDate:date atMonthPosition:monthPosition];
 }
+
+//-(UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleSelectionColorForDate:(NSDate *)date{
+//
+//        return [UIColor blueColor];
+//}
+//- (UIColor *)calenda
+//- (UIColor *)calendar:(FSCalendar *)calendar appearance:(nonnull FSCalendarAppearance *)appearance subtitleSelectionColorForDate:(nonnull NSDate *)date{
+//    return KALLRGB;
+//}
 // 对有事件的显示一个点,默认是显示三个点
 - (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date
 {
@@ -198,17 +225,25 @@
             return 0;
         }
 }
+//- (UIImage *)calendar:(FSCalendar *)calendar imageForDate:(NSDate *)date{
+//    return [UIImage imageNamed:@"sign_bg"];
+//}
 //颜色
-- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date
+//- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date
+//{
+//    return @[KALLRGB];
+//}
+
+- (void)configureCell:(FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
-    return @[KALLRGB];
+    
+    TJSignCalendarCell *diyCell = (TJSignCalendarCell *)cell;
+    
+    // Custom today circle
+    diyCell.circleImageView.hidden = ![self.gregorian isDateInToday:date];
+    
+    diyCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 @end

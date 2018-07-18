@@ -19,7 +19,6 @@ typedef NS_ENUM(NSUInteger, SelectionType) {
 @interface TJSignCalendarCell : FSCalendarCell
 
 
-//@property (weak, nonatomic) UIImageView *circleImageView;
-@property (assign, nonatomic) SelectionType selectionType;
+@property (weak, nonatomic) UIImageView *circleImageView;
 
 @end

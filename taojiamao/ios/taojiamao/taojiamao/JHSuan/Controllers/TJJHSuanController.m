@@ -8,7 +8,7 @@
 
 #import "TJJHSuanController.h"
 #import "TJJHSuanCell.h"
-#import "TJGoodsDetailsController.h"
+//#import "TJGoodsDetailsController.h"
 #import "TJDefaultGoodsDetailController.h"
 
 @interface TJJHSuanController ()<UICollectionViewDelegate,UICollectionViewDataSource>

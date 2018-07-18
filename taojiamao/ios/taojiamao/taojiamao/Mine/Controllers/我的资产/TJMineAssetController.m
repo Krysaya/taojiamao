@@ -36,7 +36,7 @@
         self.model = [TJMineJFBModel yy_modelWithDictionary:dict];
         [self reloadData];
     } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
+        DSLog(@"4894656%@",error);
     }];
 }
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {

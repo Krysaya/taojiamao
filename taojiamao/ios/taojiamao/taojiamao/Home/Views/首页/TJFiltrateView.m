@@ -73,36 +73,40 @@
     }];
     
     //出现图片超高的bug
-    self.hs = [self buttonWithString:@"" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"loading1" selectImage:@"morentouxiang" tag:hsButton];
+    self.hs = [self buttonWithString:@"" normalColor:nil selectColor:nil normalImage:@"class_collectlist" selectImage:@"class_tablist" tag:hsButton];
     [self addSubview:self.hs];
     [self.hs mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
         make.left.mas_equalTo(weakSelf.yhq.mas_right).offset(margin);
         make.width.height.mas_equalTo(18);
     }];
-    self.hs.hidden = margin==22?NO:YES;
+//    self.hs.hidden = margin==22?NO:YES;
     
-    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"" selectImage:@"" tag:sxButton];
+    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"list_choose" selectImage:@"" tag:sxButton];
+    self.sx.titleEdgeInsets = UIEdgeInsetsMake(0, -self.sx.imageView.frame.size.width - self.sx.frame.size.width + self.sx.titleLabel.frame.size.width, 0, 0);
+    self.sx.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -self.sx.titleLabel.frame.size.width - self.sx.frame.size.width + self.sx.imageView.frame.size.width+10);
     [self addSubview:self.sx];
     if (self.hs.hidden) {
         [self.sx mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(weakSelf);
+            make.width.mas_equalTo(70);
             make.left.mas_equalTo(weakSelf.yhq.mas_right).offset(margin);
         }];
     }else{
         [self.sx mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(weakSelf);
+            make.width.mas_equalTo(70);
             make.left.mas_equalTo(weakSelf.hs.mas_right).offset(margin);
         }];
     }
     
-    self.sxImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
-    [self addSubview:self.sxImage];
-    [self.sxImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(weakSelf);
-        make.left.mas_equalTo(weakSelf.sx.mas_right).offset(15);
-        make.width.height.mas_equalTo(18);
-    }];
+//    self.sxImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"list_choose"]];
+//    [self addSubview:self.sxImage];
+//    [self.sxImage mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.mas_equalTo(weakSelf);
+//        make.left.mas_equalTo(weakSelf.sx.mas_right).offset(15);
+//        make.width.height.mas_equalTo(18);
+//    }];
 }
 
 
@@ -117,6 +121,8 @@
     [but setImage:[UIImage imageNamed:ni] forState:UIControlStateNormal];
     [but setImage:[UIImage imageNamed:si] forState:UIControlStateSelected];
     [but addTarget:self action:@selector(sixButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+   
     return but;
 }
 -(void)sixButtonClick:(UIButton*)but{

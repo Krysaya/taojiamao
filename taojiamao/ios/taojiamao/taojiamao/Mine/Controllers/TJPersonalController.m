@@ -401,11 +401,7 @@
     if (indexPath.section==0) {
         return 30;
     }
-    
-    
         return 112*W_Scale;
-
-    
 
 }
 //-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -414,7 +410,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TJMineListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mineCell"];
 //    NSArray *img = @[@"",@"",@"",@"",nil];
-    [cell cellHeaderTitle:@"会员权益" withImageArr:@[@"",@"",@"",@""] withtitleArr:@[@"累计奖金",@"我的粉丝",@"推广业绩",@"热推top"]];
+    [cell cellHeaderTitle:@[@"",@"会员权益",@"快递代取",@"常用工具"][indexPath.section] withImageArr:@[@"",@"",@"",@""] withtitleArr:@[@"累计奖金",@"我的粉丝",@"推广业绩",@"热推top"]];
     if (indexPath.section==0) {
         cell.backgroundColor = RGB(245, 245, 245);
         cell.contentView.hidden = YES;
@@ -431,6 +427,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    select
+    if (indexPath.section==1) {
+        
+    }else if (indexPath.section==2){
+        
+    }else if (indexPath.section==3){
+        
+    }
 }
 
 
