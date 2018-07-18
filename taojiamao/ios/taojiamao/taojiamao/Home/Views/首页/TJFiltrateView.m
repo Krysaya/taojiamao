@@ -34,7 +34,7 @@
 -(instancetype)initWithFrame:(CGRect)frame withMargin:(CGFloat)margin{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor orangeColor];
+//        self.backgroundColor = [UIColor orangeColor];
         [self setUIwithFrame:margin];
     }
     return self;
@@ -100,7 +100,7 @@
     [self addSubview:self.sxImage];
     [self.sxImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
-        make.left.mas_equalTo(weakSelf.sx.mas_right);
+        make.left.mas_equalTo(weakSelf.sx.mas_right).offset(15);
         make.width.height.mas_equalTo(18);
     }];
 }

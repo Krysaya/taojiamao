@@ -18,6 +18,7 @@
 #import "TJHomeController.h"
 #import "TJSearchController.h"
 #import "TJProjectController.h"
+#import "TJClassicController.h"
 
 #import "TJGoodsListCell.h"
 #import "UIViewController+Extension.h"
@@ -567,11 +568,43 @@
                     [self.navigationController pushViewController:homev animated:YES];
                 }
                     break;
+                    
+                
+                    break;
                 default:
                     break;
             }
         }else{
-            
+            switch (indexPath.row) {
+                case 0:
+                    {
+                        
+                    }
+                    break;
+                case 1:
+                {
+                    
+                }
+                    break;
+                case 2:
+                {
+                    
+                }
+                    break;
+                case 3:
+                {
+                    
+                }
+                    break;
+                case 4:
+                {
+                    TJClassicController *vc = [[TJClassicController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -10,6 +10,8 @@
 #import "TJContentCollectionCell.h"
 #import "TJHomeFootShowCell.h"
 #import "TJHomeFootShowModel.h"
+#import "TJMiddleClickController.h"
+#import "TJClassicSecondController.h"
 
 static NSString * const ContentMiddleCollectionCell = @"ContentMiddleCollectionCell";
 static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
@@ -73,9 +75,18 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     [self.view addSubview:self.tableView];
     
     self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    
     self.tableView.tableHeaderView = self.bannerView;
     
     
+}
+
+#pragma mark - sdc deleagte
+
+/** 点击图片回调 */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    NSLog(@"点了谁---%ld",index);
+   
 }
 #pragma mark -UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -152,6 +163,10 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     TJContentCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:ContentMiddleCollectionCell forIndexPath:indexPath];
     
     return cell;
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    TJClassicSecondController *vc = [[TJClassicSecondController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(UICollectionView *)collectView{
     if (_collectView==nil) {

@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //
+    self.title = @"商品分类";
 //    [self setChooseHeadview];
     //
     self.menuViewStyle = WMMenuViewStyleLine;
@@ -50,7 +50,7 @@
     //
     [self requestGoodsChooseNet];
     //
-    [self setNavTitleItems];
+//    [self setNavTitleItems];
     
 }
 
@@ -166,7 +166,7 @@
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
     CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    return CGRectMake(leftMargin, originY, S_W - 2*leftMargin-RightMargin,TopHeight);
+    return CGRectMake(leftMargin, originY, S_W - 2*leftMargin,TopHeight);
 }
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);
@@ -185,16 +185,16 @@
     }
     return _category;
 }
--(UIView *)coverView{
-    if (_coverView == nil) {
-        _coverView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+TopHeight, S_W, S_H-SafeAreaTopHeight-TopHeight)];
-        _coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-        //test
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-        [_coverView addGestureRecognizer:tap];
-    }
-    return _coverView;
-}
+//-(UIView *)coverView{
+//    if (_coverView == nil) {
+//        _coverView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+TopHeight, S_W, S_H-SafeAreaTopHeight-TopHeight)];
+//        _coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+//        //test
+//        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+//        [_coverView addGestureRecognizer:tap];
+//    }
+//    return _coverView;
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

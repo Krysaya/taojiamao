@@ -119,6 +119,7 @@
     NSString *time = self.titles[index];
     NSString *status = @"已开抢";
     NSString *info = [NSString stringWithFormat:@"%@\n%@",time,status];
+    initialMenuItem.font = [UIFont systemFontOfSize:15];
     initialMenuItem.text = info;
     return initialMenuItem;
 }
