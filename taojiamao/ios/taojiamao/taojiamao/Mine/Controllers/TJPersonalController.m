@@ -23,6 +23,10 @@
 #import "TJMineAssetController.h"
 #import "TJMineOrderController.h"
 #import "TJMyFootPrintController.h"
+
+
+#import "SGActionView.h"
+
 #define Setting   9999
 #define Notify    6666
 
@@ -428,11 +432,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    select
     if (indexPath.section==1) {
-        
+       
     }else if (indexPath.section==2){
         
     }else if (indexPath.section==3){
-        
+        NSLog(@"------我是第三行---");
+        [SGActionView showGridMenuWithTitle:@"" itemTitles:@[@"",@"",@"",@"",@"",@""] images:@[[UIImage imageNamed:@"facebook"],
+                     [UIImage imageNamed:@"twitter"],
+                     [UIImage imageNamed:@"googleplus"],
+                     [UIImage imageNamed:@"linkedin"],
+                     [UIImage imageNamed:@"weibo"],
+                     [UIImage imageNamed:@"wechat"],
+                     [UIImage imageNamed:@"pocket"],
+                    [UIImage imageNamed:@"dropbox"]] selectedHandle:^(NSInteger index) {
+//                        点击
+                        NSLog(@"----dianshei--%ld",index);
+                                                                                             }];
     }
 }
 
