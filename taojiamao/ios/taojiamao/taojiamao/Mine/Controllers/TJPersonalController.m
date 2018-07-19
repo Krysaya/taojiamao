@@ -437,17 +437,16 @@
         
     }else if (indexPath.section==3){
         NSLog(@"------我是第三行---");
-        [SGActionView showGridMenuWithTitle:@"" itemTitles:@[@"",@"",@"",@"",@"",@""] images:@[[UIImage imageNamed:@"facebook"],
-                     [UIImage imageNamed:@"twitter"],
-                     [UIImage imageNamed:@"googleplus"],
-                     [UIImage imageNamed:@"linkedin"],
-                     [UIImage imageNamed:@"weibo"],
-                     [UIImage imageNamed:@"wechat"],
-                     [UIImage imageNamed:@"pocket"],
-                    [UIImage imageNamed:@"dropbox"]] selectedHandle:^(NSInteger index) {
-//                        点击
-                        NSLog(@"----dianshei--%ld",index);
-                                                                                             }];
+//        [SGActionView showGridMenuWithTitle:@"邀请有奖" itemTitles:@[@"朋友圈",@"微信好友",@"QQ",@"QQ空间",@"短信",@"复制链接"] images:@[
+//                     [UIImage imageNamed:@"share_pyq"],
+//                     [UIImage imageNamed:@"share_wx"],
+//                     [UIImage imageNamed:@"share_QQ"],
+//                     [UIImage imageNamed:@"share_QQaz"],
+//                     [UIImage imageNamed:@"save_img"],
+//                     [UIImage imageNamed:@"copy_link"] ] selectedHandle:^(NSInteger index) {
+////                        点击
+//                        NSLog(@"----dianshei--%ld",index);
+//                                                                                             }];
     }
 }
 

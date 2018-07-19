@@ -209,6 +209,8 @@
 		C74D8940210031C40098754C /* SGBaseMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D8939210031C40098754C /* SGBaseMenu.m */; };
 		C74D8941210031C40098754C /* SGGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D893B210031C40098754C /* SGGridMenu.m */; };
 		C74D8942210031C40098754C /* SGSheetMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D893D210031C40098754C /* SGSheetMenu.m */; };
+		C74D894621003C790098754C /* TJMoreCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D894421003C790098754C /* TJMoreCommentsCell.m */; };
+		C74D894721003C790098754C /* TJMoreCommentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74D894521003C790098754C /* TJMoreCommentsCell.xib */; };
 		C74DFF9C20F73F0200D83ACF /* TJDafultGoodsTitlesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DFF9A20F73F0200D83ACF /* TJDafultGoodsTitlesCell.m */; };
 		C74DFF9D20F73F0200D83ACF /* TJDafultGoodsTitlesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74DFF9B20F73F0200D83ACF /* TJDafultGoodsTitlesCell.xib */; };
 		C74DFFA020F7484D00D83ACF /* TJDefaultGoodsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DFF9F20F7484D00D83ACF /* TJDefaultGoodsDetailController.m */; };
@@ -846,6 +848,9 @@
 		C74D893B210031C40098754C /* SGGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGGridMenu.m; sourceTree = "<group>"; };
 		C74D893C210031C40098754C /* SGSheetMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSheetMenu.h; sourceTree = "<group>"; };
 		C74D893D210031C40098754C /* SGSheetMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSheetMenu.m; sourceTree = "<group>"; };
+		C74D894321003C790098754C /* TJMoreCommentsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMoreCommentsCell.h; sourceTree = "<group>"; };
+		C74D894421003C790098754C /* TJMoreCommentsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMoreCommentsCell.m; sourceTree = "<group>"; };
+		C74D894521003C790098754C /* TJMoreCommentsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJMoreCommentsCell.xib; sourceTree = "<group>"; };
 		C74DFF9920F73F0200D83ACF /* TJDafultGoodsTitlesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDafultGoodsTitlesCell.h; sourceTree = "<group>"; };
 		C74DFF9A20F73F0200D83ACF /* TJDafultGoodsTitlesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJDafultGoodsTitlesCell.m; sourceTree = "<group>"; };
 		C74DFF9B20F73F0200D83ACF /* TJDafultGoodsTitlesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJDafultGoodsTitlesCell.xib; sourceTree = "<group>"; };
@@ -2666,6 +2671,9 @@
 		C76BA5E620FD8DD0006C749B /* 评论 */ = {
 			isa = PBXGroup;
 			children = (
+				C74D894321003C790098754C /* TJMoreCommentsCell.h */,
+				C74D894421003C790098754C /* TJMoreCommentsCell.m */,
+				C74D894521003C790098754C /* TJMoreCommentsCell.xib */,
 			);
 			path = "评论";
 			sourceTree = "<group>";
@@ -3239,6 +3247,7 @@
 				C7409A002091CF3600DFCC94 /* IQKeyboardManager.bundle in Resources */,
 				C77CD41B20F5F7D8003A55FC /* Info.plist in Resources */,
 				C75891412092B85D00AC085E /* Info.plist in Resources */,
+				C74D894721003C790098754C /* TJMoreCommentsCell.xib in Resources */,
 				C786473020F33FCD00995A8F /* TJClassOneCell.xib in Resources */,
 				C76BA5F120FD9003006C749B /* TJHeadLineTwoCell.xib in Resources */,
 				C7B994AA20F89B1200DFFC98 /* TJContentListCell.xib in Resources */,
@@ -3364,6 +3373,7 @@
 				C758CC1420A2FCD1000F1903 /* MOFSPickerView.m in Sources */,
 				C77CD41520F5F7D8003A55FC /* FSCalendarExtensions.m in Sources */,
 				C720EDBF20907293007AA53C /* TJTabBarController.m in Sources */,
+				C74D894621003C790098754C /* TJMoreCommentsCell.m in Sources */,
 				C742A3132099DA260026311A /* MyFloatLayout.m in Sources */,
 				C76BA5F020FD9003006C749B /* TJHeadLineTwoCell.m in Sources */,
 				C758914B2092B85D00AC085E /* ViewController+MASAdditions.m in Sources */,
