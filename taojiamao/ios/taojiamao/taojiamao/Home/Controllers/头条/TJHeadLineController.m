@@ -10,7 +10,7 @@
 #import "TJHeadLineOneCell.h"
 #import "TJHeadLineTwoCell.h"
 #import "TJHeadLineThreeCell.h"
-
+#import "TJHeadDetailController.h"
 #import "TJNoticeController.h"
 @interface TJHeadLineController ()<TJButtonDelegate>
 
@@ -80,6 +80,10 @@
   
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJHeadDetailController *vc = [[TJHeadDetailController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

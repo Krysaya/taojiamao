@@ -22,7 +22,7 @@
 
 #import "TJGoodsListCell.h"
 #import "UIViewController+Extension.h"
-
+#import "TJHeadLineController.h"
 
 
 #define AD_H  200
@@ -255,7 +255,7 @@
     TJButton *lastBtn;
     for (int i=0; i<a; i++) {
 
-        TJButton *news_btn = [TJButton new];
+        TJButton *news_btn = [[TJButton alloc]initDelegate:self backColor:nil tag:i+51 withBackImage:nil];
 //        点击事件
         news_btn.backgroundColor = RandomColor;
         [scrollBaseView addSubview:news_btn];
@@ -401,9 +401,12 @@
     if (but.tag ==LEFTBTN) {
         TJHomeSignController *signV = [[TJHomeSignController alloc]init];
         [self.navigationController pushViewController:signV animated:YES];
-    }else{
+    }else if(but.tag==RIGHTBTN){
         TJNoticeController *noticeV = [[TJNoticeController alloc]init];
         [self.navigationController pushViewController:noticeV animated:YES];
+    }else{
+        TJHeadLineController *vc =[[TJHeadLineController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 #pragma mark - 定时器
