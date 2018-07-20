@@ -32,19 +32,8 @@
     TJNavigationController *home = [[TJNavigationController alloc] initWithRootViewController:VC1];
     
     TJTQGouController *VC2 = [[TJTQGouController alloc] init];
-//    VC2.progressColor = KALLRGB;
-    VC2.progressHeight = 50*H_Scale;
-    VC2.progressColor = KALLRGB;
-    VC2.titleColorNormal = [UIColor whiteColor];
-    VC2.titleColorSelected = [UIColor redColor];
-    VC2.menuViewStyle = WMMenuViewStyleFlood;
-    VC2.progressViewCornerRadius = 0.f;
-    
-    
     TJNavigationController *tqg = [[TJNavigationController alloc] initWithRootViewController:VC2];
-    
-//    TJCQuanController *VC3 = [[TJCQuanController alloc] init];
-//    TJNavigationController *cqu = [[TJNavigationController alloc] initWithRootViewController:VC3];
+
     
     TJJHSuanController *VC4 = [[TJJHSuanController alloc] init];
     TJNavigationController *jhs = [[TJNavigationController alloc] initWithRootViewController:VC4];

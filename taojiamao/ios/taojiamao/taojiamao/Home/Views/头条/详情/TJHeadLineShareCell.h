@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TJHeadLineShareCell : UITableViewCell
+@interface TJHeadLineShareCell : TJBaseTableCell
 
 @end

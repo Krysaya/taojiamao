@@ -9,6 +9,8 @@
 #import "TJBaseTableCell.h"
 
 @interface TJMoreCommentsCell : TJBaseTableCell
+@property (weak, nonatomic) IBOutlet UIButton *btn_more;
 @property (weak, nonatomic) IBOutlet UIView *view_bg;
+
 
 @end

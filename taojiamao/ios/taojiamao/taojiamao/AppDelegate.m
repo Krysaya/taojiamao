@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "HYBNetworking.h"
+
 @interface AppDelegate ()
 
 @end

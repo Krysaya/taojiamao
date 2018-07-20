@@ -7,7 +7,7 @@
 //
 
 #import "TJGetVerifyCode.h"
-
+#import "XMNetworking.h"
 @interface TJGetVerifyCode()
 
 @property(nonatomic,assign)dispatch_source_t timer;
@@ -30,32 +30,66 @@
 -(void)getVerityWithURL:(NSString*)url withParams:(NSDictionary*)param withButton:(TJButton*)but withBlock:(ReceiveSMS)sms{
 
     [self openCountdownWith:but];
-    return;
-    NSString * mobile = param[@"mobile"];
+//    return;
+    NSString * mobile = param[@"telephone"];
     if ([TJOverallJudge judgeMobile:mobile]) {
         but.userInteractionEnabled = NO;
         NSInteger phoneNum = [mobile integerValue];
-        NSDictionary * dict = @{@"mobile":@(phoneNum)};
-        [XDNetworking postWithUrl:url refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-            DSLog(@"%@",response);
-            NSNumber * code = response[@"err_code"];
+        NSDictionary * dict = @{@"telephone":@(phoneNum)};
+        KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+        NSString *timeStr = [MD5 timeStr];
+        NSMutableDictionary *head = @{
+            @"timestamp": timeStr,
+             @"app": @"ios",
+            @"telephone": @(phoneNum),
+        }.mutableCopy;
+                            
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:head withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+        NSLog(@"-time=%@--md-%@--",timeStr,md5Str);
+        
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = url;
+            request.parameters = dict;
+            request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str};
+        } onSuccess:^(id  _Nullable responseObject) {
+            NSLog(@"----code-success==%@",responseObject);
+
+            NSNumber * code = responseObject[@"code"];
             int codeNum = [code intValue];
-            if (codeNum==200) {
+            if (codeNum==0) {
                 DSLog(@"发送成功");
-//                [self openCountdown];
+                //                [self openCountdown];
                 if (sms) sms(YES);
             }else{
                 DSLog(@"失败");
                 but.userInteractionEnabled = YES;
                 if (sms) sms(NO);
             }
-        } failBlock:^(NSError *error) {
-            DSLog(@"%@",error);
+        } onFailure:^(NSError * _Nullable error) {
             if (sms) sms(NO);
             but.userInteractionEnabled = YES;
         }];
+        
+//        [XDNetworking postWithUrl:url refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
+//            DSLog(@"%@",response);
+//            NSNumber * code = response[@"err_code"];
+//            int codeNum = [code intValue];
+//            if (codeNum==200) {
+//                DSLog(@"发送成功");
+////                [self openCountdown];
+//                if (sms) sms(YES);
+//            }else{
+//                DSLog(@"失败");
+//                but.userInteractionEnabled = YES;
+//                if (sms) sms(NO);
+//            }
+//        } failBlock:^(NSError *error) {
+//            DSLog(@"%@",error);
+//            if (sms) sms(NO);
+//            but.userInteractionEnabled = YES;
+//        }];
     }else{
-        DSLog(@"手机号格式不正确");
+        NSLog(@"手机号格式不正确");
         if (sms) sms(NO);
     }
 
@@ -73,16 +107,16 @@
         if(time <= 0){ //倒计时结束，关闭
             dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
-                but.title =@"重新发送";
+                but.title = @"重新发送";
                 but.userInteractionEnabled = YES;
             });
             
         }else{
             
             int seconds = time % 60;
-            DSLog(@"%d",seconds);
+//            DSLog(@"%d",seconds);1522
             dispatch_async(dispatch_get_main_queue(), ^{
-                DSLog(@"%@",but);
+//                DSLog(@"%@",but);
                 but.title =[NSString stringWithFormat:@"重新发送(%.2d)", seconds];
                 but.userInteractionEnabled = NO;
             });

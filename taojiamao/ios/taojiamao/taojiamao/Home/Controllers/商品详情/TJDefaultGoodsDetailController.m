@@ -250,7 +250,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGFloat offset=scrollView.contentOffset.y;
+//    CGFloat offset=scrollView.contentOffset.y;
 //    if (offset<S_H) {
 //        self.goTop.alpha = 0.0;
 //    }else {

@@ -22,7 +22,7 @@
 
 #import "LayoutColorStringFuc.h"
 
-
+#import "XMNetworking.h"
 
 
 

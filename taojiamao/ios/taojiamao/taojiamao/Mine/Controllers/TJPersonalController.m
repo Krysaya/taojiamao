@@ -24,6 +24,7 @@
 #import "TJMineOrderController.h"
 #import "TJMyFootPrintController.h"
 
+#import "TJInvitationView.h"
 
 #import "SGActionView.h"
 
@@ -437,16 +438,26 @@
         
     }else if (indexPath.section==3){
         NSLog(@"------我是第三行---");
-//        [SGActionView showGridMenuWithTitle:@"邀请有奖" itemTitles:@[@"朋友圈",@"微信好友",@"QQ",@"QQ空间",@"短信",@"复制链接"] images:@[
-//                     [UIImage imageNamed:@"share_pyq"],
-//                     [UIImage imageNamed:@"share_wx"],
-//                     [UIImage imageNamed:@"share_QQ"],
-//                     [UIImage imageNamed:@"share_QQaz"],
-//                     [UIImage imageNamed:@"save_img"],
-//                     [UIImage imageNamed:@"copy_link"] ] selectedHandle:^(NSInteger index) {
-////                        点击
-//                        NSLog(@"----dianshei--%ld",index);
-//                                                                                             }];
+        
+        TJInvitationView *iview = [TJInvitationView invitationView];
+        iview.frame = CGRectMake(0, 0, S_W, S_H);
+        //设置切哪个直角
+        //    UIRectCornerTopLeft     = 1 << 0,  左上角
+        //    UIRectCornerTopRight    = 1 << 1,  右上角
+        //    UIRectCornerBottomLeft  = 1 << 2,  左下角
+        //    UIRectCornerBottomRight = 1 << 3,  右下角
+        //    UIRectCornerAllCorners  = ~0UL     全部角
+        //得到view的遮罩路径
+//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:iview.view_bg.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(10,10)];
+//        //创建 layer
+//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//        maskLayer.frame = iview.view_bg.bounds;
+//        //赋值
+//        maskLayer.path = maskPath.CGPath;
+//        iview.view_bg.layer.mask = maskLayer;
+        
+        [[UIApplication sharedApplication].keyWindow addSubview:iview];
+
     }
 }
 

@@ -167,7 +167,7 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 #pragma mark - TJMyAddressDelegate
 -(void)deleteClick:(NSIndexPath *)index{
     DSLog(@"删除");
-    WeakSelf
+//    WeakSelf
     TJAlertController * avc = [TJAlertController alertWithTitle:@"提示" message:@"确定要删除此条地址吗?" style:UIAlertControllerStyleAlert sureClick:^(UIAlertAction * _Nonnull action) {
 //        [weakSelf.dataArray removeObject:self.selectorPatnArray[index.section]];
 //        [weakSelf.tableView reloadData];

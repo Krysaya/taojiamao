@@ -9,12 +9,18 @@
 #import "TJTQGouController.h"
 #import "TJTQGContentController.h"
 #import "WMPageController.h"
+#import "XMNetworking.h"
+#import "MJExtension.h"
+
+#import "TJTqgTimesListModel.h"
 #define RightMargin 44*W_Scale
 #define TopHeight 50*H_Scale
 
 
 @interface TJTQGouController ()
-@property(nonatomic,strong)NSMutableArray * contents;
+@property(nonatomic,strong)NSMutableArray * timesArr;
+
+//@property (nonatomic, strong) TJTqgTimesListModel *timesModel;
 //@property(nonatomic,strong)NSMutableArray<TJGoodsCategory*>*category;
 @end
 
@@ -22,75 +28,84 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
 }
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-//     self.navigationController.navigationBar.translucent = NO;
-
     UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"tqg"]];
     self.navigationItem.titleView = headerImg;
-    [self setPageControllers];
+//    [self requestGoodsChooseNet];
+
 
   
-//
-
-    // Do any additional setup after loading the view.
 }
--(void)setPageControllers{
-    
+
+#pragma mark 初始化代码
+- (instancetype)init{
+    if (self = [super init]) {
+        
     self.menuViewStyle = WMMenuViewStyleLine;
     self.selectIndex = 0;
     self.titleSizeNormal = 13;
     self.titleSizeSelected = 14;
     self.menuItemWidth = 93*W_Scale;
-    self.menuView.backgroundColor = [UIColor blackColor];
-    
-//    self.progressColor = KALLRGB;
-//    self.progressHeight = 50;
-//    self.contents = [[NSMutableArray array]init];
-    
+//    self.menuView. = [UIColor blackColor];
+    self.progressHeight = 50*H_Scale;
+    self.progressColor = KALLRGB;
+    self.titleColorNormal = [UIColor whiteColor];
+    self.titleColorSelected = [UIColor redColor];
+    self.menuViewStyle = WMMenuViewStyleFlood;
+    self.progressViewCornerRadius = 0.f;
+        
+    [self requestGoodsChooseNet];
 
+    }
+    return self;
 }
 
 #pragma mark - requestGoodsChooseNet
-//-(void)requestGoodsChooseNet{
-//    //test1
-//    NSDictionary * parm = @{ };
-//    [XDNetworking postWithUrl:GOODSCATEGORY refreshRequest:NO cache:YES params:parm progressBlock:nil successBlock:^(id response) {
-//        DSLog(@"%@",[response class]);
-//        //先清空存储
-//        [self.category removeAllObjects];
-//        NSArray * dict = response[@"data"];
-//        TJGoodsCategory * model = [[TJGoodsCategory alloc]init];
-//        model.name = @"全部";
-//        model.id = AllId;
-//        [self.category addObject:model];
-//        for (NSDictionary* d in dict) {
-//            TJGoodsCategory * model = [TJGoodsCategory yy_modelWithDictionary:d];
-//            [self.category addObject:model];
-//        }
-//        NSMutableArray * temp =[NSMutableArray array];
-//        for (TJGoodsCategory*model in self.category) {
-//            [temp addObject:model.name];
-//        }
-//        self.titles = temp.copy;
-//        [self reloadData];
-//    } failBlock:^(NSError *error) {
-//        DSLog(@"%@",error);
-//    }];
-//}
+-(void)requestGoodsChooseNet{
+    self.timesArr = [NSMutableArray array];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary * param = @{
+    //                              @"page":@"5",
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+      //                            @"uid": @"",
+                                    
+                                    }.mutableCopy;
+    
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+//
+//    
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = @"http://dev.api.taojiamao.net/v1/pages/tqg";
+        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str};
+        request.httpMethod = kXMHTTPMethodGET;
+    }onSuccess:^(id responseObject) {
+        NSDictionary *dict = responseObject[@"data"];
+        NSArray *arr = dict[@"times"];
+        self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];
+        
+        [self reloadData];
+        NSLog(@"onSuccess:%@ ==%ld=====",responseObject,self.timesArr.count);
+
+    } onFailure:^(NSError *error) {
+        NSLog(@"onFailure: %@", error);
+    }];
+}
 
 #pragma mark -WMPageControllerSetting
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    NSLog(@"====%ld",self.titles.count);
-    return self.titles.count;
+
+    return self.timesArr.count;
 }
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-    NSLog(@"====%@",self.titles[index]);
-
-    return self.titles[index];
+    
+    TJTqgTimesListModel *model = self.timesArr[index];
+    
+    return model.hour;
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
 
@@ -113,11 +128,9 @@
 }
 - (WMMenuItem *)menuView:(WMMenuView *)menu initialMenuItem:(WMMenuItem *)initialMenuItem atIndex:(NSInteger)index{
     
-//    for (NSString *str in self.titles) {
-//        NSString *time =
-//    }
-    NSString *time = self.titles[index];
-    NSString *status = @"已开抢";
+    TJTqgTimesListModel *model = self.timesArr[index];
+    NSString *time = model.hour;
+    NSString *status = model.str;
     NSString *info = [NSString stringWithFormat:@"%@\n%@",time,status];
     initialMenuItem.font = [UIFont systemFontOfSize:15];
     initialMenuItem.text = info;
@@ -129,28 +142,8 @@
         return [UIColor whiteColor];
    
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 #pragma mark - lazyloading
-//- (NSMutableArray *)contents{
-//    if (_contents==nil) {
-//        _contents = [[NSMutableArray array]initWithObjects:@"08：00已开抢",@"08：00已开抢",@"08：00已开抢",@"08：00已开抢",@"08：00已开抢",@"08：00已开抢",nil];
-//    }
-//    return _contents;
-//}
-
-- (NSArray *)titles {
-    return @[@"08：00",@"09：00",@"10：00",@"11：00",@"12：00",@"14：00"];
-}
-
-//-(NSMutableArray<TJGoodsCategory *> *)category{
-//    if (!_category) {
-//        _category = [NSMutableArray array];
-//    }
-//    return _category;
-//}
 
 
 @end

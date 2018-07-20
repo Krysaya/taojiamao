@@ -10,6 +10,9 @@
 #import "TJRegisterController.h"
 #import "TJTextFieldView.h"
 
+#import "XMNetworking.h"
+
+
 #define LoLoginTag          123321
 #define RegisterTag         654123
 #define ForgetTag           987456
@@ -390,18 +393,28 @@
                                         @"mobile":self.userNameF.text,
                                         @"password":self.passwordF.text
                                         };
-                [XDNetworking postWithUrl:LoginWithUserName refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-                    DSLog(@"登录成功");
-                    //写入
-                    NSDictionary * data = response[@"data"];
-                    SetUserDefaults(data[@"uid"], UID);
-                    SetUserDefaults(data[@"token"], TOKEN);
-                    SetUserDefaults(HADLOGIN, HADLOGIN);
-                    //控制器跳转
-                    [self.navigationController popViewControllerAnimated:YES];
-                } failBlock:^(NSError *error) {
-                    DSLog(@"%@",error);
+                [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                    request.url =LoginWithUserName;
+                    request.parameters = dict;
+                    request.httpMethod = kXMHTTPMethodPOST;
+                }onSuccess:^(id  _Nullable responseObject) {
+                    
+                    NSLog(@"----login--%@",responseObject);
+                } onFailure:^(NSError * _Nullable error) {
+                    
                 }];
+//                [XDNetworking postWithUrl:LoginWithUserName refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
+//                    DSLog(@"登录成功");
+//                    //写入
+//                    NSDictionary * data = response[@"data"];
+//                    SetUserDefaults(data[@"uid"], UID);
+//                    SetUserDefaults(data[@"token"], TOKEN);
+//                    SetUserDefaults(HADLOGIN, HADLOGIN);
+//                    //控制器跳转
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                } failBlock:^(NSError *error) {
+//                    DSLog(@"%@",error);
+//                }];
             }
         }else{
             DSLog(@"快捷登录");

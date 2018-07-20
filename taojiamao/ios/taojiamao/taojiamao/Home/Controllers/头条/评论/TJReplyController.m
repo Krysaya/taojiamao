@@ -20,7 +20,8 @@
     [super viewDidLoad];
     
     self.title = @"1条回复";
-    [self.tableView registerNib:[UINib nibWithNibName:@"TJCommentsReplyCell" bundle:nil] forCellReuseIdentifier:@"commentCell"];
+    self.tableView.tableFooterView = [UIView new];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJCommentsReplyCell" bundle:nil] forCellReuseIdentifier:@"commentReplyCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"TJMoreCommentsCell" bundle:nil] forCellReuseIdentifier:@"replyCell"];
 
 }
@@ -33,7 +34,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -41,17 +42,12 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
+        TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"replyCell" forIndexPath:indexPath];
         cell.view_bg.hidden = YES;
         return cell;
-    }else if(indexPath.row==1){
-        TJCommentsReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"replyCell" forIndexPath:indexPath];
+    }else {
+        TJCommentsReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentReplyCell" forIndexPath:indexPath];
         
-        return cell;
-    }else{
-        TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
-        cell.view_bg.hidden = YES;
-
         return cell;
     }
    

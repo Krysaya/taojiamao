@@ -8,7 +8,7 @@
 
 #import "TJRegisterController.h"
 #import "TJTextFieldView.h"
-
+#import "XMNetworking.h"
 #define GetVerify   222555
 #define SureTag    333555
 #define CloseTag    848652
@@ -120,7 +120,7 @@
             DSLog(@"手机号不能为空");
         }else{
             if (self.isRegister) {
-                [[TJGetVerifyCode sharedInstance] getVerityWithURL:GETVerfityCode withParams:@{@"mobile":self.mobile.text} withButton:self.getVerifiCode withBlock:^(BOOL isGood) {
+                [[TJGetVerifyCode sharedInstance] getVerityWithURL:GETVerfityCode withParams:@{@"telephone":self.mobile.text} withButton:self.getVerifiCode withBlock:^(BOOL isGood) {
                     if (isGood) {
                         DSLog(@"收到短信了 ");
                     }else{
@@ -128,7 +128,7 @@
                     }
                 }];
             }else{
-                [[TJGetVerifyCode sharedInstance] getVerityWithURL:FPGetVerfity withParams:@{@"mobile":self.mobile.text} withButton:self.getVerifiCode withBlock:^(BOOL isGood) {
+                [[TJGetVerifyCode sharedInstance] getVerityWithURL:FPGetVerfity withParams:@{@"telephone":self.mobile.text} withButton:self.getVerifiCode withBlock:^(BOOL isGood) {
                     if (isGood) {
                         DSLog(@"收到短信了 ");
                     }else{
@@ -149,24 +149,32 @@
             NSInteger mobile = [self.mobile.text integerValue];
             NSInteger verity = [self.verify.text integerValue];
             NSDictionary * dict =@{
-                                   @"mobile":@(mobile),
+                                   @"telephone":@(mobile),
                                    @"code":@(verity),
                                    @"password":self.password.text
                                    };
             if (self.isRegister) {
-                [XDNetworking postWithUrl:RegisterApp refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-                    DSLog(@"注册成功");
-                    NSDictionary * data = response[@"data"];
-                    //写入
-                    SetUserDefaults(data[@"uid"], UID);
-                    SetUserDefaults(data[@"ptoken"], TOKEN);
-                    SetUserDefaults(HADLOGIN, HADLOGIN);
-                    SetUserDefaults(self.mobile.text, UserPhone);
-                    //控制器跳转
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                } failBlock:^(NSError *error) {
-                    DSLog(@"%@",error);
+                [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                    request.url = RegisterApp;
+                    request.parameters = dict;
+                } onSuccess:^(id  _Nullable responseObject) {
+                    DSLog(@"注册成功===%@",responseObject);
+                } onFailure:^(NSError * _Nullable error) {
+                    
                 }];
+//                [XDNetworking postWithUrl:RegisterApp refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
+//                    DSLog(@"注册成功");
+//                    NSDictionary * data = response[@"data"];
+//                    //写入
+//                    SetUserDefaults(data[@"uid"], UID);
+//                    SetUserDefaults(data[@"ptoken"], TOKEN);
+//                    SetUserDefaults(HADLOGIN, HADLOGIN);
+//                    SetUserDefaults(self.mobile.text, UserPhone);
+//                    //控制器跳转
+//                    [self.navigationController popToRootViewControllerAnimated:YES];
+//                } failBlock:^(NSError *error) {
+//                    DSLog(@"%@",error);
+//                }];
             }else{
                 [XDNetworking postWithUrl:SubmitNewPass refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
                     DSLog(@"修改成功");

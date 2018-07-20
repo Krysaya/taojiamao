@@ -10,7 +10,6 @@
 @interface TJMoreCommentsCell()
 
 @property (weak, nonatomic) IBOutlet UIButton *btn_comments;
-@property (weak, nonatomic) IBOutlet UIButton *btn_more;
 
 @end
 
@@ -19,6 +18,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,5 +26,6 @@
 
     // Configure the view for the selected state
 }
+
 
 @end
