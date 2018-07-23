@@ -28,36 +28,35 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    
 }
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"tqg"]];
     self.navigationItem.titleView = headerImg;
-//    [self requestGoodsChooseNet];
-
-
-  
+    
+    [self requestGoodsChooseNet];
 }
+
 
 #pragma mark 初始化代码
 - (instancetype)init{
     if (self = [super init]) {
-        
+
     self.menuViewStyle = WMMenuViewStyleLine;
     self.selectIndex = 0;
     self.titleSizeNormal = 13;
     self.titleSizeSelected = 14;
     self.menuItemWidth = 93*W_Scale;
-//    self.menuView. = [UIColor blackColor];
+    self.menuView.tintColor = [UIColor blackColor];
     self.progressHeight = 50*H_Scale;
     self.progressColor = KALLRGB;
     self.titleColorNormal = [UIColor whiteColor];
     self.titleColorSelected = [UIColor redColor];
     self.menuViewStyle = WMMenuViewStyleFlood;
     self.progressViewCornerRadius = 0.f;
-        
-    [self requestGoodsChooseNet];
 
     }
     return self;
@@ -88,7 +87,11 @@
         NSArray *arr = dict[@"times"];
         self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];
         
-        [self reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self reloadData];
+            self.menuView.backgroundColor = [UIColor blackColor];
+        });
+        
         NSLog(@"onSuccess:%@ ==%ld=====",responseObject,self.timesArr.count);
 
     } onFailure:^(NSError *error) {

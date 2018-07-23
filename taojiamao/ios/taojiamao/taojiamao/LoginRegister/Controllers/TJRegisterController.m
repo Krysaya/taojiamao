@@ -8,7 +8,7 @@
 
 #import "TJRegisterController.h"
 #import "TJTextFieldView.h"
-#import "XMNetworking.h"
+
 #define GetVerify   222555
 #define SureTag    333555
 #define CloseTag    848652
@@ -81,7 +81,7 @@
     if (self.isRegister) {
         self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw_gray" highlightImage:@"psw_light"];
     }else{
-        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请设置新密码(长度不超过16位)" image:@"morentouxiang" highlightImage:@"backImage"];
+        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请设置新密码(长度不超过16位)" image:@"psw_gray" highlightImage:@"psw_light"];
     }
     
     [self.view addSubview:self.password];;
@@ -119,7 +119,7 @@
         if (self.mobile.text==nil || self.mobile.text.length==0) {
             DSLog(@"手机号不能为空");
         }else{
-            if (self.isRegister) {
+
                 [[TJGetVerifyCode sharedInstance] getVerityWithURL:GETVerfityCode withParams:@{@"telephone":self.mobile.text} withButton:self.getVerifiCode withBlock:^(BOOL isGood) {
                     if (isGood) {
                         DSLog(@"收到短信了 ");
@@ -127,64 +127,79 @@
                         DSLog(@"服务器或者手机格式错误等造成发送失败");
                     }
                 }];
-            }else{
-                [[TJGetVerifyCode sharedInstance] getVerityWithURL:FPGetVerfity withParams:@{@"telephone":self.mobile.text} withButton:self.getVerifiCode withBlock:^(BOOL isGood) {
-                    if (isGood) {
-                        DSLog(@"收到短信了 ");
-                    }else{
-                        DSLog(@"服务器或者手机格式错误等造成发送失败");
-                    }
-                }];
-            }
+            
            
         }
     }else if(but.tag==CloseTag){
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     else{
+       
         
         if (self.mobile.text==nil || self.mobile.text.length==0 ||self.verify.text==nil || self.verify.text.length==0 ||self.password.text==nil || self.password.text.length==0 ) {
             DSLog(@"有选项为空");
         }else{
-            NSInteger mobile = [self.mobile.text integerValue];
-            NSInteger verity = [self.verify.text integerValue];
+            KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+            NSString *timeStr = [MD5 timeStr];
+            
             NSDictionary * dict =@{
-                                   @"telephone":@(mobile),
-                                   @"code":@(verity),
+                                   @"telephone":self.mobile.text,
+                                   @"code":self.verify.text,
                                    @"password":self.password.text
                                    };
+         
+            NSMutableDictionary *mdstr = @{
+                                          @"timestamp": timeStr,
+                                          @"app": @"ios",
+                                          @"telephone":self.mobile.text,
+                                          @"code":self.verify.text,
+                                          @"password":self.password.text
+                                          }.mutableCopy;
+            
+            NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+//            NSLog(@"-time=%@--md-%@--",timeStr,md5Str);
+
             if (self.isRegister) {
                 [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
                     request.url = RegisterApp;
+                    request.httpMethod = kXMHTTPMethodPOST;
                     request.parameters = dict;
+                    request.headers = @{ @"timestamp": timeStr,
+                                         @"app": @"ios",
+                                         @"sign":md5Str,
+                                         };
                 } onSuccess:^(id  _Nullable responseObject) {
-                    DSLog(@"注册成功===%@",responseObject);
+                    DSLog(@"注册成功===%@",responseObject[@"id"]);
+//                    写入
+                                        SetUserDefaults(responseObject[@"id"], UID);
+//                                        SetUserDefaults(data[@"ptoken"], TOKEN);
+                                        SetUserDefaults(HADLOGIN, HADLOGIN);
+                                        SetUserDefaults(self.mobile.text, UserPhone);
+                                        //控制器跳转
+                                        [self dismissViewControllerAnimated:YES completion:nil];
+                } onFailure:^(NSError * _Nullable error) {
+                    DSLog(@"注册失败===%@",error);
+
+                }];
+              
+            }else{
+                [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                    request.url = SubmitNewPass;
+                    request.httpMethod = kXMHTTPMethodPOST;
+                    request.parameters = dict;
+                    request.headers = @{ @"timestamp": timeStr,
+                                         @"app": @"ios",
+                                         @"sign":md5Str,
+                                         };
+                } onSuccess:^(id  _Nullable responseObject) {
+                    DSLog(@"修改mm成功===%@",responseObject);
+                    //控制器跳转
+                    //                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    //                    //这里是否要自动登录？
                 } onFailure:^(NSError * _Nullable error) {
                     
                 }];
-//                [XDNetworking postWithUrl:RegisterApp refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-//                    DSLog(@"注册成功");
-//                    NSDictionary * data = response[@"data"];
-//                    //写入
-//                    SetUserDefaults(data[@"uid"], UID);
-//                    SetUserDefaults(data[@"ptoken"], TOKEN);
-//                    SetUserDefaults(HADLOGIN, HADLOGIN);
-//                    SetUserDefaults(self.mobile.text, UserPhone);
-//                    //控制器跳转
-//                    [self.navigationController popToRootViewControllerAnimated:YES];
-//                } failBlock:^(NSError *error) {
-//                    DSLog(@"%@",error);
-//                }];
-            }else{
-                [XDNetworking postWithUrl:SubmitNewPass refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-                    DSLog(@"修改成功");
-                    //控制器跳转
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                    //这里是否要自动登录？
-                    
-                } failBlock:^(NSError *error) {
-                    DSLog(@"%@",error);
-                }];
+
             }
         }
     }

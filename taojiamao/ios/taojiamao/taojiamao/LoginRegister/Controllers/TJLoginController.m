@@ -372,7 +372,7 @@
         if (self.phoneNumF.text==nil || self.phoneNumF.text.length==0) {
             DSLog(@"手机号不能为空");
         }else{
-            [[TJGetVerifyCode sharedInstance] getVerityWithURL:@"" withParams:@{@"mobile":self.phoneNumF.text} withButton:self.getVerifyCode withBlock:^(BOOL isGood) {
+            [[TJGetVerifyCode sharedInstance] getVerityWithURL:GETVerfityCode withParams:@{@"telephone":self.phoneNumF.text} withButton:self.getVerifyCode withBlock:^(BOOL isGood) {
                 if (isGood) {
                     DSLog(@"收到短信了 ");
                 }else{
@@ -384,72 +384,54 @@
 //        关闭vc
         [self dismissViewControllerAnimated:YES completion:nil];
     }else{
-        if (self.preBtn.tag==0) {
+
             DSLog(@"账号登录");
             if (self.userNameF.text==nil || self.userNameF.text.length==0||self.passwordF.text==nil||self.passwordF.text.length==0) {
                 DSLog(@"有值为空");
             }else{
                 NSDictionary * dict = @{
-                                        @"mobile":self.userNameF.text,
-                                        @"password":self.passwordF.text
+                                        @"telephone":self.userNameF.text,
+                                        @"password":self.passwordF.text,
+                                        @"status":@(self.preBtn.tag+1),
                                         };
+                KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+                NSString *timeStr = [MD5 timeStr];
+                NSMutableDictionary *md = @{
+                                               @"timestamp": timeStr,
+                                               @"app": @"ios",
+                                               @"telephone":self.userNameF.text,
+                                               @"password":self.passwordF.text,
+                                               @"status":@(self.preBtn.tag+1),
+                                               }.mutableCopy;
+                
+                NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
                 [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
                     request.url =LoginWithUserName;
                     request.parameters = dict;
+                    request.headers = @{@"timestamp": timeStr,
+                                        @"app": @"ios",
+                                        @"sign":md5Str,};
                     request.httpMethod = kXMHTTPMethodPOST;
                 }onSuccess:^(id  _Nullable responseObject) {
                     
-                    NSLog(@"----login--%@",responseObject);
-                } onFailure:^(NSError * _Nullable error) {
                     
+                    //写入
+                    NSDictionary * data = responseObject[@"data"];
+                    SetUserDefaults(data[@"id"], UID);
+                    SetUserDefaults(HADLOGIN, HADLOGIN);
+                    NSLog(@"----login-success-%@===ID%@",responseObject,data[@"id"]);
+                    //控制器跳转
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                } onFailure:^(NSError * _Nullable error) {
+                    NSLog(@"----login-≈≈error-%@",error);
+
                 }];
-//                [XDNetworking postWithUrl:LoginWithUserName refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-//                    DSLog(@"登录成功");
-//                    //写入
-//                    NSDictionary * data = response[@"data"];
-//                    SetUserDefaults(data[@"uid"], UID);
-//                    SetUserDefaults(data[@"token"], TOKEN);
-//                    SetUserDefaults(HADLOGIN, HADLOGIN);
-//                    //控制器跳转
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                } failBlock:^(NSError *error) {
-//                    DSLog(@"%@",error);
-//                }];
+
             }
-        }else{
-            DSLog(@"快捷登录");
-        }
+
     }
 }
 
-#pragma mark - setShareViewSubs
-//-(void)setShareViewSubs{
-//    self.shareView = [[UIView alloc]init];
-//    self.shareView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:self.shareView];
-//    WeakSelf
-//    [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
-//    make.top.mas_equalTo(weakSelf.cutOffRule.mas_bottom).offset(100);
-//
-//        make.bottom.left.right.equalTo(weakSelf.view);
-//    }];
-//
-//
-//    CGFloat btnW = 50*W_Scale;
-//    CGFloat btnH = 50*H_Scale;
-//    CGFloat b = (S_W-2*35-3*btnW)/2;
-//    for (int i = 0; i<3; i++) {
-//        UIButton * shareBtn = [[UIButton alloc]init];
-//        shareBtn.tag = i;
-//        shareBtn.frame = CGRectMake(b+(btnW+35)*i, 0, btnW, btnH);
-//        shareBtn.backgroundColor = RandomColor;
-//        [self.shareView addSubview:shareBtn];
-//
-//         [shareBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchDown];
-//
-//
-//    }
-//}
 
 #pragma mark - 切换登录方式
 - (void)shareBtnClick:(UIButton *)sender

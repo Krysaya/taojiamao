@@ -20,7 +20,7 @@
 #import "TJLoginController.h"
 
 #import "TJCollectController.h"
-#import "TJMineAssetController.h"
+#import "TJMyAssetsController.h"
 #import "TJMineOrderController.h"
 #import "TJMyFootPrintController.h"
 
@@ -312,7 +312,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
 //        我的资产
-        TJMineAssetController *assetVC = [[TJMineAssetController alloc]init];
+        TJMyAssetsController *assetVC = [[TJMyAssetsController alloc]init];
         [self.navigationController pushViewController:assetVC animated:YES];
     }else if (indexPath.row==1){
 //    我的订单

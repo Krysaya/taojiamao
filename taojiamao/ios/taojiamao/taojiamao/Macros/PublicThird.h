@@ -9,10 +9,15 @@
 #ifndef PublicThird_h
 #define PublicThird_h
 
-#endif
+
+
+#ifdef __OBJC__
+
 #import "KSortingAndMD5.h"
 #import "MJExtension.h"
 #import "XDNetworking.h"
+#import "XMNetworking.h"
+#import "ZJScrollPageView.h"
 #import "NSString+Hash.h"
 #import "IQKeyboardManager.h"
 #import "Masonry.h"
@@ -39,31 +44,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#endif
 
 #endif /* PublicThird_h */
 

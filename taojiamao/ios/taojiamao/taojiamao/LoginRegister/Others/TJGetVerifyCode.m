@@ -34,60 +34,46 @@
     NSString * mobile = param[@"telephone"];
     if ([TJOverallJudge judgeMobile:mobile]) {
         but.userInteractionEnabled = NO;
-        NSInteger phoneNum = [mobile integerValue];
-        NSDictionary * dict = @{@"telephone":@(phoneNum)};
+//        NSInteger phoneNum = [mobile integerValue];
+        NSDictionary * dict = @{@"telephone":mobile};
         KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
         NSString *timeStr = [MD5 timeStr];
         NSMutableDictionary *head = @{
             @"timestamp": timeStr,
              @"app": @"ios",
-            @"telephone": @(phoneNum),
+            @"telephone": mobile,
         }.mutableCopy;
                             
         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:head withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
-        NSLog(@"-time=%@--md-%@--",timeStr,md5Str);
+    
         
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
             request.url = url;
             request.parameters = dict;
+            request.httpMethod = kXMHTTPMethodPOST;
+            request.responseSerializerType = kXMResponseSerializerRAW;
+            
             request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str};
         } onSuccess:^(id  _Nullable responseObject) {
             NSLog(@"----code-success==%@",responseObject);
 
-            NSNumber * code = responseObject[@"code"];
-            int codeNum = [code intValue];
-            if (codeNum==0) {
-                DSLog(@"发送成功");
-                //                [self openCountdown];
-                if (sms) sms(YES);
-            }else{
-                DSLog(@"失败");
-                but.userInteractionEnabled = YES;
-                if (sms) sms(NO);
-            }
-        } onFailure:^(NSError * _Nullable error) {
-            if (sms) sms(NO);
-            but.userInteractionEnabled = YES;
-        }];
-        
-//        [XDNetworking postWithUrl:url refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-//            DSLog(@"%@",response);
-//            NSNumber * code = response[@"err_code"];
+//            NSInteger  code = responseObject[@"code"];
 //            int codeNum = [code intValue];
-//            if (codeNum==200) {
+//            if (codeNum==100) {
 //                DSLog(@"发送成功");
-////                [self openCountdown];
+//                //                [self openCountdown];
 //                if (sms) sms(YES);
 //            }else{
 //                DSLog(@"失败");
 //                but.userInteractionEnabled = YES;
 //                if (sms) sms(NO);
 //            }
-//        } failBlock:^(NSError *error) {
-//            DSLog(@"%@",error);
-//            if (sms) sms(NO);
-//            but.userInteractionEnabled = YES;
-//        }];
+        } onFailure:^(NSError * _Nullable error) {
+            NSLog(@"------code==error==%@",error);
+            if (sms) sms(NO);
+            but.userInteractionEnabled = YES;
+        }];
+    
     }else{
         NSLog(@"手机号格式不正确");
         if (sms) sms(NO);

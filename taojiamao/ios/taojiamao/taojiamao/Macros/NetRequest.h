@@ -24,7 +24,7 @@ static NSString * const UserPhone = @"UserPhone";
 
 
 //1基础接口
-#define BASEURL @"http://api.taojiamao.net"
+#define BASEURL @"http://dev.api.taojiamao.net"
 //2启动页
 #define LaunchImage              [BASEURL stringByAppendingString:@"/api.php?s=index/qad"]
 //3首页商品分类
@@ -34,19 +34,22 @@ static NSString * const UserPhone = @"UserPhone";
 //5首页中部分类模块
 #define HOMEMiddleModule         [BASEURL stringByAppendingString:@"/api.php?s=index/modle"]
 //6获取验证码
-#define GETVerfityCode           [BASEURL stringByAppendingString:@"/api.php?s=login/sendcodeapi"]
+#define GETVerfityCode           [BASEURL stringByAppendingString:@"/v1/members/vcode"]
 //7注册
-#define RegisterApp              [BASEURL stringByAppendingString:@"/api.php?s=login/register"]
+#define RegisterApp              [BASEURL stringByAppendingString:@"/v1/members/register"]
 //8登录
-#define LoginWithUserName        [BASEURL stringByAppendingString:@"/api.php?s=login/login"]
+#define LoginWithUserName        [BASEURL stringByAppendingString:@"/v1/members/login"]
 //9登录成功后的用户数据
 #define LoginedUserData          [BASEURL stringByAppendingString:@"/api.php?s=My/index"]
 //10余额明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/api.php?s=My/Accountbalance"]
-//11忘记密码获取验证码
-#define FPGetVerfity             [BASEURL stringByAppendingString:@"/api.php?s=login/sendcodeByfoundpassword"]
-//12忘记密码提交新密码
-#define SubmitNewPass            [BASEURL stringByAppendingString:@"/api.php?s=login/setpasswordByreset"]
+//11修改密码
+#define EditPassWord             [BASEURL stringByAppendingString:@"/v1/members/epass"]
+
+//修改手机号
+#define EditTelePhoneNum         [BASEURL stringByAppendingString:@"/v1/members/etele"]
+//12忘记 找回密码
+#define SubmitNewPass            [BASEURL stringByAppendingString:@"/v1/members/fpass"]
 //13客户帮助
 #define UserAssistance           [BASEURL stringByAppendingString:@"/api.php?s=My/kefu"]
 //14客户帮助详情

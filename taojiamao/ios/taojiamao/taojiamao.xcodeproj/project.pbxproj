@@ -17,6 +17,18 @@
 		C713C835209AFFAD000A125B /* TJMiddleModelsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C713C834209AFFAD000A125B /* TJMiddleModelsCollectionCell.m */; };
 		C713C838209B0C1C000A125B /* TJRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = C713C837209B0C1C000A125B /* TJRegisterController.m */; };
 		C713C83B209B22D7000A125B /* TJTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = C713C83A209B22D7000A125B /* TJTextFieldView.m */; };
+		C71787772105844E009A2034 /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C717876B2105844E009A2034 /* UIViewController+WMPageController.m */; };
+		C71787782105844E009A2034 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C717876E2105844E009A2034 /* WMMenuItem.m */; };
+		C71787792105844E009A2034 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C71787702105844E009A2034 /* WMMenuView.m */; };
+		C717877A2105844E009A2034 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C71787722105844E009A2034 /* WMProgressView.m */; };
+		C717877B2105844E009A2034 /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C71787742105844E009A2034 /* WMScrollView.m */; };
+		C717877C2105844E009A2034 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71787762105844E009A2034 /* WMPageController.m */; };
+		C71787802105BD42009A2034 /* TJMyAssetsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C717877E2105BD42009A2034 /* TJMyAssetsController.m */; };
+		C71787812105BD42009A2034 /* TJMyAssetsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C717877F2105BD42009A2034 /* TJMyAssetsController.xib */; };
+		C71787852105CC23009A2034 /* TJAssetsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71787842105CC23009A2034 /* TJAssetsDetailController.m */; };
+		C71787882105D25F009A2034 /* TJDetailListController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71787872105D25F009A2034 /* TJDetailListController.m */; };
+		C717878C2105D2A4009A2034 /* TJDetailListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C717878A2105D2A4009A2034 /* TJDetailListCell.m */; };
+		C717878D2105D2A4009A2034 /* TJDetailListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C717878B2105D2A4009A2034 /* TJDetailListCell.xib */; };
 		C7181E0320AA679D00AEC7D5 /* TJLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7181E0220AA679D00AEC7D5 /* TJLabel.m */; };
 		C7181E0620AA6F8400AEC7D5 /* TJTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C7181E0520AA6F8400AEC7D5 /* TJTextField.m */; };
 		C7181E0920AAB72900AEC7D5 /* TJHomeFootShowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7181E0820AAB72900AEC7D5 /* TJHomeFootShowModel.m */; };
@@ -333,12 +345,6 @@
 		C77D0EB420A41D88000F794A /* TJOrderClaimDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EB320A41D88000F794A /* TJOrderClaimDetailsController.m */; };
 		C77D0EB720A421A4000F794A /* TJOCDContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EB620A421A4000F794A /* TJOCDContentController.m */; };
 		C77D0EBA20A43C0B000F794A /* TJOCDContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EB920A43C0B000F794A /* TJOCDContentCell.m */; };
-		C77D0EC920A45D9E000F794A /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EBD20A45D9E000F794A /* UIViewController+WMPageController.m */; };
-		C77D0ECA20A45D9E000F794A /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EC020A45D9E000F794A /* WMMenuItem.m */; };
-		C77D0ECB20A45D9E000F794A /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EC220A45D9E000F794A /* WMMenuView.m */; };
-		C77D0ECC20A45D9E000F794A /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EC420A45D9E000F794A /* WMProgressView.m */; };
-		C77D0ECD20A45D9E000F794A /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EC620A45D9E000F794A /* WMScrollView.m */; };
-		C77D0ECE20A45D9E000F794A /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0EC820A45D9E000F794A /* WMPageController.m */; };
 		C7808FEA20E60E4600938A26 /* KSortingAndMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C7808FE920E60E4600938A26 /* KSortingAndMD5.m */; };
 		C7861D9F20FC70EC0056574A /* TJMyFootPrintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7861D9D20FC70EC0056574A /* TJMyFootPrintCell.m */; };
 		C7861DA020FC70EC0056574A /* TJMyFootPrintCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7861D9E20FC70EC0056574A /* TJMyFootPrintCell.xib */; };
@@ -425,7 +431,6 @@
 		C7DE68A9209985DC00160435 /* PGIndexBannerSubiew.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DE68A7209985DC00160435 /* PGIndexBannerSubiew.m */; };
 		C7E6D47C20A939C70019C827 /* TJChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D47B20A939C70019C827 /* TJChangePhoneController.m */; };
 		C7E6D47F20A96C4B0019C827 /* TJBindTBController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D47E20A96C4B0019C827 /* TJBindTBController.m */; };
-		C7E6D48220A977700019C827 /* TJMineAssetController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48120A977700019C827 /* TJMineAssetController.m */; };
 		C7E6D48520A97CEA0019C827 /* TJMineAssetDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48420A97CEA0019C827 /* TJMineAssetDetailsController.m */; };
 		C7E6D48820A9AC260019C827 /* TJMineJFBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48720A9AC260019C827 /* TJMineJFBModel.m */; };
 		C7E6D48B20A9B02E0019C827 /* TJJFBExchangeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48A20A9B02E0019C827 /* TJJFBExchangeController.m */; };
@@ -469,6 +474,28 @@
 		C713C837209B0C1C000A125B /* TJRegisterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJRegisterController.m; sourceTree = "<group>"; };
 		C713C839209B22D7000A125B /* TJTextFieldView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTextFieldView.h; sourceTree = "<group>"; };
 		C713C83A209B22D7000A125B /* TJTextFieldView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTextFieldView.m; sourceTree = "<group>"; };
+		C717876A2105844E009A2034 /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
+		C717876B2105844E009A2034 /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
+		C717876D2105844E009A2034 /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
+		C717876E2105844E009A2034 /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
+		C717876F2105844E009A2034 /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
+		C71787702105844E009A2034 /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
+		C71787712105844E009A2034 /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
+		C71787722105844E009A2034 /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
+		C71787732105844E009A2034 /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
+		C71787742105844E009A2034 /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
+		C71787752105844E009A2034 /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
+		C71787762105844E009A2034 /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
+		C717877D2105BD42009A2034 /* TJMyAssetsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMyAssetsController.h; sourceTree = "<group>"; };
+		C717877E2105BD42009A2034 /* TJMyAssetsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMyAssetsController.m; sourceTree = "<group>"; };
+		C717877F2105BD42009A2034 /* TJMyAssetsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJMyAssetsController.xib; sourceTree = "<group>"; };
+		C71787832105CC23009A2034 /* TJAssetsDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAssetsDetailController.h; sourceTree = "<group>"; };
+		C71787842105CC23009A2034 /* TJAssetsDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAssetsDetailController.m; sourceTree = "<group>"; };
+		C71787862105D25F009A2034 /* TJDetailListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDetailListController.h; sourceTree = "<group>"; };
+		C71787872105D25F009A2034 /* TJDetailListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJDetailListController.m; sourceTree = "<group>"; };
+		C71787892105D2A4009A2034 /* TJDetailListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDetailListCell.h; sourceTree = "<group>"; };
+		C717878A2105D2A4009A2034 /* TJDetailListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJDetailListCell.m; sourceTree = "<group>"; };
+		C717878B2105D2A4009A2034 /* TJDetailListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJDetailListCell.xib; sourceTree = "<group>"; };
 		C7181E0120AA679D00AEC7D5 /* TJLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJLabel.h; sourceTree = "<group>"; };
 		C7181E0220AA679D00AEC7D5 /* TJLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJLabel.m; sourceTree = "<group>"; };
 		C7181E0420AA6F8400AEC7D5 /* TJTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTextField.h; sourceTree = "<group>"; };
@@ -1108,18 +1135,6 @@
 		C77D0EB620A421A4000F794A /* TJOCDContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJOCDContentController.m; sourceTree = "<group>"; };
 		C77D0EB820A43C0B000F794A /* TJOCDContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJOCDContentCell.h; sourceTree = "<group>"; };
 		C77D0EB920A43C0B000F794A /* TJOCDContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJOCDContentCell.m; sourceTree = "<group>"; };
-		C77D0EBC20A45D9E000F794A /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
-		C77D0EBD20A45D9E000F794A /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
-		C77D0EBF20A45D9E000F794A /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
-		C77D0EC020A45D9E000F794A /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
-		C77D0EC120A45D9E000F794A /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
-		C77D0EC220A45D9E000F794A /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
-		C77D0EC320A45D9E000F794A /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
-		C77D0EC420A45D9E000F794A /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
-		C77D0EC520A45D9E000F794A /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
-		C77D0EC620A45D9E000F794A /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
-		C77D0EC720A45D9E000F794A /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
-		C77D0EC820A45D9E000F794A /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
 		C7808FE820E60E4500938A26 /* KSortingAndMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSortingAndMD5.h; sourceTree = "<group>"; };
 		C7808FE920E60E4600938A26 /* KSortingAndMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSortingAndMD5.m; sourceTree = "<group>"; };
 		C7861D9C20FC70EC0056574A /* TJMyFootPrintCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMyFootPrintCell.h; sourceTree = "<group>"; };
@@ -1286,8 +1301,6 @@
 		C7E6D47B20A939C70019C827 /* TJChangePhoneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJChangePhoneController.m; sourceTree = "<group>"; };
 		C7E6D47D20A96C4B0019C827 /* TJBindTBController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBindTBController.h; sourceTree = "<group>"; };
 		C7E6D47E20A96C4B0019C827 /* TJBindTBController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBindTBController.m; sourceTree = "<group>"; };
-		C7E6D48020A977700019C827 /* TJMineAssetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMineAssetController.h; sourceTree = "<group>"; };
-		C7E6D48120A977700019C827 /* TJMineAssetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMineAssetController.m; sourceTree = "<group>"; };
 		C7E6D48320A97CEA0019C827 /* TJMineAssetDetailsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMineAssetDetailsController.h; sourceTree = "<group>"; };
 		C7E6D48420A97CEA0019C827 /* TJMineAssetDetailsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMineAssetDetailsController.m; sourceTree = "<group>"; };
 		C7E6D48620A9AC260019C827 /* TJMineJFBModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMineJFBModel.h; sourceTree = "<group>"; };
@@ -1338,6 +1351,44 @@
 				C704044720AE6A5F001D720A /* XHWebImageAutoSizeConst.m */,
 			);
 			path = XHWebImageAutoSize;
+			sourceTree = "<group>";
+		};
+		C71787692105844E009A2034 /* WMPageController */ = {
+			isa = PBXGroup;
+			children = (
+				C717876A2105844E009A2034 /* UIViewController+WMPageController.h */,
+				C717876B2105844E009A2034 /* UIViewController+WMPageController.m */,
+				C717876C2105844E009A2034 /* WMMenuView */,
+				C71787752105844E009A2034 /* WMPageController.h */,
+				C71787762105844E009A2034 /* WMPageController.m */,
+			);
+			path = WMPageController;
+			sourceTree = "<group>";
+		};
+		C717876C2105844E009A2034 /* WMMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				C717876D2105844E009A2034 /* WMMenuItem.h */,
+				C717876E2105844E009A2034 /* WMMenuItem.m */,
+				C717876F2105844E009A2034 /* WMMenuView.h */,
+				C71787702105844E009A2034 /* WMMenuView.m */,
+				C71787712105844E009A2034 /* WMProgressView.h */,
+				C71787722105844E009A2034 /* WMProgressView.m */,
+				C71787732105844E009A2034 /* WMScrollView.h */,
+				C71787742105844E009A2034 /* WMScrollView.m */,
+			);
+			path = WMMenuView;
+			sourceTree = "<group>";
+		};
+		C71787822105CBB0009A2034 /* 明细 */ = {
+			isa = PBXGroup;
+			children = (
+				C71787832105CC23009A2034 /* TJAssetsDetailController.h */,
+				C71787842105CC23009A2034 /* TJAssetsDetailController.m */,
+				C71787862105D25F009A2034 /* TJDetailListController.h */,
+				C71787872105D25F009A2034 /* TJDetailListController.m */,
+			);
+			path = "明细";
 			sourceTree = "<group>";
 		};
 		C7206BE320A0031A00957A4A /* XHLaunchAd */ = {
@@ -2111,6 +2162,7 @@
 		C73FC7A520901BC700732F2D /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
+				C71787692105844E009A2034 /* WMPageController */,
 				C7C72F3A2101CD0F0087A8CB /* MJExtension */,
 				C74D8933210031C40098754C /* SGActionView */,
 				C7B9948020F884B000DFFC98 /* ZJScrollPageView */,
@@ -2118,7 +2170,6 @@
 				C77CD3E920F5F7D7003A55FC /* FSCalendar */,
 				C704043B20AE6A5F001D720A /* XHWebImageAutoSize */,
 				C78E5C9820ABB5E600C9C1BF /* MJRefresh */,
-				C77D0EBB20A45D9E000F794A /* WMPageController */,
 				C77D0E5F20A3ED5B000F794A /* YYText */,
 				C758CC0220A2FCD0000F1903 /* MOFSPickerManager */,
 				C7249B1F20A173F000BB385E /* UITableView-FDTemplateLayoutCell */,
@@ -2465,8 +2516,10 @@
 		C74DFFA320F7547100D83ACF /* 我的资产 */ = {
 			isa = PBXGroup;
 			children = (
-				C7E6D48020A977700019C827 /* TJMineAssetController.h */,
-				C7E6D48120A977700019C827 /* TJMineAssetController.m */,
+				C71787822105CBB0009A2034 /* 明细 */,
+				C717877F2105BD42009A2034 /* TJMyAssetsController.xib */,
+				C717877E2105BD42009A2034 /* TJMyAssetsController.m */,
+				C717877D2105BD42009A2034 /* TJMyAssetsController.h */,
 				C7E6D48320A97CEA0019C827 /* TJMineAssetDetailsController.h */,
 				C7E6D48420A97CEA0019C827 /* TJMineAssetDetailsController.m */,
 				C7E6D48920A9B02E0019C827 /* TJJFBExchangeController.h */,
@@ -2909,33 +2962,6 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		C77D0EBB20A45D9E000F794A /* WMPageController */ = {
-			isa = PBXGroup;
-			children = (
-				C77D0EBC20A45D9E000F794A /* UIViewController+WMPageController.h */,
-				C77D0EBD20A45D9E000F794A /* UIViewController+WMPageController.m */,
-				C77D0EBE20A45D9E000F794A /* WMMenuView */,
-				C77D0EC720A45D9E000F794A /* WMPageController.h */,
-				C77D0EC820A45D9E000F794A /* WMPageController.m */,
-			);
-			path = WMPageController;
-			sourceTree = "<group>";
-		};
-		C77D0EBE20A45D9E000F794A /* WMMenuView */ = {
-			isa = PBXGroup;
-			children = (
-				C77D0EBF20A45D9E000F794A /* WMMenuItem.h */,
-				C77D0EC020A45D9E000F794A /* WMMenuItem.m */,
-				C77D0EC120A45D9E000F794A /* WMMenuView.h */,
-				C77D0EC220A45D9E000F794A /* WMMenuView.m */,
-				C77D0EC320A45D9E000F794A /* WMProgressView.h */,
-				C77D0EC420A45D9E000F794A /* WMProgressView.m */,
-				C77D0EC520A45D9E000F794A /* WMScrollView.h */,
-				C77D0EC620A45D9E000F794A /* WMScrollView.m */,
-			);
-			path = WMMenuView;
-			sourceTree = "<group>";
-		};
 		C7861DA120FC77F30056574A /* 我的收藏 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3174,6 +3200,9 @@
 		C7B994A520F89A8200DFFC98 /* 我的资产 */ = {
 			isa = PBXGroup;
 			children = (
+				C71787892105D2A4009A2034 /* TJDetailListCell.h */,
+				C717878A2105D2A4009A2034 /* TJDetailListCell.m */,
+				C717878B2105D2A4009A2034 /* TJDetailListCell.xib */,
 			);
 			path = "我的资产";
 			sourceTree = "<group>";
@@ -3357,6 +3386,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C71787812105BD42009A2034 /* TJMyAssetsController.xib in Resources */,
 				C76BA5F620FD95DD006C749B /* TJHeadLineThreeCell.xib in Resources */,
 				C75F64B920EF1DE600B55B8B /* TJJHSuanCell.xib in Resources */,
 				C74D894C2100769A0098754C /* TJCommentsReplyCell.xib in Resources */,
@@ -3389,6 +3419,7 @@
 				C76260F120FEDDA0006889DF /* TJCollectionClassicCell.xib in Resources */,
 				C758CC1620A2FCD1000F1903 /* province_data.xml in Resources */,
 				C78E5CD520ABB5E700C9C1BF /* MJRefresh.bundle in Resources */,
+				C717878D2105D2A4009A2034 /* TJDetailListCell.xib in Resources */,
 				C74DFFAF20F75ABF00D83ACF /* TJGoodsListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3436,7 +3467,6 @@
 				C7292AF22095CF0F00073099 /* SDImageCache.m in Sources */,
 				C7292AA62095CA7700073099 /* TAAbstractDotView.m in Sources */,
 				C73FC81D209025CE00732F2D /* UIProgressView+AFNetworking.m in Sources */,
-				C77D0ECD20A45D9E000F794A /* WMScrollView.m in Sources */,
 				C74099F32091CF3600DFCC94 /* IQUIScrollView+Additions.m in Sources */,
 				C7206BFF20A0031A00957A4A /* XHLaunchAdController.m in Sources */,
 				C77CD41020F5F7D8003A55FC /* FSCalendarCollectionView.m in Sources */,
@@ -3450,6 +3480,7 @@
 				C7C72F34210184460087A8CB /* TJInvitationView.m in Sources */,
 				C77D0E9A20A3ED5B000F794A /* YYTextLine.m in Sources */,
 				C7206BFE20A0031A00957A4A /* XHLaunchAdConst.m in Sources */,
+				C71787802105BD42009A2034 /* TJMyAssetsController.m in Sources */,
 				C78E5CD220ABB5E700C9C1BF /* MJRefreshGifHeader.m in Sources */,
 				C7249B0F20A1432400BB385E /* TJBalanceDetailsModel.m in Sources */,
 				C7B9947520F8461700DFFC98 /* SJAttributeWorker.m in Sources */,
@@ -3473,7 +3504,6 @@
 				C7249B0B20A1418500BB385E /* UIImage+TJCircleImage.m in Sources */,
 				C7206BFB20A0031A00957A4A /* XHLaunchAdButton.m in Sources */,
 				C742A31A2099DA260026311A /* MyLayoutPos.m in Sources */,
-				C77D0EC920A45D9E000F794A /* UIViewController+WMPageController.m in Sources */,
 				C78E5CD120ABB5E700C9C1BF /* MJRefreshBackStateFooter.m in Sources */,
 				C7C72F532101CD0F0087A8CB /* MJFoundation.m in Sources */,
 				C722E63B20A138F300EE9D61 /* UIViewController+Cloudox.m in Sources */,
@@ -3515,6 +3545,7 @@
 				C77CD41520F5F7D8003A55FC /* FSCalendarExtensions.m in Sources */,
 				C720EDBF20907293007AA53C /* TJTabBarController.m in Sources */,
 				C74D894621003C790098754C /* TJMoreCommentsCell.m in Sources */,
+				C71787882105D25F009A2034 /* TJDetailListController.m in Sources */,
 				C742A3132099DA260026311A /* MyFloatLayout.m in Sources */,
 				C76BA5F020FD9003006C749B /* TJHeadLineTwoCell.m in Sources */,
 				C758914B2092B85D00AC085E /* ViewController+MASAdditions.m in Sources */,
@@ -3533,6 +3564,7 @@
 				C76A61C020EC621A000B747C /* TJMiddleView.m in Sources */,
 				C76BA60520FDC0E6006C749B /* TJHeadLineShareCell.m in Sources */,
 				C73FC760209017FD00732F2D /* ViewController.m in Sources */,
+				C717877A2105844E009A2034 /* WMProgressView.m in Sources */,
 				C73FC81F209025CE00732F2D /* UIWebView+AFNetworking.m in Sources */,
 				C77D0EB120A3F770000F794A /* TJOrderClaimController.m in Sources */,
 				C7861DA420FC78B60056574A /* TJGoodsCollectModel.m in Sources */,
@@ -3608,7 +3640,6 @@
 				C78E5CCF20ABB5E700C9C1BF /* MJRefreshBackGifFooter.m in Sources */,
 				C78E5CCD20ABB5E700C9C1BF /* MJRefreshAutoNormalFooter.m in Sources */,
 				C77CD40F20F5F7D8003A55FC /* FSCalendarCell.m in Sources */,
-				C77D0ECE20A45D9E000F794A /* WMPageController.m in Sources */,
 				C77CD41A20F5F7D8003A55FC /* FSCalendarWeekdayView.m in Sources */,
 				C79BBA9820EA141A00506C66 /* TJMineOrderController.m in Sources */,
 				C786473420F3410A00995A8F /* TJClassTwoCell.m in Sources */,
@@ -3652,12 +3683,12 @@
 				C742A3152099DA260026311A /* MyFrameLayout.m in Sources */,
 				C758CBF820A2C620000F1903 /* TJMyAddressController.m in Sources */,
 				C704044D20AE6A60001D720A /* XHWebImageAutoSizeConst.m in Sources */,
+				C71787852105CC23009A2034 /* TJAssetsDetailController.m in Sources */,
 				C7292AEF2095CF0F00073099 /* NSData+ImageContentType.m in Sources */,
 				C758915B2092D01300AC085E /* TJTQGouController.m in Sources */,
 				C704044820AE6A60001D720A /* NSString+XHWebImageAutoSize.m in Sources */,
 				C77D0E9E20A3ED5B000F794A /* YYTextAttribute.m in Sources */,
 				C73FC819209025CE00732F2D /* AFNetworkActivityIndicatorManager.m in Sources */,
-				C77D0ECA20A45D9E000F794A /* WMMenuItem.m in Sources */,
 				C742A31D2099DA260026311A /* MyLinearLayout.m in Sources */,
 				C77CD41720F5F7D8003A55FC /* FSCalendarScopeHandle.m in Sources */,
 				C786473820F34FC400995A8F /* TJHomeSignController.m in Sources */,
@@ -3679,7 +3710,6 @@
 				C77D0EA320A3ED5B000F794A /* NSParagraphStyle+YYText.m in Sources */,
 				C7292AED2095CF0F00073099 /* MKAnnotationView+WebCache.m in Sources */,
 				C713C83B209B22D7000A125B /* TJTextFieldView.m in Sources */,
-				C7E6D48220A977700019C827 /* TJMineAssetController.m in Sources */,
 				C7292AFE2095CF0F00073099 /* SDWebImagePrefetcher.m in Sources */,
 				C7206C0C20A025B700957A4A /* TJLaunchAdManager.m in Sources */,
 				C7292AF42095CF0F00073099 /* SDWebImageCoder.m in Sources */,
@@ -3704,7 +3734,6 @@
 				C77D0EA120A3ED5B000F794A /* YYTextRunDelegate.m in Sources */,
 				C758915E2092D02E00AC085E /* TJCQuanController.m in Sources */,
 				C756A27D20A92BE700EC5FEB /* TJBaseTableCell.m in Sources */,
-				C77D0ECB20A45D9E000F794A /* WMMenuView.m in Sources */,
 				C720EDB920906E1F007AA53C /* TJtestViewController.m in Sources */,
 				C732067E20EDF43700E480A8 /* TJTQGContentCell.m in Sources */,
 				C7292AF02095CF0F00073099 /* NSImage+WebCache.m in Sources */,
@@ -3713,7 +3742,6 @@
 				C7861DAD20FC9D210056574A /* TJProjectController.m in Sources */,
 				C7B9947820F84B5800DFFC98 /* UIViewController+Extension.m in Sources */,
 				C77D0E9C20A3ED5B000F794A /* YYTextSelectionView.m in Sources */,
-				C77D0ECC20A45D9E000F794A /* WMProgressView.m in Sources */,
 				C78E5CE020ABDA0300C9C1BF /* TJDrawMoneyController.m in Sources */,
 				C78E5CCE20ABB5E700C9C1BF /* MJRefreshAutoStateFooter.m in Sources */,
 				C76EB41420B3A8F300D297D5 /* TJPopularizeCollectCell.m in Sources */,
@@ -3726,13 +3754,16 @@
 				C74099FC2091CF3600DFCC94 /* IQPreviousNextView.m in Sources */,
 				C74C31AE20B2DDE70074AC00 /* TJPopularizeController.m in Sources */,
 				C73FC75D209017FD00732F2D /* AppDelegate.m in Sources */,
+				C717877C2105844E009A2034 /* WMPageController.m in Sources */,
 				C78E5CD020ABB5E700C9C1BF /* MJRefreshBackNormalFooter.m in Sources */,
 				C78E5CD820ABB5E700C9C1BF /* UIScrollView+MJExtension.m in Sources */,
 				C713C838209B0C1C000A125B /* TJRegisterController.m in Sources */,
 				C77D0EA720A3ED5B000F794A /* YYTextTransaction.m in Sources */,
+				C71787782105844E009A2034 /* WMMenuItem.m in Sources */,
 				C72A72C1209D54B3001CAC75 /* UIView+PYSearchExtension.m in Sources */,
 				C74520CA20AD626200FE4217 /* TJGoodsDetailsCompanyCell.m in Sources */,
 				C7292AA82095CA7700073099 /* TADotView.m in Sources */,
+				C71787772105844E009A2034 /* UIViewController+WMPageController.m in Sources */,
 				C74DFFAE20F75ABF00D83ACF /* TJGoodsListCell.m in Sources */,
 				C72A72C0209D54B3001CAC75 /* UIColor+PYSearchExtension.m in Sources */,
 				C76BA5FC20FD98ED006C749B /* TJHeadLineController.m in Sources */,
@@ -3784,11 +3815,13 @@
 				C74D8941210031C40098754C /* SGGridMenu.m in Sources */,
 				C7B9949220F884B000DFFC98 /* UIView+ZJFrame.m in Sources */,
 				C73FC813209025CE00732F2D /* AFSecurityPolicy.m in Sources */,
+				C717877B2105844E009A2034 /* WMScrollView.m in Sources */,
 				C73FC815209025CE00732F2D /* AFURLResponseSerialization.m in Sources */,
 				C73FC820209025CE00732F2D /* XD_LRUManager.m in Sources */,
 				C77CD41920F5F7D8003A55FC /* FSCalendarTransitionCoordinator.m in Sources */,
 				C7206C1820A0490E00957A4A /* TJUserDataModel.m in Sources */,
 				C7292A462095A4BF00073099 /* TJBannerView.m in Sources */,
+				C717878C2105D2A4009A2034 /* TJDetailListCell.m in Sources */,
 				C74C31A820B294CD0074AC00 /* TJMiddleClickController.m in Sources */,
 				C77D0E9820A3ED5B000F794A /* YYTextKeyboardManager.m in Sources */,
 				C738F08520B66A7200758C72 /* TJSearchContentController.m in Sources */,
@@ -3797,6 +3830,7 @@
 				C763617E20B5593E002F239F /* TJVipFansContentCell.m in Sources */,
 				C7181E0920AAB72900AEC7D5 /* TJHomeFootShowModel.m in Sources */,
 				C7292AEC2095CF0F00073099 /* FLAnimatedImageView+WebCache.m in Sources */,
+				C71787792105844E009A2034 /* WMMenuView.m in Sources */,
 				C7292A2E2095566700073099 /* NSObject+YYModel.m in Sources */,
 				C74099F62091CF3600DFCC94 /* IQUIViewController+Additions.m in Sources */,
 				C7DE68A220995F5A00160435 /* TJSDCFlowLayout.m in Sources */,
@@ -3971,7 +4005,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6TW7Q4NSX;
-				GCC_PREFIX_HEADER = "/Users/yueyu/Desktop/淘价猫/taojiamao/taojiamao/Macros/PrefixHeader.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = taojiamao/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3991,7 +4026,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6TW7Q4NSX;
-				GCC_PREFIX_HEADER = "/Users/yueyu/Desktop/淘价猫/taojiamao/taojiamao/Macros/PrefixHeader.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = taojiamao/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (

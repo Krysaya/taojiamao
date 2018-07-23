@@ -32,6 +32,7 @@
     TJNavigationController *home = [[TJNavigationController alloc] initWithRootViewController:VC1];
     
     TJTQGouController *VC2 = [[TJTQGouController alloc] init];
+
     TJNavigationController *tqg = [[TJNavigationController alloc] initWithRootViewController:VC2];
 
     

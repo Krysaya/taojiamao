@@ -40,7 +40,9 @@
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
         make.left.mas_equalTo(5);
-        make.width.height.mas_equalTo(18);
+        make.width.mas_equalTo(16);
+        make.height.mas_equalTo(18);
+
     }];
     
     self.textfield = [[UITextField alloc]init];

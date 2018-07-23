@@ -223,14 +223,83 @@
     
     if (but.tag == CPGetVerify) {
         DSLog(@"获取验证码");
+        if (self.phoneField.text==nil || self.phoneField.text.length==0) {
+            DSLog(@"手机号不能为空");
+        }else{
+            
+            [[TJGetVerifyCode sharedInstance] getVerityWithURL:GETVerfityCode withParams:@{@"telephone":self.phoneField.text} withButton:self.getVerify withBlock:^(BOOL isGood) {
+                if (isGood) {
+                    DSLog(@"收到短信了 ");
+                }else{
+                    DSLog(@"服务器或者手机格式错误等造成发送失败");
+                }
+            }];
+            
+            
+        }
+        
     }else{
+        
+        KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+        NSString *timeStr = [MD5 timeStr];
+        NSDictionary * dict =@{
+                               @"telephone":self.phoneField.text,
+                               @"code":self.verifyField.text,
+                               @"password":self.passField.text
+                               };
+        
+        NSMutableDictionary *mdstr = @{
+                                       @"timestamp": timeStr,
+                                       @"app": @"ios",
+                                       @"telephone":self.phoneField.text,
+                                       @"code":self.verifyField.text,
+                                       @"password":self.passField.text
+                                       }.mutableCopy;
+        
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+        
+        
 
         if (self.vcID==0) {
             DSLog(@"修改手机号");
+            [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                request.url = EditTelePhoneNum;
+                request.httpMethod = kXMHTTPMethodPOST;
+                request.parameters = dict;
+                request.headers = @{ @"timestamp": timeStr,
+                                     @"app": @"ios",
+                                     @"sign":md5Str,
+                                     };
+            } onSuccess:^(id  _Nullable responseObject) {
+                DSLog(@"修改成功===%@",responseObject);
+                
+            } onFailure:^(NSError * _Nullable error) {
+                
+            }];
+            
         }else if (self.vcID==1){
             DSLog(@"绑定账户");
         }else{
             DSLog(@"修改密码");
+            if (self.phoneField.text==nil || self.phoneField.text.length==0 ||self.verifyField.text==nil || self.verifyField.text.length==0 ||self.passField.text==nil || self.passField.text.length==0 ) {
+                DSLog(@"有选项为空");
+            }else{
+                
+                [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                    request.url = EditPassWord;
+                    request.httpMethod = kXMHTTPMethodPOST;
+                    request.parameters = dict;
+                    request.headers = @{ @"timestamp": timeStr,
+                                         @"app": @"ios",
+                                         @"sign":md5Str,
+                                         };
+                } onSuccess:^(id  _Nullable responseObject) {
+                    DSLog(@"修改成功===%@",responseObject);
+
+                } onFailure:^(NSError * _Nullable error) {
+                
+                }];
+            }
         }
     }
 }
