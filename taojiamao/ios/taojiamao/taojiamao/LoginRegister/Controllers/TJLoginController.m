@@ -385,6 +385,10 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }else{
 
+        KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+        NSString *timeStr = [MD5 timeStr];
+        
+        if (self.preBtn.tag==0) {
             DSLog(@"账号登录");
             if (self.userNameF.text==nil || self.userNameF.text.length==0||self.passwordF.text==nil||self.passwordF.text.length==0) {
                 DSLog(@"有值为空");
@@ -392,17 +396,65 @@
                 NSDictionary * dict = @{
                                         @"telephone":self.userNameF.text,
                                         @"password":self.passwordF.text,
-                                        @"status":@(self.preBtn.tag+1),
+                                        @"status":@"1",
                                         };
-                KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-                NSString *timeStr = [MD5 timeStr];
                 NSMutableDictionary *md = @{
-                                               @"timestamp": timeStr,
-                                               @"app": @"ios",
-                                               @"telephone":self.userNameF.text,
-                                               @"password":self.passwordF.text,
-                                               @"status":@(self.preBtn.tag+1),
-                                               }.mutableCopy;
+                                            @"timestamp": timeStr,
+                                            @"app": @"ios",
+                                            @"telephone":self.userNameF.text,
+                                            @"password":self.passwordF.text,
+                                            @"status":@"1",
+                                            }.mutableCopy;
+                
+                NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+                [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                    request.url =LoginWithUserName;
+                    request.parameters = dict;
+                    request.headers = @{@"timestamp": timeStr,
+                                        @"app": @"ios",
+                                        @"sign":md5Str,};
+                    request.httpMethod = kXMHTTPMethodPOST;
+                }onSuccess:^(id  _Nullable responseObject) {
+
+
+                    //写入
+                    NSDictionary * data = responseObject[@"data"];
+                    SetUserDefaults(data[@"id"], UID);
+                    SetUserDefaults(HADLOGIN, HADLOGIN);
+                    NSLog(@"----账号密码login-success-%@===ID%@",responseObject,data[@"id"]);
+                    //控制器跳转
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                } onFailure:^(NSError * _Nullable error) {
+                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+
+
+                    NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
+
+                }];
+                
+            
+                
+            }
+        }else{
+            DSLog(@"快捷登录");
+            
+             DSLog(@"---user%@----vcode%@",self.phoneNumF.text,self.verifyF.text);
+            if (self.phoneNumF.text==nil || self.phoneNumF.text.length==0||self.verifyF.text==nil||self.verifyF.text.length==0) {
+               
+            }else{
+                NSDictionary * dict = @{
+                                        @"telephone":self.phoneNumF.text,
+                                        @"password":self.verifyF.text,
+                                        @"status":@"2",
+                                        };
+                NSMutableDictionary *md = @{
+                                            @"timestamp": timeStr,
+                                            @"app": @"ios",
+                                            @"telephone":self.phoneNumF.text,
+                                            @"password":self.verifyF.text,
+                                            @"status":@"2",
+                                            }.mutableCopy;
                 
                 NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
                 [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -419,15 +471,19 @@
                     NSDictionary * data = responseObject[@"data"];
                     SetUserDefaults(data[@"id"], UID);
                     SetUserDefaults(HADLOGIN, HADLOGIN);
-                    NSLog(@"----login-success-%@===ID%@",responseObject,data[@"id"]);
+                    NSLog(@"----快速login-success-%@===ID%@",responseObject,data[@"id"]);
                     //控制器跳转
                     [self dismissViewControllerAnimated:YES completion:nil];
                 } onFailure:^(NSError * _Nullable error) {
-                    NSLog(@"----login-≈≈error-%@",error);
+                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                    
+                    
+                    NSLog(@"---快登-≈≈error-%@",dic_err[@"msg"]);
 
                 }];
-
             }
+        }
 
     }
 }

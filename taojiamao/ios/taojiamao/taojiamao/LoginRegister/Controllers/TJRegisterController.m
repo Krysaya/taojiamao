@@ -178,7 +178,13 @@
                                         //控制器跳转
                                         [self dismissViewControllerAnimated:YES completion:nil];
                 } onFailure:^(NSError * _Nullable error) {
-                    DSLog(@"注册失败===%@",error);
+                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                    
+                    
+                    DSLog(@"----注册-≈≈error-%@",dic_err[@"msg"]);
+
+                    
 
                 }];
               
@@ -197,7 +203,12 @@
                     //                    [self.navigationController popToRootViewControllerAnimated:YES];
                     //                    //这里是否要自动登录？
                 } onFailure:^(NSError * _Nullable error) {
+                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
                     
+                    
+                    DSLog(@"----修改mm-≈≈error-%@",dic_err[@"msg"]);
+
                 }];
 
             }

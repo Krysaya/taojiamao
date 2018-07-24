@@ -65,7 +65,7 @@
 
     }];
 
-    self.tbImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading1"]];
+    self.tbImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tb_bs"]];
     [self.contentView addSubview:self.tbImg];
     [self.tbImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.title.mas_bottom).offset(9*H_Scale);
@@ -75,7 +75,7 @@
 
     }];
     
-    self.arrowImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading1"]];
+    self.arrowImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_right"]];
     [self.contentView addSubview:self.arrowImg];
     [self.arrowImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.iconImg.mas_centerY);
@@ -110,7 +110,7 @@
     }];
     
     self.order_type = [[UILabel alloc]init];
-    self.order_type.text = @"taobao";
+    self.order_type.text = @"订单来源：淘宝";
     self.order_type.font = [UIFont systemFontOfSize:12];
 
     self.order_type.textColor = RGB(102, 102, 102);
@@ -123,7 +123,8 @@
         make.height.mas_equalTo(10);
     }];
     self.time = [[UILabel alloc]init];
-    self.time.text = @"09月28号";
+    self.time.text = @"下单时间：09月28号";
+    
     self.time.font = [UIFont systemFontOfSize:12];
 
     [self.contentView addSubview:self.time];

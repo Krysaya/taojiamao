@@ -208,6 +208,8 @@
 		C74520C720AD342400FE4217 /* TJGoodsDetailsLFCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74520C620AD342400FE4217 /* TJGoodsDetailsLFCCell.m */; };
 		C74520CA20AD626200FE4217 /* TJGoodsDetailsCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74520C920AD626200FE4217 /* TJGoodsDetailsCompanyCell.m */; };
 		C74520CD20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74520CC20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.m */; };
+		C746005221070C1F00302DB8 /* TJOredrInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C746005021070C1F00302DB8 /* TJOredrInfoCell.m */; };
+		C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C746005121070C1F00302DB8 /* TJOredrInfoCell.xib */; };
 		C74C31A820B294CD0074AC00 /* TJMiddleClickController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C31A720B294CD0074AC00 /* TJMiddleClickController.m */; };
 		C74C31AB20B2C2DF0074AC00 /* TJContentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C31AA20B2C2DF0074AC00 /* TJContentCollectionCell.m */; };
 		C74C31AE20B2DDE70074AC00 /* TJPopularizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C31AD20B2DDE70074AC00 /* TJPopularizeController.m */; };
@@ -872,6 +874,9 @@
 		C74520C920AD626200FE4217 /* TJGoodsDetailsCompanyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsDetailsCompanyCell.m; sourceTree = "<group>"; };
 		C74520CB20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJGoodsDetailsImagesCell.h; sourceTree = "<group>"; };
 		C74520CC20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsDetailsImagesCell.m; sourceTree = "<group>"; };
+		C746004F21070C1F00302DB8 /* TJOredrInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJOredrInfoCell.h; sourceTree = "<group>"; };
+		C746005021070C1F00302DB8 /* TJOredrInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJOredrInfoCell.m; sourceTree = "<group>"; };
+		C746005121070C1F00302DB8 /* TJOredrInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJOredrInfoCell.xib; sourceTree = "<group>"; };
 		C74C31A620B294CD0074AC00 /* TJMiddleClickController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMiddleClickController.h; sourceTree = "<group>"; };
 		C74C31A720B294CD0074AC00 /* TJMiddleClickController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMiddleClickController.m; sourceTree = "<group>"; };
 		C74C31A920B2C2DF0074AC00 /* TJContentCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJContentCollectionCell.h; sourceTree = "<group>"; };
@@ -2418,6 +2423,16 @@
 			path = Lib;
 			sourceTree = "<group>";
 		};
+		C746004E21070C0300302DB8 /* 订单信息 */ = {
+			isa = PBXGroup;
+			children = (
+				C746004F21070C1F00302DB8 /* TJOredrInfoCell.h */,
+				C746005021070C1F00302DB8 /* TJOredrInfoCell.m */,
+				C746005121070C1F00302DB8 /* TJOredrInfoCell.xib */,
+			);
+			path = "订单信息";
+			sourceTree = "<group>";
+		};
 		C74D892021001E820098754C /* 推广业绩 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3189,6 +3204,7 @@
 		C7B994A420F89A8200DFFC98 /* 我的订单 */ = {
 			isa = PBXGroup;
 			children = (
+				C746004E21070C0300302DB8 /* 订单信息 */,
 				C73D394520E38F8C0004D5B4 /* TJTBOrderContentCell.h */,
 				C73D394620E38F8C0004D5B4 /* TJTBOrderContentCell.m */,
 				C79BBA3E20E9D2C100506C66 /* TJMallOrdersCell.h */,
@@ -3416,6 +3432,7 @@
 				C72A72BC209D54B3001CAC75 /* PYSearch.bundle in Resources */,
 				C74D8932210027FF0098754C /* TJShareTwoCell.xib in Resources */,
 				C73FC763209017FD00732F2D /* Main.storyboard in Resources */,
+				C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */,
 				C76260F120FEDDA0006889DF /* TJCollectionClassicCell.xib in Resources */,
 				C758CC1620A2FCD1000F1903 /* province_data.xml in Resources */,
 				C78E5CD520ABB5E700C9C1BF /* MJRefresh.bundle in Resources */,
@@ -3478,6 +3495,7 @@
 				C7C72F2F210181570087A8CB /* XMEngine.m in Sources */,
 				C7E6D48820A9AC260019C827 /* TJMineJFBModel.m in Sources */,
 				C7C72F34210184460087A8CB /* TJInvitationView.m in Sources */,
+				C746005221070C1F00302DB8 /* TJOredrInfoCell.m in Sources */,
 				C77D0E9A20A3ED5B000F794A /* YYTextLine.m in Sources */,
 				C7206BFE20A0031A00957A4A /* XHLaunchAdConst.m in Sources */,
 				C71787802105BD42009A2034 /* TJMyAssetsController.m in Sources */,

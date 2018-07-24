@@ -8,7 +8,6 @@
 //
 
 #import "TJHomePageController.h"
-#import "SJAttributeWorker.h"
 
 #import "TJHPMidCollectCell.h"
 #import "TJClassOneCell.h"

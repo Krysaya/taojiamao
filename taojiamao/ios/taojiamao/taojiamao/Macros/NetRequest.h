@@ -14,7 +14,7 @@
 
 //static NSString * const CompanyID = @"80179";
 static NSString * const Auth_code = @"auth_code";
-static NSString * const UID = @"uid";
+static NSString * const UID = @"id";
 static NSString * const TOKEN = @"token";
 static NSString * const UserPhone = @"UserPhone";
 //关键字宏
@@ -40,7 +40,7 @@ static NSString * const UserPhone = @"UserPhone";
 //8登录
 #define LoginWithUserName        [BASEURL stringByAppendingString:@"/v1/members/login"]
 //9登录成功后的用户数据
-#define LoginedUserData          [BASEURL stringByAppendingString:@"/api.php?s=My/index"]
+#define LoginedUserData          [BASEURL stringByAppendingString:@"/v1/members"]
 //10余额明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/api.php?s=My/Accountbalance"]
 //11修改密码

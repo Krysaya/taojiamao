@@ -20,7 +20,7 @@ static NSString * const TQGContentCell = @"TQGContentCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.rowHeight = 147;
+    self.tableView.rowHeight = 157;
     [self.tableView registerClass:[TJTQGContentCell class] forCellReuseIdentifier:TQGContentCell];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

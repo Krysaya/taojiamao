@@ -59,26 +59,32 @@
 //        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12*H_Scale);
     }];
     
-    self.tb_img = [[UIImageView alloc]init];
-    self.tb_img.backgroundColor = RandomColor;
-    [self.bgview addSubview:self.tb_img];
-    [self.tb_img mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.bgview.mas_top).offset(25*H_Scale);
-        make.left.mas_equalTo(weakSelf.img.mas_right).offset(15*W_Scale);
-        make.width.mas_equalTo(27*W_Scale);
-        make.height.mas_equalTo(13*H_Scale);
-    }];
+//    self.tb_img = [[UIImageView alloc]init];
+//    self.tb_img.backgroundColor = RandomColor;
+//     [self.bgview addSubview:self.tb_img];
+//    [self.tb_img mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(weakSelf.bgview.mas_top).offset(25*H_Scale);
+//        make.left.mas_equalTo(weakSelf.img.mas_right).offset(15*W_Scale);
+//        make.width.mas_equalTo(27*W_Scale);
+//        make.height.mas_equalTo(13*H_Scale);
+//    }];
     
     self.title_lab = [[UILabel alloc]init];
-    self.title_lab.text = @"唐米瑞春秋装新款套头圆领";
+    NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
+    });
+    self.title_lab.attributedText = string;
+    self.title_lab.numberOfLines = 0;
 //    self.title_lab.backgroundColor = RandomColor;
     self.title_lab.textColor =RGB(51, 51, 51);
     self.title_lab.font = [UIFont systemFontOfSize:14];
     [self.bgview addSubview:self.title_lab];
     [self.title_lab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.bgview.mas_top).offset(25*H_Scale);
-        make.left.mas_equalTo(weakSelf.tb_img.mas_right).offset(5*W_Scale);
-        make.right.mas_equalTo(weakSelf.bgview.mas_right).offset(-12*W_Scale);
+        make.top.mas_equalTo(weakSelf.bgview.mas_top).offset(25);
+        make.left.mas_equalTo(weakSelf.img.mas_right).offset(15);
+        make.right.mas_equalTo(weakSelf.bgview.mas_right).offset(-12);
+        make.height.mas_equalTo(35);
     }];
     
     self.lab_yiqiang = [[UILabel alloc]init];
@@ -124,7 +130,8 @@
         make.top.mas_equalTo(weakSelf.title_lab.mas_bottom).offset(15*H_Scale);
         make.width.mas_equalTo(62*W_Scale);
         make.height.mas_equalTo(18*H_Scale);
-        make.right.mas_equalTo(weakSelf.bgview.mas_right).offset(-12*W_Scale);
+        make.right.mas_equalTo(weakSelf.bgview.mas_right).offset(-12);
+//        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12);
     }];
     
     self.lab_price = [[UILabel alloc]init];
@@ -133,9 +140,10 @@
     self.lab_price.font = [UIFont systemFontOfSize:19];
     [self.bgview addSubview:self.lab_price];
     [self.lab_price mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.progress.mas_bottom).offset(25*H_Scale);
+//        make.top.mas_equalTo(weakSelf.progress.mas_bottom).offset(25*H_Scale);
         make.left.mas_equalTo(weakSelf.img.mas_right).offset(15*W_Scale);
-    
+        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12);
+
     }];
     
     self.lab_yuanjia = [[UILabel alloc]init];
@@ -155,7 +163,7 @@
     [self.btn_share mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(68*W_Scale);
         make.height.mas_equalTo(30*H_Scale);
-        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-23*H_Scale);
+        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12*H_Scale);
         make.left.mas_equalTo(weakSelf.lab_price.mas_right).offset(22*W_Scale);
     }];
     
@@ -167,7 +175,7 @@
     [self.btn_qiang mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(68*W_Scale);
         make.height.mas_equalTo(30*H_Scale);
-        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-23*H_Scale);
+        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12*H_Scale);
         make.left.mas_equalTo(weakSelf.btn_share.mas_right).offset(10*W_Scale);
     }];
     

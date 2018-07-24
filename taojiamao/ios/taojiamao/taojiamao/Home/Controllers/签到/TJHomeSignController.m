@@ -20,6 +20,9 @@
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property(strong,nonatomic)NSMutableArray*dataArr;
+@property (nonatomic, strong) UIScrollView *scrollV;
+@property (nonatomic, assign) NSInteger pageIndex;
+
 
 //@property (nonatomic, strong) UICollectionView *collectionV;
 @end
@@ -181,12 +184,49 @@
     numLab.attributedText = attrStr;
     
     
-    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(25, S_H-120, S_W-25, 100)];
+    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, S_H-120, S_W, 120)];
     scrollV.showsVerticalScrollIndicator = NO;
     scrollV.showsHorizontalScrollIndicator = NO;
-    
+    scrollV.pagingEnabled = YES;
+    scrollV.clipsToBounds = NO;
     scrollV.delegate = self;
     [self.view addSubview:scrollV];
+    self.scrollV = scrollV;
+    CGFloat w = S_W-50;
+    for (int i=0; i<3; i++) {
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(25+(w+15)*i, 12, w, 97)];
+        img.backgroundColor = RandomColor;
+        img.layer.masksToBounds = YES;
+        img.layer.cornerRadius = 8;
+        [scrollV addSubview:img];
+
+    }
+    self.scrollV.contentSize = CGSizeMake((w+15)*3, 0);
+
+}
+#pragma mark - scrollVdelegte
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+      NSInteger cpage = scrollView.contentOffset.x  / self.scrollV.frame.size.width;
+//    NSInteger cpage = scrollView.contentOffset.x/S_W;
+    NSLog(@"---当前页-%ld",cpage);
+    
+}
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+//    NSInteger cpage = (scrollView.contentOffset.x+S_W);
+//    NSLog(@"---当前页-%ld",cpage);
+//    CGPoint offset = scrollView.contentOffset;
+//
+//    // scrollView的当前位移/scrollView的总位移=滑块的当前位移/滑块的总位移
+//
+//
+//    frame.origin.x=15 + offset.x*(slideBackView.frame.size.width-sliderView.frame.size.width)/(scrollView.contentSize.width-scrollView.frame.size.width);
+//
+//    sliderView.frame = frame;
 }
 #pragma mark - signBtnClick
 - (void)signBtnClick:(UIButton *)sender
@@ -209,14 +249,6 @@
     [self configureCell:cell forDate:date atMonthPosition:monthPosition];
 }
 
-//-(UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleSelectionColorForDate:(NSDate *)date{
-//
-//        return [UIColor blueColor];
-//}
-//- (UIColor *)calenda
-//- (UIColor *)calendar:(FSCalendar *)calendar appearance:(nonnull FSCalendarAppearance *)appearance subtitleSelectionColorForDate:(nonnull NSDate *)date{
-//    return KALLRGB;
-//}
 // 对有事件的显示一个点,默认是显示三个点
 - (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date
 {
@@ -225,15 +257,6 @@
             return 0;
         }
 }
-//- (UIImage *)calendar:(FSCalendar *)calendar imageForDate:(NSDate *)date{
-//    return [UIImage imageNamed:@"sign_bg"];
-//}
-//颜色
-//- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date
-//{
-//    return @[KALLRGB];
-//}
-
 - (void)configureCell:(FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     

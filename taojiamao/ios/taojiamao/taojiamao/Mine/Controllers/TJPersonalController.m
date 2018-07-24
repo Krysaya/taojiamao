@@ -137,21 +137,40 @@
     NSString * uid = GetUserDefaults(UID);
     if (token && token.length>0 && uid && uid.length>0) {
         self.hadLogin = YES;
-        NSInteger uidint = [uid integerValue];
-        NSDictionary * dict = @{@"uid":@(uidint)};
-        [XDNetworking postWithUrl:LoginedUserData refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-            DSLog(@"%@",response);
-            self.model = [TJUserDataModel yy_modelWithDictionary:response[@"data"]];
-            self.tableV.tableHeaderView = self.headTView;
-            [self.tableV reloadData];
-
-        } failBlock:^(NSError *error) {
-            DSLog(@"%@",error);
+        
+        NSDictionary * dict = @{@"id":uid};
+        KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+        NSString *timeStr = [MD5 timeStr];
+        NSMutableDictionary *md = @{
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"userid":uid,
+                                    }.mutableCopy;
+         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = LoginedUserData;
+            request.parameters = dict;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,};
+            request.httpMethod = kXMHTTPMethodPOST;
+        } onSuccess:^(id  _Nullable responseObject) {
+            NSLog(@"----user-success-===%@",responseObject);
+//            self.model = [TJUserDataModel yy_modelWithDictionary:response[@"data"]];
+//            self.tableV.tableHeaderView = self.headTView;
+//            [self.tableV reloadData];
+        } onFailure:^(NSError * _Nullable error) {
+            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+            
+            
+            DSLog(@"--个人信息-≈≈error-%@",dic_err[@"msg"]);
             self.hadLogin = NO;
-//            self.listTable.tableHeaderView =  [self setHeadTView];
-//            [self.listTable reloadData];
-        }];
+            //            self.listTable.tableHeaderView =  [self setHeadTView];
+            //            [self.listTable reloadData];
 
+        }];
+       
     }else{
         self.hadLogin = NO;
         self.model = nil;
@@ -261,14 +280,14 @@
     [classView addSubview:collectV];
     
 //    设置。通知
-    self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor whiteColor] tag:Setting withBackImage:@"morentouxiang"];
-    self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor whiteColor] tag:Notify withBackImage:@"morentouxiang"];
+    self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"morentouxiang"];
+    self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice"];
     [self.headTView addSubview:self.btn_notice];
 
     [self.headTView addSubview:self.btn_setting];
     
     [self.btn_notice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.headIcon);
+        make.top.mas_equalTo(45);
         make.right.mas_equalTo(-16*W_Scale);
         make.width.height.mas_equalTo(21);
     }];

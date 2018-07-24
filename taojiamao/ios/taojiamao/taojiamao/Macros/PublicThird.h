@@ -38,6 +38,7 @@
 #import "WMPageController.h"
 #import "MJRefresh.h"
 #import "XHWebImageAutoSize.h"
+#import "SJAttributeWorker.h"
 
 
 
