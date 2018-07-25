@@ -267,7 +267,7 @@
 }
 -(void)dealloc{
 
-    DSLog(@"%s",__func__);
+//    DSLog(@"%s",__func__);
 }
 /*
 #pragma mark - Navigation

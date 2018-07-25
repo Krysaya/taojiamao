@@ -195,9 +195,10 @@
                             @"uid":userid,
                             };
 //        [request addFormDataWithName:@"head" fileName:@"aaa.jpg" mimeType:@"image/jpeg" fileURL:url];
-        [request addFormDataWithName:@"head" fileData:fileData1];
+//        [request addFormDataWithName:@"head" fileData:fileData1];
+        [request addFormDataWithName:@"head" fileName:@"aa.jpg" mimeType:@"image/jpeg" fileData:fileData1];
 //        request.responseSerializerType = kXMResponseSerializerJSON;
-        request.httpMethod = kXMHTTPMethodPOST;
+        request.httpMethod = kXMRequestUpload;
     } onSuccess:^(id  _Nullable responseObject) {
         
         NSLog(@"----上传照片-success-===%@",responseObject);

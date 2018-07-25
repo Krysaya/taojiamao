@@ -47,7 +47,7 @@
 //    }
 //}
 -(void)dealloc{
-    DSLog(@"%s===base",__func__);
+//    DSLog(@"%s===base",__func__);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

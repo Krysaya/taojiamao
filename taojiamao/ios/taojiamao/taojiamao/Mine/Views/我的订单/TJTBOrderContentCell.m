@@ -60,7 +60,7 @@
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(10*H_Scale);
         make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
-        make.height.mas_equalTo(45*H_Scale);
+        make.height.mas_equalTo(35*H_Scale);
         make.width.mas_equalTo(160*W_Scale);
 
     }];
@@ -70,8 +70,8 @@
     [self.tbImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.title.mas_bottom).offset(9*H_Scale);
         make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
-        make.height.mas_equalTo(10*H_Scale);
-        make.width.mas_equalTo(25*W_Scale);
+        make.height.mas_equalTo(13*H_Scale);
+        make.width.mas_equalTo(27*W_Scale);
 
     }];
     
@@ -91,7 +91,7 @@
 
     [self.contentView addSubview:self.jiesuan_time];
     [self.jiesuan_time mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.tbImg.mas_bottom).offset(11*H_Scale);
+//        make.top.mas_equalTo(weakSelf.tbImg.mas_bottom).offset(11*H_Scale);
         make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
 //        make.height.mas_equalTo(10);
         make.bottom.mas_equalTo(weakSelf.iconImg.mas_bottom);

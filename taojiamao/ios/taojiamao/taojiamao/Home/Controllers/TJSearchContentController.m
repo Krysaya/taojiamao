@@ -86,7 +86,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 }
 
 -(void)dealloc{
-    DSLog(@"%s",__func__);
+//    DSLog(@"%s",__func__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)didReceiveMemoryWarning {

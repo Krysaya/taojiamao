@@ -201,7 +201,7 @@
 }
 
 -(void)dealloc{
-    DSLog(@"%s",__func__);
+//    DSLog(@"%s",__func__);
 }
 
 @end

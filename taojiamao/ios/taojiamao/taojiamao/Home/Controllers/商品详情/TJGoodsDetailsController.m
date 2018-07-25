@@ -333,7 +333,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     return _imageSSS;
 }
 -(void)dealloc{
-    DSLog(@"%s",__FUNCTION__);
+//    DSLog(@"%s",__FUNCTION__);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

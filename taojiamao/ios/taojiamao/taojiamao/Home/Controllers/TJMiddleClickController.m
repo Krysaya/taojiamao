@@ -216,7 +216,7 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 }
 
 -(void)dealloc{
-    DSLog(@"%s",__func__);
+//    DSLog(@"%s",__func__);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

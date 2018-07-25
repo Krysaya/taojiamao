@@ -208,7 +208,7 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
     // Dispose of any resources that can be recreated.
 }
 -(void)dealloc{
-    DSLog(@"%s",__func__);
+//    DSLog(@"%s",__func__);
 }
 /*
 #pragma mark - Navigation

@@ -219,7 +219,7 @@
 #pragma mark - setter getter
 
 -(void)dealloc{
-    DSLog(@"%s",__func__);
+//    DSLog(@"%s",__func__);
     [[TJGetVerifyCode sharedInstance]cancelTimer];
 }
 
