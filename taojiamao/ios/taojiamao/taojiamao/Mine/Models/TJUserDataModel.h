@@ -28,12 +28,16 @@
  */
 
 @property(nonatomic,copy)NSString * id;
-@property(nonatomic,copy)NSString * uc_uid;
+//@property(nonatomic,copy)NSString * uc_uid;
 @property(nonatomic,copy)NSString * nickname;
-@property(nonatomic,copy)NSString * share_money;
-@property(nonatomic,copy)NSString * invite_friend_count;
-@property(nonatomic,copy)NSString * pay_total;
+//@property(nonatomic,copy)NSString * share_money;
+//@property(nonatomic,copy)NSString * invite_friend_count;
+//@property(nonatomic,copy)NSString * pay_total;
 @property(nonatomic,copy)NSString * name;
-@property(nonatomic,copy)NSString * headimg;
+@property(nonatomic,copy)NSString * image;
+@property (nonatomic, strong) NSString *tao_account;
+@property (nonatomic, strong) NSString *ali_account;
+@property (nonatomic, strong) NSString *ali_true_name;
+@property (nonatomic, strong) NSString *points;
 
 @end

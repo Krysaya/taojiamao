@@ -131,43 +131,57 @@
     [super viewWillAppear:animated];
     
     self.navBarBgAlpha = @"1.0";
-    
     self.isblack = NO;
-    NSString * token = GetUserDefaults(TOKEN);
-    NSString * uid = GetUserDefaults(UID);
-    if (token && token.length>0 && uid && uid.length>0) {
+//    NSString * token = GetUserDefaults(TOKEN);
+    NSString *userid = GetUserDefaults(UID);
+    NSLog(@"=====userif=====个人=%@",userid);
+//    NSString *userid = [NSString stringWithFormat:@"%@",uid];
+    
+    if (userid) {
         self.hadLogin = YES;
         
-        NSDictionary * dict = @{@"id":uid};
+//        NSDictionary * dict = @{@"id":uid};
         KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
         NSString *timeStr = [MD5 timeStr];
         NSMutableDictionary *md = @{
                                     @"timestamp": timeStr,
                                     @"app": @"ios",
-                                    @"userid":uid,
+                                    @"uid":userid,
                                     }.mutableCopy;
          NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
             request.url = LoginedUserData;
-            request.parameters = dict;
             request.headers = @{@"timestamp": timeStr,
                                 @"app": @"ios",
-                                @"sign":md5Str,};
-            request.httpMethod = kXMHTTPMethodPOST;
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = kXMHTTPMethodGET;
         } onSuccess:^(id  _Nullable responseObject) {
             NSLog(@"----user-success-===%@",responseObject);
-//            self.model = [TJUserDataModel yy_modelWithDictionary:response[@"data"]];
-//            self.tableV.tableHeaderView = self.headTView;
-//            [self.tableV reloadData];
+           
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 self.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
+                [self setHeadTView];
+
+                self.tableV.tableHeaderView = self.headTView;
+                [self.tableV reloadData];
+            });
+           
         } onFailure:^(NSError * _Nullable error) {
             NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
             NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
             
             
-            DSLog(@"--个人信息-≈≈error-%@",dic_err[@"msg"]);
+            DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
             self.hadLogin = NO;
-            //            self.listTable.tableHeaderView =  [self setHeadTView];
-            //            [self.listTable reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setHeadTView];
+                self.tableV.tableHeaderView =  self.headTView;
+                [self.tableV reloadData];
+            });
+            
+            
 
         }];
        
@@ -191,7 +205,6 @@
     [self setHeadTView];
     [self.view addSubview:self.tableV];
 
-    // Do any additional setup after loading the view.
 }
 -(void)setHeadTView{
     WeakSelf
@@ -203,7 +216,7 @@
         make.top.mas_equalTo(53*H_Scale);
     }];
     if (self.hadLogin) {
-        [self.headIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,self.model.headimg]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [self.headIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,self.model.image]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (image) {
                 [image lb_cornerImageWithSize:CGSizeMake(70*W_Scale, 70*W_Scale) cornerRadius:70*W_Scale completed:^(UIImage *image) {
                     weakSelf.headIcon.image = image;
@@ -232,7 +245,8 @@
         make.top.mas_equalTo(weakSelf.headIcon.mas_top).offset(13*H_Scale);
         
     }];
-    NSString * str= self.model.nickname.length>0?self.model.nickname:@"暂未设置昵称";
+    NSLog(@"----nickname--%@",self.model.nickname);
+    NSString * str= [self.model.nickname isEqual:[NSNull null]]?self.model.nickname:@"暂未设置昵称";
     self.userName.text = self.hadLogin?str:@"未登录";
 
 

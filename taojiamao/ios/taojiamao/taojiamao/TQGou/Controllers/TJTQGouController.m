@@ -38,6 +38,7 @@
     self.navigationItem.titleView = headerImg;
     
     [self requestGoodsChooseNet];
+   
 }
 
 
@@ -65,13 +66,16 @@
 #pragma mark - requestGoodsChooseNet
 -(void)requestGoodsChooseNet{
     self.timesArr = [NSMutableArray array];
+    NSNumber * uid = GetUserDefaults(UID);
+    NSString *userid = [NSString stringWithFormat:@"%@",uid];
+    
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary * param = @{
     //                              @"page":@"5",
                                     @"timestamp": timeStr,
                                     @"app": @"ios",
-      //                            @"uid": @"",
+                                    @"uid": userid,
                                     
                                     }.mutableCopy;
     
@@ -79,15 +83,20 @@
 //
 //    
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = @"http://dev.api.taojiamao.net/v1/pages/tqg";
-        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str};
+        request.url = TQGTimeChoose;
+        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
         request.httpMethod = kXMHTTPMethodGET;
     }onSuccess:^(id responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         NSArray *arr = dict[@"times"];
         self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];
         
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            TJTqgTimesListModel *model = self.timesArr[0];
+            NSLog(@"-----mmdoel---arg===%@",model.arg);
+            [self requestGoodsListWithModel:model];
             [self reloadData];
             self.menuView.backgroundColor = [UIColor blackColor];
         });
@@ -95,10 +104,54 @@
         NSLog(@"onSuccess:%@ ==%ld=====",responseObject,self.timesArr.count);
 
     } onFailure:^(NSError *error) {
-        NSLog(@"onFailure: %@", error);
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+
+        NSLog(@"---onFailure--%@",dic_err);
+    
     }];
 }
 
+- (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
+    NSNumber * uid = GetUserDefaults(UID);
+    NSString *userid = [NSString stringWithFormat:@"%@",uid];
+    
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary * param = @{
+    //                              @"page":@"5",
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid": userid,
+                                    @"start_time": model.arg,
+                                    
+                                    }.mutableCopy;
+    
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = TQGGoodsList;
+        request.parameters = @{@"start_time": model.arg};
+        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
+        request.httpMethod = kXMHTTPMethodPOST;
+    }onSuccess:^(id responseObject) {
+//        NSDictionary *dict = responseObject[@"data"];
+//        NSArray *arr = dict[@"times"];
+//        self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self reloadData];
+//            self.menuView.backgroundColor = [UIColor blackColor];
+//        });
+        
+        NSLog(@"onSuccess:===%@",responseObject);
+        
+    } onFailure:^(NSError *error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        
+        NSLog(@"---onFailure:====dict=%@++++error==%@",dic_err,error);
+    }];
+}
 #pragma mark -WMPageControllerSetting
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
 
@@ -112,6 +165,14 @@
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
 
+    NSLog(@"dianle====%ld",index);
+    if (self.timesArr==nil) {
+        
+    }else{
+        TJTqgTimesListModel *model = self.timesArr[index];
+        NSLog(@"-----mmdoel---arg===%@",model.arg);
+        [self requestGoodsListWithModel:model];
+    }
     TJTQGContentController * ccvc = [[TJTQGContentController alloc] init];
 //    ccvc.testName = self.titles[index];
     return ccvc;

@@ -20,7 +20,7 @@ static NSString * const UserPhone = @"UserPhone";
 //关键字宏
 #define ISFIRST      @"isFirst"
 #define HADLOGIN     @"HadLogin"
-
+#define SECRET       @"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"
 
 
 //1基础接口
@@ -35,12 +35,15 @@ static NSString * const UserPhone = @"UserPhone";
 #define HOMEMiddleModule         [BASEURL stringByAppendingString:@"/api.php?s=index/modle"]
 //6获取验证码
 #define GETVerfityCode           [BASEURL stringByAppendingString:@"/v1/members/vcode"]
-//7注册
+//注册
 #define RegisterApp              [BASEURL stringByAppendingString:@"/v1/members/register"]
-//8登录
+//登录
 #define LoginWithUserName        [BASEURL stringByAppendingString:@"/v1/members/login"]
-//9登录成功后的用户数据
+//登录成功后的用户数据==个人中心
 #define LoginedUserData          [BASEURL stringByAppendingString:@"/v1/members"]
+//上传头像--个人中心
+#define UploadHeaderImg          [BASEURL stringByAppendingString:@"/v1/members/head"]
+
 //10余额明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/api.php?s=My/Accountbalance"]
 //11修改密码
@@ -71,9 +74,11 @@ static NSString * const UserPhone = @"UserPhone";
 //22首页底部cells数据 首页推介
 #define HomeFootRecommend        [BASEURL stringByAppendingString:@"/api.php?s=index/fh_items"]
 
+//tqg
+#define TQGTimeChoose        [BASEURL stringByAppendingString:@"/v1/pages/tqg"]
 
-
-
+//tqg--goods
+#define TQGGoodsList        [BASEURL stringByAppendingString:@"/v1/tb/tqg"]
 
 
 

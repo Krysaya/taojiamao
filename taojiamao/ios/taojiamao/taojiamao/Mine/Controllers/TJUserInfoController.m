@@ -119,14 +119,20 @@
     return 0;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    WeakSelf
+//    WeakSelf
     if (indexPath.section==0) {
         UIAlertController * alert =[UIAlertController alertControllerWithTitle:@"" message:@"选取照片" preferredStyle:UIAlertControllerStyleActionSheet];
         [alert addAction:[UIAlertAction actionWithTitle:@"从相册选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:self.imagePicker animated:YES completion:nil];
+
+            
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:self.imagePicker animated:YES completion:nil];
+
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
@@ -163,10 +169,52 @@
 
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    
+
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage]; //通过key值获取到图片
+    NSData *fileData1 = UIImageJPEGRepresentation(image, 1.0);
+    //获取
+
+    NSLog(@"===选中图片=====%@",fileData1);
+       //上传图片到服务器--在这里进行图片上传的网络请求
+    NSNumber * uid = GetUserDefaults(UID);
+    NSString *userid = [NSString stringWithFormat:@"%@",uid];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    NSLog(@"md=======%@===time=%@==uid=%@==",md5Str,timeStr,userid);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = UploadHeaderImg;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+//        [request addFormDataWithName:@"head" fileName:@"aaa.jpg" mimeType:@"image/jpeg" fileURL:url];
+        [request addFormDataWithName:@"head" fileData:fileData1];
+//        request.responseSerializerType = kXMResponseSerializerJSON;
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        
+        NSLog(@"----上传照片-success-===%@",responseObject);
+        [picker dismissViewControllerAnimated:YES completion:^{}];
+
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--上传照片≈error-msg=======dict%@",error);
+        [picker dismissViewControllerAnimated:YES completion:^{}];
+
+    }];
+   
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    
+    [picker dismissViewControllerAnimated:YES completion:^{}];
+
 }
 
 #pragma makr -setlabel
@@ -178,5 +226,13 @@
     return label;
 }
 
-
+- (UIImagePickerController *)imagePicker
+{
+    if (nil == _imagePicker) {
+        _imagePicker = [[UIImagePickerController alloc]init];
+        _imagePicker.delegate = self;
+        _imagePicker.allowsEditing = YES;
+    }
+    return _imagePicker;
+}
 @end

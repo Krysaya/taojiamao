@@ -297,6 +297,7 @@
 		C76EB41420B3A8F300D297D5 /* TJPopularizeCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C76EB41320B3A8F300D297D5 /* TJPopularizeCollectCell.m */; };
 		C76EB41720B401F100D297D5 /* TJVipBalanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C76EB41620B401F100D297D5 /* TJVipBalanceController.m */; };
 		C76EB41A20B4165300D297D5 /* TJVipPerformanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C76EB41920B4165300D297D5 /* TJVipPerformanceController.m */; };
+		C772AA13210810960029C515 /* TJTqgGoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C772AA12210810960029C515 /* TJTqgGoodsModel.m */; };
 		C7739E2920AC5395002B535F /* TJGoodsDetailsElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7739E2820AC5395002B535F /* TJGoodsDetailsElectCell.m */; };
 		C776E3B520BE3FBD00CF9901 /* TJMultipleChoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C776E3B420BE3FBD00CF9901 /* TJMultipleChoiceView.m */; };
 		C77B7A9F20F4595A005DD2BD /* TJCourierInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77B7A9E20F4595A005DD2BD /* TJCourierInfoController.m */; };
@@ -1040,6 +1041,8 @@
 		C76EB41620B401F100D297D5 /* TJVipBalanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJVipBalanceController.m; sourceTree = "<group>"; };
 		C76EB41820B4165300D297D5 /* TJVipPerformanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJVipPerformanceController.h; sourceTree = "<group>"; };
 		C76EB41920B4165300D297D5 /* TJVipPerformanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJVipPerformanceController.m; sourceTree = "<group>"; };
+		C772AA11210810960029C515 /* TJTqgGoodsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTqgGoodsModel.h; sourceTree = "<group>"; };
+		C772AA12210810960029C515 /* TJTqgGoodsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTqgGoodsModel.m; sourceTree = "<group>"; };
 		C7739E2720AC5395002B535F /* TJGoodsDetailsElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJGoodsDetailsElectCell.h; sourceTree = "<group>"; };
 		C7739E2820AC5395002B535F /* TJGoodsDetailsElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsDetailsElectCell.m; sourceTree = "<group>"; };
 		C776E3B320BE3FBD00CF9901 /* TJMultipleChoiceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMultipleChoiceView.h; sourceTree = "<group>"; };
@@ -1936,6 +1939,8 @@
 			children = (
 				C7C72F372101C27D0087A8CB /* TJTqgTimesListModel.h */,
 				C7C72F382101C27D0087A8CB /* TJTqgTimesListModel.m */,
+				C772AA11210810960029C515 /* TJTqgGoodsModel.h */,
+				C772AA12210810960029C515 /* TJTqgGoodsModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3705,6 +3710,7 @@
 				C7292AEF2095CF0F00073099 /* NSData+ImageContentType.m in Sources */,
 				C758915B2092D01300AC085E /* TJTQGouController.m in Sources */,
 				C704044820AE6A60001D720A /* NSString+XHWebImageAutoSize.m in Sources */,
+				C772AA13210810960029C515 /* TJTqgGoodsModel.m in Sources */,
 				C77D0E9E20A3ED5B000F794A /* YYTextAttribute.m in Sources */,
 				C73FC819209025CE00732F2D /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C742A31D2099DA260026311A /* MyLinearLayout.m in Sources */,

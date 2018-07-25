@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "taojiamao/LoginRegister/Controllers/TJLoginController.m"
-            timestampString = "554117733.549798"
+            timestampString = "554192955.0211101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "307"
@@ -548,11 +548,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "taojiamao/TQGou/Controllers/TJTQGouController.m"
-            timestampString = "554088503.652494"
+            timestampString = "554201822.665562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-menuView:titleColorForState:atIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -644,7 +644,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "taojiamao/LoginRegister/Controllers/TJRegisterController.m"
-            timestampString = "554108181.205578"
+            timestampString = "554197880.379246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "183"
@@ -676,7 +676,7 @@
                   moduleName = "taojiamao"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/LoginRegister/Others/TJGetVerifyCode.m"
-                  timestampString = "554114043.662693"
+                  timestampString = "554196363.077679"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "50"
@@ -691,7 +691,7 @@
                   moduleName = "taojiamao"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/LoginRegister/Others/TJGetVerifyCode.m"
-                  timestampString = "554114043.664318"
+                  timestampString = "554196363.0793051"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "50"
@@ -706,7 +706,7 @@
                   moduleName = "taojiamao"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/LoginRegister/Others/TJGetVerifyCode.m"
-                  timestampString = "554114043.66697"
+                  timestampString = "554196363.081032"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "50"
@@ -818,13 +818,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/Mine/Controllers/TJPersonalController.m"
-            timestampString = "554117733.550939"
+            filePath = "taojiamao/TQGou/Controllers/TJTQGouController.m"
+            timestampString = "554201822.665785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "-requestGoodsListWithModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -834,13 +834,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/Mine/Controllers/TJPersonalController.m"
-            timestampString = "554117733.550999"
+            filePath = "taojiamao/TQGou/Controllers/TJTQGouController.m"
+            timestampString = "554201822.665839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "-requestGoodsListWithModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -850,13 +850,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/Mine/Controllers/TJPersonalController.m"
-            timestampString = "554117733.551047"
+            filePath = "taojiamao/TQGou/Controllers/TJTQGouController.m"
+            timestampString = "554201822.665899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "-requestGoodsChooseNet"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -866,13 +866,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/Mine/Controllers/TJPersonalController.m"
-            timestampString = "554117733.5510941"
+            filePath = "taojiamao/TQGou/Controllers/TJTQGouController.m"
+            timestampString = "554201822.665954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "-requestGoodsChooseNet"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -882,13 +882,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/Mine/Controllers/TJPersonalController.m"
-            timestampString = "554117733.551141"
+            filePath = "taojiamao/TQGou/Controllers/TJTQGouController.m"
+            timestampString = "554201822.666"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "-requestGoodsChooseNet"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -898,44 +898,217 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/Mine/Controllers/TJPersonalController.m"
-            timestampString = "554117733.551185"
+            filePath = "taojiamao/Mine/Controllers/TJUserInfoController.m"
+            timestampString = "554201822.6660759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[TJPersonalController viewWillAppear:]"
+                  symbolName = "-[TJUserInfoController imagePickerController:didFinishPickingMediaWithInfo:]"
                   moduleName = "taojiamao"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJPersonalController.m"
-                  timestampString = "554114043.704278"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.117884"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "162"
-                  endingLineNumber = "162"
-                  offsetFromSymbolStart = "912">
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "770">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__39-[TJPersonalController viewWillAppear:]_block_invoke.126"
+                  symbolName = "__76-[TJUserInfoController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke"
                   moduleName = "taojiamao"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJPersonalController.m"
-                  timestampString = "554114043.705886"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.119501"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "162"
-                  endingLineNumber = "162"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.221"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.121305"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Mine/Controllers/TJUserInfoController.m"
+            timestampString = "554201822.666434"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Mine/Controllers/TJUserInfoController.m"
+            timestampString = "554201822.666805"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[TJUserInfoController imagePickerController:didFinishPickingMediaWithInfo:]"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.133678"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
+                  offsetFromSymbolStart = "1002">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__76-[TJUserInfoController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke.224"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.135246"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
                   offsetFromSymbolStart = "73">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__76-[TJUserInfoController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke_2"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.136802"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.247"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.1385"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Mine/Controllers/TJUserInfoController.m"
+            timestampString = "554201822.667027"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Mine/Controllers/TJUserInfoController.m"
+            timestampString = "554201822.667241"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__76-[TJUserInfoController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke_2"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.159739"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "207"
+                  endingLineNumber = "207"
+                  offsetFromSymbolStart = "233">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__76-[TJUserInfoController imagePickerController:didFinishPickingMediaWithInfo:]_block_invoke_3"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/TJUserInfoController.m"
+                  timestampString = "554196363.161327"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "207"
+                  endingLineNumber = "207"
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
