@@ -27,6 +27,9 @@
     [self setCollectionVc];
 }
 
+- (void)requestJHSList{
+    
+}
 - (void)setCollectionVc{
     UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
     

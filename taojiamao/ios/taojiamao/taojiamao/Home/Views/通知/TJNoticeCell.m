@@ -7,6 +7,12 @@
 //
 
 #import "TJNoticeCell.h"
+#import "TJNoticeListModel.h"
+@interface TJNoticeCell()
+@property (weak, nonatomic) IBOutlet UILabel *lab_type;
+@property (weak, nonatomic) IBOutlet UILabel *lab_titel;
+
+@end
 
 @implementation TJNoticeCell
 
@@ -21,4 +27,9 @@
     // Configure the view for the selected state
 }
 
+- (void)setModel:(TJNoticeListModel *)model{
+    
+    self.lab_titel.text = model.message;
+    
+}
 @end

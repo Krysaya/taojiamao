@@ -22,6 +22,7 @@
 
 - (void)zj_viewDidLoadForIndex:(NSInteger)index{
     NSLog(@"-----%ld---",index);
+    
     self.tableView.rowHeight = 62;
     self.tableView.backgroundColor =RGB(245, 245, 245);
     self.tableView.tableFooterView = [UIView new];
@@ -29,7 +30,9 @@
     
 }
 
-
+- (void)requestMembersDetailWithIndex:(NSInteger)index{
+    
+}
 
 #pragma mark - Table view data source
 

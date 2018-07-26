@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJNoticeListModel;
 
 @interface TJNoticeCell : TJBaseTableCell
 
+@property (nonatomic, strong) TJNoticeListModel *model;
 @end

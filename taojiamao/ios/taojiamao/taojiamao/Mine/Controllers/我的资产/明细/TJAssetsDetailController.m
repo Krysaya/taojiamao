@@ -42,7 +42,7 @@
     }];
     segment.center = CGPointMake(self.view.center.x, 90);
     [self.view addSubview:segment];
-    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 64+40, S_W, S_H - 64 - SafeAreaBottomHeight) segmentView:segment parentViewController:self delegate:self];
+    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 64+50, S_W, S_H - 64 - SafeAreaBottomHeight) segmentView:segment parentViewController:self delegate:self];
     self.contentView = content;
     [self.view addSubview:content];
     
@@ -50,9 +50,9 @@
 
 }
 
-//- (BOOL)shouldAutomaticallyForwardAppearanceMethods{
-//    return NO;
-//}
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods{
+    return NO;
+}
 #pragma mark - delegte
 - (NSInteger)numberOfChildViewControllers {
     return 2;// 传入页面的总数, 推荐使用titles.count

@@ -39,7 +39,7 @@
 #import "MJRefresh.h"
 #import "XHWebImageAutoSize.h"
 #import "SJAttributeWorker.h"
-
+#import "iCarousel.h"
 
 
 

@@ -43,6 +43,10 @@ static NSString * const UserPhone = @"UserPhone";
 #define LoginedUserData          [BASEURL stringByAppendingString:@"/v1/members"]
 //上传头像--个人中心
 #define UploadHeaderImg          [BASEURL stringByAppendingString:@"/v1/members/head"]
+//签到数据
+#define MembersSigns          [BASEURL stringByAppendingString:@"/v1/members/signs"]
+//消息通知
+#define MessageNotice          [BASEURL stringByAppendingString:@"/v1/messages"]
 
 //10余额明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/api.php?s=My/Accountbalance"]

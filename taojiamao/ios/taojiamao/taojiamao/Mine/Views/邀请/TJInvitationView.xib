@@ -30,7 +30,7 @@
                             <color key="textColor" red="0.98823529409999999" green="0.27058823529999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-vx-of1">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-vx-of1">
                             <rect key="frame" x="28" y="86" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="1xh-e8-1Dz"/>
@@ -68,7 +68,7 @@
                                 <constraint firstAttribute="width" constant="60" id="byr-7K-siM"/>
                                 <constraint firstAttribute="height" constant="60" id="tlg-92-OVh"/>
                             </constraints>
-                            <state key="normal" image="sms"/>
+                            <state key="normal" image="save_img"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-mn-hJq">
                             <rect key="frame" x="116" y="205" width="60" height="60"/>
@@ -200,6 +200,8 @@
                 <outlet property="btn_qqaz" destination="u4e-sh-sbD" id="g8i-sL-lxY"/>
                 <outlet property="btn_sms" destination="J0a-8n-bCM" id="qNw-vX-Ekq"/>
                 <outlet property="btn_wx" destination="3qw-Mf-jcn" id="ONf-1y-JR1"/>
+                <outlet property="lab_tips" destination="f5o-EK-cha" id="Cnb-R5-oz6"/>
+                <outlet property="lab_title" destination="2yf-Oz-XvA" id="5Ux-d3-rxG"/>
                 <outlet property="view_bg" destination="z1o-bd-bs0" id="wkK-aZ-nuM"/>
             </connections>
             <point key="canvasLocation" x="-69.5" y="26.5"/>
@@ -207,10 +209,10 @@
     </objects>
     <resources>
         <image name="copy_link" width="60" height="60"/>
-        <image name="share_PYQ" width="60" height="60"/>
+        <image name="save_img" width="60" height="60"/>
+        <image name="share_PYQ" width="61" height="61"/>
         <image name="share_QQ" width="60" height="60"/>
         <image name="share_QQaz" width="60" height="60"/>
         <image name="share_WX" width="60" height="60"/>
-        <image name="sms" width="60" height="60"/>
     </resources>
 </document>

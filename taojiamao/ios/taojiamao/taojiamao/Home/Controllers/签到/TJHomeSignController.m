@@ -13,29 +13,35 @@
 #import "FSCalendar.h"
 #import "TJSignCalendarCell.h"
 #import "SJAttributeWorker.h"
+#import "TJSignListModel.h"
 #define RIGHTBT  568
 
-@interface TJHomeSignController ()<TJButtonDelegate,UIScrollViewDelegate,FSCalendarDelegate,FSCalendarDataSource>
+@interface TJHomeSignController ()<TJButtonDelegate,UIScrollViewDelegate,FSCalendarDelegate,FSCalendarDataSource,iCarouselDelegate,iCarouselDataSource>
 
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter2;
+
 @property(strong,nonatomic)NSMutableArray*dataArr;
 @property (nonatomic, strong) UIScrollView *scrollV;
-@property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, strong) UILabel *lab_page;
+@property (nonatomic, strong) FSCalendar *calendar;
+
 
 
 //@property (nonatomic, strong) UICollectionView *collectionV;
 @end
 
 @implementation TJHomeSignController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self RequestSignInfoWithType:kXMHTTPMethodGET];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"签到";
     
     self.view.backgroundColor = [UIColor whiteColor];
-//    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    //    you边按钮
 
     UIButton *btn = [[UIButton alloc]init];
     [btn setTitle:@"签到规则" forState:UIControlStateNormal];
@@ -46,21 +52,67 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 
     self.gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
-    //创建一个数组记录已经签过到的天
-    _dataArr=[[NSMutableArray alloc]initWithObjects:@"2017-07-01",@"2017-07-02",@"2017-07-05",@"2017-07-07",nil];
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
-    
-    
-    
+    self.dateFormatter2 = [[NSDateFormatter alloc] init];
+    self.dateFormatter2.dateFormat = @"yyyy-MM-dd";
+
     [self setOnClick];
     [self setCalendarCollectionView];
     [self setSignBtn];
     [self setSelectedTopicScroll];
 }
 
+- (void)RequestSignInfoWithType:(XMHTTPMethodType )methodtype
+{
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSString *userid = GetUserDefaults(UID);
+
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = MembersSigns;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = methodtype;
+    } onSuccess:^(id  _Nullable responseObject) {
+   
+        NSLog(@"----sign-success-===%@",responseObject);
+        if (methodtype==kXMHTTPMethodPOST) {
+            
+            TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
+            successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+            
+            [self presentViewController:successVc animated:NO completion:nil];
+        }else{
+            NSMutableArray *arr = [TJSignListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            self.dataArr = [[NSMutableArray array]init];
+
+            for (TJSignListModel *model in arr) {
+                NSString *time = [self.dateFormatter2 stringFromDate:[NSDate dateWithTimeIntervalSince1970:[model.addtime doubleValue]]];
+                DSLog(@"--TIME%@",time);
+                [self.dataArr addObject:time];
+            }
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  [self.calendar reloadData];
+                   });
+        }
+        
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--sign-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+     
+        
+    }];
+    
+}
 - (void)setOnClick
 {
     UISwitch *switc = [[UISwitch alloc]initWithFrame:CGRectMake(15, 10+SafeAreaTopHeight, 50, 30 )];
@@ -77,7 +129,7 @@
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(25+switc.frame.size.width+6, 13+SafeAreaTopHeight, 100, 25)];
     label.text = @"签到通知开关";
     label.textColor = RGB(153, 153, 153);
-    label.font = [UIFont systemFontOfSize:12];
+    label.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:label];
 }
 
@@ -127,7 +179,7 @@
     [[calendar valueForKeyPath:@"topBorder"] setValue:@YES forKey:@"hidden"];
     [[calendar valueForKeyPath:@"bottomBorder"] setValue:@YES forKey:@"hidden"];
     [bgView addSubview:calendar];
-    
+    self.calendar = calendar;
     
     
 }
@@ -135,7 +187,6 @@
     UIButton *signBtn = [[UIButton alloc]init];
     signBtn.frame =CGRectMake(0, 30+18+50+SafeAreaTopHeight+300, 190, 40);
     signBtn.center = CGPointMake(self.view.center.x, 30+18+50+SafeAreaTopHeight+300);
-//    [signBtn setBackgroundImage:[UIImage imageNamed:@"signbtn_bg"] forState:UIControlStateNormal];
     [signBtn setBackgroundColor:KALLRGB];
     signBtn.layer.cornerRadius = 20;
     signBtn.layer.masksToBounds = YES;
@@ -171,6 +222,7 @@
     numLab.frame = CGRectMake(S_W-25-20, S_H-150, 30, 30);
 //    numLab.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:numLab];
+    self.lab_page = numLab;
     NSString *str = @"1 /3";
     NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.font([UIFont systemFontOfSize:18.f]).textColor([UIColor darkTextColor]);
@@ -183,59 +235,49 @@
     
     numLab.attributedText = attrStr;
     
-    
-    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, S_H-120, S_W, 120)];
-    scrollV.showsVerticalScrollIndicator = NO;
-    scrollV.showsHorizontalScrollIndicator = NO;
-    scrollV.pagingEnabled = YES;
-    scrollV.clipsToBounds = NO;
-    scrollV.delegate = self;
-    [self.view addSubview:scrollV];
-    self.scrollV = scrollV;
-    CGFloat w = S_W-50;
-    for (int i=0; i<3; i++) {
-        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(25+(w+15)*i, 12, w, 97)];
-        img.backgroundColor = RandomColor;
-        img.layer.masksToBounds = YES;
-        img.layer.cornerRadius = 8;
-        [scrollV addSubview:img];
-
+    iCarousel *icarou = [[iCarousel alloc]initWithFrame:CGRectMake(0, S_H-120, S_W, 120)];
+    icarou.type = iCarouselTypeLinear;
+    icarou.pagingEnabled = YES;
+    icarou.delegate = self;
+    icarou.dataSource = self;
+    [self.view addSubview:icarou];
+}
+#pragma mark - icarouseldelegte
+- (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel{
+    return 3;
+}
+- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
+    if (view==nil) {
+        view = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, S_W-50, 100)];
+        view.backgroundColor = RandomColor;
+        view.layer.masksToBounds = YES;
+        view.layer.cornerRadius = 8;
+//        view.image = [UIImage imageNamed:@""];
     }
-    self.scrollV.contentSize = CGSizeMake((w+15)*3, 0);
-
+    return view;
 }
-#pragma mark - scrollVdelegte
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-      NSInteger cpage = scrollView.contentOffset.x  / self.scrollV.frame.size.width;
-//    NSInteger cpage = scrollView.contentOffset.x/S_W;
-    NSLog(@"---当前页-%ld",cpage);
-    
+- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value{
+    return value*1.04;
 }
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    
-}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-//    NSInteger cpage = (scrollView.contentOffset.x+S_W);
-//    NSLog(@"---当前页-%ld",cpage);
-//    CGPoint offset = scrollView.contentOffset;
-//
-//    // scrollView的当前位移/scrollView的总位移=滑块的当前位移/滑块的总位移
-//
-//
-//    frame.origin.x=15 + offset.x*(slideBackView.frame.size.width-sliderView.frame.size.width)/(scrollView.contentSize.width-scrollView.frame.size.width);
-//
-//    sliderView.frame = frame;
+- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
+//    切换index
+    NSString*  str = [NSString stringWithFormat:@"%ld /3",(long)carousel.currentItemIndex+1];
+    NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.font([UIFont systemFontOfSize:18.f]).textColor([UIColor darkTextColor]);
+        make.append(str);
+        make.rangeEdit(NSMakeRange(str.length - 1, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
+            make.font([UIFont systemFontOfSize:13.f]).textColor([UIColor orangeColor]);
+        });
+    });
+    self.lab_page.attributedText = attrStr;
 }
 #pragma mark - signBtnClick
 - (void)signBtnClick:(UIButton *)sender
 {
     NSLog(@"签到了");
-    TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
-    successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+    [self RequestSignInfoWithType:kXMHTTPMethodPOST];
     
-    [self presentViewController:successVc animated:NO completion:nil];
 }
 
 #pragma mark - FSCalendardeleagte
@@ -252,10 +294,17 @@
 // 对有事件的显示一个点,默认是显示三个点
 - (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date
 {
-    if ([_dataArr containsObject:[self.dateFormatter stringFromDate:date]]) {
+    if ([self.dataArr containsObject:[self.dateFormatter2 stringFromDate:date]]) {
         return 1;}else{
             return 0;
         }
+}
+
+- (nullable NSArray<UIColor *> *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date{
+    if ([self.dataArr containsObject:[self.dateFormatter2 stringFromDate:date]]) {
+        return @[KALLRGB];
+    }
+    return nil;
 }
 - (void)configureCell:(FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {

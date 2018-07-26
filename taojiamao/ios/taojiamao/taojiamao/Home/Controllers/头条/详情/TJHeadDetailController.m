@@ -12,7 +12,9 @@
 #import "TJHeadLineThreeCell.h"
 #import "TJReplyController.h"
 
+#import "TJInvitationView.h"
 @interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIView *view_bottom;
 
 @end
 
@@ -27,7 +29,7 @@
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-50) style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-50-SafeAreaTopHeight) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
@@ -41,8 +43,11 @@
 
 - (void)buttonClick:(UIButton *)but{
     
-//    TJNoticeController *noticeV = [[TJNoticeController alloc]init];
-//    [self.navigationController pushViewController:noticeV animated:YES];
+    TJInvitationView *iview = [TJInvitationView invitationView];
+    iview.frame = CGRectMake(0, 0, S_W, S_H);
+    iview.lab_tips.hidden = YES;
+    iview.lab_title.text = @"文章分享";
+    [[UIApplication sharedApplication].keyWindow addSubview:iview];
 }
 
 
@@ -57,6 +62,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         
+        if (indexPath.row==0) {
+            return 500;
+        }
         return 50;
     }else if (indexPath.section==1){
         
@@ -153,6 +161,15 @@
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView.contentOffset.y==0) {
+        DSLog(@"原位");
+        self.view_bottom.hidden = NO;
+    }else if (scrollView.contentOffset.y>0){
+        DSLog(@"bottom");
+        self.view_bottom.hidden = YES;
+    }
+}
 #pragma mark - moreComments
 - (void)moreComments:(UIButton *)sender
 {

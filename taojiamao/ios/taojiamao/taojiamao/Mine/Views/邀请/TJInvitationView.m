@@ -22,18 +22,17 @@
 
 
 @implementation TJInvitationView
-//- (instancetype)initWithFrame:(CGRect)frame
-//{
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        //ARRewardView : 自定义的view名称
-//        NSArray *nibView =  [[NSBundle mainBundle] loadNibNamed:@"TJInvitationView"owner:self options:nil];
-//        UIView *backView = [nibView objectAtIndex:0];
-//        backView.frame = frame;
-//        [self addSubview:backView];
-//    }
-//    return self;
-//}
+- (instancetype)initWithFrame:(CGRect)frame withTitile:(NSString *)title withsmsButtonImg:(NSString *)img
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"TJInvitationView"
+                                              owner:nil options:nil]lastObject];
+        [self.btn_sms setImage:[UIImage imageNamed:img] forState:UIControlStateNormal];
+        self.lab_title.text = title;
+    }
+    return self;
+}
 
 +(instancetype)invitationView{
     

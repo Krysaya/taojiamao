@@ -102,6 +102,10 @@
                     <constraint firstItem="mWI-Uy-GcX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="yfa-bA-Ydc"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="lab_titel" destination="WuT-DW-why" id="K9o-nf-C0p"/>
+                <outlet property="lab_type" destination="6xY-kl-IT9" id="UaW-Je-sqm"/>
+            </connections>
             <point key="canvasLocation" x="63" y="42.5"/>
         </tableViewCell>
     </objects>

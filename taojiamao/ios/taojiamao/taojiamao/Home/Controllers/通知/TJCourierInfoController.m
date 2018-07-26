@@ -9,7 +9,9 @@
 
 #import "TJCourierInfoController.h"
 #import "TJNoticeCell.h"
+#import "TJNoticeListModel.h"
 @interface TJCourierInfoController ()
+@property(nonatomic,strong)NSMutableArray *dataArr;
 
 @end
 
@@ -19,21 +21,56 @@
     [super viewDidLoad];
     if ([self.type isEqualToString:@"kd"]) {
         self.title = @"快递消息";
-
+        [self requestInfoListWithType:@"1"];
     }else{
         self.title = @"提现消息";
-
+        [self requestInfoListWithType:@"2"];
+        
     }
     self.tableView.backgroundColor = RGB(245, 245, 245);
     self.tableView.rowHeight = 135;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"TJNoticeCell" bundle:nil] forCellReuseIdentifier:@"noticeCell"];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   
+}
+
+- (void)requestInfoListWithType:(NSString *)type{
+    self.dataArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"type":type,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = MessageNotice;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+                request.parameters = @{@"type":type};
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSLog(@"----user-success-===%@",responseObject);
+        
+        NSDictionary *dict = responseObject[@"data"];
+        self.dataArr = [TJNoticeListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        DSLog(@"-%lu--arr==",(unsigned long)self.dataArr.count);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,12 +87,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 2;
+    return self.dataArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TJNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noticeCell" forIndexPath:indexPath];
+    cell.model = self.dataArr[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     // Configure the cell...

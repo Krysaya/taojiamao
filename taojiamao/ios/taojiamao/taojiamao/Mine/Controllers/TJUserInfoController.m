@@ -189,15 +189,20 @@
     NSLog(@"md=======%@===time=%@==uid=%@==",md5Str,timeStr,userid);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = UploadHeaderImg;
+//        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data;charset=utf-8;"];
+        
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,
                             @"uid":userid,
+                            
                             };
+        
 //        [request addFormDataWithName:@"head" fileName:@"aaa.jpg" mimeType:@"image/jpeg" fileURL:url];
 //        [request addFormDataWithName:@"head" fileData:fileData1];
-        [request addFormDataWithName:@"head" fileName:@"aa.jpg" mimeType:@"image/jpeg" fileData:fileData1];
+        [request addFormDataWithName:@"head[]" fileName:@"aa.jpg" mimeType:@"application/octet-stream" fileData:fileData1];
 //        request.responseSerializerType = kXMResponseSerializerJSON;
+        
         request.httpMethod = kXMRequestUpload;
     } onSuccess:^(id  _Nullable responseObject) {
         

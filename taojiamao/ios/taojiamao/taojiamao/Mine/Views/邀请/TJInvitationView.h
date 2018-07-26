@@ -10,6 +10,8 @@
 
 @interface TJInvitationView : UIView
 @property (weak, nonatomic) IBOutlet UIView *view_bg;
+@property (weak, nonatomic) IBOutlet UILabel *lab_title;
+@property (weak, nonatomic) IBOutlet UILabel *lab_tips;
 
 +(instancetype)invitationView;
 @end

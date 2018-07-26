@@ -77,10 +77,12 @@
 #pragma mark - collectiondelegte
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJPersonalCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"123" forIndexPath: indexPath];
-//    cell.imgView.backgroundColor = RandomColor;
-    cell.imgView.image = [UIImage imageNamed:self.imgArr[indexPath.row]];
+    cell.imgView.backgroundColor = RandomColor;
+    NSArray *imgA = self.imgArr[self.indexSection];
+    NSArray *titleA =self.titleArr[self.indexSection];
+    cell.imgView.image = [UIImage imageNamed:imgA[indexPath.row]];
     
-    cell.titleLab.text = self.titleArr[indexPath.row];
+    cell.titleLab.text = titleA[indexPath.row];
 //    cell.backgroundColor = [UIColor blackColor];
     
 //    [self updateCollectionViewHight:self.collectionView.collectionViewLayout.collectionViewContentSize.height];
@@ -97,16 +99,30 @@
     return 21.0;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 4;
+    
+     NSArray *arr = self.titleArr[self.indexSection];
+    return arr.count;
     
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+//     会员权益
+        if (self.mineCellDelegate && [self.mineCellDelegate respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)])
+        {
+            // 调用代理方法
+            [self.mineCellDelegate collectionCell:self didSelectItemIndexPath:indexPath];
+        }
+    
+}
 - (void)cellHeaderTitle:(NSString *)title withImageArr:(NSArray *)imgArr withtitleArr:(NSArray *)titleArr{
     self.titleLab.text = title;
     self.imgArr = imgArr;
     self.titleArr = titleArr;
 
 }
+
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

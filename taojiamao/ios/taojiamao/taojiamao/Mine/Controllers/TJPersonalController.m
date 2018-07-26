@@ -19,6 +19,14 @@
 #import "TJSettingController.h"
 #import "TJLoginController.h"
 
+#import "TJVipBalanceController.h"
+#import "TJVipFansController.h"
+#import "TJVipPerformanceController.h"
+
+#import "TJOrderClaimController.h"
+#import "TJAssistanceController.h"
+#import "TJRankingListController.h"
+#import "TJShareMoneyController.h"
 #import "TJCollectController.h"
 #import "TJMyAssetsController.h"
 #import "TJMineOrderController.h"
@@ -31,7 +39,7 @@
 #define Setting   9999
 #define Notify    6666
 
-@interface TJPersonalController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface TJPersonalController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,UICollectionViewDelegate,UICollectionViewDataSource,testTableViewCellDelegate>
 
 @property(nonatomic,strong)TJUserDataModel * model;
 
@@ -148,7 +156,7 @@
                                     @"app": @"ios",
                                     @"uid":userid,
                                     }.mutableCopy;
-         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
             request.url = LoginedUserData;
             request.headers = @{@"timestamp": timeStr,
@@ -438,6 +446,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         return 30;
+    }else if (indexPath.section==3){
+        return 240;
     }
         return 112*W_Scale;
 
@@ -448,7 +458,18 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TJMineListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mineCell"];
 //    NSArray *img = @[@"",@"",@"",@"",nil];
-    [cell cellHeaderTitle:@[@"",@"会员权益",@"快递代取",@"常用工具"][indexPath.section] withImageArr:@[@"",@"",@"",@""] withtitleArr:@[@"累计奖金",@"我的粉丝",@"推广业绩",@"热推top"]];
+    cell.indexSection = indexPath.section;
+    cell.mineCellDelegate = self;
+    [cell cellHeaderTitle:@[@"",@"会员权益",@"快递代取",@"常用工具"][indexPath.section] withImageArr:@[
+                                                            @[],
+                                                            @[@"",@"",@"",@""],
+                                                            @[@"",@"",@"",@""],
+                                                            @[@"",@"",@"",@"",@"",@"",@"",@"",@""],
+                                                                                            ] withtitleArr:@[
+                                                                         @[],                                                      @[@"累计奖金",@"我的粉丝",@"推广业绩",@"热推top"],
+                                                                                                             @[@"快递代取",@"快递代取",@"快递代取",@"快递代取"],
+                                                                                                             @[@"签到红包",@"订单认领",@"推淘宝订单",@"淘宝购物车",@"申请代理",@"排行榜",@"客服帮助",@"分享赚钱",@"邀请有奖"],
+                                                                                                               ]];
     if (indexPath.section==0) {
         cell.backgroundColor = RGB(245, 245, 245);
         cell.contentView.hidden = YES;
@@ -463,37 +484,91 @@
     return 4;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    select
-    if (indexPath.section==1) {
-       
-    }else if (indexPath.section==2){
-        
-    }else if (indexPath.section==3){
-        NSLog(@"------我是第三行---");
-        
-        TJInvitationView *iview = [TJInvitationView invitationView];
-        iview.frame = CGRectMake(0, 0, S_W, S_H);
-        //设置切哪个直角
-        //    UIRectCornerTopLeft     = 1 << 0,  左上角
-        //    UIRectCornerTopRight    = 1 << 1,  右上角
-        //    UIRectCornerBottomLeft  = 1 << 2,  左下角
-        //    UIRectCornerBottomRight = 1 << 3,  右下角
-        //    UIRectCornerAllCorners  = ~0UL     全部角
-        //得到view的遮罩路径
-//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:iview.view_bg.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(10,10)];
-//        //创建 layer
-//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//        maskLayer.frame = iview.view_bg.bounds;
-//        //赋值
-//        maskLayer.path = maskPath.CGPath;
-//        iview.view_bg.layer.mask = maskLayer;
-        
-        [[UIApplication sharedApplication].keyWindow addSubview:iview];
 
+- (void)collectionCell:(TJMineListCell *)cell didSelectItemIndexPath:(NSIndexPath *)indexPath{
+    if (cell.indexSection==1) {
+        DSLog(@"==会员权益");
+        switch (indexPath.row) {
+            case 0:
+                {
+//                    累计奖金
+                }
+                break;
+            case 1:
+            {
+//                    我的粉丝
+            }
+                break;
+            case 2:
+            {
+//                    推广业绩
+            }
+                break;
+            case 3:
+            {
+//                    热推top
+            }
+                break;
+            default:
+                break;
+        }
+    }else if(cell.indexSection==2){
+        
+    }else if (cell.indexSection==3){
+        DSLog(@"常用工具");
+        switch (indexPath.row) {
+            case 0:
+            {
+//                    签到红包
+                
+            }
+                break;
+            case 1:
+            {
+ //                    订单认领
+                DSLog(@"==订单认领");
+
+                TJOrderClaimController *vc= [[TJOrderClaimController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 5:
+            {
+                DSLog(@"==排行榜");
+
+ //                    排行榜
+                TJRankingListController *vc= [[TJRankingListController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 6:
+            {
+//                    客服帮助
+                TJAssistanceController *vc= [[TJAssistanceController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 7:
+            {
+  //                    分享赚钱
+                TJShareMoneyController *vc= [[TJShareMoneyController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 8:
+            {
+//                    邀请有奖
+                TJInvitationView *iview = [TJInvitationView invitationView];
+                iview.frame = CGRectMake(0, 0, S_W, S_H);
+                [[UIApplication sharedApplication].keyWindow addSubview:iview];
+
+            }
+                break;
+            default:
+                break;
+        }
     }
 }
-
 
 
 @end
