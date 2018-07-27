@@ -11,4 +11,8 @@
 
 @implementation TJGoodsCollectModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{@"news_url":@"new_url"};
+}
+
 @end

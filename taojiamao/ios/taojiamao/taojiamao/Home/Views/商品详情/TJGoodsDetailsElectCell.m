@@ -7,6 +7,7 @@
 //
 
 #import "TJGoodsDetailsElectCell.h"
+#import "TJJHSGoodsListModel.h"
 @interface TJGoodsDetailsElectCell()
 
 @property(nonatomic,strong)UILabel * elect;
@@ -27,11 +28,7 @@
     
     self.elect = [[UILabel alloc]initWithFrame:CGRectMake(12*W_Scale, 15*H_Scale, 39*W_Scale, 18*H_Scale)];
     self.elect.text = @"推荐";
-//    YYTextBorder * bor = [YYTextBorder borderWithLineStyle:YYTextLineStyleSingle lineWidth:1 strokeColor:[UIColor redColor]];
-//    bor.cornerRadius = 5.0;
-//    NSMutableAttributedString * attr = [[NSMutableAttributedString alloc]initWithString:@"推荐"];
-//    attr.yy_font = [UIFont systemFontOfSize:12];
-//    attr.yy_textBorder = bor;
+
     self.elect.font = [UIFont systemFontOfSize:12];
 //    self.elect.textVerticalAlignment = YYTextVerticalAlignmentCenter;
     self.elect.textAlignment = NSTextAlignmentCenter;
@@ -78,7 +75,10 @@
     return attrText;
 }
 
+- (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
+    self.intro.attributedText =[self labelRetract:model_detail.intro_foot];
 
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

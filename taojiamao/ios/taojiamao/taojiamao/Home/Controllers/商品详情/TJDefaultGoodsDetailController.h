@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJJHSGoodsListModel;
 @interface TJDefaultGoodsDetailController : TJBaseViewController
 
+@property (nonatomic, strong) TJJHSGoodsListModel *model_detail;
 @end

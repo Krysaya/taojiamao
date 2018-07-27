@@ -12,6 +12,7 @@
 #import "TJContentCollectController.h"
 #import "TJGoodsListCell.h"
 #import "TJContentListCell.h"
+#import "TJGoodsCollectModel.h"
 @interface TJCollectController ()<ZJScrollPageViewDelegate>
 
 @property (nonatomic, strong) ZJContentView *contentView;
@@ -20,21 +21,26 @@
 @property(nonatomic,weak) UIView *bottomBgView;
 @property(nonatomic,assign) NSInteger isSelect;
 
-
+@property (nonatomic, strong) NSMutableArray *dataArr_collcet;
+@property (nonatomic, strong) TJGoodsCollectController *vc1;
+@property (nonatomic, strong) TJContentCollectController *vc2;
 @end
 
 @implementation TJCollectController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    [self requestGoodsCollcetion];
+
     self.view.backgroundColor = [UIColor whiteColor];
     
     // 必要的设置, 如果没有设置可能导致内容显示不正常
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     TJGoodsCollectController *vc1 = [[TJGoodsCollectController alloc]init];
-    
     TJContentCollectController *vc2 = [[TJContentCollectController alloc]init];
     _childVCs = @[vc1,vc2];
     
@@ -70,6 +76,46 @@
     
     
     [self setupBottomStatus];
+}
+
+- (void)requestGoodsCollcetion{
+    self.dataArr_collcet = [NSMutableArray array];
+    
+    NSString *userid = GetUserDefaults(UID);
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = GoodsCollection;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.requestSerializerType = kXMRequestSerializerRAW;
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSLog(@"--success-===%@",responseObject);
+        NSDictionary *dict = responseObject[@"data"];
+        self.dataArr_collcet = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.goodsTabView reloadData];
+            self.vc1.dataArr = self.dataArr_collcet;
+
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        DSLog(@"--error%@",error);
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"-收藏-≈≈error-msg=======dict%@",dic_err);
+    }];
 }
 #pragma mark - 编辑
 - (void)editClick:(UIButton *)sender{
@@ -171,6 +217,7 @@
     UIButton *btn = [[UIButton alloc]init];
     btn.titleLabel.font = [UIFont systemFontOfSize:13];
     [btn setTitle:@"取消收藏" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(cancelCollect:) forControlEvents:UIControlEventTouchUpInside];
     btn.backgroundColor = KALLRGB;
     btn.layer.masksToBounds = YES;
     btn.layer.cornerRadius = 15;
@@ -183,6 +230,15 @@
     }];
     self.bottomBgView = bottomBgView;
 
+}
+- (void)cancelCollect:(UIButton *)sender
+{
+    if (self.isSelect==0) {
+//        商品
+        DSLog(@"sp");
+    }else{
+//         内容
+    }
 }
 #pragma mark- ZJScrollPageViewDelegate
 - (NSInteger)numberOfChildViewControllers {

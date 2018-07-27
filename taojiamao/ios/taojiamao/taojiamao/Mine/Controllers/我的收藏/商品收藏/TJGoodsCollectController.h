@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITableView *goodsTabView;
 
 @property (nonatomic,assign) BOOL  goodsEditStatus;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 
 @end

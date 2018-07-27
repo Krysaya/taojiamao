@@ -79,7 +79,7 @@
                                     
                                     }.mutableCopy;
     
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
 //
 //    
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {

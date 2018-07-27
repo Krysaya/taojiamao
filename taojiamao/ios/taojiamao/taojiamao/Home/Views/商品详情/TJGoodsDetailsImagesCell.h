@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJJHSGoodsListModel;
 
 @interface TJGoodsDetailsImagesCell : TJBaseTableCell
 
 @property(nonatomic,copy)NSString * urlStr;
+@property (nonatomic, strong) TJJHSGoodsListModel *model_detail;
 
 @end

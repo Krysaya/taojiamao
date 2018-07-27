@@ -15,7 +15,7 @@
 #import "TJGoodsDetailsImagesCell.h"
 #import "TJBottomPopupView.h"
 #import "TJPopularizeController.h"
-
+#import "TJJHSGoodsListModel.h"
 #import "UIViewController+Extension.h"
 
 static NSString * const GoodsDetailsTitleCell = @"GoodsDetailsTitleCell";
@@ -26,6 +26,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 #define DetailsBackButton   951
 #define DetailShareButton   952
+#define DetailCollectButton   956
+
 #define DetailsBuyButton    953
 #define DetailsGoTopButton  954
 #define DetailsPopularize   955
@@ -96,7 +98,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(void)setUIfootView{
     WeakSelf
     self.footView = [[UIView alloc]init];
-    self.footView.backgroundColor = RandomColor;
+    self.footView.backgroundColor = RGB(255, 255, 255);
     [self.view addSubview:self.footView];
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(weakSelf.view);
@@ -104,7 +106,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.height.mas_equalTo(54*H_Scale);
     }];
     
-    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"morentouxiang"];
+    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"morentouxiang"];
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -112,25 +114,25 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.width.height.mas_equalTo(19*W_Scale);
     }];
     
-    self.shareL = [TJLabel setLabelWith:@"分享" font:10 color:RGB(150, 150, 150)];
+    self.shareL = [TJLabel setLabelWith:@"收藏" font:10 color:RGB(150, 150, 150)];
     [self.footView addSubview:self.shareL];
     [self.shareL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.shareB);
         make.top.mas_equalTo(weakSelf.shareB.mas_bottom).offset(6*H_Scale);
     }];
     
-    self.buy = [[TJButton alloc]initWith:@"立即购买" delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:[UIColor redColor] tag:DetailsBuyButton cornerRadius:20];
+    self.buy = [[TJButton alloc]initWith:@"立即购买" delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:[UIColor redColor] tag:DetailsBuyButton cornerRadius:0];
     [self.footView addSubview:self.buy];
     [self.buy mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.footView);
         make.left.mas_equalTo(weakSelf.shareL.mas_right).offset(31*W_Scale);
-        make.width.mas_equalTo(263*W_Scale);
-        make.height.mas_equalTo(40*H_Scale);
+        make.right.mas_equalTo(weakSelf.footView);
+        make.height.mas_equalTo(54);
     }];
 }
 
 -(void)setBackButton{
-    CGFloat TOP = IsX?26*H_Scale+24:26*H_Scale;
+    CGFloat TOP = 20;
     self.backButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsBackButton withBackImage:@"back_left"];
     [self.view addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,10 +140,18 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.top.mas_equalTo(TOP);
         make.width.height.mas_equalTo(32*W_Scale);
     }];
+    
+     TJButton *shareButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"share"];
+    [self.view addSubview:shareButton];
+    [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-9);
+        make.top.mas_equalTo(TOP);
+        make.width.height.mas_equalTo(32*W_Scale);
+    }];
 }
 
 -(void)setUI{
-    CGFloat Y = IsX?-44:-20;
+    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, S_W, S_H+20-54*H_Scale) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
@@ -168,29 +178,29 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         TJDafultGoodsTitlesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsTitleCell forIndexPath:indexPath];
+        cell.model_detail = self.model_detail;
         return cell;
     }else if(indexPath.section==1){
         TJGoodsDetailsElectCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsElectCell forIndexPath:indexPath];
-        cell.detailsIntro = @"推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐";
+        cell.model_detail = self.model_detail;
         return cell;
     }else if(indexPath.section==2){
-//        TJGoodsDetailsLFCCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsLFCCell forIndexPath:indexPath];
-//        cell.LFC = @"领券";
-//        cell.content = @"为气温气温气温气温气温气温气温气温的方式大哥大法官的发个非官方个";
-//        cell.isTKL = NO;
-//        return cell;
+
         TJGoodsDetailsLFCCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsLFCCell forIndexPath:indexPath];
         cell.content = @"复制淘口令，打开【手机淘宝】即可";
         cell.isTKL = YES;
         return cell;
     }else if(indexPath.section==3){
         TJGoodsDetailsCompanyCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsCompanyCell forIndexPath:indexPath];
-        
+        cell.model_detail = self.model_detail;
+
         return cell;
 
     }else{
         TJGoodsDetailsImagesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsImagesCell forIndexPath:indexPath];
         cell.urlStr = self.imageSSS[indexPath.row];
+        cell.model_detail = self.model_detail;
+
         return cell;
         
     }
@@ -199,16 +209,16 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 471;
+        return 590;
     }else if(indexPath.section==1){
         return [tableView fd_heightForCellWithIdentifier:GoodsDetailsElectCell cacheByIndexPath:indexPath configuration:^(TJGoodsDetailsElectCell *cell) {
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
             cell.detailsIntro = @"推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐";
         }];
     }else if (indexPath.section==2){
-        return 42*H_Scale;
+        return 42;
     }else if(indexPath.section==3){
-        return 76*H_Scale;
+        return 76;
     }else{
         NSString *url = self.imageSSS[indexPath.row];
         return [XHWebImageAutoSize imageHeightForURL:[NSURL URLWithString:url] layoutWidth:S_W estimateHeight:200];

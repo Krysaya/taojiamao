@@ -8,15 +8,22 @@
 
 #import "TJJHSuanController.h"
 #import "TJJHSuanCell.h"
+#import "TJJHSGoodsListModel.h"
 //#import "TJGoodsDetailsController.h"
 #import "TJDefaultGoodsDetailController.h"
 
 @interface TJJHSuanController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
+@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) UICollectionView *collectionV;
 @end
 
 @implementation TJJHSuanController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestJHSList];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.barTintColor = KALLRGB;
@@ -28,6 +35,48 @@
 }
 
 - (void)requestJHSList{
+    self.dataArr = [NSMutableArray array];
+    NSNumber * uid = GetUserDefaults(UID);
+    NSString *userid = [NSString stringWithFormat:@"%@",uid];
+    
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary * param = @{
+    //                              @"page":@"5",
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid": userid,
+                                    
+                                    }.mutableCopy;
+    
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = JHSGoodsList;
+        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
+        request.httpMethod = kXMHTTPMethodPOST;
+    }onSuccess:^(id responseObject) {
+        NSDictionary *dict = responseObject[@"data"];
+        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            TJTqgTimesListModel *model = self.timesArr[0];
+//            NSLog(@"-----mmdoel---arg===%@",model.arg);
+//            [self requestGoodsListWithModel:model];
+            [self.collectionV reloadData];
+//            self.menuView.backgroundColor = [UIColor blackColor];
+        });
+        
+//        NSLog(@"jhsonSuccess:%@ =======",responseObject);
+        
+    } onFailure:^(NSError *error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        
+        NSLog(@"---onFailure--%@",dic_err);
+        
+    }];
     
 }
 - (void)setCollectionVc{
@@ -40,6 +89,7 @@
     [collectV registerNib:[UINib nibWithNibName:@"TJJHSuanCell" bundle:nil]
 forCellWithReuseIdentifier:@"TJJHSuanCell"];
     [self.view addSubview:collectV];
+    self.collectionV = collectV;
 }
 #pragma mark ---- UICollectionViewDataSource
 
@@ -59,18 +109,19 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 4;
+    return self.dataArr.count;
 }
 
 
 //UICollectionViewCell的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake((S_W-10)/2, 275*H_Scale);
+    return CGSizeMake((S_W-10)/2, 275);
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     TJJHSuanCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TJJHSuanCell" forIndexPath:indexPath];
+    cell.model = self.dataArr[indexPath.row];
 //    cell.backgroundColor = [UIColor purpleColor];
     
     return cell;
@@ -79,6 +130,7 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //   
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
+    goodVC.model_detail = self.dataArr[indexPath.row];
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

@@ -7,7 +7,9 @@
 //
 
 #import "TJBaseTableCell.h"
+@class TJJHSGoodsListModel;
 
 @interface TJDafultGoodsTitlesCell : TJBaseTableCell
+@property (nonatomic, strong) TJJHSGoodsListModel *model_detail;
 
 @end

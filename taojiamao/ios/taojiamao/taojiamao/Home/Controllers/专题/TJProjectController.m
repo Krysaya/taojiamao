@@ -48,11 +48,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
-    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
-        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
-    });
-    cell.titleLab.attributedText = str;
+//    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+//        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+//        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
+//    });
+//    cell.titleLab.attributedText = str;
     [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO];
     return cell;
 }

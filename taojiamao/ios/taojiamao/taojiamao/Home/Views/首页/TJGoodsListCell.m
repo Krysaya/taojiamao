@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lab_quanh;
 @property (weak, nonatomic) IBOutlet UILabel *lab_yuanjia;
 @property (weak, nonatomic) IBOutlet UILabel *lab_yimai;
+@property (weak, nonatomic) IBOutlet UILabel *titleLab;
 
 @property (weak, nonatomic) IBOutlet UIButton *selectBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *checkBtnLeading;
@@ -39,7 +40,7 @@
 - (void)cellWithArr:(NSArray *)arr forIndexPath:(NSIndexPath *)indexPath isEditing:(BOOL)editing
 {
     if (editing) {
-        NSLog(@"keyi--%d",editing);
+
         _checkBtnLeading.constant = 20.f;
         
         _rightViewTrailing.constant = -49.f;
@@ -54,6 +55,24 @@
     
     TJGoodsCollectModel *model = [arr objectAtIndex:indexPath.row];
     _selectBtn.selected = model.isChecked;
+    [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",model.thumb]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    NSAttributedString *str_tb = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+        make.insertText(@" ", 1);
+        make.insertText(model.title, 2);
+    });
+    self.titleLab.attributedText = str_tb;
+    self.lab_quanh.text = model.price;
+    self.lab_yuanjia.text = model.prime;
+    NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.coupon_money];
+    NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
+        make.append(str_coupon);
+        make.rangeEdit(NSMakeRange(3, model.price.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+            make.font([UIFont systemFontOfSize:19.f]).textColor([UIColor whiteColor]);
+        });
+    });
+    [self.btn_quan setAttributedTitle:attrStr forState:UIControlStateNormal];
     
 }
 

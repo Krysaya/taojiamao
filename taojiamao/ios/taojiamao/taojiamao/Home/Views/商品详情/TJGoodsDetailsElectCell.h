@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJJHSGoodsListModel;
 
 @interface TJGoodsDetailsElectCell : TJBaseTableCell
+@property (nonatomic, strong) TJJHSGoodsListModel *model_detail;
 
 @property(nonatomic,copy)NSString * detailsIntro;
 

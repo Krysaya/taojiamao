@@ -48,6 +48,9 @@ static NSString * const UserPhone = @"UserPhone";
 //消息通知
 #define MessageNotice          [BASEURL stringByAppendingString:@"/v1/messages"]
 
+//商品收藏表
+#define GoodsCollection          [BASEURL stringByAppendingString:@"/v1/goods/collection"]
+
 //10余额明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/api.php?s=My/Accountbalance"]
 //11修改密码
@@ -85,6 +88,8 @@ static NSString * const UserPhone = @"UserPhone";
 #define TQGGoodsList        [BASEURL stringByAppendingString:@"/v1/tb/tqg"]
 
 
+//jhs
+#define JHSGoodsList        [BASEURL stringByAppendingString:@"/v1/tb/jhs"]
 
 
 

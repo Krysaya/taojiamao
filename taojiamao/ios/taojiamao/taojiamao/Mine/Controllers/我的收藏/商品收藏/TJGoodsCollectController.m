@@ -13,21 +13,21 @@
 #import "SJAttributeWorker.h"
 @interface TJGoodsCollectController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *dataArr;
 //@property (nonatomic, assign) BOOL isEditing;
 
 @end
 
 @implementation TJGoodsCollectController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _dataArr = @[].mutableCopy;
-    for (int i = 0; i < 20; i ++) {
-        TJGoodsCollectModel *m = [TJGoodsCollectModel new];
-        [_dataArr addObject:m];
-    }
-    
+//    for (int i = 0; i < 20; i ++) {
+//        TJGoodsCollectModel *m = [TJGoodsCollectModel new];
+//        [_dataArr addObject:m];
+//    }
+
     UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
     tableView.rowHeight = 150;
     tableView.delegate = self;
@@ -47,16 +47,12 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.dataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
-    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
-        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
-    });
-    cell.titleLab.attributedText = str;
-    [cell cellWithArr:_dataArr forIndexPath:indexPath isEditing:_goodsEditStatus];
+    
+    [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:_goodsEditStatus];
 
     return cell;
 }

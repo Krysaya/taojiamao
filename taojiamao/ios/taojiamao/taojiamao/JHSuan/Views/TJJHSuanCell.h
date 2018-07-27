@@ -7,13 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJJHSGoodsListModel;
 
 @interface TJJHSuanCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *img;
-@property (weak, nonatomic) IBOutlet UIImageView *tb_img;
-@property (weak, nonatomic) IBOutlet UILabel *title_lab;
-@property (weak, nonatomic) IBOutlet UILabel *yimai_lab;
-@property (weak, nonatomic) IBOutlet UILabel *quanhou_lab;
-@property (weak, nonatomic) IBOutlet UIButton *btn_quan;
 
+@property (nonatomic, strong) TJJHSGoodsListModel *model;
 @end

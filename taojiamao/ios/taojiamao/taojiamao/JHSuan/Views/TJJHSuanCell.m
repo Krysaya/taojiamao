@@ -7,6 +7,18 @@
 //
 
 #import "TJJHSuanCell.h"
+#import "TJJHSGoodsListModel.h"
+#import "UIImageView+WebCache.h"
+@interface TJJHSuanCell()
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UIImageView *tb_img;
+@property (weak, nonatomic) IBOutlet UILabel *title_lab;
+@property (weak, nonatomic) IBOutlet UILabel *yimai_lab;
+@property (weak, nonatomic) IBOutlet UILabel *quanhou_lab;
+@property (weak, nonatomic) IBOutlet UIButton *btn_quan;
+
+
+@end
 
 @implementation TJJHSuanCell
 
@@ -15,4 +27,20 @@
     // Initialization code
 }
 
+- (void)setModel:(TJJHSGoodsListModel *)model{
+    self.title_lab.text = model.title;
+//    self.yimai_lab.text =
+    NSString *str = [NSString stringWithFormat:@"券后：¥%@",model.price];
+    NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.font([UIFont systemFontOfSize:12.f]).textColor(KALLRGB);
+        make.append(str);
+        make.rangeEdit(NSMakeRange(4, model.price.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+            make.font([UIFont systemFontOfSize:19.f]).textColor(KALLRGB);
+        });
+    });
+    self.quanhou_lab.attributedText = attrStr;
+    [self.btn_quan setTitle:[NSString stringWithFormat:@"领券减%@",model.coupon_money] forState:UIControlStateNormal];
+
+    [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",model.thumb]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+}
 @end

@@ -241,7 +241,7 @@
     }];
     NSInteger b = imgA.count;
     CGFloat a = ceilf(b/2.0);
-    NSLog(@"--===上取整--%lf--%ld@==%ld",a,imgA.count,(long)b);
+    DSLog(@"--===上取整--%lf--%ld@==%ld",a,imgA.count,(long)b);
     
     UIView *scrollBaseView = [UIView new];
     [newsScroll addSubview:scrollBaseView];
@@ -323,12 +323,12 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
-    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
-        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
-    });
+//    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+//        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+//        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
+//    });
     [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO];
-    cell.titleLab.attributedText = str;
+//    cell.titleLab.attributedText = str;
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -392,7 +392,7 @@
 }
 #pragma mark - searchbardelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    NSLog(@"点了--");[self searchClick];
+    DSLog(@"点了--");[self searchClick];
     return NO;
 }
 #pragma mark - btndelegte
@@ -439,7 +439,6 @@
 - (void)timerNewsChanged{
     NSInteger page = (self.pageC_NEWS.currentPage + 1) %3;
     self.pageC_NEWS.currentPage = page;
-    NSLog(@"%ld---tt88888",page);
     [self pageChanged:self.pageC_NEWS];
 
 }
@@ -651,15 +650,6 @@
     return _big_ScrollView;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TJGoodsListCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *titleLab;
 
 
 - (void)cellWithArr:(NSArray *)arr forIndexPath:(NSIndexPath *)indexPath isEditing:(BOOL)editing;

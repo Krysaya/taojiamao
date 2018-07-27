@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJJHSGoodsListModel;
 
 @interface TJGoodsDetailsCompanyCell : TJBaseTableCell
+@property (nonatomic, strong) TJJHSGoodsListModel *model_detail;
 
 @end
