@@ -88,7 +88,6 @@
 		C7292AAA2095CA7700073099 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292AA12095CA7700073099 /* SDCollectionViewCell.m */; };
 		C7292AAB2095CA7700073099 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292AA32095CA7700073099 /* SDCycleScrollView.m */; };
 		C7292AAC2095CA7700073099 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292AA52095CA7700073099 /* UIView+SDExtension.m */; };
-		C72A72AB209D37A6001CAC75 /* TJSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A72AA209D37A6001CAC75 /* TJSearchController.m */; };
 		C72A72BB209D54B3001CAC75 /* NSBundle+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A72AE209D54B3001CAC75 /* NSBundle+PYSearchExtension.m */; };
 		C72A72BC209D54B3001CAC75 /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C72A72AF209D54B3001CAC75 /* PYSearch.bundle */; };
 		C72A72BD209D54B3001CAC75 /* PYSearchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A72B2209D54B3001CAC75 /* PYSearchConst.m */; };
@@ -99,7 +98,6 @@
 		C72A72C5209D9BD0001CAC75 /* TJGetVerifyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A72C4209D9BD0001CAC75 /* TJGetVerifyCode.m */; };
 		C732067A20EDE87100E480A8 /* TJTQGContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C732067920EDE87100E480A8 /* TJTQGContentController.m */; };
 		C732067E20EDF43700E480A8 /* TJTQGContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C732067C20EDF43700E480A8 /* TJTQGContentCell.m */; };
-		C738F08520B66A7200758C72 /* TJSearchContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C738F08420B66A7200758C72 /* TJSearchContentController.m */; };
 		C73D392F20E341C00004D5B4 /* TJRankingListController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D392E20E341C00004D5B4 /* TJRankingListController.m */; };
 		C73D393220E362340004D5B4 /* TJAwardController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D393120E362340004D5B4 /* TJAwardController.m */; };
 		C73D393520E363730004D5B4 /* TJInviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D393420E363730004D5B4 /* TJInviteController.m */; };
@@ -204,6 +202,10 @@
 		C74DFFAA20F7590500D83ACF /* TJMyFootPrintController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DFFA920F7590500D83ACF /* TJMyFootPrintController.m */; };
 		C74DFFAE20F75ABF00D83ACF /* TJGoodsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DFFAC20F75ABF00D83ACF /* TJGoodsListCell.m */; };
 		C74DFFAF20F75ABF00D83ACF /* TJGoodsListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74DFFAD20F75ABF00D83ACF /* TJGoodsListCell.xib */; };
+		C74E8AE3210C518A00798E53 /* TJSearchContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74E8AE0210C518A00798E53 /* TJSearchContentController.m */; };
+		C74E8AE4210C518A00798E53 /* TJSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74E8AE2210C518A00798E53 /* TJSearchController.m */; };
+		C74E8AE8210C543700798E53 /* TJSearchScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = C74E8AE7210C543700798E53 /* TJSearchScreenView.m */; };
+		C74E8AEA210C544300798E53 /* TJSearchScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74E8AE9210C544300798E53 /* TJSearchScreenView.xib */; };
 		C753A22320B7E6BB0098FCE9 /* TJSearchContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C753A22220B7E6BB0098FCE9 /* TJSearchContentCell.m */; };
 		C756A27A20A91F4000EC5FEB /* TJAccountSafeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C756A27920A91F4000EC5FEB /* TJAccountSafeController.m */; };
 		C756A27D20A92BE700EC5FEB /* TJBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C756A27C20A92BE700EC5FEB /* TJBaseTableCell.m */; };
@@ -625,8 +627,6 @@
 		C7292AA32095CA7700073099 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		C7292AA42095CA7700073099 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		C7292AA52095CA7700073099 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
-		C72A72A9209D37A6001CAC75 /* TJSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSearchController.h; sourceTree = "<group>"; };
-		C72A72AA209D37A6001CAC75 /* TJSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSearchController.m; sourceTree = "<group>"; };
 		C72A72AD209D54B3001CAC75 /* NSBundle+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PYSearchExtension.h"; sourceTree = "<group>"; };
 		C72A72AE209D54B3001CAC75 /* NSBundle+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+PYSearchExtension.m"; sourceTree = "<group>"; };
 		C72A72AF209D54B3001CAC75 /* PYSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYSearch.bundle; sourceTree = "<group>"; };
@@ -647,8 +647,6 @@
 		C732067920EDE87100E480A8 /* TJTQGContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTQGContentController.m; sourceTree = "<group>"; };
 		C732067B20EDF43700E480A8 /* TJTQGContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTQGContentCell.h; sourceTree = "<group>"; };
 		C732067C20EDF43700E480A8 /* TJTQGContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTQGContentCell.m; sourceTree = "<group>"; };
-		C738F08320B66A7200758C72 /* TJSearchContentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSearchContentController.h; sourceTree = "<group>"; };
-		C738F08420B66A7200758C72 /* TJSearchContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSearchContentController.m; sourceTree = "<group>"; };
 		C73D392D20E341C00004D5B4 /* TJRankingListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJRankingListController.h; sourceTree = "<group>"; };
 		C73D392E20E341C00004D5B4 /* TJRankingListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJRankingListController.m; sourceTree = "<group>"; };
 		C73D393020E362340004D5B4 /* TJAwardController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAwardController.h; sourceTree = "<group>"; };
@@ -865,6 +863,13 @@
 		C74DFFAB20F75ABF00D83ACF /* TJGoodsListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJGoodsListCell.h; sourceTree = "<group>"; };
 		C74DFFAC20F75ABF00D83ACF /* TJGoodsListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsListCell.m; sourceTree = "<group>"; };
 		C74DFFAD20F75ABF00D83ACF /* TJGoodsListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJGoodsListCell.xib; sourceTree = "<group>"; };
+		C74E8ADF210C518A00798E53 /* TJSearchContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJSearchContentController.h; sourceTree = "<group>"; };
+		C74E8AE0210C518A00798E53 /* TJSearchContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJSearchContentController.m; sourceTree = "<group>"; };
+		C74E8AE1210C518A00798E53 /* TJSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJSearchController.h; sourceTree = "<group>"; };
+		C74E8AE2210C518A00798E53 /* TJSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJSearchController.m; sourceTree = "<group>"; };
+		C74E8AE6210C543700798E53 /* TJSearchScreenView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSearchScreenView.h; sourceTree = "<group>"; };
+		C74E8AE7210C543700798E53 /* TJSearchScreenView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSearchScreenView.m; sourceTree = "<group>"; };
+		C74E8AE9210C544300798E53 /* TJSearchScreenView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJSearchScreenView.xib; sourceTree = "<group>"; };
 		C753A22120B7E6BB0098FCE9 /* TJSearchContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSearchContentCell.h; sourceTree = "<group>"; };
 		C753A22220B7E6BB0098FCE9 /* TJSearchContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSearchContentCell.m; sourceTree = "<group>"; };
 		C756A27820A91F4000EC5FEB /* TJAccountSafeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAccountSafeController.h; sourceTree = "<group>"; };
@@ -1797,6 +1802,7 @@
 		C73FC78E209019F300732F2D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C74E8ADE210C518A00798E53 /* 搜索 */,
 				C7588E6220F5935500CA5574 /* 首页 */,
 				C76BA5F720FD98AA006C749B /* 头条 */,
 				C75F64BF20EF62E300B55B8B /* 签到 */,
@@ -1806,14 +1812,10 @@
 				C75F64BE20EF62E300B55B8B /* 通知 */,
 				C7292A3A2095760000073099 /* TJFirstAllController.h */,
 				C7292A3B2095760000073099 /* TJFirstAllController.m */,
-				C72A72A9209D37A6001CAC75 /* TJSearchController.h */,
-				C72A72AA209D37A6001CAC75 /* TJSearchController.m */,
 				C74C31A620B294CD0074AC00 /* TJMiddleClickController.h */,
 				C74C31A720B294CD0074AC00 /* TJMiddleClickController.m */,
 				C74C31AC20B2DDE70074AC00 /* TJPopularizeController.h */,
 				C74C31AD20B2DDE70074AC00 /* TJPopularizeController.m */,
-				C738F08320B66A7200758C72 /* TJSearchContentController.h */,
-				C738F08420B66A7200758C72 /* TJSearchContentController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1839,6 +1841,7 @@
 		C73FC790209019F300732F2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C74E8AE5210C53F800798E53 /* 搜索 */,
 				C786472B20F33FA400995A8F /* 首页 */,
 				C75F64C320EF630500B55B8B /* 签到 */,
 				C75F64C420EF630500B55B8B /* 商品详情 */,
@@ -2503,6 +2506,27 @@
 				C7C72F5C2101EF920087A8CB /* 订单信息 */,
 			);
 			path = "我的订单";
+			sourceTree = "<group>";
+		};
+		C74E8ADE210C518A00798E53 /* 搜索 */ = {
+			isa = PBXGroup;
+			children = (
+				C74E8ADF210C518A00798E53 /* TJSearchContentController.h */,
+				C74E8AE0210C518A00798E53 /* TJSearchContentController.m */,
+				C74E8AE1210C518A00798E53 /* TJSearchController.h */,
+				C74E8AE2210C518A00798E53 /* TJSearchController.m */,
+			);
+			path = "搜索";
+			sourceTree = "<group>";
+		};
+		C74E8AE5210C53F800798E53 /* 搜索 */ = {
+			isa = PBXGroup;
+			children = (
+				C74E8AE6210C543700798E53 /* TJSearchScreenView.h */,
+				C74E8AE7210C543700798E53 /* TJSearchScreenView.m */,
+				C74E8AE9210C544300798E53 /* TJSearchScreenView.xib */,
+			);
+			path = "搜索";
 			sourceTree = "<group>";
 		};
 		C7588E6220F5935500CA5574 /* 首页 */ = {
@@ -3493,6 +3517,7 @@
 				C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */,
 				C76260F120FEDDA0006889DF /* TJCollectionClassicCell.xib in Resources */,
 				C758CC1620A2FCD1000F1903 /* province_data.xml in Resources */,
+				C74E8AEA210C544300798E53 /* TJSearchScreenView.xib in Resources */,
 				C78E5CD520ABB5E700C9C1BF /* MJRefresh.bundle in Resources */,
 				C717878D2105D2A4009A2034 /* TJDetailListCell.xib in Resources */,
 				C74DFFAF20F75ABF00D83ACF /* TJGoodsListCell.xib in Resources */,
@@ -3587,7 +3612,6 @@
 				C78E5CCA20ABB5E700C9C1BF /* MJRefreshFooter.m in Sources */,
 				C758914A2092B85D00AC085E /* View+MASAdditions.m in Sources */,
 				C76EB41A20B4165300D297D5 /* TJVipPerformanceController.m in Sources */,
-				C72A72AB209D37A6001CAC75 /* TJSearchController.m in Sources */,
 				C75F64BC20EF46B100B55B8B /* TJHomePageController.m in Sources */,
 				C722E63520A12B1200EE9D61 /* TJBalanceDetailsController.m in Sources */,
 				C7249B3220A19EAA00BB385E /* TJCleanCacheCell.m in Sources */,
@@ -3602,6 +3626,7 @@
 				C720EDB620906D99007AA53C /* TJBaseViewController.m in Sources */,
 				C77D0E9D20A3ED5B000F794A /* YYTextArchiver.m in Sources */,
 				C73FC818209025CE00732F2D /* AFImageDownloader.m in Sources */,
+				C74E8AE4210C518A00798E53 /* TJSearchController.m in Sources */,
 				C781BEDD210B198E00B7BD57 /* UIImage+GIF.m in Sources */,
 				C74099F92091CF3600DFCC94 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C76BA60020FDA16B006C749B /* TJHeadDetailController.m in Sources */,
@@ -3896,18 +3921,19 @@
 				C73FC81E209025CE00732F2D /* UIRefreshControl+AFNetworking.m in Sources */,
 				C781BED1210B198E00B7BD57 /* SDWebImageCompat.m in Sources */,
 				C742DA3620BBB4310041F1C6 /* TJSearchView.m in Sources */,
+				C74E8AE8210C543700798E53 /* TJSearchScreenView.m in Sources */,
 				C74D8941210031C40098754C /* SGGridMenu.m in Sources */,
 				C7B9949220F884B000DFFC98 /* UIView+ZJFrame.m in Sources */,
 				C73FC813209025CE00732F2D /* AFSecurityPolicy.m in Sources */,
 				C717877B2105844E009A2034 /* WMScrollView.m in Sources */,
 				C73FC815209025CE00732F2D /* AFURLResponseSerialization.m in Sources */,
 				C73FC820209025CE00732F2D /* XD_LRUManager.m in Sources */,
+				C74E8AE3210C518A00798E53 /* TJSearchContentController.m in Sources */,
 				C7206C1820A0490E00957A4A /* TJUserDataModel.m in Sources */,
 				C7292A462095A4BF00073099 /* TJBannerView.m in Sources */,
 				C717878C2105D2A4009A2034 /* TJDetailListCell.m in Sources */,
 				C74C31A820B294CD0074AC00 /* TJMiddleClickController.m in Sources */,
 				C77D0E9820A3ED5B000F794A /* YYTextKeyboardManager.m in Sources */,
-				C738F08520B66A7200758C72 /* TJSearchContentController.m in Sources */,
 				C79B99D620FF0F430096E9C6 /* TJClassicSecondController.m in Sources */,
 				C763617E20B5593E002F239F /* TJVipFansContentCell.m in Sources */,
 				C7181E0920AAB72900AEC7D5 /* TJHomeFootShowModel.m in Sources */,
