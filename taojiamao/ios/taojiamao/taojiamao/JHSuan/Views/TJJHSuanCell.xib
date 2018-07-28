@@ -39,13 +39,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sgk-nd-9SX">
-                        <rect key="frame" x="10" y="244" width="35.5" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="10" y="244" width="31" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.98039215690000003" green="0.28627450980000002" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVA-lc-ukk">
-                        <rect key="frame" x="105" y="241" width="70" height="20"/>
+                        <rect key="frame" x="109" y="238.5" width="70" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="6w1-Im-W45"/>
                             <constraint firstAttribute="height" constant="20" id="Kdj-Ht-KJj"/>
@@ -74,7 +74,7 @@
                 <constraint firstItem="oSt-Ow-LJf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Yvd-l2-xKy"/>
                 <constraint firstItem="Q3u-cM-mmV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cYX-qQ-gYO"/>
                 <constraint firstItem="Sgk-nd-9SX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="fur-xm-W7O"/>
-                <constraint firstAttribute="trailing" secondItem="pVA-lc-ukk" secondAttribute="trailing" constant="10" id="l7X-Ol-EKN"/>
+                <constraint firstAttribute="trailing" secondItem="pVA-lc-ukk" secondAttribute="trailing" constant="6" id="l7X-Ol-EKN"/>
                 <constraint firstItem="pVA-lc-ukk" firstAttribute="bottom" secondItem="Sgk-nd-9SX" secondAttribute="bottom" id="nFw-tD-JwM"/>
                 <constraint firstItem="bDM-KS-2pa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="nst-p4-ssB"/>
                 <constraint firstItem="Sgk-nd-9SX" firstAttribute="top" secondItem="oSt-Ow-LJf" secondAttribute="bottom" constant="10" id="oAN-br-NZY"/>
@@ -89,7 +89,7 @@
                 <outlet property="title_lab" destination="UcT-zL-kMj" id="gjW-8L-lKO"/>
                 <outlet property="yimai_lab" destination="oSt-Ow-LJf" id="SYI-5v-EbP"/>
             </connections>
-            <point key="canvasLocation" x="-103.5" y="-105"/>
+            <point key="canvasLocation" x="-279" y="-128"/>
         </collectionViewCell>
     </objects>
     <resources>

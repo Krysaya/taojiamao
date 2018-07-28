@@ -178,6 +178,10 @@
        //上传图片到服务器--在这里进行图片上传的网络请求
     NSNumber * uid = GetUserDefaults(UID);
     NSString *userid = [NSString stringWithFormat:@"%@",uid];
+    if (userid) {
+    }else{
+        userid = @"";
+    }
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary *md = @{

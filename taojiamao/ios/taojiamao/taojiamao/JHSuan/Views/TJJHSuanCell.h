@@ -12,4 +12,5 @@
 @interface TJJHSuanCell : UICollectionViewCell
 
 @property (nonatomic, strong) TJJHSGoodsListModel *model;
+@property (nonatomic, strong) NSString *cell_type;
 @end

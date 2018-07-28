@@ -55,6 +55,7 @@
 @property (nonatomic, strong) NSString *intro_foot;//推荐理由
 @property (nonatomic, strong) NSString *gid;//商品id
 @property (nonatomic, strong) NSString *title;//商品id
+@property (nonatomic, strong) NSString *shop_type;//
 
 @property (nonatomic, strong) NSString *brand_name;//
 @property (nonatomic, strong) NSString *freight;//运费险

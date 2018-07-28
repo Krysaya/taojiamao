@@ -29,33 +29,26 @@
                                     <constraint firstAttribute="width" constant="140" id="Qds-kD-NYB"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqm-tn-NtG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqm-tn-NtG">
                                 <rect key="frame" x="155" y="10" width="196" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="JKK-Lw-AhU"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Label">
-                                        <attributes>
-                                            <color key="NSBackgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="NSColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" metaFont="system" size="17"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="券后：¥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvG-wL-YkI">
-                                <rect key="frame" x="155" y="110" width="41" height="14"/>
+                                <rect key="frame" x="155" y="110.5" width="41" height="13.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.98431372549999996" green="0.3294117647" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.98431372549999996" green="0.0" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baf-zB-bsn">
-                                <rect key="frame" x="284" y="115" width="77" height="35"/>
+                                <rect key="frame" x="284" y="117" width="77" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="77" id="bpN-oo-zbg"/>
-                                    <constraint firstAttribute="height" constant="35" id="vl7-x5-r7Q"/>
+                                    <constraint firstAttribute="height" constant="33" id="vl7-x5-r7Q"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="quan_bg">
                                     <attributedString key="attributedTitle">
@@ -80,10 +73,17 @@
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="270.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhx-uP-gb7">
-                                <rect key="frame" x="197" y="104" width="41" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.98431372549999996" green="0.3294117647" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhx-uP-gb7">
+                                <rect key="frame" x="198" y="104" width="43" height="20"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="270.0">
+                                        <attributes>
+                                            <color key="NSColor" red="0.98431372549999996" green="0.0" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-7o-YnM">
@@ -95,7 +95,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hhx-uP-gb7" firstAttribute="leading" secondItem="tvG-wL-YkI" secondAttribute="trailing" constant="1" id="8ky-yE-2Ft"/>
+                            <constraint firstItem="hhx-uP-gb7" firstAttribute="leading" secondItem="tvG-wL-YkI" secondAttribute="trailing" constant="2" id="8ky-yE-2Ft"/>
                             <constraint firstItem="xB3-8k-Zdb" firstAttribute="bottom" secondItem="Atg-Ju-lvF" secondAttribute="bottom" id="ASc-r1-fw0"/>
                             <constraint firstItem="baf-zB-bsn" firstAttribute="bottom" secondItem="Atg-Ju-lvF" secondAttribute="bottom" id="RsL-qx-ulR"/>
                             <constraint firstItem="tvG-wL-YkI" firstAttribute="leading" secondItem="Atg-Ju-lvF" secondAttribute="trailing" constant="15" id="TTp-vr-Ai8"/>

@@ -63,7 +63,12 @@
     });
     self.titleLab.attributedText = str_tb;
     self.lab_quanh.text = model.price;
-    self.lab_yuanjia.text = model.prime;
+    //中划线
+    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribt_yuanj = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.prime] attributes:attribtDic];
+    
+    self.lab_yuanjia.attributedText = attribt_yuanj;
+    self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.final_sales];
     NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.coupon_money];
     NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);

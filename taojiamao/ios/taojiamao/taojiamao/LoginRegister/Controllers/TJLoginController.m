@@ -67,7 +67,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"morentouxiang"];
+    self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"morentouxiang" withSelectImage:nil];
     [self.view addSubview:self.btn_close];
     [self.btn_close mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(35*H_Scale);
@@ -419,6 +419,8 @@
 
                     //写入
                     NSDictionary * data = responseObject[@"data"];
+                    NSLog(@"-------data-uid--%@",data[@"id"]);
+                    
                     SetUserDefaults(data[@"id"], UID);
                     SetUserDefaults(HADLOGIN, HADLOGIN);
                     NSLog(@"----账号密码login-success-%@===ID%@",responseObject,data[@"id"]);

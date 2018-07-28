@@ -83,7 +83,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 #pragma mark - setUI
 -(void)setUIgoTop{
     WeakSelf
-    self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"morentouxiang"];
+    self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"morentouxiang" withSelectImage:nil];
     [self.view addSubview:self.goTop];
     [self.goTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-20*W_Scale);
@@ -102,7 +102,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.height.mas_equalTo(54*H_Scale);
     }];
     
-    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"morentouxiang"];
+    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"morentouxiang" withSelectImage:nil];
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -143,7 +143,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 }
 -(void)setBackButton{
     CGFloat TOP = IsX?26*H_Scale+24:26*H_Scale;
-    self.backButton = [[TJButton alloc]initDelegate:self backColor:RandomColor tag:DetailsBackButton withBackImage:@"morentouxiang"];
+    self.backButton = [[TJButton alloc]initDelegate:self backColor:RandomColor tag:DetailsBackButton withBackImage:@"morentouxiang" withSelectImage:nil];
     [self.view addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(9*W_Scale);

@@ -46,10 +46,10 @@
 - (void)setNavgation{
 
     //    1边按钮
-    TJButton *button_left = [[TJButton alloc]initDelegate:self backColor:nil tag:885 withBackImage:@"search"];
+    TJButton *button_left = [[TJButton alloc]initDelegate:self backColor:nil tag:885 withBackImage:@"search" withSelectImage:nil];
     
     //    you2边按钮
-    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:896 withBackImage:@"notice"];
+    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:896 withBackImage:@"notice" withSelectImage:nil];
     UIBarButtonItem *item1 = [[UIBarButtonItem alloc]initWithCustomView:button_left];
     UIBarButtonItem *item2 = [[UIBarButtonItem alloc]initWithCustomView:button_right];
 

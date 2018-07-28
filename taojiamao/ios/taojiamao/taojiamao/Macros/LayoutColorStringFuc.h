@@ -49,6 +49,7 @@
 
 //用户中心数据
 #define GetUserDefaults(a) [[NSUserDefaults standardUserDefaults] objectForKey:a]
+
 #define SetUserDefaults(a,b) {\
     NSUserDefaults * defa = [NSUserDefaults standardUserDefaults];\
     [defa setObject:a forKey:b];\

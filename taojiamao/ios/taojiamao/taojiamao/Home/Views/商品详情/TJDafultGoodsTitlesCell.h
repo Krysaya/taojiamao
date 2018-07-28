@@ -11,5 +11,6 @@
 
 @interface TJDafultGoodsTitlesCell : TJBaseTableCell
 @property (nonatomic, strong) TJJHSGoodsListModel *model_detail;
+@property (weak, nonatomic) IBOutlet UIButton *btn_coupon;
 
 @end

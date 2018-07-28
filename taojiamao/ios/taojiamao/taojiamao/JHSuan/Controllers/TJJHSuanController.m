@@ -36,9 +36,12 @@
 
 - (void)requestJHSList{
     self.dataArr = [NSMutableArray array];
-    NSNumber * uid = GetUserDefaults(UID);
-    NSString *userid = [NSString stringWithFormat:@"%@",uid];
     
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary * param = @{
@@ -130,7 +133,8 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //   
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
-    goodVC.model_detail = self.dataArr[indexPath.row];
+    TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
+    goodVC.gid = model.gid;
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

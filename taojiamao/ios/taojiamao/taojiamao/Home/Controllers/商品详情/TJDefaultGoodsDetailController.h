@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class TJJHSGoodsListModel;
+
 @interface TJDefaultGoodsDetailController : TJBaseViewController
 
-@property (nonatomic, strong) TJJHSGoodsListModel *model_detail;
+@property (nonatomic, strong) NSString *gid;
 @end

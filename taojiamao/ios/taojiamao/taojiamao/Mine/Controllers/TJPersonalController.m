@@ -142,6 +142,10 @@
     self.isblack = NO;
 //    NSString * token = GetUserDefaults(TOKEN);
     NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
     NSLog(@"=====userif=====个人=%@",userid);
     
     if (userid) {
@@ -298,8 +302,8 @@
     [classView addSubview:collectV];
     
 //    设置。通知
-    self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"morentouxiang"];
-    self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice"];
+    self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"morentouxiang" withSelectImage:nil];
+    self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice" withSelectImage:nil];
     [self.headTView addSubview:self.btn_notice];
 
     [self.headTView addSubview:self.btn_setting];

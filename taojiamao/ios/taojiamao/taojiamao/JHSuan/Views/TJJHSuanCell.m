@@ -35,7 +35,7 @@
         make.font([UIFont systemFontOfSize:12.f]).textColor(KALLRGB);
         make.append(str);
         make.rangeEdit(NSMakeRange(4, model.price.length), ^(SJAttributesRangeOperator * _Nonnull make) {
-            make.font([UIFont systemFontOfSize:19.f]).textColor(KALLRGB);
+            make.font([UIFont systemFontOfSize:17.f]).textColor(KALLRGB);
         });
     });
     self.quanhou_lab.attributedText = attrStr;

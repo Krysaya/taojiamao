@@ -38,6 +38,11 @@
 - (void)requestInfoListWithType:(NSString *)type{
     self.dataArr = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";        
+    }
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary *md = @{

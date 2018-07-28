@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJJHSGoodsListModel;
 @interface TJSearchContentCell : UICollectionViewCell
 
+@property (nonatomic, strong) TJJHSGoodsListModel *model;
 @end

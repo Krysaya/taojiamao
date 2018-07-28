@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSString *ratio;//佣金比例
 @property (nonatomic, strong) NSString *sub_title;//商品简称
 @property (nonatomic, strong) NSString *intro_foot;//推广文案
-@property (nonatomic, strong) NSString *long_pic;//淘宝商品id
+@property (nonatomic, strong) NSString *long_pic;//
 @property (nonatomic, strong) NSString *activity;//活动
 @property (nonatomic, strong) NSString *is_brand;//品牌状态
 @property (nonatomic, strong) NSString *brand_name;//品牌名称
@@ -39,6 +39,9 @@
 @property (nonatomic, strong) NSString *timeline;//修改时间
 @property (nonatomic, strong) NSString *stoptime;//结束时间
 @property (nonatomic, strong) NSArray *detail;//详情图
+@property (nonatomic, strong) NSArray *related;//相关产品
+
+
 
 
 

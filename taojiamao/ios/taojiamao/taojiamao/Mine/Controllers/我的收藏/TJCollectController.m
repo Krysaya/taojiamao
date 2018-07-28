@@ -29,11 +29,12 @@
 @implementation TJCollectController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self requestGoodsCollcetion];
+
 }
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-    [self requestGoodsCollcetion];
 
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -41,7 +42,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     TJGoodsCollectController *vc1 = [[TJGoodsCollectController alloc]init];
+    self.vc1 = vc1;
     TJContentCollectController *vc2 = [[TJContentCollectController alloc]init];
+    self.vc2 = vc2;
     _childVCs = @[vc1,vc2];
     
     //    self.title = @"我的收藏";
@@ -82,6 +85,10 @@
     self.dataArr_collcet = [NSMutableArray array];
     
     NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary *md = @{
@@ -103,10 +110,10 @@
         NSLog(@"--success-===%@",responseObject);
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr_collcet = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.goodsTabView reloadData];
             self.vc1.dataArr = self.dataArr_collcet;
+            [self.vc1.goodsTabView reloadData];
 
         });
         

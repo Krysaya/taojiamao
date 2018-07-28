@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lab_totalprenson;
 @property (weak, nonatomic) IBOutlet UILabel *lab_couponmoneny;
 
-@property (weak, nonatomic) IBOutlet UIButton *btn_coupon;
 
 @end
 
@@ -40,8 +39,12 @@
     [self.scroll_Ad addSubview:img];
     
     self.lab_title.text = model_detail.sub_title;
+    //中划线
+    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model_detail.prime] attributes:attribtDic];
+    self.lab_prime.attributedText = attribtStr;
     
-    self.lab_prime.text = model_detail.price;
+    self.lab_price.text = model_detail.price;
     self.lab_couponmoneny.text = [NSString stringWithFormat:@"%@元优惠券",model_detail.coupon_money];
     
 }

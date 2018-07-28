@@ -66,9 +66,11 @@
 #pragma mark - requestGoodsChooseNet
 -(void)requestGoodsChooseNet{
     self.timesArr = [NSMutableArray array];
-    NSNumber * uid = GetUserDefaults(UID);
-    NSString *userid = [NSString stringWithFormat:@"%@",uid];
-    
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary * param = @{
@@ -113,9 +115,11 @@
 }
 
 - (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
-    NSNumber * uid = GetUserDefaults(UID);
-    NSString *userid = [NSString stringWithFormat:@"%@",uid];
-    
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary * param = @{

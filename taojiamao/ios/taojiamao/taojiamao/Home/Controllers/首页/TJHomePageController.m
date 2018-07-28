@@ -120,13 +120,13 @@
 
 - (void)setNavgation{
 //    左边按钮
-    TJButton *button_left = [[TJButton alloc]initDelegate:self backColor:nil tag:LEFTBTN withBackImage:@"sign"];
+    TJButton *button_left = [[TJButton alloc]initDelegate:self backColor:nil tag:LEFTBTN withBackImage:@"sign" withSelectImage:nil];
    
     // 修改导航栏左边的item
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_left];
 
     //    you边按钮
-    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:RIGHTBTN withBackImage:@"notice"];
+    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:RIGHTBTN withBackImage:@"notice" withSelectImage:nil];
     
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
@@ -254,7 +254,7 @@
     TJButton *lastBtn;
     for (int i=0; i<a; i++) {
 
-        TJButton *news_btn = [[TJButton alloc]initDelegate:self backColor:nil tag:i+51 withBackImage:nil];
+        TJButton *news_btn = [[TJButton alloc]initDelegate:self backColor:nil tag:i+51 withBackImage:nil withSelectImage:nil] ;
 //        点击事件
         news_btn.backgroundColor = RandomColor;
         [scrollBaseView addSubview:news_btn];

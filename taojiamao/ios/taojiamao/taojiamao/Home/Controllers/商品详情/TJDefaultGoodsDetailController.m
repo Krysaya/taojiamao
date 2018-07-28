@@ -15,7 +15,7 @@
 #import "TJGoodsDetailsImagesCell.h"
 #import "TJBottomPopupView.h"
 #import "TJPopularizeController.h"
-#import "TJJHSGoodsListModel.h"
+#import "TJGoodsInfoListModel.h"
 #import "UIViewController+Extension.h"
 
 static NSString * const GoodsDetailsTitleCell = @"GoodsDetailsTitleCell";
@@ -41,7 +41,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)SDCycleScrollView * bannerView;
-@property(nonatomic,strong)NSMutableArray * imageSSS;
 
 @property(nonatomic,strong)UIView * footView;
 @property(nonatomic,strong)TJButton * shareB;
@@ -54,7 +53,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 //会员不隐藏推广
 @property(nonatomic,strong)TJButton *popularize;
-
+@property(nonatomic,strong)NSMutableArray * imageSSS;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @end
 
 @implementation TJDefaultGoodsDetailController
@@ -63,7 +63,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-
+    [self requestGoodsInfo];
 }
 
 //视图将要消失时取消隐藏
@@ -74,20 +74,72 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.navigationController.navigationBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUI];
     [self setBackButton];
 //    [self setUIbanner];
     [self setUIfootView];
 //    [self setUIgoTop];
 }
+
+- (void)requestGoodsInfo{
+    self.dataArr = [NSMutableArray array];
+    self.imageSSS = [NSMutableArray array];
+
+    NSString *userid = GetUserDefaults(UID);
+    
+    DSLog(@"-=====uiddddddd-%@",userid);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary * param = @{
+                                    @"id":self.gid,
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid":userid,
+                                    }.mutableCopy;
+    
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
+    DSLog(@"sign==%@,times==%@,uid==%@,gid==%@,url==%@",md5Str,timeStr,userid,self.gid,[NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid]);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = [NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid];
+        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid":userid};
+        request.httpMethod = kXMHTTPMethodGET;
+    }onSuccess:^(id responseObject) {
+        NSDictionary *dict = responseObject[@"data"];
+        
+        NSLog(@"onSuccess:%@ ===详情====",responseObject);
+
+        
+        TJGoodsInfoListModel *model = [TJGoodsInfoListModel mj_objectWithKeyValues:dict];
+        [self.dataArr addObject:model];
+        [self.imageSSS addObjectsFromArray:model.detail];
+//        TJGoodsInfoListModel *model = self.dataArr[0];
+        DSLog(@"==%ld===%ld==%@",self.imageSSS.count,self.dataArr.count,model.thumb);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setUI];
+            
+        });
+        
+        
+    } onFailure:^(NSError *error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        
+        NSLog(@"---onFailure--%@",dic_err);
+        
+    }];
+    
+}
 -(void)setUIgoTop{
     WeakSelf
-    self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"morentouxiang"];
+    self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"morentouxiang" withSelectImage:nil];
     [self.view addSubview:self.goTop];
     [self.goTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-20*W_Scale);
@@ -106,7 +158,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.height.mas_equalTo(54*H_Scale);
     }];
     
-    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"morentouxiang"];
+    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"collect_default" withSelectImage:@"collect_light"];
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -133,15 +185,15 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 -(void)setBackButton{
     CGFloat TOP = 20;
-    self.backButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsBackButton withBackImage:@"back_left"];
+    self.backButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsBackButton withBackImage:@"back_left" withSelectImage:nil];
     [self.view addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(9*W_Scale);
         make.top.mas_equalTo(TOP);
         make.width.height.mas_equalTo(32*W_Scale);
     }];
-    
-     TJButton *shareButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"share"];
+//    DetailShareButton
+     TJButton *shareButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"share" withSelectImage:nil];
     [self.view addSubview:shareButton];
     [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-9);
@@ -152,7 +204,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 -(void)setUI{
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, S_W, S_H+20-54*H_Scale) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, S_W, S_H-54) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell123"];
@@ -170,19 +222,20 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (section==7) {
-//        return self.imageSSS.count;
-//    }
+    if (section==4) {
+        return self.imageSSS.count;
+    }
     return 1;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         TJDafultGoodsTitlesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsTitleCell forIndexPath:indexPath];
-        cell.model_detail = self.model_detail;
+        [cell.btn_coupon addTarget:self action:@selector(getCouponClick:) forControlEvents:UIControlEventTouchUpInside];
+        cell.model_detail = self.dataArr[0];
         return cell;
     }else if(indexPath.section==1){
         TJGoodsDetailsElectCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsElectCell forIndexPath:indexPath];
-        cell.model_detail = self.model_detail;
+        cell.model_detail = self.dataArr[0];
         return cell;
     }else if(indexPath.section==2){
 
@@ -192,14 +245,14 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         return cell;
     }else if(indexPath.section==3){
         TJGoodsDetailsCompanyCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsCompanyCell forIndexPath:indexPath];
-        cell.model_detail = self.model_detail;
+        cell.model_detail = self.dataArr[0];
 
         return cell;
 
     }else{
         TJGoodsDetailsImagesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsImagesCell forIndexPath:indexPath];
         cell.urlStr = self.imageSSS[indexPath.row];
-        cell.model_detail = self.model_detail;
+        cell.model_detail = self.dataArr[0];
 
         return cell;
         
@@ -213,7 +266,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else if(indexPath.section==1){
         return [tableView fd_heightForCellWithIdentifier:GoodsDetailsElectCell cacheByIndexPath:indexPath configuration:^(TJGoodsDetailsElectCell *cell) {
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
-            cell.detailsIntro = @"推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐";
+            TJGoodsInfoListModel *model = self.dataArr[0];
+            cell.detailsIntro = model.intro_foot;
         }];
     }else if (indexPath.section==2){
         return 42;
@@ -226,18 +280,13 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==1) {
-//        self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20-SafeAreaBottomHeight) select:indexPath.section height:325*H_Scale info:nil];
-//        self.popupView.deletage = self;
-//        [self.view addSubview:self.popupView];
+
     }else if (indexPath.section==2){
         self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20-SafeAreaBottomHeight) select:indexPath.section height:325*H_Scale info:nil];
         self.popupView.deletage = self;
         [self.view addSubview:self.popupView];
     }else if (indexPath.section==3){
-//
-//        self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20-SafeAreaBottomHeight) select:indexPath.section height:325*H_Scale info:nil];
-//        self.popupView.deletage = self;
-//        [self.view addSubview:self.popupView];
+
     }else {
 //
 
@@ -259,18 +308,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     return nil;
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    CGFloat offset=scrollView.contentOffset.y;
-//    if (offset<S_H) {
-//        self.goTop.alpha = 0.0;
-//    }else {
-//        CGFloat alpha=1-((SafeAreaTopHeight-offset)/SafeAreaTopHeight);
-//        self.goTop.alpha=alpha;
-//        //        self.goTop.alpha = 1.0;
-//    }
-    
-  
-}
 #pragma mark - TJButtonDeletage
 -(void)buttonClick:(UIButton *)but{
     if (but.tag==DetailsBuyButton) {
@@ -280,12 +317,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else if (but.tag==DetailsGoTopButton){
         DSLog(@"返回顶部");
         [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-    }else if (but.tag==DetailsPopularize){
-        DSLog(@"我要推广");
-//        TJPopularizeController * pvc = [[TJPopularizeController alloc]init];
-//        pvc.title = @"我要推广";
-//        pvc.imagesData = self.imageSSS;
-//        [self.navigationController pushViewController:pvc animated:YES];
+    }else if (but.tag==DetailCollectButton){
+        DSLog(@"收藏");
+
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -297,6 +331,11 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     
     [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
 }
+
+- (void)getCouponClick{
+    DSLog(@"优惠券-领取");
+    
+}
 #pragma mark - TJBottomViewDeletage
 -(void)clickViewRemoveFromSuper{
     [self.popupView removeFromSuperview];
@@ -306,14 +345,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

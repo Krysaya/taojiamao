@@ -129,7 +129,7 @@
         make.centerX.mas_equalTo(weakSelf.backView);
         make.top.mas_equalTo(24*H_Scale);
     }];
-    TJButton * lq = [[TJButton alloc]initDelegate:self backColor:nil tag:LQButtonMid withBackImage:@"quan1"];
+    TJButton * lq = [[TJButton alloc]initDelegate:self backColor:nil tag:LQButtonMid withBackImage:@"quan1" withSelectImage:nil];
     [self.backView addSubview:lq];
     [lq mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.backView);

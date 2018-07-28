@@ -15,18 +15,18 @@
 
 @implementation TJButton
 
--(instancetype)initDelegate:(id<TJButtonDelegate>)dele backColor:(UIColor*)bc tag:(NSInteger)tag withBackImage:(NSString*)image{
-    return [self initWith:nil delegate:dele font:0.0 titleColor:nil backColor:bc tag:tag cornerRadius:0.0 borderColor:nil  borderWidth:0.0 withBackImage:image];
+-(instancetype)initDelegate:(id<TJButtonDelegate>)dele backColor:(UIColor*)bc tag:(NSInteger)tag withBackImage:(NSString*)image withSelectImage:(NSString*)selectimage{
+    return [self initWith:nil delegate:dele font:0.0 titleColor:nil backColor:bc tag:tag cornerRadius:0.0 borderColor:nil  borderWidth:0.0 withBackImage:image withSelectImage:nil];
 }
 
 -(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color backColor:(UIColor*)bc tag:(NSInteger)tag{
     
-    return [self initWith:title delegate:dele font:font titleColor:color backColor:bc tag:tag cornerRadius:0.0 borderColor:nil  borderWidth:0.0 withBackImage:nil];
+    return [self initWith:title delegate:dele font:font titleColor:color backColor:bc tag:tag cornerRadius:0.0 borderColor:nil  borderWidth:0.0 withBackImage:nil withSelectImage:nil];
 }
 
 -(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color backColor:(UIColor*)bc tag:(NSInteger)tag cornerRadius:(CGFloat)cor{
     
-    return [self initWith:title delegate:dele font:font titleColor:color backColor:bc tag:tag cornerRadius:cor borderColor:nil  borderWidth:0.0 withBackImage:nil];
+    return [self initWith:title delegate:dele font:font titleColor:color backColor:bc tag:tag cornerRadius:cor borderColor:nil  borderWidth:0.0 withBackImage:nil withSelectImage:nil];
 }
 -(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color  tag:(NSInteger)tag   withBackImage:(NSString*)image
 {
@@ -58,7 +58,7 @@
     }
     return self;
 }
--(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color backColor:(UIColor*)bc tag:(NSInteger)tag cornerRadius:(CGFloat)cor borderColor:(UIColor*)bcolor  borderWidth:(CGFloat)bw withBackImage:(NSString*)image{
+-(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color backColor:(UIColor*)bc tag:(NSInteger)tag cornerRadius:(CGFloat)cor borderColor:(UIColor*)bcolor  borderWidth:(CGFloat)bw withBackImage:(NSString*)image withSelectImage:(NSString*)selectimage{
     
     self = [super init];
     if (self) {
@@ -68,6 +68,8 @@
         [but addTarget:self action:@selector(logregClick:) forControlEvents:UIControlEventTouchUpInside];
 //        [but setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [but setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+        [but setImage:[UIImage imageNamed:selectimage] forState:UIControlStateSelected];
+
         [but setBackgroundColor:bc];
         [but setTitle:title forState:UIControlStateNormal];
         but.titleLabel.font = [UIFont systemFontOfSize:font];

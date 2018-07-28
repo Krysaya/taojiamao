@@ -5,7 +5,7 @@
 //  Created by yueyu on 2018/5/25.
 //  Copyright © 2018年 yueyu. All rights reserved.
 //
-
+#import "TJJHSGoodsListModel.h"
 #import "TJSearchContentCell.h"
 @interface TJSearchContentCell()
 
@@ -41,7 +41,6 @@
     }];
    
     self.taobao = [[UIImageView alloc]init];
-    self.taobao.backgroundColor = RandomColor;
     [self.contentView addSubview:self.taobao];
     [self.taobao mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
@@ -98,6 +97,16 @@
 }
 
 
+- (void)setModel:(TJJHSGoodsListModel *)model{
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",model.long_pic]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+//    if (model.site) {
+//        <#statements#>
+//    }
+    self.title.text = model.title;
+    self.buyNum.text = [NSString stringWithFormat:@"%@人已买",model.final_sales];
+    self.money.text = model.price;
+    
+}
 
 
 

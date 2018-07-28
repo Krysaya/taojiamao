@@ -66,7 +66,11 @@
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSString *userid = GetUserDefaults(UID);
-
+    
+    if (userid) {       
+    }else{
+        userid = @"";
+    }
     NSMutableDictionary *md = @{
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
