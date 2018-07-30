@@ -15,7 +15,7 @@
 #import "TJGoodsDetailsImagesCell.h"
 #import "TJBottomPopupView.h"
 #import "TJPopularizeController.h"
-#import "TJGoodsInfoListModel.h"
+#import "TJJHSGoodsListModel.h"
 #import "UIViewController+Extension.h"
 
 static NSString * const GoodsDetailsTitleCell = @"GoodsDetailsTitleCell";
@@ -78,7 +78,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setBackButton];
 //    [self setUIbanner];
     [self setUIfootView];
 //    [self setUIgoTop];
@@ -116,11 +115,11 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         NSLog(@"onSuccess:%@ ===详情====",responseObject);
 
         
-        TJGoodsInfoListModel *model = [TJGoodsInfoListModel mj_objectWithKeyValues:dict];
+        TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
         [self.dataArr addObject:model];
-        [self.imageSSS addObjectsFromArray:model.detail];
+//        [self.imageSSS addObjectsFromArray:model.detail];
 //        TJGoodsInfoListModel *model = self.dataArr[0];
-        DSLog(@"==%ld===%ld==%@",self.imageSSS.count,self.dataArr.count,model.thumb);
+        DSLog(@"==%ld===%ld==%@",self.imageSSS.count,self.dataArr.count,model.itempic);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setUI];
@@ -159,6 +158,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }];
     
     self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"collect_default" withSelectImage:@"collect_light"];
+    self.shareB.backgroundColor = RandomColor;
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -215,6 +215,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [self.tableView registerClass:[TJGoodsDetailsImagesCell class] forCellReuseIdentifier:GoodsDetailsImagesCell];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
+    
+    [self setBackButton];
+
 }
 #pragma mark -UITableViewDelegate,UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -266,8 +269,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else if(indexPath.section==1){
         return [tableView fd_heightForCellWithIdentifier:GoodsDetailsElectCell cacheByIndexPath:indexPath configuration:^(TJGoodsDetailsElectCell *cell) {
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
-            TJGoodsInfoListModel *model = self.dataArr[0];
-            cell.detailsIntro = model.intro_foot;
+            TJJHSGoodsListModel *model = self.dataArr[0];
+            cell.detailsIntro = model.guide_article;
         }];
     }else if (indexPath.section==2){
         return 42;
@@ -319,7 +322,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }else if (but.tag==DetailCollectButton){
         DSLog(@"收藏");
-
+        [self requestCollectGoods];        
+        
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -335,6 +339,42 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 - (void)getCouponClick{
     DSLog(@"优惠券-领取");
     
+}
+
+-(void)requestCollectGoods{
+//    收藏
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"type":@"1",
+                                @"rid":self.gid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+         request.url = AddCollect;
+         request.headers = @{@"timestamp": timeStr,
+                             @"app": @"ios",
+                             @"sign":md5Str,
+                             @"uid":userid,
+                             };
+         request.httpMethod = kXMHTTPMethodPOST;
+         request.parameters = @{@"type":@"1",@"rid":self.gid};
+     }onSuccess:^(id  _Nullable responseObject) {
+         DSLog(@"-collect-success--%@==",responseObject);
+     }onFailure:^(NSError * _Nullable error) {
+         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+         DSLog(@"--收藏-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+     }];
 }
 #pragma mark - TJBottomViewDeletage
 -(void)clickViewRemoveFromSuper{

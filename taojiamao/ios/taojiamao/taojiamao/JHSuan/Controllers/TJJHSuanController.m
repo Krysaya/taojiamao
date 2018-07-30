@@ -71,7 +71,7 @@
 //            self.menuView.backgroundColor = [UIColor blackColor];
         });
         
-//        NSLog(@"jhsonSuccess:%@ =======",responseObject);
+        NSLog(@"jhsonSuccess:%@ =======",responseObject);
         
     } onFailure:^(NSError *error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
@@ -101,20 +101,15 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     return 0.0;
 }
 
-
-
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.dataArr.count;
 }
-
 
 //UICollectionViewCell的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,7 +129,7 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 //   
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
-    goodVC.gid = model.gid;
+    goodVC.gid = model.itemid;
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

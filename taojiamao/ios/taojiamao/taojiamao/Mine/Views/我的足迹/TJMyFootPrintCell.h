@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJGoodsInfoListModel;
 @interface TJMyFootPrintCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
 
+@property (nonatomic, strong) TJGoodsInfoListModel *model;
 @end

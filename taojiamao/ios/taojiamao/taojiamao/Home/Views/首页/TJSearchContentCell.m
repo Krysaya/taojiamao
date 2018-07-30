@@ -98,13 +98,13 @@
 
 
 - (void)setModel:(TJJHSGoodsListModel *)model{
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",model.long_pic]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
 //    if (model.site) {
 //        <#statements#>
 //    }
-    self.title.text = model.title;
-    self.buyNum.text = [NSString stringWithFormat:@"%@人已买",model.final_sales];
-    self.money.text = model.price;
+    self.title.text = model.itemtitle;
+    self.buyNum.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
+    self.money.text = model.itemprice;
     
 }
 

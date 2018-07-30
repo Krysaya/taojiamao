@@ -48,16 +48,24 @@ static NSString * const UserPhone = @"UserPhone";
 //消息通知
 #define MessageNotice          [BASEURL stringByAppendingString:@"/v1/messages"]
 
+
+//pl列表
+#define CommentsList          [BASEURL stringByAppendingString:@"/v1/comments"]
+
 //商品收藏表
-#define GoodsCollection          [BASEURL stringByAppendingString:@"/v1/goods/collection"]
+#define GoodsCollection          [BASEURL stringByAppendingString:@"/v1/collections"]
 
 //取消收藏
 #define CancelGoodsCollect          [BASEURL stringByAppendingString:@"/v1/goods/ccoll"]
 
 //搜索
 #define SearchGoodsList          [BASEURL stringByAppendingString:@"/v1/goods/list"]
-//10余额明细
-#define UserBalanceDetail        [BASEURL stringByAppendingString:@"/api.php?s=My/Accountbalance"]
+//明细
+#define UserBalanceDetail        [BASEURL stringByAppendingString:@"/v1/members/jifen"]
+
+//足迹
+#define MineFootPrint        [BASEURL stringByAppendingString:@"/v1/foots"]
+
 //11修改密码
 #define EditPassWord             [BASEURL stringByAppendingString:@"/v1/members/epass"]
 
@@ -98,8 +106,11 @@ static NSString * const UserPhone = @"UserPhone";
 
 //商品详情页
 #define GoodsInfoList        [BASEURL stringByAppendingString:@"/v1/tb"]
+//商品分类
+#define GoodsClassicList        [BASEURL stringByAppendingString:@"/v1/cates/goods"]
 
-
+//添加收藏
+#define AddCollect        [BASEURL stringByAppendingString:@"/v1/collections/coll"]
 
 
 

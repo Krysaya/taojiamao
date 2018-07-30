@@ -9,15 +9,29 @@
 
 #import "TJClassicController.h"
 #import "TJClassicSecondCell.h"
+#import "TJClassicFirstCell.h"
+#import "TJGoodCatesMainListModel.h"
 @interface TJClassicController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong)UITableView *tableView_left;
 @property (nonatomic, strong) UITableView *tableView_right;
+@property (nonatomic, strong) NSDictionary *dict_son;
+
+@property (nonatomic, strong) NSMutableArray *dataArr_left;
+@property (nonatomic, strong) NSMutableArray *dataArr_right;
+
+@property (nonatomic, strong) NSString *select_index;
+@property (nonatomic, strong) NSString *index;
 
 @end
 
 @implementation TJClassicController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadGoodsCatesList];
+    self.select_index = @"0";
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"商品分类";
@@ -28,8 +42,12 @@
     tableV.dataSource = self;
     tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableV.tableFooterView = [UIView new];
+    [tableV registerNib:[UINib nibWithNibName:@"TJClassicFirstCell" bundle:nil] forCellReuseIdentifier:@"classicFirstCell"];
+   
+   
     [self.view addSubview:tableV];
-    
+    self.tableView_left = tableV;
+
     UIView *bgView = [[UIView alloc]init];
     bgView.frame = CGRectMake(100, SafeAreaTopHeight, S_W-100, 110);
 //    bgView.backgroundColor = RGB(245, 245, 245);
@@ -45,21 +63,87 @@
 
     [tableV2 registerClass:[TJClassicSecondCell class] forCellReuseIdentifier:@"classicCell"];
     [self.view addSubview:tableV2];
-    
-    
+    self.tableView_right= tableV2;
 }
 
+- (void)loadGoodsCatesList{
+    self.dataArr_left = [NSMutableArray array];
+    self.dataArr_right = [NSMutableArray array];
+
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    DSLog(@"--sign==%@",md5Str);
+
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = GoodsClassicList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSLog(@"----主分类-success-===%@",responseObject);
+        NSDictionary *dict = responseObject[@"data"];
+        for (int i=1; i<dict.count+1; i++) {
+            NSString *str = [NSString stringWithFormat:@"%d",i];
+            TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
+            DSLog(@"---fl=%@",dict[str]);
+            [self.dataArr_left addObject:model];
+            
+//
+            NSArray * childsArray = [model._childs componentsSeparatedByString:@","];//以“,”切割
+
+            for (NSString *str in childsArray) {
+                TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:model._sons[str]];
+                [self.dataArr_right addObject:childsModel];
+                DSLog(@"--childs==%ld",self.dataArr_right.count);
+            }
+        }
+        
+        
+        
+
+        
+        DSLog(@"---num--%ld",self.dataArr_left.count);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView_left reloadData];
+            [self.tableView_right reloadData];
+
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--分类-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
 #pragma mark  - delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView.tag==1000) {
         return 1;
     }
-    return 4;
+    
+    return self.dataArr_left.count;
 
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag==1000) {
-        return 4;
+        return self.dataArr_left.count;
     }
     
     return 1;
@@ -77,22 +161,45 @@
     return 10;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
+    
     if (tableView.tag==1000) {
 //        left
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-            cell.textLabel.text = @[@"女装",@"男装",@"内衣",@"母婴"][indexPath.row];
+         TJClassicFirstCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"classicFirstCell"];
+        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell1.model = self.dataArr_left[indexPath.row];
+        if (indexPath.row==0) {//指定第一行为选中状态
+            
+            [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
             
         }
-        return cell;
+        
+
+        return cell1;
     }else{
 //        right
-        TJClassicSecondCell *cell = [tableView dequeueReusableCellWithIdentifier:@"classicCell"];
-        [cell cellHeaderTitle:@[@"女装",@"男装",@"内衣",@"母婴"][indexPath.section] withImageArr:@[@"",@"",@"",@"",@""] withtitleArr:@[@"羽绒服",@"打底裤",@"毛衣",@"卫衣",@"连衣裙"]];
-        return cell;
+        //将字符串切割为数组
+//        TJGoodCatesMainListModel *model = self.dataArr_left[i];
+//
+//        NSArray * childsArray = [model._childs componentsSeparatedByString:@","];//以“,”切割
+//        NSMutableArray *arr = [NSMutableArray array];
+//        for (NSString *str in childsArray) {
+//            TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:model._sons[str]];
+//            [arr addObject:childsModel];
+//            DSLog(@"--childs==%ld===%@",arr.count,childsModel.catname);
+//        }
+        TJClassicSecondCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"classicCell"];
+//        [cell2 cellArr:self.dataArr_right[i]];
+        
+        
+        return cell2;
     }
    
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag==1000) {
+        self.select_index = [NSString stringWithFormat:@"%ld",indexPath.row];
+        [self.tableView_right reloadData];
+    }
 }
 @end

@@ -28,19 +28,19 @@
 }
 
 - (void)setModel:(TJJHSGoodsListModel *)model{
-    self.title_lab.text = model.title;
-//    self.yimai_lab.text =
-    NSString *str = [NSString stringWithFormat:@"券后：¥%@",model.price];
+    self.title_lab.text = model.itemtitle;
+    self.yimai_lab.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
+    NSString *str = [NSString stringWithFormat:@"券后：¥%@",model.itemendprice];
     NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.font([UIFont systemFontOfSize:12.f]).textColor(KALLRGB);
         make.append(str);
-        make.rangeEdit(NSMakeRange(4, model.price.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+        make.rangeEdit(NSMakeRange(4, model.itemendprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
             make.font([UIFont systemFontOfSize:17.f]).textColor(KALLRGB);
         });
     });
     self.quanhou_lab.attributedText = attrStr;
-    [self.btn_quan setTitle:[NSString stringWithFormat:@"领券减%@",model.coupon_money] forState:UIControlStateNormal];
+    [self.btn_quan setTitle:[NSString stringWithFormat:@"领券减%@",model.couponmoney] forState:UIControlStateNormal];
 
-    [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",model.thumb]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
 }
 @end

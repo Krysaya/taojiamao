@@ -8,7 +8,10 @@
 
 #import "TJDetailListController.h"
 #import "TJDetailListCell.h"
+#import "TJAssetsDetailListModel.h"
 @interface TJDetailListController ()<ZJScrollPageViewChildVcDelegate>
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 
@@ -19,10 +22,14 @@
     
  
 }
-
+- (void)zj_viewWillAppearForIndex:(NSInteger)index{
+    [self loadMembersMingXiList:@"1"];
+}
 - (void)zj_viewDidLoadForIndex:(NSInteger)index{
     NSLog(@"-----%ld---",index);
-    
+    NSString *str = [NSString stringWithFormat:@"%ld",index+1];
+    [self loadMembersMingXiList:str];
+  
     self.tableView.rowHeight = 62;
     self.tableView.backgroundColor =RGB(245, 245, 245);
     self.tableView.tableFooterView = [UIView new];
@@ -30,6 +37,45 @@
     
 }
 
+- (void)loadMembersMingXiList:(NSString *)type{
+    self.dataArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"style":type,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = UserBalanceDetail;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{@"style":type};
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSLog(@"----jifen-success-===%@",responseObject);
+        self.dataArr = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        DSLog(@"===jf==%ld",self.dataArr.count);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--jien-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
 - (void)requestMembersDetailWithIndex:(NSInteger)index{
     
 }
@@ -43,13 +89,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 2;
+    return self.dataArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TJDetailListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listCell" forIndexPath:indexPath];
-
+    cell.model = self.dataArr[indexPath.row];
     
     return cell;
 }

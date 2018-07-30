@@ -66,9 +66,9 @@
         childVc = [[TJDetailListController alloc]init];
         
         if (index%2 == 0) {
-//            childVc.view.backgroundColor = [UIColor redColor];
+            childVc.view.backgroundColor = [UIColor redColor];
         } else {
-//            childVc.view.backgroundColor = [UIColor cyanColor];
+            childVc.view.backgroundColor = [UIColor cyanColor];
             
         }
         

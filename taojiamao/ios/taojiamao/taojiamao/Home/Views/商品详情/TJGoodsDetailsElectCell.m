@@ -76,7 +76,7 @@
 }
 
 - (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
-    self.intro.attributedText =[self labelRetract:model_detail.intro_foot];
+    self.intro.attributedText =[self labelRetract:model_detail.guide_article];
 
 }
 

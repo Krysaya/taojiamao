@@ -48,6 +48,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="lab_num" destination="9jB-rE-Rz8" id="lLg-Ww-HjH"/>
+                <outlet property="lab_time" destination="jhX-Zt-fxz" id="qdV-QD-krG"/>
+                <outlet property="lab_type" destination="2fQ-eh-Bcn" id="TWP-Tj-6jY"/>
             </connections>
             <point key="canvasLocation" x="-64.5" y="-23.5"/>
         </tableViewCell>

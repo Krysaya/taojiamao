@@ -10,15 +10,13 @@
 
 #import "TJClassicSecondCell.h"
 #import "TJCollectionClassicCell.h"
-
+#import "TJGoodCatesMainListModel.h"
 @interface TJClassicSecondCell()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UICollectionView *collect;
-
-@property (nonatomic, strong) NSArray *imgArr;
-@property (nonatomic, strong) NSArray *titleArr;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 
 @end
@@ -91,13 +89,11 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJCollectionClassicCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectClassiCell" forIndexPath: indexPath];
     //    cell.imgView.backgroundColor = RandomColor;
-    cell.imageV.image = [UIImage imageNamed:self.imgArr[indexPath.row]];
+    TJGoodCatesMainListModel *model = self.dataArr[indexPath.row];
+    [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl]];
     
-    cell.lab_titel.text = self.titleArr[indexPath.row];
-    //    cell.backgroundColor = [UIColor blackColor];
-    
-    //    [self updateCollectionViewHight:self.collectionView.collectionViewLayout.collectionViewContentSize.height];
-    
+    cell.lab_titel.text = model.catname;
+
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -110,14 +106,17 @@
     return 0.1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 5;
+    return self.dataArr.count;
     
 }
 
-- (void)cellHeaderTitle:(NSString *)title withImageArr:(NSArray *)imgArr withtitleArr:(NSArray *)titleArr{
-    self.titleLab.text = title;
-    self.imgArr = imgArr;
-    self.titleArr = titleArr;
+
+- (void)cellArr:(NSMutableArray *)dataArr{
+    self.dataArr = dataArr;
+    [self.collect reloadData];
+}
+
+- (void)setModel:(TJGoodCatesMainListModel *)model{
     
 }
 @end

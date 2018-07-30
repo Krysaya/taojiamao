@@ -13,4 +13,5 @@
 //编辑选中
 @property (nonatomic,assign) BOOL  contentEditStatus;
 
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @end

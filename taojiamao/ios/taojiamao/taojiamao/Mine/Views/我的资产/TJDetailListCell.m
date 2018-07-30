@@ -8,7 +8,10 @@
 //
 
 #import "TJDetailListCell.h"
+#import "TJAssetsDetailListModel.h"
 @interface TJDetailListCell()
+@property (weak, nonatomic) IBOutlet UILabel *lab_type;
+@property (weak, nonatomic) IBOutlet UILabel *lab_time;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *lab_num;
@@ -27,4 +30,9 @@
     // Configure the view for the selected state
 }
 
+- (void)setModel:(TJAssetsDetailListModel *)model{
+    
+//    self.lab_type.text = model.message;
+    self.lab_time.text = model.addtime;
+}
 @end

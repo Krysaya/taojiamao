@@ -9,6 +9,7 @@
 
 #import "TJContentCollectController.h"
 #import "TJContentListCell.h"
+#import "TJContetenCollectListModel.h"
 @interface TJContentCollectController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -38,31 +39,24 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJContentListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentlistCell"];
-    
+    [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:_contentEditStatus];
+
     return cell;
 }
 
-//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    //编辑设置成自定义的必须把系统的设置为None
-//    return UITableViewCellEditingStyleNone;
-//}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //编辑设置成自定义的必须把系统的设置为None
+    return UITableViewCellEditingStyleNone;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.contentEditStatus) {
-        TJContentListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        cell.contentView.frame = CGRectMake(43, 0, S_W, 120);
-        cell.select_btn.selected = !cell.select_btn.selected;
-        if (cell.select_btn.selected) {
-            [cell.select_btn setImage:[UIImage imageNamed:@"check_light"] forState:UIControlStateNormal];
-        }else{
-            [cell.select_btn setImage:[UIImage imageNamed:@"check_default"] forState:UIControlStateNormal];
+        TJContetenCollectListModel *model = [_dataArr objectAtIndex:indexPath.row];
+        model.isChecked = !model.isChecked;
+        NSLog(@"=点了==%ld",indexPath.row);
+        [tableView reloadData];
         }
-    }else{
-        //        非编辑状态
-        
-    }
 }
-
 //侧滑
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {

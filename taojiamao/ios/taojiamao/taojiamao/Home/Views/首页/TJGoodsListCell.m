@@ -55,25 +55,25 @@
     
     TJGoodsCollectModel *model = [arr objectAtIndex:indexPath.row];
     _selectBtn.selected = model.isChecked;
-    [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",model.thumb]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
     NSAttributedString *str_tb = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
         make.insertText(@" ", 1);
-        make.insertText(model.title, 2);
+        make.insertText(model.itemtitle, 2);
     });
     self.titleLab.attributedText = str_tb;
-    self.lab_quanh.text = model.price;
+    self.lab_quanh.text = model.itemprice;
     //中划线
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-    NSMutableAttributedString *attribt_yuanj = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.prime] attributes:attribtDic];
+    NSMutableAttributedString *attribt_yuanj = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.itemendprice] attributes:attribtDic];
     
     self.lab_yuanjia.attributedText = attribt_yuanj;
-    self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.final_sales];
-    NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.coupon_money];
+    self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
+    NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
     NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
         make.append(str_coupon);
-        make.rangeEdit(NSMakeRange(3, model.price.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+        make.rangeEdit(NSMakeRange(3, model.itemprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
             make.font([UIFont systemFontOfSize:19.f]).textColor([UIColor whiteColor]);
         });
     });

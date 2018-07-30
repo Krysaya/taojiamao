@@ -29,7 +29,7 @@
 @implementation TJCollectController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestGoodsCollcetion];
+    [self requestGoodsCollcetion:@"1"];
 
 }
 - (void)viewDidLoad {
@@ -81,7 +81,7 @@
     [self setupBottomStatus];
 }
 
-- (void)requestGoodsCollcetion{
+- (void)requestGoodsCollcetion:(NSString *)type{
     self.dataArr_collcet = [NSMutableArray array];
     
     NSString *userid = GetUserDefaults(UID);
@@ -95,6 +95,7 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
+                                @"type":type
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -105,17 +106,23 @@
                             @"uid":userid,
                             };
         request.requestSerializerType = kXMRequestSerializerRAW;
+        request.parameters = @{@"type":type};
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
         NSLog(@"--success-===%@",responseObject);
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr_collcet = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.vc1.dataArr = self.dataArr_collcet;
-            [self.vc1.goodsTabView reloadData];
-
-        });
+        if ([type intValue]==1) {
+            self.dataArr_collcet = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.vc1.dataArr = self.dataArr_collcet;
+                [self.vc1.goodsTabView reloadData];
+                
+            });
+        }else{
+//            neirong
+        }
+        
         
     } onFailure:^(NSError * _Nullable error) {
         DSLog(@"--error%@",error);
@@ -165,10 +172,11 @@
 
     }else{
         NSLog(@"nr");
+        TJContentCollectController *vc = _childVCs[1];
+
         if ([sender.titleLabel.text isEqualToString:@"编辑"]) {
             [sender setTitle:@"完成" forState:UIControlStateNormal];
             
-            TJContentCollectController *vc = _childVCs[1];
             //           编辑
             [self updateMasonrys];
             [UIView animateWithDuration:0.5 animations:^{
@@ -180,8 +188,6 @@
             
         }else{
             [sender setTitle:@"编辑" forState:UIControlStateNormal];
-            TJContentCollectController *vc = _childVCs[1];
-            
             [self resetMasonrys];
             [UIView animateWithDuration:0.5 animations:^{
                 vc.contentTabView.frame = CGRectMake(0, 0, S_W, S_H);
@@ -190,6 +196,8 @@
             }];
             vc.contentEditStatus = NO;
         }
+        [vc.contentTabView reloadData];
+
     }
 }
 
@@ -240,6 +248,7 @@
 }
 - (void)cancelCollect:(UIButton *)sender
 {
+  
     if (self.isSelect==0) {
 //        商品
         DSLog(@"sp");
@@ -255,8 +264,12 @@
 - (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index
 {
     self.isSelect = index;
+    NSString *str = [NSString stringWithFormat:@"%ld",index+1];
+    [self requestGoodsCollcetion:str];
     return _childVCs[index];
+   
 }
+
 
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods
 {

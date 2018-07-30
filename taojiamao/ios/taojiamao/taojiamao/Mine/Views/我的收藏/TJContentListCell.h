@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface TJContentListCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *select_btn;
 
+
+- (void)cellWithArr:(NSArray *)arr forIndexPath:(NSIndexPath *)indexPath isEditing:(BOOL)editing;
 
 @end

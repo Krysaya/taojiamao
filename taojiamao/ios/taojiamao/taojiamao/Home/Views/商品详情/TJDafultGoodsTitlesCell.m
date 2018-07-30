@@ -35,17 +35,17 @@
 
 - (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, S_W, 375)];
-    [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",model_detail.long_pic]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [img sd_setImageWithURL:[NSURL URLWithString:model_detail.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
     [self.scroll_Ad addSubview:img];
     
     self.lab_title.text = model_detail.sub_title;
     //中划线
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model_detail.prime] attributes:attribtDic];
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model_detail.itemendprice] attributes:attribtDic];
     self.lab_prime.attributedText = attribtStr;
     
-    self.lab_price.text = model_detail.price;
-    self.lab_couponmoneny.text = [NSString stringWithFormat:@"%@元优惠券",model_detail.coupon_money];
+    self.lab_price.text = model_detail.itemprice;
+    self.lab_couponmoneny.text = [NSString stringWithFormat:@"%@元优惠券",model_detail.couponmoney];
     
 }
 @end

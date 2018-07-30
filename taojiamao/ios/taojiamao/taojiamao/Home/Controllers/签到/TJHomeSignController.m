@@ -77,6 +77,7 @@
                                 @"uid":userid,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    DSLog(@"--%@==",md5Str);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = MembersSigns;
         request.headers = @{@"timestamp": timeStr,

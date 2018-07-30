@@ -7,12 +7,17 @@
 //
 
 #import "TJContentListCell.h"
+#import "TJContetenCollectListModel.h"
 @interface TJContentListCell()
 @property (weak, nonatomic) IBOutlet UILabel *title_lab;
 @property (weak, nonatomic) IBOutlet UILabel *lab_pinglun;
 @property (weak, nonatomic) IBOutlet UILabel *lab_zan;
+@property (weak, nonatomic) IBOutlet UIButton *select_btn;
 
 @property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *checkBtnLeading;
+// 如果要整体右移这个值也改下
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightViewTrailing;
 
 @end
 
@@ -29,6 +34,24 @@
     // Configure the view for the selected state
 }
 
+- (void)cellWithArr:(NSArray *)arr forIndexPath:(NSIndexPath *)indexPath isEditing:(BOOL)editing
+{
+    if (editing) {
+        
+        _checkBtnLeading.constant = 20.f;
+        
+        _rightViewTrailing.constant = -49.f;
+    }else
+    {
+        _checkBtnLeading.constant = -29.f;
+        
+        _rightViewTrailing.constant = 0.f;
+    }
+    
+    // 这里取出model， 根据model的是否选中属性，标记checkBtn的select状态，图标会自动转换
+    TJContetenCollectListModel *model = [arr objectAtIndex:indexPath.row];
+    _select_btn.selected = model.isChecked;
 
+}
 
 @end

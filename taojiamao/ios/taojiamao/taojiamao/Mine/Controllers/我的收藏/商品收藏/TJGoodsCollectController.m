@@ -106,7 +106,7 @@
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableArray *arr = [NSMutableArray array];
-    [arr addObject:model.gid];
+    [arr addObject:model.itemid];
     NSMutableDictionary *md = @{
                                 @"timestamp": timeStr,
                                 @"app": @"ios",

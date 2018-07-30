@@ -7,6 +7,16 @@
 //
 
 #import "TJMyFootPrintCell.h"
+#import "TJGoodsInfoListModel.h"
+@interface TJMyFootPrintCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UILabel *lab_title;
+@property (weak, nonatomic) IBOutlet UILabel *lab_quanhou;
+@property (weak, nonatomic) IBOutlet UILabel *lab_yaunjia;
+@property (weak, nonatomic) IBOutlet UIButton *btn_quan;
+
+@end
+
 
 @implementation TJMyFootPrintCell
 
@@ -21,4 +31,8 @@
     // Configure the view for the selected state
 }
 
+-(void)setModel:(TJGoodsInfoListModel *)model{
+    self.lab_title.text = model.itemtitle;
+    
+}
 @end

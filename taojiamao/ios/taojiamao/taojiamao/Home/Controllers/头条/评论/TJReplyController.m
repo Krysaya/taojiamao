@@ -12,6 +12,8 @@
 #import "TJMoreCommentsCell.h"
 @interface TJReplyController ()
 
+@property(nonatomic,strong)NSMutableArray *dataArr;
+
 @end
 
 @implementation TJReplyController
@@ -26,7 +28,44 @@
 
 }
 
-
+- (void)requestReplyList{
+//
+    self.dataArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"aid":@"",
+                                @"cid":@"",
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = CommentsList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{@"aid":@"",
+                               @"cid":@""};
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"--pl%@==success==",responseObject);
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--评论-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

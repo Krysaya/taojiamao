@@ -8,6 +8,9 @@
 
 #import "TJBaseTableCell.h"
 
+@class TJAssetsDetailListModel;
+
 @interface TJDetailListCell : TJBaseTableCell
 
+@property (nonatomic, strong) TJAssetsDetailListModel *model;
 @end

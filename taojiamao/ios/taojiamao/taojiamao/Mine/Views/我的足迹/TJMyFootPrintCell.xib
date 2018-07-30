@@ -106,9 +106,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="btn_quan" destination="qGs-jl-xdv" id="Ziy-4m-8yT"/>
+                <outlet property="img" destination="RCB-EI-Al2" id="PMU-md-vKs"/>
+                <outlet property="lab_quanhou" destination="KNo-z4-HKH" id="MYE-dc-Yqu"/>
+                <outlet property="lab_title" destination="Fac-BD-osX" id="2p7-2d-8QM"/>
+                <outlet property="lab_yaunjia" destination="1oX-Gq-elg" id="gZd-Vw-NTl"/>
                 <outlet property="titleLab" destination="Fac-BD-osX" id="K0i-XC-dlI"/>
             </connections>
-            <point key="canvasLocation" x="-110" y="3"/>
+            <point key="canvasLocation" x="-283" y="-3"/>
         </tableViewCell>
     </objects>
     <resources>
