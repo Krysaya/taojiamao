@@ -58,7 +58,7 @@
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UIPageControl *pageC_NEWS;
 
-
+@property (nonatomic, strong) NSArray *hotSearchArr;
 //@property (nonatomic, strong) UIView *newsView;
 @end
 
@@ -67,6 +67,8 @@
 {
     [super viewWillAppear:animated];
     [self setNaviBarAlpha:_currentAlpha];
+    [self requestSearchGoodsList];
+
 }
 
 //视图将要消失时取消隐藏
@@ -84,6 +86,47 @@
     [self.timer_news invalidate];
 
 }
+- (void)requestSearchGoodsList{
+    self.hotSearchArr = [NSArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    DSLog(@"sign==%@,times==%@,uid==%@",md5Str,timeStr,userid);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = SearchGoods;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    } onSuccess:^(id  _Nullable responseObject) {
+//        NSLog(@"----search-success-===%@",responseObject);
+        self.hotSearchArr = responseObject[@"data"][@"hot"];
+     
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--搜索-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -327,7 +370,7 @@
 //        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
 //        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
 //    });
-    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO];
+    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO withType:@"0"];
 //    cell.titleLab.attributedText = str;
     return cell;
 }
@@ -369,13 +412,9 @@
 #pragma mark - search
 
 -(void)searchClick{
-    // 1. Create an Array of popular search
-    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-    // 2. Create a search view controller
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:@"怪味少女装" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:self.hotSearchArr searchBarPlaceholder:@"怪味少女装" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         TJSearchController * result = [[TJSearchController alloc] init];
         result.searchText = searchText;
-
         [searchViewController.navigationController pushViewController:result animated:YES];
     }];
   
@@ -390,6 +429,8 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:nav animated:NO completion:nil];
 }
+
+
 #pragma mark - searchbardelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     DSLog(@"点了--");[self searchClick];

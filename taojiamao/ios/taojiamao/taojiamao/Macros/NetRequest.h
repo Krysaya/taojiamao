@@ -58,8 +58,14 @@ static NSString * const UserPhone = @"UserPhone";
 //取消收藏
 #define CancelGoodsCollect          [BASEURL stringByAppendingString:@"/v1/goods/ccoll"]
 
-//搜索
-#define SearchGoodsList          [BASEURL stringByAppendingString:@"/v1/goods/list"]
+//商品搜索
+#define SearchGoods          [BASEURL stringByAppendingString:@"/v1/goods/search"]
+//搜索表
+#define SearchGoodsList          [BASEURL stringByAppendingString:@"/v1/goods"]
+
+//超级搜索
+#define SuperSearchGoodsList          [BASEURL stringByAppendingString:@"/goods/suppersearch"]
+
 //明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/v1/members/jifen"]
 

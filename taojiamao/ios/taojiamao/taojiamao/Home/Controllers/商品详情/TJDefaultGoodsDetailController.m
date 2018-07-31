@@ -238,7 +238,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         return cell;
     }else if(indexPath.section==1){
         TJGoodsDetailsElectCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsElectCell forIndexPath:indexPath];
-        cell.model_detail = self.dataArr[0];
+//        cell.model_detail = self.dataArr[0];
         return cell;
     }else if(indexPath.section==2){
 
@@ -269,8 +269,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else if(indexPath.section==1){
         return [tableView fd_heightForCellWithIdentifier:GoodsDetailsElectCell cacheByIndexPath:indexPath configuration:^(TJGoodsDetailsElectCell *cell) {
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
-            TJJHSGoodsListModel *model = self.dataArr[0];
-            cell.detailsIntro = model.guide_article;
+//            TJJHSGoodsListModel *model = self.dataArr[0];
+//            cell.detailsIntro = model.guide_article;
         }];
     }else if (indexPath.section==2){
         return 42;

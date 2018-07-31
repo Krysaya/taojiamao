@@ -10,8 +10,7 @@
 @class TJGoodCatesMainListModel;
 @interface TJClassicSecondCell : TJBaseTableCell
 
-- (void)cellHeaderTitle:(NSString *)title withImageArr:(NSArray *)imgArr withtitleArr:(NSArray *)titleArr;
-- (void)cellArr:(NSMutableArray *)dataArr;
+
 
 @property (nonatomic, strong) TJGoodCatesMainListModel *model;
 @end

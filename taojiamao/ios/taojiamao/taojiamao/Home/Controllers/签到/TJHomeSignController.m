@@ -27,6 +27,9 @@
 @property (nonatomic, strong) UILabel *lab_page;
 @property (nonatomic, strong) FSCalendar *calendar;
 
+@property (nonatomic, strong) UILabel *lab;
+@property (nonatomic, strong) UILabel *lab_total;
+
 
 
 //@property (nonatomic, strong) UICollectionView *collectionV;
@@ -96,7 +99,9 @@
             
             [self presentViewController:successVc animated:NO completion:nil];
         }else{
-            NSMutableArray *arr = [TJSignListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            NSMutableArray *arr = [TJSignListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+            
+            
             self.dataArr = [[NSMutableArray array]init];
 
             for (TJSignListModel *model in arr) {
@@ -105,6 +110,19 @@
                 [self.dataArr addObject:time];
             }
               dispatch_async(dispatch_get_main_queue(), ^{
+//                  NSString *num = responseObject[@"data"][@"num"];
+                  NSString*  str = [NSString stringWithFormat:@"本月连续签到%@天",responseObject[@"data"][@"num"]];
+                  NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+                      make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
+                      make.append(str);
+                      make.rangeEdit(NSMakeRange(str.length-2, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
+                          make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
+                      });
+                  });
+                  
+                  self.lab_total.text = responseObject[@"data"][@"nums"];
+                  
+                  self.lab.attributedText = attrStr;
                   [self.calendar reloadData];
                    });
         }
@@ -163,6 +181,12 @@
     titleLab.font = [UIFont boldSystemFontOfSize:20];
     [self.view addSubview:titleLab];
     
+    UILabel *title_right = [[UILabel alloc]initWithFrame:CGRectMake(S_W-145, 30+18+SafeAreaTopHeight, 130, 50)];
+    title_right.textColor = RGB(51, 51, 51);
+    title_right.textAlignment = NSTextAlignmentRight;
+    title_right.font = [UIFont boldSystemFontOfSize:14];
+    [self.view addSubview:title_right];
+    self.lab = title_right;
     
     UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(25, 30+18+50+SafeAreaTopHeight, S_W-50, 300)];
     [self.view addSubview:bgView];
@@ -213,6 +237,7 @@
     numLab.textColor = KALLRGB;
     numLab.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:numLab];
+    self.lab_total = numLab;
 }
 - (void)setSelectedTopicScroll{
     

@@ -43,7 +43,8 @@
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model_detail.itemendprice] attributes:attribtDic];
     self.lab_prime.attributedText = attribtStr;
-    
+    DSLog(@"==%@==dfsjkn---%@",model_detail.itemendprice,attribtStr);
+
     self.lab_price.text = model_detail.itemprice;
     self.lab_couponmoneny.text = [NSString stringWithFormat:@"%@元优惠券",model_detail.couponmoney];
     

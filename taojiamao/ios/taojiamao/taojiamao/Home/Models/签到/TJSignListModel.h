@@ -14,4 +14,5 @@
 @property (nonatomic, strong) NSString *id;
 @property (nonatomic, strong) NSString *num;
 @property (nonatomic, strong) NSString *points;
+@property (nonatomic, strong) NSString *status;
 @end

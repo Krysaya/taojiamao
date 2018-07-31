@@ -48,7 +48,7 @@
     [self.intro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(12*W_Scale);
         make.right.mas_equalTo(-12*W_Scale);
-        make.top.mas_equalTo(16*W_Scale);
+        make.top.mas_equalTo(12*W_Scale);
         make.bottom.mas_equalTo(-15*W_Scale);
     }];
 }
@@ -77,6 +77,7 @@
 
 - (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
     self.intro.attributedText =[self labelRetract:model_detail.guide_article];
+    
 
 }
 

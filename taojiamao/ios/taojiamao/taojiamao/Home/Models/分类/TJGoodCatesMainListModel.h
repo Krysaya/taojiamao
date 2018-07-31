@@ -37,5 +37,7 @@
 @property (nonatomic, strong) NSDictionary *_sons;
 
 
+@property (nonatomic,   copy) NSArray *managedSons; // 处理后的son
+
 
 @end

@@ -11,6 +11,5 @@
 @interface TJGoodsListCell : UITableViewCell
 
 
-- (void)cellWithArr:(NSArray *)arr forIndexPath:(NSIndexPath *)indexPath isEditing:(BOOL)editing;
-
+- (void)cellWithArr:(NSArray *)arr forIndexPath:(NSIndexPath *)indexPath isEditing:(BOOL)editing withType:(NSString *)type;
 @end

@@ -104,15 +104,7 @@
             TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
             DSLog(@"---fl=%@",dict[str]);
             [self.dataArr_left addObject:model];
-            
-//
-            NSArray * childsArray = [model._childs componentsSeparatedByString:@","];//以“,”切割
-
-            for (NSString *str in childsArray) {
-                TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:model._sons[str]];
-                [self.dataArr_right addObject:childsModel];
-                DSLog(@"--childs==%ld",self.dataArr_right.count);
-            }
+    
         }
         
         
@@ -152,10 +144,24 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.tag==1000) {
         return 45;
-    }
+    }else{
     
-    return 250;
+        
+        TJGoodCatesMainListModel *model = self.dataArr_left[indexPath.section];
+        NSArray * childsArray = [model._childs componentsSeparatedByString:@","];
+        NSInteger i = ceilf(childsArray.count/3.0);
+        DSLog(@"0980809=====%ld==%ld====%ld",i,indexPath.section,childsArray.count);
+
+        if (i==0||i==1) {
+            
+            return 140;
+        }else{
+            return 125*i;
+        }
+    }
+   
 }
+
 //section间距
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 10;
@@ -178,20 +184,11 @@
         return cell1;
     }else{
 //        right
-        //将字符串切割为数组
-//        TJGoodCatesMainListModel *model = self.dataArr_left[i];
-//
-//        NSArray * childsArray = [model._childs componentsSeparatedByString:@","];//以“,”切割
-//        NSMutableArray *arr = [NSMutableArray array];
-//        for (NSString *str in childsArray) {
-//            TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:model._sons[str]];
-//            [arr addObject:childsModel];
-//            DSLog(@"--childs==%ld===%@",arr.count,childsModel.catname);
-//        }
+    
+        TJGoodCatesMainListModel *model = self.dataArr_left[indexPath.section];
         TJClassicSecondCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"classicCell"];
-//        [cell2 cellArr:self.dataArr_right[i]];
-        
-        
+        cell2.model = model;
+
         return cell2;
     }
    
@@ -200,6 +197,8 @@
     if (tableView.tag==1000) {
         self.select_index = [NSString stringWithFormat:@"%ld",indexPath.row];
         [self.tableView_right reloadData];
+//        [self.tableView_right scrollToRowAtIndexPath:indexPath.section atScrollPosition:<#(UITableViewScrollPosition)#> animated:<#(BOOL)#>];
+        
     }
 }
 @end

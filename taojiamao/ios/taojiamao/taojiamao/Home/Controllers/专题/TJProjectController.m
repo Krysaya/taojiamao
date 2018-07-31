@@ -53,7 +53,7 @@
 //        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
 //    });
 //    cell.titleLab.attributedText = str;
-    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO];
+    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO withType:@"0"];
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

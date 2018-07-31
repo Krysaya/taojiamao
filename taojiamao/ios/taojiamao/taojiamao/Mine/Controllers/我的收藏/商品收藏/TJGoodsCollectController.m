@@ -53,7 +53,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
     
-    [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:_goodsEditStatus];
+    [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:_goodsEditStatus withType:@"0"];
 
     return cell;
 }

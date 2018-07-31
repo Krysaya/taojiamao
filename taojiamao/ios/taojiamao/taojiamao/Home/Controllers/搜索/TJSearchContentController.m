@@ -8,8 +8,11 @@
 
 #import "TJSearchContentController.h"
 #import "TJHomeFootShowCell.h"
-#import "TJSearchContentCell.h"
+#import "TJGoodsListCell.h"
 #import "TJJHSuanCell.h"
+#import "TJJHSGoodsListModel.h"
+#import "TJDefaultGoodsDetailController.h"
+
 static NSString *TJSearchContentFootShowCell = @"TJSearchContentFootShowCell";
 static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell";
 
@@ -36,7 +39,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[TJHomeFootShowCell class] forCellReuseIdentifier:TJSearchContentFootShowCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:TJSearchContentFootShowCell];
     
     [self.view addSubview:self.tableView];
 }
@@ -57,15 +60,24 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 }
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+    return self.dataArr.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TJHomeFootShowCell * cell = [tableView dequeueReusableCellWithIdentifier:TJSearchContentFootShowCell forIndexPath:indexPath];
-    
+    TJGoodsListCell * cell = [tableView dequeueReusableCellWithIdentifier:TJSearchContentFootShowCell forIndexPath:indexPath];
+//    cell.model = self.dataArr[indexPath.row];
+    [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:NO withType:@"0"];
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 150;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
+    TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
+    DSLog(@"--efwifjefwfjmawefm======%@",model.itemid);
+    goodVC.gid = model.itemid;
+    [self.navigationController pushViewController:goodVC animated:YES];
 }
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -76,6 +88,17 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     cell.cell_type = @"search";
     cell.model = self.dataArr[indexPath.row];
     return cell;
+}
+//UICollectionViewCell的大小
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return CGSizeMake((S_W-10)/2, 275);
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
+    TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
+    goodVC.gid = model.itemid;
+    [self.navigationController pushViewController:goodVC animated:YES];
 }
 #pragma mark - 通知
 -(void)horizontalVerticalTransform:(NSNotification*)info{

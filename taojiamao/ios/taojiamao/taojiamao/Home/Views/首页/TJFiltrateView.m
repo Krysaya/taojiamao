@@ -13,7 +13,7 @@
 #define jgButton  4864
 #define yhqButton 4865
 #define hsButton  4866
-#define sxButton  4867
+#define sxButton  486723
 
 @interface TJFiltrateView()
 
@@ -42,7 +42,7 @@
 
 -(void)setUIwithFrame:(CGFloat)margin{
     WeakSelf
-    self.zh = [self buttonWithString:@"综合" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:zhButton];
+    self.zh = [self buttonWithString:@"综合" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:zhButton imgAndTitleEdge:NO];
     self.zh.selected = YES;
     self.record = self.zh;
     [self addSubview:self.zh];
@@ -51,21 +51,21 @@
         make.left.mas_equalTo(20);
     }];
     
-    self.xl =[self buttonWithString:@"销量" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:xlButton];
+    self.xl =[self buttonWithString:@"销量" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:xlButton imgAndTitleEdge:YES];
     [self addSubview:self.xl];
     [self.xl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
         make.left.mas_equalTo(weakSelf.zh.mas_right).offset(margin);
     }];
     
-    self.jg = [self buttonWithString:@"价格" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:jgButton];
+    self.jg = [self buttonWithString:@"价格" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:jgButton imgAndTitleEdge:YES];
     [self addSubview:self.jg];
     [self.jg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
         make.left.mas_equalTo(weakSelf.xl.mas_right).offset(margin);
     }];
     
-    self.yhq = [self buttonWithString:@"优惠券高" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:yhqButton];
+    self.yhq = [self buttonWithString:@"优惠券高" normalColor:RGB(51, 51, 51) selectColor:RGB(255, 71, 119) normalImage:@"" selectImage:@"" tag:yhqButton imgAndTitleEdge:YES];
     [self addSubview:self.yhq];
     [self.yhq mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
@@ -73,7 +73,7 @@
     }];
     
     //出现图片超高的bug
-    self.hs = [self buttonWithString:@"" normalColor:nil selectColor:nil normalImage:@"class_collectlist" selectImage:@"class_tablist" tag:hsButton];
+    self.hs = [self buttonWithString:@"" normalColor:nil selectColor:nil normalImage:@"class_collectlist" selectImage:@"class_tablist" tag:hsButton imgAndTitleEdge:YES];
     [self addSubview:self.hs];
     [self.hs mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf);
@@ -82,9 +82,9 @@
     }];
 //    self.hs.hidden = margin==22?NO:YES;
     
-    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"list_choose" selectImage:@"" tag:sxButton];
-    self.sx.titleEdgeInsets = UIEdgeInsetsMake(0, -self.sx.imageView.frame.size.width - self.sx.frame.size.width + self.sx.titleLabel.frame.size.width, 0, 0);
-    self.sx.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -self.sx.titleLabel.frame.size.width - self.sx.frame.size.width + self.sx.imageView.frame.size.width+10);
+    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"list_choose" selectImage:@"" tag:sxButton imgAndTitleEdge:YES];
+//    self.sx.titleEdgeInsets = UIEdgeInsetsMake(0, -self.sx.imageView.frame.size.width - self.sx.frame.size.width + self.sx.titleLabel.frame.size.width, 0, 0);
+//    self.sx.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -self.sx.titleLabel.frame.size.width - self.sx.frame.size.width + self.sx.imageView.frame.size.width+10);
     [self addSubview:self.sx];
     if (self.hs.hidden) {
         [self.sx mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -111,7 +111,7 @@
 
 
 #pragma mark - 设置button
--(UIButton*)buttonWithString:(NSString*)str normalColor:(UIColor*)nc selectColor:(UIColor*)sc normalImage:(NSString*)ni selectImage:(NSString*)si tag:(NSInteger)t{
+-(UIButton*)buttonWithString:(NSString*)str normalColor:(UIColor*)nc selectColor:(UIColor*)sc normalImage:(NSString*)ni selectImage:(NSString*)si tag:(NSInteger)t imgAndTitleEdge:(BOOL)type{
     UIButton * but = [UIButton buttonWithType:UIButtonTypeCustom];
     but.titleLabel.font = [UIFont systemFontOfSize:15];
     but.tag = t;
@@ -121,10 +121,18 @@
     [but setImage:[UIImage imageNamed:ni] forState:UIControlStateNormal];
     [but setImage:[UIImage imageNamed:si] forState:UIControlStateSelected];
     [but addTarget:self action:@selector(sixButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    if (type==YES) {
+        
+        but.imageEdgeInsets = UIEdgeInsetsMake(0, -but.imageView.frame.size.width - but.frame.size.width + but.titleLabel.frame.size.width, 0, 0);
+        but.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -but.titleLabel.frame.size.width - but.frame.size.width + but.imageView.frame.size.width+10);
+    }else{
+        
+    }
    
     return but;
 }
+
+
 -(void)sixButtonClick:(UIButton*)but{
     if (but.tag==hsButton) {
         but.selected = !but.selected;

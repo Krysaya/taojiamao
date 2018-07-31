@@ -8,18 +8,19 @@
 
 
 #import <UIKit/UIKit.h>
-#import "TJHomeFootShowModel.h"
 @class TJHomeFootShowCell;
+@class TJJHSGoodsListModel;
+
 @protocol TJHomeFootShowCellDeletage<NSObject>
 
--(void)deletageWithModel:(TJHomeFootShowModel*)model withCell:(TJHomeFootShowCell*)cell;
+-(void)deletageWithModel:(TJJHSGoodsListModel*)model withCell:(TJHomeFootShowCell*)cell;
 
 @end
 
 
 @interface TJHomeFootShowCell : TJBaseTableCell
 
-@property(nonatomic,strong)TJHomeFootShowModel * model;
+@property(nonatomic,strong)TJJHSGoodsListModel * model;
 
 @property(nonatomic,assign)BOOL showShare;
 

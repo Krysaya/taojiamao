@@ -13,7 +13,10 @@
 #import "TJGoodsInfoListModel.h"
 @interface TJMyFootPrintController ()
 
+
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property (nonatomic, strong) NSMutableDictionary *dataDict;
+@property (nonatomic, strong) NSArray *childArr;
 @end
 
 @implementation TJMyFootPrintController
@@ -35,6 +38,8 @@
 
 - (void)requestFootPrint{
     self.dataArr = [NSMutableArray array];
+    self.dataDict = [NSMutableDictionary dictionary];
+    self.childArr = [NSArray array];
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -62,7 +67,13 @@
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"--zuji-≈≈%@=======",responseObject);
 
-        self.dataArr = [TJGoodsInfoListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        self.dataDict = responseObject[@"data"][@"data"];
+       
+        self.childArr = responseObject[@"data"][@"keys"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
     } onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
@@ -74,22 +85,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 2;
+    return self.childArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 2;
+    NSString *key = self.childArr[section];
+    NSMutableArray *arr = [TJGoodsInfoListModel mj_objectArrayWithKeyValuesArray:self.dataDict[key]];
+    return arr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TJMyFootPrintCell *cell = [tableView dequeueReusableCellWithIdentifier:@"footPrintCell"];
-    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
-        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
-    });
-    cell.titleLab.attributedText = str;
+    NSString *key = self.childArr[indexPath.section];
+    NSMutableArray *arr = [TJGoodsInfoListModel mj_objectArrayWithKeyValuesArray:self.dataDict[key]];
+    cell.model = arr[indexPath.row];
     return cell;
 }
 
@@ -101,7 +112,7 @@
     lab.frame = CGRectMake(12, 12, 100, 30);
     lab.font = [UIFont systemFontOfSize:15];
     lab.textColor = RGB(153, 153, 153);
-    lab.text = @"7月13号";
+    lab.text = self.childArr[section];
     
     return view;
 }

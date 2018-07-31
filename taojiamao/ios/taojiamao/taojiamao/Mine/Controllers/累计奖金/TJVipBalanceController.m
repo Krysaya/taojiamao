@@ -90,7 +90,7 @@
         make.height.mas_equalTo(95);
     }];
     
-    self.balanceDetails = [[TJButton alloc]initWith:@"余额明细" delegate:self font:15 titleColor:[UIColor redColor] backColor:[UIColor whiteColor] tag:BalanceDetailsButton cornerRadius:18 borderColor:[UIColor redColor] borderWidth:1.0 withBackImage:nil];
+    self.balanceDetails = [[TJButton alloc]initWith:@"余额明细" delegate:self font:15 titleColor:[UIColor redColor] backColor:[UIColor whiteColor] tag:BalanceDetailsButton cornerRadius:18 borderColor:[UIColor redColor] borderWidth:1.0 withBackImage:nil withSelectImage:nil];
     [self.middleView addSubview:self.balanceDetails];
     [self.balanceDetails mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.middleView);

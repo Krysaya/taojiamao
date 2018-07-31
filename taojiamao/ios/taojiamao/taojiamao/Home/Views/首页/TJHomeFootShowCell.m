@@ -7,6 +7,7 @@
 //
 
 #import "TJHomeFootShowCell.h"
+#import "TJJHSGoodsListModel.h"
 @interface TJHomeFootShowCell()
 
 @property(nonatomic,strong)UIImageView * icon;
@@ -134,19 +135,19 @@
         make.left.mas_equalTo(weakSelf.taobao);
     }];
 }
--(void)setModel:(TJHomeFootShowModel *)model{
+-(void)setModel:(TJJHSGoodsListModel *)model{
     _model = model;
-    self.money.text = model.coupon_price;
+    self.money.text = model.itemendprice;
     
-    self.title.attributedText = [self labelRetract:model.title];
+    self.title.attributedText = [self labelRetract:model.itemtitle];
     
-    self.buyNum.text =[NSString stringWithFormat:@"%@人已买",model.volume];
+    self.buyNum.text =[NSString stringWithFormat:@"%@人已买",model.itemsale];
     
-    self.original.attributedText = [self labelStrikethrough:model.price];
+    self.original.attributedText = [self labelStrikethrough:model.itemprice];
     
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.pic_url] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
 
-    self.minus.text = [NSString stringWithFormat:@"领券减%@",model.y_quan];
+    self.minus.text = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
     
 }
 -(NSAttributedString*)labelRetract:(NSString*)str{

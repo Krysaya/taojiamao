@@ -7,16 +7,15 @@
 //  Copyright © 2018年 yueyu. All rights reserved.
 //
 
-
 #import "TJClassicSecondCell.h"
 #import "TJCollectionClassicCell.h"
 #import "TJGoodCatesMainListModel.h"
 @interface TJClassicSecondCell()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
-
 @property (nonatomic, strong) UIView *bgView;
+
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UICollectionView *collect;
-@property (nonatomic, strong) NSMutableArray *dataArr;
+//@property (nonatomic, strong) NSMutableArray *dataArr;
 
 
 @end
@@ -38,6 +37,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self subViewLayout];
+        
+
         self.backgroundColor = RGB(245, 245, 245);
     }
     return self;
@@ -60,10 +61,12 @@
     self.bgView.backgroundColor = [UIColor whiteColor];
     self.bgView.layer.cornerRadius = 6;
     self.bgView.layer.masksToBounds = YES;
+    
+    
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.titleLab.mas_bottom).offset(10);
-        make.height.mas_equalTo(200);
-//        make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-10);
+//        make.height.mas_equalTo(200);
+        make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-10);
         make.width.mas_equalTo(S_W-120);
         make.centerX.mas_equalTo(weakSelf.contentView.mas_centerX);
     }];
@@ -75,6 +78,7 @@
     self.collect.backgroundColor = [UIColor whiteColor];
     self.collect.delegate = self;
     self.collect.dataSource = self;
+    self.collect.scrollEnabled = NO;
     [self.collect registerNib:[UINib nibWithNibName:@"TJCollectionClassicCell" bundle:nil] forCellWithReuseIdentifier:@"collectClassiCell"];
     [self.bgView addSubview:self.collect];
     [self.collect mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,7 +93,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJCollectionClassicCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectClassiCell" forIndexPath: indexPath];
     //    cell.imgView.backgroundColor = RandomColor;
-    TJGoodCatesMainListModel *model = self.dataArr[indexPath.row];
+    TJGoodCatesMainListModel *model = self.model.managedSons[indexPath.row];
     [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl]];
     
     cell.lab_titel.text = model.catname;
@@ -106,17 +110,16 @@
     return 0.1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.dataArr.count;
+    return self.model.managedSons.count;
     
 }
 
-
-- (void)cellArr:(NSMutableArray *)dataArr{
-    self.dataArr = dataArr;
-    [self.collect reloadData];
-}
 
 - (void)setModel:(TJGoodCatesMainListModel *)model{
-    
+    _model = model;
+    self.titleLab.text = model.catname;
+    [self.collect reloadData];
+    DSLog(@"--model=====%@",model.cid);
 }
+
 @end

@@ -70,7 +70,7 @@
     [self.tableView registerClass:[TJBaseTableCell class] forCellReuseIdentifier:@"testqwer"];
     
     WeakSelf
-    self.reset = [[TJButton alloc]initWith:@"重置" delegate:self font:15 titleColor:RGB(51, 51, 51) backColor:[UIColor whiteColor] tag:ResetButton cornerRadius:0.0 borderColor:RGB(51, 51, 51) borderWidth:0.5 withBackImage:nil];
+    self.reset = [[TJButton alloc]initWith:@"重置" delegate:self font:15 titleColor:RGB(51, 51, 51) backColor:[UIColor whiteColor] tag:ResetButton cornerRadius:0.0 borderColor:RGB(51, 51, 51) borderWidth:0.5 withBackImage:nil withSelectImage:nil];
     [self.tableback addSubview:self.reset];
     [self.reset mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.tableback);

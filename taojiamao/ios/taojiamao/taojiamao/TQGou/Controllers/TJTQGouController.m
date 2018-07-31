@@ -137,7 +137,11 @@
         request.parameters = @{@"start_time": model.arg};
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
         request.httpMethod = kXMHTTPMethodPOST;
+//        request.requestSerializerType = kXMRequestSerializerRAW;
     }onSuccess:^(id responseObject) {
+        
+        NSDictionary *dicJson = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+
 //        NSDictionary *dict = responseObject[@"data"];
 //        NSArray *arr = dict[@"times"];
 //        self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];

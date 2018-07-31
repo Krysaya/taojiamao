@@ -11,4 +11,24 @@
 
 @implementation TJGoodCatesMainListModel
 
+
+
+- (NSArray *)managedSons
+{
+    if (nil == _managedSons) {
+        NSArray * childsArray = [self._childs componentsSeparatedByString:@","];//以“,”切割
+        
+        NSMutableArray *temp = @[].mutableCopy;
+        for (NSString *str in childsArray) {
+            TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:self._sons[str]];
+            [temp addObject:childsModel];
+        }
+        
+        _managedSons = temp.copy;
+        
+    }
+    return _managedSons;
+}
+
+
 @end

@@ -32,7 +32,27 @@
 }
 
 -(void)setModel:(TJGoodsInfoListModel *)model{
-    self.lab_title.text = model.itemtitle;
     
+    NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+        make.insertText(@" ", 1);
+        make.insertText(model.itemtitle, 2);
+    });
+    self.lab_title.attributedText = string;
+    [self.img sd_setImageWithURL: [NSURL URLWithString:model.itempic]];
+    //中划线
+    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.itemprice] attributes:attribtDic];
+    self.lab_yaunjia.attributedText = attribtStr;
+    NSString *str = [NSString stringWithFormat:@"券后：¥%@",model.itemendprice];
+    NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.font([UIFont systemFontOfSize:12.f]).textColor(KALLRGB);
+        make.append(str);
+        make.rangeEdit(NSMakeRange(4, model.itemendprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+            make.font([UIFont systemFontOfSize:17.f]).textColor(KALLRGB);
+        });
+    });
+    self.lab_quanhou.attributedText = attrStr;
+     [self.btn_quan setTitle:[NSString stringWithFormat:@"领券减%@",model.couponmoney] forState:UIControlStateNormal];
 }
 @end
