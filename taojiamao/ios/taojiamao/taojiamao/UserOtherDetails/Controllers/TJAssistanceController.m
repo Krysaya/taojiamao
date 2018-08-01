@@ -137,17 +137,7 @@ static NSString * const TJUserAssistanceCell = @"TJUserAssistanceCell";
 }
 #pragma mark - net
 -(void)network{
-    [XDNetworking postWithUrl:UserAssistance refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        DSLog(@"%@",response);
-        NSArray * array = response[@"data"];
-        for (NSDictionary*d in array) {
-            TJAssistanceModel * model = [TJAssistanceModel yy_modelWithDictionary:d];
-            [self.dataArray addObject:model];
-        }
-        [self.tableView reloadData];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
+    
 }
 #pragma mark - lazyLoaing
 -(NSMutableArray *)dataArray{

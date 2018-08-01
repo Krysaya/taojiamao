@@ -239,24 +239,7 @@ static NSString * const HomeHomeFootShowCell = @"HomeHomeFootShowCell";
 #pragma mark -requestFootShowModels
 -(void)requestFootShowModelsWithPage:(NSInteger)page{
     //推荐表
-    NSDictionary * dict = @{@"page":@(page)};
-    [XDNetworking postWithUrl:HomeFootRecommend refreshRequest:YES cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-        [self endRefresh];
-//        DSLog(@"%@",response);
-        self.current = response[@"now_page"];
-        self.total = response[@"total_page"];
-        NSArray * temp = response[@"data"];
-        for (NSDictionary * d in temp) {
-            TJHomeFootShowModel * model = [TJHomeFootShowModel yy_modelWithDictionary:d];
-            [self.footData addObject:model];
-        }
-        DSLog(@"%lu",(unsigned long)self.footData.count);
-        NSIndexSet *indexSetA = [[NSIndexSet alloc]initWithIndex:5];
-        [self.baseView reloadSections:indexSetA withRowAnimation:UITableViewRowAnimationAutomatic];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-        [self endRefresh];
-    }];
+    
 }
 #pragma mark - refreshSetting
 -(void)addMjRefresh{

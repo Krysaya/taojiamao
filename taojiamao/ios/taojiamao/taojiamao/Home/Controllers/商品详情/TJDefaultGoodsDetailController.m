@@ -112,7 +112,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }onSuccess:^(id responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         
-        NSLog(@"onSuccess:%@ ===详情====",responseObject);
+        NSLog(@"onSuccess详情:%@ =======",responseObject);
 
         
         TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
@@ -157,8 +157,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.height.mas_equalTo(54*H_Scale);
     }];
     
-    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"collect_default" withSelectImage:@"collect_light"];
-    self.shareB.backgroundColor = RandomColor;
+    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"collection_default" withSelectImage:@"collection_light"];
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -176,10 +175,11 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.buy = [[TJButton alloc]initWith:@"立即购买" delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:[UIColor redColor] tag:DetailsBuyButton cornerRadius:0];
     [self.footView addSubview:self.buy];
     [self.buy mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(weakSelf.footView);
+//        make.centerY.mas_equalTo(weakSelf.footView);
         make.left.mas_equalTo(weakSelf.shareL.mas_right).offset(31*W_Scale);
         make.right.mas_equalTo(weakSelf.footView);
-        make.height.mas_equalTo(54);
+        make.bottom.mas_equalTo(weakSelf.footView);
+        make.top.mas_equalTo(weakSelf.footView);
     }];
 }
 
@@ -235,10 +235,11 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         TJDafultGoodsTitlesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsTitleCell forIndexPath:indexPath];
         [cell.btn_coupon addTarget:self action:@selector(getCouponClick:) forControlEvents:UIControlEventTouchUpInside];
         cell.model_detail = self.dataArr[0];
+        
         return cell;
     }else if(indexPath.section==1){
         TJGoodsDetailsElectCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsElectCell forIndexPath:indexPath];
-//        cell.model_detail = self.dataArr[0];
+        cell.model_detail = self.dataArr[0];
         return cell;
     }else if(indexPath.section==2){
 
@@ -269,8 +270,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else if(indexPath.section==1){
         return [tableView fd_heightForCellWithIdentifier:GoodsDetailsElectCell cacheByIndexPath:indexPath configuration:^(TJGoodsDetailsElectCell *cell) {
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
-//            TJJHSGoodsListModel *model = self.dataArr[0];
-//            cell.detailsIntro = model.guide_article;
+            TJJHSGoodsListModel *model = self.dataArr[0];
+            cell.detailsIntro = model.guide_article;
         }];
     }else if (indexPath.section==2){
         return 42;

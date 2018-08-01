@@ -35,24 +35,6 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 //        [self.tableData removeAllObjects];
 //    }
     
-    NSDictionary * dict = @{@"page":@(page)};
-    [XDNetworking postWithUrl:HomeFootRecommend refreshRequest:YES cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-//        [self endRefresh];
-//        //        DSLog(@"%@",response);
-//        self.current = response[@"now_page"];
-//        self.total = response[@"total_page"];
-        [self.tableData removeAllObjects];
-        NSArray * temp = response[@"data"];
-        for (NSDictionary * d in temp) {
-            TJHomeFootShowModel * model = [TJHomeFootShowModel yy_modelWithDictionary:d];
-            [self.tableData addObject:model];
-        }
-        DSLog(@"%lu",(unsigned long)self.tableData.count);
-        [self.tableView reloadData];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-//        [self endRefresh];
-    }];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

@@ -7,8 +7,10 @@
 //
 
 #import "TJBaseTableCell.h"
+@class   TJArticlesListModel;
 
 @interface TJHeadLineTwoCell : TJBaseTableCell
 @property (weak, nonatomic) IBOutlet UIButton *btn_close;
+@property (nonatomic, strong) TJArticlesListModel *model;
 
 @end

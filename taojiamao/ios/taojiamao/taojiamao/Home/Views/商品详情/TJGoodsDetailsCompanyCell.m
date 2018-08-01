@@ -7,7 +7,7 @@
 //
 
 #import "TJGoodsDetailsCompanyCell.h"
-
+#import "TJJHSGoodsListModel.h"
 @interface TJGoodsDetailsCompanyCell()
 
 @property(nonatomic,strong)UIImageView * iconV;
@@ -96,6 +96,9 @@
         make.left.mas_equalTo(weakSelf.logistics.mas_right);
         make.centerY.mas_equalTo(weakSelf.describe);
     }];
+}
+-(void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
+//    self.company.text = model_detail.
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

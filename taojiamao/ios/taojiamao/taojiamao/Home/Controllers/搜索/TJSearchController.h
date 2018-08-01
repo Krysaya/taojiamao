@@ -8,7 +8,7 @@
 
 #import "TJBaseViewController.h"
 
-@interface TJSearchController : WMPageController
+@interface TJSearchController : TJBaseViewController
 
 @property(nonatomic,copy)NSString * searchText;
 

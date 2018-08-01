@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TJSearchScreenView : NSObject
+
+@protocol TJSearchScreenViewDelegate<NSObject>
+
+-(void)superPopupFiltrateView;
+
+-(void)superRequestWithKind:(NSString*)kind;
+
+@end
+
+@interface TJSearchScreenView : UIView
+@property(nonatomic,assign)id<TJSearchScreenViewDelegate>deletage;
+-(instancetype)initWithFrame:(CGRect)frame withMargin:(CGFloat)margin;
 
 @end

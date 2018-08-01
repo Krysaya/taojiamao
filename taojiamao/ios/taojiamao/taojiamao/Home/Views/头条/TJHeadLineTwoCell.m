@@ -7,6 +7,7 @@
 //
 
 #import "TJHeadLineTwoCell.h"
+#import "TJArticlesListModel.h"
 @interface TJHeadLineTwoCell()
 @property (weak, nonatomic) IBOutlet UILabel *lab_title;
 @property (weak, nonatomic) IBOutlet UIImageView *img;
@@ -29,5 +30,10 @@
 
     // Configure the view for the selected state
 }
-
+- (void)setModel:(TJArticlesListModel *)model{
+    self.lab_title.text = model.title;
+    self.lab_pinglun.text = [NSString stringWithFormat:@"%@评论",model.comment_num];
+    self.lab_zan.text = [NSString stringWithFormat:@"%@赞",model.like_num];
+    [self.img sd_setImageWithURL: [NSURL URLWithString:model.thumb]];
+}
 @end

@@ -18,11 +18,7 @@
     [super viewDidLoad];
     self.title = @"帮助详情";
     
-    [XDNetworking postWithUrl:UserAssistanceDetails refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        DSLog(@"%@",response);
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
+   
 }
 
 - (void)didReceiveMemoryWarning {

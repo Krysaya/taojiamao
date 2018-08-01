@@ -212,20 +212,20 @@
             if (self.edit) {
                 DSLog(@"编辑");
                 [mdict setValue:self.model.id forKey:@"id"];
-                [XDNetworking postWithUrl:UserUpdateAddress refreshRequest:NO cache:NO params:mdict progressBlock:nil successBlock:^(id response) {
-                    DSLog(@"编辑成功");
-                    [self.navigationController popViewControllerAnimated:YES];
-                } failBlock:^(NSError *error) {
-                    DSLog(@"%@",error);
-                }];
+//                [XDNetworking postWithUrl:UserUpdateAddress refreshRequest:NO cache:NO params:mdict progressBlock:nil successBlock:^(id response) {
+//                    DSLog(@"编辑成功");
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                } failBlock:^(NSError *error) {
+//                    DSLog(@"%@",error);
+//                }];
             }else{
                 DSLog(@"添加");
-                [XDNetworking postWithUrl:UserAddAddress refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-                    DSLog(@"添加成功");
-                    [self.navigationController popViewControllerAnimated:YES];
-                } failBlock:^(NSError *error) {
-                    DSLog(@"%@",error);
-                }];
+//                [XDNetworking postWithUrl:UserAddAddress refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
+//                    DSLog(@"添加成功");
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                } failBlock:^(NSError *error) {
+//                    DSLog(@"%@",error);
+//                }];
             }
         }else{
             DSLog(@"手机号格式不正确");

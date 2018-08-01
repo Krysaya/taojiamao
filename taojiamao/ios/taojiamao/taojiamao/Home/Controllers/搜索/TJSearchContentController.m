@@ -16,10 +16,9 @@
 static NSString *TJSearchContentFootShowCell = @"TJSearchContentFootShowCell";
 static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell";
 
-@interface TJSearchContentController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface TJSearchContentController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,ZJScrollPageViewChildVcDelegate>
 
 @property(nonatomic,strong)UITableView * tableView;
-@property(nonatomic,strong)UICollectionView * collectionView;
 
 @end
 
@@ -35,7 +34,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 }
 
 -(void)setUITableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight-85) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 10, S_W, S_H-SafeAreaTopHeight-85) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -75,7 +74,6 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
-    DSLog(@"--efwifjefwfjmawefm======%@",model.itemid);
     goodVC.gid = model.itemid;
     [self.navigationController pushViewController:goodVC animated:YES];
 }
@@ -98,6 +96,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
     goodVC.gid = model.itemid;
+    DSLog(@"ew89ur424colll====%@",model.guide_article);
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 #pragma mark - 通知

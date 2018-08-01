@@ -26,7 +26,7 @@
 -(void)setSubViews{
 //    self.contentView.bounds = [UIScreen mainScreen].bounds;
     
-    self.elect = [[UILabel alloc]initWithFrame:CGRectMake(12*W_Scale, 15*H_Scale, 39*W_Scale, 18*H_Scale)];
+    self.elect = [[UILabel alloc]initWithFrame:CGRectMake(10*W_Scale, 6*H_Scale, 39*W_Scale, 18*H_Scale)];
     self.elect.text = @"推荐";
 
     self.elect.font = [UIFont systemFontOfSize:12];
@@ -48,8 +48,8 @@
     [self.intro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(12*W_Scale);
         make.right.mas_equalTo(-12*W_Scale);
-        make.top.mas_equalTo(12*W_Scale);
-        make.bottom.mas_equalTo(-15*W_Scale);
+        make.top.mas_equalTo(10*W_Scale);
+        make.bottom.mas_equalTo(-10*W_Scale);
     }];
 }
 -(void)setDetailsIntro:(NSString *)detailsIntro{
@@ -76,9 +76,10 @@
 }
 
 - (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
-    self.intro.attributedText =[self labelRetract:model_detail.guide_article];
-    
+    DSLog(@"0-我====%@",model_detail.guide_article);
 
+        self.intro.attributedText =[self labelRetract:model_detail.guide_article];
+    
 }
 
 - (void)awakeFromNib {

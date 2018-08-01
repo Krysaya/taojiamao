@@ -41,12 +41,13 @@
     self.lab_title.text = model_detail.sub_title;
     //中划线
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model_detail.itemendprice] attributes:attribtDic];
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model_detail.itemprice] attributes:attribtDic];
     self.lab_prime.attributedText = attribtStr;
     DSLog(@"==%@==dfsjkn---%@",model_detail.itemendprice,attribtStr);
 
-    self.lab_price.text = model_detail.itemprice;
+    self.lab_price.text = model_detail.itemendprice;
     self.lab_couponmoneny.text = [NSString stringWithFormat:@"%@元优惠券",model_detail.couponmoney];
+    self.lab_totalprenson.text  = [NSString stringWithFormat:@"%@人已买",model_detail.itemsale];
     
 }
 @end

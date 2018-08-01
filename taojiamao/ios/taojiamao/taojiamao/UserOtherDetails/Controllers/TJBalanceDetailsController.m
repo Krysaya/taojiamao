@@ -32,9 +32,9 @@ static NSString * const TJUserBalanceDetailsCell = @"TJUserBalanceDetailsCell";
     if ([self.title isEqualToString:@"兑换记录"]) {
         DSLog(@"兑换");
     }else if ([self.title isEqualToString:@"集分明细"]) {
-        [self networkWithURL:UserJFBDetails];
+//        [self networkWithURL:UserJFBDetails];
     }else if ([self.title isEqualToString:@"余额明细"]){
-        [self networkWithURL:UserBalanceDetail];
+//        [self networkWithURL:UserBalanceDetail];
     }else if ([self.title isEqualToString:@"提现记录"]){
         DSLog(@"提现");
     }

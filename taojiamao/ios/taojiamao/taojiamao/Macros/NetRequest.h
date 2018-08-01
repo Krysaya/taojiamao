@@ -64,7 +64,7 @@ static NSString * const UserPhone = @"UserPhone";
 #define SearchGoodsList          [BASEURL stringByAppendingString:@"/v1/goods"]
 
 //超级搜索
-#define SuperSearchGoodsList          [BASEURL stringByAppendingString:@"/goods/suppersearch"]
+#define SuperSearchGoodsList          [BASEURL stringByAppendingString:@"/v1/goods/suppersearch"]
 
 //明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/v1/members/jifen"]
@@ -79,26 +79,9 @@ static NSString * const UserPhone = @"UserPhone";
 #define EditTelePhoneNum         [BASEURL stringByAppendingString:@"/v1/members/etele"]
 //12忘记 找回密码
 #define SubmitNewPass            [BASEURL stringByAppendingString:@"/v1/members/fpass"]
-//13客户帮助
-#define UserAssistance           [BASEURL stringByAppendingString:@"/api.php?s=My/kefu"]
-//14客户帮助详情
-#define UserAssistanceDetails    [BASEURL stringByAppendingString:@"/api.php?s=My/kefuinfo"]
-//15获取代理的所属区域
-#define UserAgencyArea           [BASEURL stringByAppendingString:@"/api.php?s=My/address"]
-//16我的收货地址
-#define UserAddress              [BASEURL stringByAppendingString:@"/api.php?s=My/myaddress"]
-//17增加收货地址
-#define UserAddAddress           [BASEURL stringByAppendingString:@"/api.php?s=My/myaddressadd"]
-//18修改收货地址
-#define UserUpdateAddress        [BASEURL stringByAppendingString:@"/api.php?s=My/updatemyaddress"]
-//19我的集分宝
-#define UserMineJFB              [BASEURL stringByAppendingString:@"/api.php?s=My/MyCollectionreasure"]
-//20兑换集分
-#define UserExchangeJF           [BASEURL stringByAppendingString:@"/api.php?s=my/Convertibility"]
-//21集分详细
-#define UserJFBDetails           [BASEURL stringByAppendingString:@"/api.php?s=my/Collectionoftreasures"]
-//22首页底部cells数据 首页推介
-#define HomeFootRecommend        [BASEURL stringByAppendingString:@"/api.php?s=index/fh_items"]
+
+// 头条
+#define NewsArticles            [BASEURL stringByAppendingString:@"/v1/articles"]
 
 //tqg
 #define TQGTimeChoose        [BASEURL stringByAppendingString:@"/v1/pages/tqg"]

@@ -81,6 +81,13 @@
                     <constraint firstItem="kpd-Cr-PYN" firstAttribute="leading" secondItem="uxO-Vf-6OV" secondAttribute="trailing" constant="25" id="vPl-Nu-xPh"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="btn_pyq" destination="lEC-Nb-zCu" id="93P-pA-qYT"/>
+                <outlet property="btn_qq" destination="uxO-Vf-6OV" id="zzj-iY-pBP"/>
+                <outlet property="btn_qqaz" destination="kpd-Cr-PYN" id="DLN-lC-Ee7"/>
+                <outlet property="btn_wx" destination="VOo-Cg-zCM" id="x1N-jr-IRi"/>
+                <outlet property="btn_zan" destination="28q-dO-7M9" id="X8x-eU-uVr"/>
+            </connections>
             <point key="canvasLocation" x="-136" y="15"/>
         </tableViewCell>
     </objects>

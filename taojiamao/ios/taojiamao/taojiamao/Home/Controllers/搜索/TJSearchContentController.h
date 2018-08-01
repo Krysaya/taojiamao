@@ -11,6 +11,6 @@
 @interface TJSearchContentController : TJBaseViewController
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
-
+@property(nonatomic,strong)UICollectionView * collectionView;
 
 @end

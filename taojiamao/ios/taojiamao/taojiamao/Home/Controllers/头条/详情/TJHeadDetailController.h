@@ -10,4 +10,5 @@
 
 @interface TJHeadDetailController : UIViewController
 
+@property (nonatomic, strong) NSString *aid;
 @end

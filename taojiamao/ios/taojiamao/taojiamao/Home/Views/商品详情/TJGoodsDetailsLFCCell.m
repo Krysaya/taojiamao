@@ -63,7 +63,7 @@
         make.centerY.mas_equalTo(weakSelf.contentView);
     }];
 
-    self.jj = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.jj = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_right"]];
     [self.contentView addSubview:self.jj];
     [self.jj mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-12*W_Scale);

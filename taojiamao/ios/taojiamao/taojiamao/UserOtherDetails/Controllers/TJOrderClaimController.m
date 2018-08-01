@@ -133,6 +133,10 @@
         DSLog(@"查询订单");
     }
 }
+
+- (void)requestEditUserName{
+    
+}
 #warning 这玩意要封装↓
 -(UILabel*)setLabelWith:(NSString*)text font:(CGFloat)font color:(UIColor*)c{
     UILabel*label =  [[UILabel alloc]init];

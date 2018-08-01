@@ -7,7 +7,8 @@
 //
 
 #import "TJBaseTableCell.h"
-
+@class TJArticlesListModel;
 @interface TJHeadLineThreeCell : TJBaseTableCell
+@property (nonatomic, strong) TJArticlesListModel *model;
 
 @end

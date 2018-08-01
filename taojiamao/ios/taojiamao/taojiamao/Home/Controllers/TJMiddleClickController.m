@@ -36,21 +36,7 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 
 -(void)requestData{
     //使用的是首页接口 test
-    NSDictionary * dict = @{@"page":@(1)};
-    [XDNetworking postWithUrl:HomeFootRecommend refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-        
-        NSArray * temp = response[@"data"];
-        for (NSDictionary * d in temp) {
-            TJHomeFootShowModel * model = [TJHomeFootShowModel yy_modelWithDictionary:d];
-            for (int i =0 ; i<4; i++) {
-               [self.footData addObject:model];
-            }
-        }
-        [self.tableView reloadData];
-        
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
+   
     
 }
 

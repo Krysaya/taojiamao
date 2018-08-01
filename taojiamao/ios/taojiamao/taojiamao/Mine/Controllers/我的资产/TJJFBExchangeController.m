@@ -160,16 +160,8 @@
         NSInteger input  = [self.textField.text integerValue];
         
         if (max>=input) {
-            NSDictionary * dict =@{
-                                    @"uid":@"1",
-                                    @"total":@(input)
-                                    };
-            [XDNetworking postWithUrl:UserExchangeJF refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-                DSLog(@"%@",response);
-                DSLog(@"兑换成功");
-            } failBlock:^(NSError *error) {
-                DSLog(@"%@",error);
-            }];
+           
+           
         }else{
             DSLog(@"数量超出了");
         }

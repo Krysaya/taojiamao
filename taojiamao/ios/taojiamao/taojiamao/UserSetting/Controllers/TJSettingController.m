@@ -29,21 +29,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [XDNetworking postWithUrl:UserAgencyArea refreshRequest:NO cache:NO params:@{@"uid":GetUserDefaults(UID)} progressBlock:nil successBlock:^(id response) {
-        NSDictionary * data = response[@"data"];
-        NSString * sheng = [data[@"province_name"] isKindOfClass:[NSNull class]]?@"":data[@"province_name"];
-        NSString * shi = [data[@"city_name"] isKindOfClass:[NSNull class]]?@"":data[@"city_name"];
-        NSString *xianqu = [data[@"area_name"] isKindOfClass:[NSNull class]]?@"":data[@"area_name"];
-        if (sheng.length>0 || shi.length>0 || xianqu.length>0) {
-            self.area = [NSString stringWithFormat:@"%@%@%@",sheng,shi,xianqu];
-            self.ShowQU = YES;
-        }else{
-            self.ShowQU = NO;
-        }
-        [self.tableView reloadData];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
+    
 }
 
 - (void)viewDidLoad {

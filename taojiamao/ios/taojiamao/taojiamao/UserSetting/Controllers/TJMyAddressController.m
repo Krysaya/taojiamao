@@ -50,22 +50,7 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
     [self setUI];
 }
 -(void)netWork{
-    [XDNetworking postWithUrl:UserAddress refreshRequest:NO cache:YES params:@{@"uid":GetUserDefaults(UID)} progressBlock:nil successBlock:^(id response) {
-        [self.dataArray removeAllObjects];
-        NSArray * array = response[@"data"];
-        DSLog(@"%@",array);
-        for (NSDictionary*d in array) {
-            TJMyAddressModel * model = [TJMyAddressModel yy_modelWithDictionary:d];
-            [self.dataArray addObject:model];
-        }
-        DSLog(@"%@",self.dataArray);
-        self.dataArray = (NSMutableArray*)[[self.dataArray reverseObjectEnumerator] allObjects];
-
-
-        [self.tableView reloadData];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
+    
 }
 -(void)setUI{
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.view.yj_y, S_W, S_H-50) style:UITableViewStyleGrouped];
