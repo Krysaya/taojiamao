@@ -16,6 +16,8 @@
  "thumb": "http://pcmseq6……2425.jpeg",    //文章缩略图片
  "images": "[{"url":"h……:""}]",    //文章多图json后的数据
  "create_time": 0,    //文章创建时间
+ "source": "新浪科技",    //来源
+ "author": "李晓杰",    //作者
  "view_num": 0,    //文章查看数
  "comment_num": 0,    //评论数
  "like_num": 0,    //喜欢数
@@ -28,6 +30,7 @@
 @interface TJArticlesListModel : NSObject
 
 @property (nonatomic, strong) NSString *id;
+@property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *cate_id;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subtitle;
@@ -38,6 +41,7 @@
 @property (nonatomic, strong) NSString *view_num;
 @property (nonatomic, strong) NSString *like_num;
 @property (nonatomic, strong) NSString *show_type;
+@property (nonatomic, strong) NSString *source;
 
 @property (nonatomic, strong) NSString *comment_num;
 @property (nonatomic, strong) NSString *sort;

@@ -8,6 +8,8 @@
 
 #import "TJMineListCell.h"
 #import "TJPersonalCell.h"
+#import "TJMembersModel.h"
+#import "TJMemberMainModel.h"
 @interface TJMineListCell()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 
@@ -15,10 +17,10 @@
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UICollectionView *collect;
 
-@property (nonatomic, strong) NSArray *imgArr;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSArray *titleArr;
 
-
+@property (nonatomic, strong) TJMemberMainModel *model;
 @end
 
 @implementation TJMineListCell
@@ -78,15 +80,13 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJPersonalCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"123" forIndexPath: indexPath];
     cell.imgView.backgroundColor = RandomColor;
-    NSArray *imgA = self.imgArr[self.indexSection];
-    NSArray *titleA =self.titleArr[self.indexSection];
-    cell.imgView.image = [UIImage imageNamed:imgA[indexPath.row]];
-    
-    cell.titleLab.text = titleA[indexPath.row];
-//    cell.backgroundColor = [UIColor blackColor];
-    
-//    [self updateCollectionViewHight:self.collectionView.collectionViewLayout.collectionViewContentSize.height];
-    
+
+    NSMutableArray *arr = [NSMutableArray array];
+    [arr addObjectsFromArray:self.model.menu];
+    NSArray *arrmodel = [TJMembersModel mj_objectArrayWithKeyValuesArray:arr];
+    TJMembersModel *model_m = arrmodel[indexPath.row];
+    [cell.imgView sd_setImageWithURL: [NSURL URLWithString:model_m.icon]];
+    cell.titleLab.text = model_m.text;
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -99,8 +99,9 @@
     return 21.0;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
-     NSArray *arr = self.titleArr[self.indexSection];
+    NSMutableArray *arr = [NSMutableArray array];
+    [arr addObjectsFromArray:self.model.menu];
+    DSLog(@"=hang==%ld--",arr.count);
     return arr.count;
     
 }
@@ -115,13 +116,16 @@
         }
     
 }
-- (void)cellHeaderTitle:(NSString *)title withImageArr:(NSArray *)imgArr withtitleArr:(NSArray *)titleArr{
+- (void)cellHeaderTitle:(NSString *)title withArr:(TJMemberMainModel *)model{
     self.titleLab.text = title;
-    self.imgArr = imgArr;
-    self.titleArr = titleArr;
-
+    self.model  = model;
 }
-
+- (NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

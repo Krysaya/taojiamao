@@ -10,6 +10,8 @@
 @class TJArticlesInfoListModel;
 @interface TJHeadLineContentCell : UITableViewCell
 @property (nonatomic, strong) TJArticlesInfoListModel *model;
-@property (weak, nonatomic) IBOutlet UITextView *tv_content;
+
+@property (weak, nonatomic) IBOutlet UIWebView *web_content;
+@property (nonatomic,   weak) UITableView *baseView;
 
 @end

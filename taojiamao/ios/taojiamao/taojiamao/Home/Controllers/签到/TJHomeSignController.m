@@ -110,12 +110,16 @@
                 [self.dataArr addObject:time];
             }
               dispatch_async(dispatch_get_main_queue(), ^{
-//                  NSString *num = responseObject[@"data"][@"num"];
-                  NSString*  str = [NSString stringWithFormat:@"本月连续签到%@天",responseObject[@"data"][@"num"]];
+                  NSString *num = responseObject[@"data"][@"num"];
+                  NSString*  str;
+                  if ([num intValue]==0) {
+                        str = @"本月连续签到0天";
+                  }else{
+                      str = [NSString stringWithFormat:@"本月连续签到%@天",num];}
                   NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
                       make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
                       make.append(str);
-                      make.rangeEdit(NSMakeRange(str.length-2, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
+                      make.rangeEdit(NSMakeRange(6, str.length), ^(SJAttributesRangeOperator * _Nonnull make) {
                           make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
                       });
                   });

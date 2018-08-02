@@ -35,7 +35,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.dataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJContentListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentlistCell"];
@@ -46,11 +46,11 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     //编辑设置成自定义的必须把系统的设置为None
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.contentEditStatus) {
+    if (_contentEditStatus) {
         TJContetenCollectListModel *model = [_dataArr objectAtIndex:indexPath.row];
         model.isChecked = !model.isChecked;
         NSLog(@"=点了==%ld",indexPath.row);
@@ -59,12 +59,8 @@
 }
 //侧滑
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"单行取消收藏");
-        
-    }else{
-        
-    }
+        NSLog(@"单行neirong取消收藏");
+    
 }
 
 // 修改编辑按钮文字

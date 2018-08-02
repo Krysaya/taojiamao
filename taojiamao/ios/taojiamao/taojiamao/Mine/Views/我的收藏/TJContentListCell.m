@@ -51,6 +51,7 @@
     // 这里取出model， 根据model的是否选中属性，标记checkBtn的select状态，图标会自动转换
     TJContetenCollectListModel *model = [arr objectAtIndex:indexPath.row];
     _select_btn.selected = model.isChecked;
+//    self.title_lab.text = model
 
 }
 

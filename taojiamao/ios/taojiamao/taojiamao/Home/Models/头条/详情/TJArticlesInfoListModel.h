@@ -12,6 +12,7 @@
 
 
 @property (nonatomic, strong) NSString *id;
+@property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *cate_id;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subtitle;
@@ -22,11 +23,13 @@
 @property (nonatomic, strong) NSString *update_time;
 @property (nonatomic, strong) NSString *view_num;
 @property (nonatomic, strong) NSString *comment_num;
-
+@property (nonatomic, strong) NSString *source;
 @property (nonatomic, strong) NSString *like_num;
 @property (nonatomic, strong) NSString *sort;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *content;
 
+
+@property (nonatomic, assign) float contentH;
 
 @end

@@ -121,6 +121,13 @@
             });
         }else{
 //            neirong
+            self.dataArr_collcet = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.vc2.dataArr = self.dataArr_collcet;
+                [self.vc2.contentTabView reloadData];
+                
+            });
         }
         
         

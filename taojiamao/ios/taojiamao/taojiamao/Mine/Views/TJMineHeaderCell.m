@@ -7,8 +7,10 @@
 //
 
 #import "TJMineHeaderCell.h"
-
+#import "TJMembersModel.h"
 @interface TJMineHeaderCell()
+@property (nonatomic, strong) UIImageView *imgView;
+@property (nonatomic, strong) UILabel *titleLab;
 
 
 
@@ -60,4 +62,9 @@
     return _titleLab;
 }
 
+- (void)setModel:(TJMembersModel *)model{
+    _model = model;
+    self.titleLab.text  = model.text;
+    [self.imgView sd_setImageWithURL: [NSURL URLWithString:model.icon]];
+}
 @end

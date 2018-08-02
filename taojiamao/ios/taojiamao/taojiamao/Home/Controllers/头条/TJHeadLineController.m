@@ -12,7 +12,9 @@
 #import "TJHeadLineThreeCell.h"
 #import "TJHeadDetailController.h"
 #import "TJNoticeController.h"
+#import "TJHeadLineDefaultCell.h"
 #import "TJArticlesListModel.h"
+
 @interface TJHeadLineController ()<TJButtonDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
@@ -38,6 +40,7 @@
     self.navigationItem.titleView = img;
     
     self.tableView.tableFooterView = [UIView new];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineDefaultCell" bundle:nil] forCellReuseIdentifier:@"defaultCell"];
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineOneCell" bundle:nil] forCellReuseIdentifier:@"oneCell"];
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineTwoCell" bundle:nil] forCellReuseIdentifier:@"twoCell"];
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineThreeCell" bundle:nil] forCellReuseIdentifier:@"threeCell"];
@@ -104,14 +107,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     TJArticlesListModel *model = self.dataArr[indexPath.row];
-    if ([model.show_type intValue]==1) {
-        return 167;
+    if ([model.show_type intValue]==0) {
+        return 70;
+    }else if([model.show_type intValue]==1){
+        return 125;
     }else if([model.show_type intValue]==2){
         return 255;
-    }else if([model.show_type intValue]==3){
-        return 125;
     }else{
-        return 167;
+        return 170;
     }
     
 }
@@ -119,20 +122,23 @@
     
     TJArticlesListModel *model = self.dataArr[indexPath.row];
     if ([model.show_type intValue]==1) {
-        TJHeadLineOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"oneCell" forIndexPath:indexPath];
+        
+        TJHeadLineThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threeCell" forIndexPath:indexPath];
         cell.model = model;
         return cell;
+       
     }else if([model.show_type intValue]==2){
         TJHeadLineTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"twoCell" forIndexPath:indexPath];
         cell.model = model;
 
         return cell;
     }else if([model.show_type intValue]==3){
-        TJHeadLineThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threeCell" forIndexPath:indexPath];
+        TJHeadLineOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"oneCell" forIndexPath:indexPath];
+        
         cell.model = model;
         return cell;
     }else{
-        TJHeadLineOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"oneCell" forIndexPath:indexPath];
+        TJHeadLineDefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell" forIndexPath:indexPath];
         cell.model = model;
         return cell;
     }
@@ -145,6 +151,7 @@
     TJArticlesListModel *model = self.dataArr[indexPath.row];
     TJHeadDetailController *vc = [[TJHeadDetailController alloc]init];
     vc.aid = model.id;
+    vc.title_art = model.title;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

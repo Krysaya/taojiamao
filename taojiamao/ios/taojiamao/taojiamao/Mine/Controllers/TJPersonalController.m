@@ -7,11 +7,12 @@
 //
 
 #import "TJPersonalController.h"
+#import "TJMembersModel.h"
+#import "TJMemberMainModel.h"
 #import "TJUserDataModel.h"
 #import "TJMiddleView.h"
 #import "TJPersonalCell.h"
 #import "TJMineListCell.h"
-#import "TJHPMidCollectCell.h"
 #import "TJMineHeaderCell.h"
 
 
@@ -58,7 +59,11 @@
 @property(nonatomic,strong)UIImage * iconImage;
 @property (nonatomic, strong) UITableView *tableV;
 
+@property (nonatomic, strong) UICollectionView *topCollectView;
+@property (nonatomic, strong) NSMutableArray *titleArr;
+@property (nonatomic, strong) NSMutableArray *menuArr;
 
+@property (nonatomic, strong) NSMutableArray *topArr;
 @end
 
 @implementation TJPersonalController
@@ -201,6 +206,61 @@
         DSLog(@"未登录");
     }
     
+    [self requestMemebers];
+}
+- (void)requestMemebers
+{
+    self.topArr = [NSMutableArray array];
+    self.titleArr = [NSMutableArray array];
+    self.menuArr = [NSMutableArray array];
+
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = MembersCenter;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSLog(@"----会员中心-success-===%@",responseObject);
+        self.topArr = [TJMembersModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"top"]];
+        
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (NSDictionary *dict in responseObject[@"data"][@"main"]) {
+                [self.titleArr addObject:dict[@"name"]];
+                
+            }
+            
+            self.menuArr = [TJMemberMainModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"main"]];
+            DSLog(@"-==menuarr--%ld",self.menuArr.count);
+
+            [self.topCollectView reloadData];
+            [self.tableV reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--会员中心-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        
+    }];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -300,7 +360,7 @@
     collectV.dataSource = self;
     [collectV registerClass:[TJMineHeaderCell class] forCellWithReuseIdentifier:@"MineheadCell"];
     [classView addSubview:collectV];
-    
+    self.topCollectView = collectV;
 //    设置。通知
     self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"morentouxiang" withSelectImage:nil];
     self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice" withSelectImage:nil];
@@ -335,7 +395,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-            return 4;
+            return self.topArr.count;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
   
@@ -344,9 +404,8 @@
 }
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
    
-        TJHPMidCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MineheadCell" forIndexPath:indexPath];
-        cell.imgView.image = [UIImage imageNamed:@"balance_detail"];
-        cell.titleLab.text = @[@"我的资产",@"我的订单",@"我的收藏",@"我的足迹"][indexPath.row];
+        TJMineHeaderCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MineheadCell" forIndexPath:indexPath];
+        cell.model = self.topArr[indexPath.row];
         return cell;
 }
 
@@ -449,7 +508,7 @@
     }else if (indexPath.section==3){
         return 240;
     }
-        return 112*W_Scale;
+        return 112;
 
 }
 //-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -457,22 +516,16 @@
 //}
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TJMineListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mineCell"];
-//    NSArray *img = @[@"",@"",@"",@"",nil];
-    cell.indexSection = indexPath.section;
     cell.mineCellDelegate = self;
-    [cell cellHeaderTitle:@[@"",@"会员权益",@"快递代取",@"常用工具"][indexPath.section] withImageArr:@[
-                                                            @[],
-                                                            @[@"",@"",@"",@""],
-                                                            @[@"",@"",@"",@""],
-                                                            @[@"",@"",@"",@"",@"",@"",@"",@"",@""],
-                                                                                            ] withtitleArr:@[
-                                                                         @[],                                                      @[@"累计奖金",@"我的粉丝",@"推广业绩",@"热推top"],
-                                                                                                             @[@"快递代取",@"快递代取",@"快递代取",@"快递代取"],
-                                                                                                             @[@"签到红包",@"订单认领",@"推淘宝订单",@"淘宝购物车",@"申请代理",@"排行榜",@"客服帮助",@"分享赚钱",@"邀请有奖"],
-                                                                                                               ]];
+    cell.indexSection = indexPath.section;
     if (indexPath.section==0) {
         cell.backgroundColor = RGB(245, 245, 245);
         cell.contentView.hidden = YES;
+    }else{
+        NSInteger i = indexPath.section-1;
+        TJMemberMainModel *model = self.menuArr[i];
+        [cell cellHeaderTitle:self.titleArr[i] withArr:model];
+        
     }
     return cell;
 }
@@ -481,7 +534,7 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return self.titleArr.count+1;
 }
 
 

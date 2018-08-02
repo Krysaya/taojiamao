@@ -7,10 +7,9 @@
 //
 
 #import "TJBaseTableCell.h"
-
+@class TJMembersModel;
 @interface TJMineHeaderCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImageView *imgView;
-@property (nonatomic, strong) UILabel *titleLab;
 
+@property (nonatomic, strong) TJMembersModel *model;
 @end

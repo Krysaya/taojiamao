@@ -11,4 +11,5 @@
 @interface TJHeadDetailController : UIViewController
 
 @property (nonatomic, strong) NSString *aid;
+@property (nonatomic, strong) NSString *title_art;
 @end

@@ -34,6 +34,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = RGB(245, 245, 245);
     self.title = @"账户设置";
 
     [self setUI];
@@ -43,7 +44,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.view.yj_y, S_W, S_H-50) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
-    self.tableView.backgroundColor = RandomColor;
+    self.tableView.backgroundColor = KBGRGB;
     [self.tableView registerClass:[TJAssistanceCell class] forCellReuseIdentifier:TJSettingCell];
     [self.tableView registerClass:[TJCleanCacheCell class] forCellReuseIdentifier:TJSettingCleanCacheCell];
     self.tableView.tableFooterView = [[UIView alloc]init];

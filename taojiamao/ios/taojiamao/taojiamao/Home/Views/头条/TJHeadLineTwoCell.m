@@ -32,6 +32,7 @@
 }
 - (void)setModel:(TJArticlesListModel *)model{
     self.lab_title.text = model.title;
+    self.lab_from.text = model.source;
     self.lab_pinglun.text = [NSString stringWithFormat:@"%@评论",model.comment_num];
     self.lab_zan.text = [NSString stringWithFormat:@"%@赞",model.like_num];
     [self.img sd_setImageWithURL: [NSURL URLWithString:model.thumb]];

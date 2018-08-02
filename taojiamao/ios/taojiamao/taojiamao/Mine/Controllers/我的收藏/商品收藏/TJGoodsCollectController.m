@@ -39,7 +39,6 @@
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:tableView];
     self.goodsTabView = tableView;
-    // Do any additional setup after loading the view.
 }
 
 #pragma mark - tableViewDelagte
@@ -76,7 +75,7 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     //编辑设置成自定义的必须把系统的设置为None
     
-        return UITableViewCellEditingStyleNone;
+        return UITableViewCellEditingStyleDelete;
    
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -105,13 +104,15 @@
     }
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
-    NSMutableArray *arr = [NSMutableArray array];
-    [arr addObject:model.itemid];
+    NSString *str = model.itemid;
+//    NSMutableArray *arr = [NSMutableArray array];
+//    [arr addObject:model.itemid];
     NSMutableDictionary *md = @{
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-//                                @"gid":arr,
+//                                @"gid":str,
+                                @"type":@"1",
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -123,8 +124,11 @@
                             };
         request.requestSerializerType = kXMRequestSerializerRAW;
         request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{
+//                                  @"gid":str,
+                                  @"type":@"1",};
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"--success-===%@",responseObject);
+        NSLog(@"-delete-success-===%@",responseObject);
        
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -136,7 +140,7 @@
         DSLog(@"--error%@",error);
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"-收藏-≈≈error-msg=======dict%@",dic_err);
+        DSLog(@"-delete-≈≈error-msg=======dict%@",dic_err);
     }];
 }
 

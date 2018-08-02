@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString *itemid;//
 @property (nonatomic, strong) NSString *seller_id;//
 @property (nonatomic, strong) NSString *itemdesc;//推荐理由
-//@property (nonatomic, strong) NSString *gid;//商品id
+@property (nonatomic, strong) NSString *gid;//商品id
 @property (nonatomic, strong) NSString *itemtitle;//商品
 @property (nonatomic, strong) NSString *itemshorttitle;//商品
 @property (nonatomic, strong) NSString *itemsale;//销量

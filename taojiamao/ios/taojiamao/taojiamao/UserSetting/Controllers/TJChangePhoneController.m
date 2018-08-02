@@ -38,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = RGB(245, 245, 245);
     switch (self.vcID) {
         case 0:
             self.title = @"修改手机号";
@@ -65,7 +66,7 @@
             break;
     }
     self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+10, S_W,headViewH)];
-    self.headView.backgroundColor = RandomColor;
+    self.headView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.headView];
     
     WeakSelf
@@ -78,7 +79,7 @@
     self.phoneLabel.text = self.vcID==1?@"支付宝账号":@"手机号码";
     
     self.phoneField = [[UITextField alloc]init];
-    self.phoneField.backgroundColor = [UIColor grayColor];
+    
     if (self.vcID==0) {
 //        self.phoneField.text = GetUserDefaults(UserPhone);
         self.phoneField.text = @"17731934096";
@@ -98,13 +99,13 @@
     }];
     
     self.phoneLine = [[UIView alloc]init];
-    self.phoneLine.backgroundColor = RGB(51, 51, 51);
+    self.phoneLine.backgroundColor = RGB(251, 251, 251);
     [self.headView addSubview:self.phoneLine];
     [self.phoneLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.phoneLabel.mas_bottom).offset(17*H_Scale);
         make.centerX.mas_equalTo(weakSelf.headView);
         make.width.mas_equalTo(335*W_Scale);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(2);
     }];
     
     //--------------
@@ -117,7 +118,7 @@
     self.verifyLabel.text = self.vcID==1?@"支付宝实名":@"验证码";
     
     self.verifyField = [[UITextField alloc]init];
-    self.verifyField.backgroundColor = [UIColor grayColor];
+//    self.verifyField.backgroundColor = [UIColor grayColor];
     self.verifyField.placeholder = self.vcID==1?@"请填写支付宝账号实名":@"请输入验证码";
     self.verifyField.font = [UIFont systemFontOfSize:15*W_Scale];
     [self.headView addSubview:self.verifyField];
@@ -129,7 +130,7 @@
     }];
     
     self.verifyLine = [[UIView alloc]init];
-    self.verifyLine.backgroundColor = RGB(51, 51, 51);
+//    self.verifyLine.backgroundColor = RGB(51, 51, 51);
     self.verifyLine.hidden = self.vcID==1?YES:NO;
     [self.headView addSubview:self.verifyLine];
     [self.verifyLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -202,7 +203,7 @@
         }
     }
     
-    self.sure = [[TJButton alloc]initWith:@"确定" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:CPSure cornerRadius:20.0];
+    self.sure = [[TJButton alloc]initWith:@"确定" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:CPSure cornerRadius:20.0];
     [self.view addSubview:self.sure];
     [self.sure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.headView.mas_bottom).offset(40*W_Scale);
@@ -242,26 +243,27 @@
         
         KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
         NSString *timeStr = [MD5 timeStr];
-        NSDictionary * dict =@{
-                               @"telephone":self.phoneField.text,
-                               @"code":self.verifyField.text,
-                               @"password":self.passField.text
-                               };
-        
-        NSMutableDictionary *mdstr = @{
-                                       @"timestamp": timeStr,
-                                       @"app": @"ios",
-                                       @"telephone":self.phoneField.text,
-                                       @"code":self.verifyField.text,
-                                       @"password":self.passField.text
-                                       }.mutableCopy;
-        
-        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
-        
         
 
         if (self.vcID==0) {
             DSLog(@"修改手机号");
+         
+            NSDictionary * dict =@{
+                                   @"telephone":self.phoneField.text,
+                                   @"code":self.verifyField.text,
+                                   @"password":self.passField.text
+                                   };
+            
+            NSMutableDictionary *mdstr = @{
+                                           @"timestamp": timeStr,
+                                           @"app": @"ios",
+                                           @"telephone":self.phoneField.text,
+                                           @"code":self.verifyField.text,
+                                           @"password":self.passField.text
+                                           }.mutableCopy;
+            
+            NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+            
             [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
                 request.url = EditTelePhoneNum;
                 request.httpMethod = kXMHTTPMethodPOST;
@@ -278,12 +280,59 @@
             }];
             
         }else if (self.vcID==1){
-            DSLog(@"绑定账户");
+            DSLog(@"绑定设置体现账户");
+        
+            NSDictionary * dict =@{
+                                   @"ali_account":self.phoneField.text,
+                                   @"ali_true_name":self.verifyField.text,
+                                   };
+            
+            NSMutableDictionary *mdstr = @{
+                                       @"timestamp": timeStr,
+                                       @"app": @"ios",
+                                       @"ali_account":self.phoneField.text,
+                                       @"ali_true_name":self.verifyField.text,
+                                           }.mutableCopy;
+            
+            NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+            
+            [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                request.url = SetAliAccount;
+                request.httpMethod = kXMHTTPMethodPOST;
+                request.parameters = dict;
+                request.headers = @{ @"timestamp": timeStr,
+                                     @"app": @"ios",
+                                     @"sign":md5Str,
+                                     };
+            } onSuccess:^(id  _Nullable responseObject) {
+                DSLog(@"设置成功===%@",responseObject);
+                
+            } onFailure:^(NSError * _Nullable error) {
+                
+            }];
+            
+            
         }else{
             DSLog(@"修改密码");
             if (self.phoneField.text==nil || self.phoneField.text.length==0 ||self.verifyField.text==nil || self.verifyField.text.length==0 ||self.passField.text==nil || self.passField.text.length==0 ) {
                 DSLog(@"有选项为空");
             }else{
+            
+                NSDictionary * dict =@{
+                                       @"telephone":self.phoneField.text,
+                                       @"code":self.verifyField.text,
+                                       @"password":self.passField.text
+                                       };
+                
+                NSMutableDictionary *mdstr = @{
+                                               @"timestamp": timeStr,
+                                               @"app": @"ios",
+                                               @"telephone":self.phoneField.text,
+                                               @"code":self.verifyField.text,
+                                               @"password":self.passField.text
+                                               }.mutableCopy;
+                
+                NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
                 
                 [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
                     request.url = EditPassWord;

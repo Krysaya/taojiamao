@@ -10,6 +10,8 @@
 
 @interface TJContetenCollectListModel : NSObject
 
+
+
 @property (nonatomic, assign) BOOL isChecked;
 
 @end

@@ -41,6 +41,9 @@ static NSString * const UserPhone = @"UserPhone";
 #define LoginWithUserName        [BASEURL stringByAppendingString:@"/v1/members/login"]
 //登录成功后的用户数据==个人中心
 #define LoginedUserData          [BASEURL stringByAppendingString:@"/v1/members"]
+//会员中心
+#define MembersCenter          [BASEURL stringByAppendingString:@"/v1/pages/members"]
+
 //上传头像--个人中心
 #define UploadHeaderImg          [BASEURL stringByAppendingString:@"/v1/members/head"]
 //签到数据
@@ -74,6 +77,8 @@ static NSString * const UserPhone = @"UserPhone";
 
 //11修改密码
 #define EditPassWord             [BASEURL stringByAppendingString:@"/v1/members/epass"]
+//设置体现账户
+#define SetAliAccount             [BASEURL stringByAppendingString:@"/v1/members/aliAccount"]
 
 //修改手机号
 #define EditTelePhoneNum         [BASEURL stringByAppendingString:@"/v1/members/etele"]

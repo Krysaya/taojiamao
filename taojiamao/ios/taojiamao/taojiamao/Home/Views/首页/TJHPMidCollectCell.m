@@ -7,6 +7,11 @@
 //
 
 #import "TJHPMidCollectCell.h"
+#import "TJMembersModel.h"
+@interface TJHPMidCollectCell ()
+
+
+@end
 
 @implementation TJHPMidCollectCell
 
@@ -42,4 +47,10 @@
     return _titleLab;
 }
 
+- (void)setModel:(TJMembersModel *)model{
+    _model = model;
+    self.titleLab.text = model.text;
+    [self.imgView sd_setImageWithURL: [NSURL URLWithString:model.icon]];
+    
+}
 @end

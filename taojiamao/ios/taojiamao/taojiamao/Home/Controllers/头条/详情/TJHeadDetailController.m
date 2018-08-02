@@ -15,9 +15,15 @@
 
 #import "TJInvitationView.h"
 #import "TJArticlesInfoListModel.h"
-@interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *view_bottom;
+@property (weak, nonatomic) IBOutlet UIButton *btn_collect;
+
+@property (weak, nonatomic) IBOutlet UIButton *btn_content;
+
+
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) TJArticlesInfoListModel *model;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
@@ -29,16 +35,17 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = self.title_art;
     //    you边按钮
     TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:5496 withBackImage:@"share" withSelectImage:nil];
     
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-50-SafeAreaTopHeight) style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-54-SafeAreaTopHeight) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.estimatedRowHeight = 200;
     tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
      [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineContentCell" bundle:nil] forCellReuseIdentifier:@"contentCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineShareCell" bundle:nil] forCellReuseIdentifier:@"shareCell"];
@@ -50,7 +57,7 @@
 }
 
 - (void)requestNewsInfoList{
-    self.dataArr = [NSMutableArray array];
+    
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -76,12 +83,13 @@
         request.httpMethod = kXMHTTPMethodGET;
         //        request.parameters = @{@"type":type};
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"----newsinfo-success-===%@",responseObject);
+//        DSLog(@"----newsinfo-success-===%@",responseObject);
         
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJArticlesInfoListModel mj_objectArrayWithKeyValuesArray:dict];
-        DSLog(@"-%lu--arr==",(unsigned long)self.dataArr.count);
+        TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict];
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.model = model;
+
             [self.tableView reloadData];
         });
         
@@ -91,6 +99,46 @@
         DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
+
+- (void)requestReplyListWithType:(NSString *)type{
+    //
+    self.dataArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"aid":self.aid,
+                                @"cid":type,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = CommentsList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{ @"aid":self.aid,
+                                @"cid":type};
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"--pl%@==success==",responseObject);
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--评论-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
+
 - (void)buttonClick:(UIButton *)but{
     
     TJInvitationView *iview = [TJInvitationView invitationView];
@@ -109,34 +157,6 @@
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TJArticlesInfoListModel *model = self.dataArr[0];
-    TJHeadLineContentCell *cell = (TJHeadLineContentCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.tv_content.attributedText = [self attributedStringWithHTMLString:model.content];
-    if (indexPath.section==0) {
-        
-        if (indexPath.row==0) {
-            
-            CGFloat height = [cell.tv_content.attributedText boundingRectWithSize:CGSizeMake(S_W-30, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height;
-         
-            return height;
-        }
-        return 50;
-    }else if (indexPath.section==1){
-        
-        if (indexPath.row==0) {
-            return 30;
-        }
-        return 140;
-        
-    }else{
-        
-        if (indexPath.row==0) {
-            return 30;
-        }
-        return 160;
-    }
-}
 //section底部间距
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -162,14 +182,18 @@
     return view;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-        TJArticlesInfoListModel *model = self.dataArr[0];
+    TJArticlesInfoListModel *model = self.model;
 
     if(indexPath.section==0){
         if (indexPath.row==0) {
             //            h5
             TJHeadLineContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell"];
                 cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, MAXFLOAT);
+            cell.baseView = self.tableView;
             cell.model = model;
+            
+            
+//            DSLog(@"-32849 ry23-===%@",model.content);
             return cell;
         }else{
             //            分享
@@ -218,28 +242,64 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.y==0) {
-        DSLog(@"原位");
+//        DSLog(@"原位");
         self.view_bottom.hidden = NO;
+        self.tableView.frame = CGRectMake(0, SafeAreaTopHeight, S_W, S_H-SafeAreaTopHeight-54);
     }else if (scrollView.contentOffset.y>0){
-        DSLog(@"bottom");
+//        DSLog(@"bottom");
         self.view_bottom.hidden = YES;
+        self.tableView.frame = CGRectMake(0, SafeAreaTopHeight, S_W, S_H-SafeAreaTopHeight);
     }
 }
+#pragma mark- collect
 
-- (NSAttributedString *)attributedStringWithHTMLString:(NSString *)htmlString
-
-{
+- (IBAction)sendCollectArticlesRequest:(UIButton *)sender {
+    NSString *userid = GetUserDefaults(UID);
     
-    NSDictionary *options = @{ NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType,
-                               
-                               NSCharacterEncodingDocumentAttribute :@(NSUTF8StringEncoding) };
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"type":@"2",
+                                @"rid":self.aid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = AddCollect;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{@"type":@"2",@"rid":self.aid};
+    }onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"-artcollect-success--%@==",responseObject);
+    }onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--收藏-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
+- (IBAction)scrollAllContent:(UIButton *)sender {
     
-    NSData *data = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
     
-    return [[NSAttributedString alloc] initWithData:data options:options documentAttributes:nil error:nil];
+    NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:2];
     
+    [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+#pragma mark - return
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+//    发布评论
+    return YES;
+}
 
 #pragma mark - moreComments
 - (void)moreComments:(UIButton *)sender

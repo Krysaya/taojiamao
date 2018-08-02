@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJMembersModel;
 @interface TJHPMidCollectCell : UICollectionViewCell
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UILabel *titleLab;
+@property (nonatomic, strong) TJMembersModel *model;
 @end

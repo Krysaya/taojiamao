@@ -33,7 +33,7 @@
         }];
         
         self.jjImage = [[UIImageView alloc]init];
-        self.jjImage.backgroundColor =RandomColor;
+        self.jjImage.image = [UIImage imageNamed:@"arrow_right"];
         [self.contentView addSubview:self.jjImage];
         [self.jjImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(weakSelf.contentView);
