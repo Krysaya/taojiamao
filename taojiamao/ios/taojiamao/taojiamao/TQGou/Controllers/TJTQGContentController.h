@@ -10,4 +10,5 @@
 
 @interface TJTQGContentController : UITableViewController
 
+@property (nonatomic, strong) NSArray *dataArr;
 @end

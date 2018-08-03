@@ -18,35 +18,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="93" height="130"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUh-f2-bsM">
-                        <rect key="frame" x="12" y="34" width="33" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zae-sD-fJM">
-                        <rect key="frame" x="12" y="62" width="65" height="65"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="65" id="7NG-jB-a4Z"/>
-                            <constraint firstAttribute="width" constant="65" id="xpa-cb-vaS"/>
-                        </constraints>
+                        <rect key="frame" x="0.0" y="0.0" width="93" height="130"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2u-FQ-dNz">
-                        <rect key="frame" x="12" y="10" width="38" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </view>
+            <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="H2u-FQ-dNz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="4p8-nL-y33"/>
-                <constraint firstItem="H2u-FQ-dNz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="DK9-nK-GCO"/>
-                <constraint firstItem="Zae-sD-fJM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="Mhb-Wv-6rh"/>
-                <constraint firstItem="Zae-sD-fJM" firstAttribute="top" secondItem="fUh-f2-bsM" secondAttribute="bottom" constant="12" id="UMD-Dq-ko3"/>
-                <constraint firstItem="fUh-f2-bsM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="Vh9-GU-cWl"/>
-                <constraint firstItem="fUh-f2-bsM" firstAttribute="top" secondItem="H2u-FQ-dNz" secondAttribute="bottom" constant="6" id="wMJ-li-7hp"/>
+                <constraint firstItem="Zae-sD-fJM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="4EG-Pr-29m"/>
+                <constraint firstItem="Zae-sD-fJM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9Gg-FS-d6T"/>
+                <constraint firstAttribute="trailing" secondItem="Zae-sD-fJM" secondAttribute="trailing" id="9vP-o0-QYM"/>
+                <constraint firstAttribute="bottom" secondItem="Zae-sD-fJM" secondAttribute="bottom" id="X6r-iR-nlm"/>
             </constraints>
+            <connections>
+                <outlet property="img" destination="Zae-sD-fJM" id="VvU-zY-kgi"/>
+            </connections>
             <point key="canvasLocation" x="24.5" y="52"/>
         </collectionViewCell>
     </objects>

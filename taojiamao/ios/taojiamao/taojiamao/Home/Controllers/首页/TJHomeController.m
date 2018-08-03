@@ -47,9 +47,7 @@
     self.titleColorNormal = RGB(102, 102, 102);
     self.progressColor = RGB(255, 71, 119);
     
-    //
-    [self requestGoodsChooseNet];
-    //
+        //
 //    [self setNavTitleItems];
     
 }
@@ -90,33 +88,6 @@
 }
 -(void)notification{
     DSLog(@"通知哦");
-}
-#pragma mark - requestGoodsChooseNet
--(void)requestGoodsChooseNet{
-    //test1
-    NSDictionary * parm = @{ };
-    [XDNetworking postWithUrl:GOODSCATEGORY refreshRequest:NO cache:YES params:parm progressBlock:nil successBlock:^(id response) {
-        DSLog(@"%@",[response class]);
-        //先清空存储
-        [self.category removeAllObjects];
-        NSArray * dict = response[@"data"];
-        TJGoodsCategory * model = [[TJGoodsCategory alloc]init];
-        model.name = @"全部";
-        model.id = AllId;
-        [self.category addObject:model];
-        for (NSDictionary* d in dict) {
-            TJGoodsCategory * model = [TJGoodsCategory yy_modelWithDictionary:d];
-            [self.category addObject:model];
-        }
-        NSMutableArray * temp =[NSMutableArray array];
-        for (TJGoodsCategory*model in self.category) {
-            [temp addObject:model.name];
-        }
-        self.titles = temp.copy;
-        [self reloadData];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
 }
 
 #pragma mark - tap

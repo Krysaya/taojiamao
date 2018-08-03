@@ -7,6 +7,12 @@
 //
 
 #import "TJClassTwoCell.h"
+#import "TJHomePageModel.h"
+@interface TJClassTwoCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+
+
+@end
 
 @implementation TJClassTwoCell
 
@@ -14,5 +20,8 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+- (void)setModel:(TJHomePageModel *)model{
+    _model = model;
+    [self.img sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
+}
 @end

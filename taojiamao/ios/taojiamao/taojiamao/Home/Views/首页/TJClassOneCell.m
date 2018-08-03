@@ -7,6 +7,13 @@
 //
 
 #import "TJClassOneCell.h"
+#import "TJHomePageModel.h"
+@interface TJClassOneCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+
+
+@end
 
 @implementation TJClassOneCell
 
@@ -15,4 +22,8 @@
     // Initialization code
 }
 
+- (void)setModel:(TJHomePageModel *)model{
+    _model = model;
+    [self.img sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
+}
 @end

@@ -86,7 +86,7 @@
 //        DSLog(@"----newsinfo-success-===%@",responseObject);
         
         NSDictionary *dict = responseObject[@"data"];
-        TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict];
+        TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.model = model;
 

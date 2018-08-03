@@ -19,10 +19,14 @@
 #import "TJProjectController.h"
 #import "TJClassicController.h"
 
+#import "TJHeadLineCustomCell.h"
+
+
 #import "TJGoodsListCell.h"
 #import "UIViewController+Extension.h"
 #import "TJHeadLineController.h"
-
+#import "TJHomePageModel.h"
+#import "TJHeadLineScrollModel.h"
 
 #define AD_H  200
 #define Cloumns_H  165
@@ -38,7 +42,7 @@
 #define NEWS_Scroll  9556
 #define CLASSS_CollectionV  569845
 #define Columns_CollectionV 475525
-@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,GYRollingNoticeViewDelegate,GYRollingNoticeViewDataSource>
 
 {
     CGFloat _currentAlpha;
@@ -48,13 +52,18 @@
 @property (nonatomic, strong) NSTimer *timer_news;
 @property (nonatomic,assign) NSInteger currentIndex;/* 当前滑动到了哪个位置**/
 
-@property (nonatomic, strong) NSArray *imgArr;
-@property (nonatomic, strong) NSDictionary *midArr;
+@property (nonatomic, strong) NSArray *imgADArr;
+@property (nonatomic, strong) NSArray *menuArr;
+@property (nonatomic, strong) NSArray *class_TopArr;
+@property (nonatomic, strong) NSArray *class_bottomArr;
+@property (nonatomic, strong) NSMutableArray *newsArr;
+@property (nonatomic, strong) NSMutableArray *adSmallImgArr;
+
+@property (nonatomic, strong) NSArray *goodsArr;
 @property (nonatomic, strong) UIScrollView *big_ScrollView;
 
 @property (nonatomic, strong) UIScrollView *ad_scrollView;
-@property (nonatomic, strong) UIScrollView *news_scrollView;
-
+@property (nonatomic, strong) GYRollingNoticeView *news_scrollView;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UIPageControl *pageC_NEWS;
 
@@ -68,6 +77,8 @@
     [super viewWillAppear:animated];
     [self setNaviBarAlpha:_currentAlpha];
     [self requestSearchGoodsList];
+    [self requestHomePage];
+    [self requestHomePageGoodsJingXuan];
 
 }
 
@@ -76,16 +87,11 @@
 {
     [super viewWillDisappear:animated];
     [self resetSystemNavibar];
-}
-
-- (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    
     //关闭定时器
     [self.timer invalidate];
     [self.timer_news invalidate];
-
 }
+
 - (void)requestSearchGoodsList{
     self.hotSearchArr = [NSArray array];
     NSString *userid = GetUserDefaults(UID);
@@ -103,7 +109,7 @@
                                 
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    DSLog(@"sign==%@,times==%@,uid==%@",md5Str,timeStr,userid);
+//    DSLog(@"sign==%@,times==%@,uid==%@",md5Str,timeStr,userid);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = SearchGoods;
         request.headers = @{@"timestamp": timeStr,
@@ -113,7 +119,6 @@
                             };
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
-//        NSLog(@"----search-success-===%@",responseObject);
         self.hotSearchArr = responseObject[@"data"][@"hot"];
      
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -128,7 +133,102 @@
 }
 
 - (void)requestHomePage{
+    //首页
+    self.imgADArr = [NSArray array];
+    self.menuArr = [NSArray array];
+    self.adSmallImgArr = [NSMutableArray array];
+    self.newsArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
     
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = HomePages;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    } onSuccess:^(id  _Nullable responseObject) {
+//        NSLog(@"---首页--=-%@",responseObject);
+        self.imgADArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
+        self.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
+        self.newsArr = [TJHeadLineScrollModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"toutiao"]];
+       
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSArray *arr = responseObject[@"data"][@"block"];
+            NSDictionary *dict = arr[0];
+            NSDictionary *dict2 = arr[1];
+            self.class_TopArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict[@"menu"]];
+            self.class_bottomArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict2[@"menu"]];
+             TJHomePageModel *adModel = [TJHomePageModel mj_objectWithKeyValues:responseObject[@"data"][@"ad1"]];
+            [self.adSmallImgArr addObject:adModel];
+            [self setADScrollView];
+            [self setNewsScroll];
+            [self.news_scrollView reloadDataAndStartRoll];
+            [self setColumnsCollectView];
+            [self setClassCollectionView];
+            [self setBottomTableView];
+
+            
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--首页-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
+- (void)requestHomePageGoodsJingXuan{
+    self.goodsArr = [NSArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    //    DSLog(@"sign==%@,times==%@,uid==%@",md5Str,timeStr,userid);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = HomePageGoods;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+//        self.hotSearchArr = responseObject[@"data"][@"hot"];
+        DSLog(@"--success---%@",responseObject);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--jingxiuan-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -150,17 +250,10 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    
-    [self setupTimer];
-    [self setNewsTimer];
-
-    
     [self setNavgation];
-    [self setADScrollView];
-    [self setNewsScroll];
-    [self setClassCollectionView];
-    [self setBottomTableView];
+
 }
+
 
 - (void)setNavgation{
 //    左边按钮
@@ -188,25 +281,22 @@
 }
 
 - (void)setADScrollView{
-    
   
 //    广告滑动
-    self.imgArr = [[NSArray alloc]initWithObjects:@"",@"",@"",@"",@"", nil];
+    
     UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, AD_H)];
     [self.big_ScrollView addSubview:scrollV];
     scrollV.showsVerticalScrollIndicator = NO;
     scrollV.showsHorizontalScrollIndicator = NO;
     scrollV.pagingEnabled = YES;
     scrollV.tag = AD_Scroll;
-    scrollV.contentSize = CGSizeMake(self.imgArr.count * S_W, 0);
+    scrollV.contentSize = CGSizeMake(self.imgADArr.count * S_W, 0);
     scrollV.delegate = self;
     
-    for (int i = 0; i < self.imgArr.count; i++) {
-        NSString * imageName = [NSString stringWithFormat:@"%d",i];
-        UIImage * image = [UIImage imageNamed:imageName];
+    for (int i = 0; i < self.imgADArr.count; i++) {
+        TJHomePageModel *model = self.imgADArr[i];
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:scrollV.bounds];
-        imageView.backgroundColor = RandomColor;
-        imageView.image = image;
+        [imageView sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
         [scrollV addSubview:imageView];
     }
     
@@ -216,10 +306,9 @@
         frame.origin.x = idx * frame.size.width;
         imageView.frame = frame;
     }];
-//    self.pageControl.currentPage = 0;
     
     UIPageControl *pageC = [[UIPageControl alloc]init];
-    pageC.numberOfPages = self.imgArr.count;
+    pageC.numberOfPages = self.imgADArr.count;
     pageC.frame = CGRectMake(S_W-92, scrollV.frame.origin.y+170, 80, 12);
     pageC.pageIndicatorTintColor = RGB(110, 110, 110);
     pageC.currentPageIndicatorTintColor = KALLRGB;
@@ -229,7 +318,7 @@
     
     self.ad_scrollView = scrollV;
     self.pageControl = pageC;
-    [self setColumnsCollectView];
+
 }
 
 - (void)setColumnsCollectView{
@@ -249,88 +338,15 @@
 
 - (void)setNewsScroll{
 //TODO:    新闻滚动条
-    UIView *bgview = [[UIView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H, S_W, News_H)];
-    bgview.backgroundColor = [UIColor whiteColor];
-    [self.big_ScrollView addSubview:bgview];
     
-    //    头条图
-    UIImageView *img = [[UIImageView alloc]init];
-//    img.backgroundColor = RandomColor;
-    img.image = [UIImage imageNamed:@"headline_scroll"];
-    [bgview addSubview:img];
-//    WeakSelf
-    [img mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(14);
-        make.height.mas_equalTo(33);
-        make.left.mas_equalTo(bgview.mas_left).offset(24);
-        make.centerY.mas_equalTo(bgview.mas_centerY);
-    }];
-    
-//    滚动条
-    NSArray *imgA = @[@"",@"",@"",@"",@""];
-    UIScrollView *newsScroll = [[UIScrollView alloc]init];
-    [bgview addSubview:newsScroll];
-    self.news_scrollView = newsScroll;
-    newsScroll.showsVerticalScrollIndicator = NO;
-    newsScroll.showsHorizontalScrollIndicator = NO;
-    newsScroll.pagingEnabled = YES;
+    GYRollingNoticeView *newsScroll = [[GYRollingNoticeView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H, S_W, News_H)];
+    [newsScroll registerNib:[UINib nibWithNibName:@"TJHeadLineCustomCell" bundle:nil] forCellReuseIdentifier:@"HeadLineCustomCell"];
     newsScroll.delegate = self;
-    newsScroll.tag = NEWS_Scroll;
-    [newsScroll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(bgview.mas_top);
-        make.left.mas_equalTo(img.mas_right).offset(13);
-        make.right.mas_equalTo(bgview.mas_right);
-        make.bottom.mas_equalTo(bgview.mas_bottom);
-        
-    }];
-    NSInteger b = imgA.count;
-    CGFloat a = ceilf(b/2.0);
-    DSLog(@"--===上取整--%lf--%ld@==%ld",a,imgA.count,(long)b);
-    
-    UIView *scrollBaseView = [UIView new];
-    [newsScroll addSubview:scrollBaseView];
-    [scrollBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(@0);
-        make.width.equalTo(newsScroll.mas_width);
-        make.height.equalTo(@100).priorityLow();
-    }];
-    
-    
-    
-    TJButton *lastBtn;
-    for (int i=0; i<a; i++) {
+    newsScroll.dataSource = self;
+    newsScroll.backgroundColor = [UIColor whiteColor];
+    [self.big_ScrollView addSubview:newsScroll];
+    self.news_scrollView = newsScroll;
 
-        TJButton *news_btn = [[TJButton alloc]initDelegate:self backColor:nil tag:i+51 withBackImage:nil withSelectImage:nil] ;
-//        点击事件
-        news_btn.backgroundColor = RandomColor;
-        [scrollBaseView addSubview:news_btn];
-        [news_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (lastBtn) {
-                make.top.equalTo(lastBtn.mas_bottom);
-            }else
-            {
-                make.top.equalTo(@0);
-            }
-            make.leading.equalTo(@0);
-            make.trailing.equalTo(@0);
-            make.height.equalTo(@55);
-            
-            if (i == a - 1) {
-                make.bottom.equalTo(@0);
-            }
-        }];
-        
-        
-        lastBtn = news_btn;
-    }
-
-    UIPageControl *pageC = [[UIPageControl alloc]init];
-    pageC.currentPage = 0;
-    pageC.hidden = YES;
-    pageC.numberOfPages = imgA.count;
-    pageC.currentPageIndicatorTintColor = KALLRGB;
-    [bgview addSubview:pageC];
-    self.pageC_NEWS =   pageC;
 }
 
 #pragma mark - 模块分类
@@ -338,6 +354,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     
     UICollectionView *collectionV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+10, S_W, Class_H) collectionViewLayout:layout];
+    collectionV.backgroundColor = RGB(245, 245, 245);
     collectionV.delegate = self;
     collectionV.dataSource = self;
     collectionV.scrollEnabled = NO;
@@ -349,7 +366,10 @@
 - (void)setBottomTableView{
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+10, S_W, TabAd_H)];
     img.backgroundColor =RandomColor;
+    TJHomePageModel *model = self.adSmallImgArr[0];
+    [img sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
     [self.big_ScrollView addSubview:img];
+    
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+10, S_W, 368) style:UITableViewStylePlain];
     tableView.rowHeight = 150;
@@ -448,45 +468,34 @@
         TJNoticeController *noticeV = [[TJNoticeController alloc]init];
         [self.navigationController pushViewController:noticeV animated:YES];
     }else{
-        TJHeadLineController *vc =[[TJHeadLineController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+       
     }
 }
 #pragma mark - 定时器
 
 - (void)setupTimer{
     self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerChanged) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    [self.timer setFireDate:[NSDate distantPast]];
 }
 
-- (void)timerChanged{
-    NSInteger page = (self.pageControl.currentPage + 1) % self.imgArr.count;
-    self.pageControl.currentPage = page;
-//    NSLog(@"%ld---ad",page);
-    [self pageChanged:self.pageControl];
-}
-- (void)pageChanged:(UIPageControl *)pageControl{
-    if (pageControl==self.pageC_NEWS) {
-        CGFloat y = (pageControl.currentPage) * self.news_scrollView.bounds.size.height;
-        [self.news_scrollView setContentOffset:CGPointMake(0,y) animated:YES];
-    }else{
-            CGFloat x = (pageControl.currentPage) * self.ad_scrollView.bounds.size.width;
-            [self.ad_scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
-        
-    }
-}
 
-- (void)setNewsTimer{
-    self.timer_news =  [NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(timerNewsChanged) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer_news forMode:NSRunLoopCommonModes];
+#pragma mark - gydelegate
+- (NSInteger)numberOfRowsForRollingNoticeView:(GYRollingNoticeView *)rollingView{
+    int a = (int)ceilf(self.newsArr.count/2);
+    return a;
 }
-- (void)timerNewsChanged{
-    NSInteger page = (self.pageC_NEWS.currentPage + 1) %3;
-    self.pageC_NEWS.currentPage = page;
-    [self pageChanged:self.pageC_NEWS];
-
+- (__kindof GYNoticeViewCell *)rollingNoticeView:(GYRollingNoticeView *)rollingView cellAtIndex:(NSUInteger)index
+{
+    TJHeadLineCustomCell *cell = [rollingView dequeueReusableCellWithIdentifier:@"HeadLineCustomCell"];
+//    cell.backgroundColor = RandomColor;
+    [cell noticeCellWithArr:self.newsArr forIndex:index];
+    return cell;
 }
-
+- (void)didClickRollingNoticeView:(GYRollingNoticeView *)rollingView forIndex:(NSUInteger)index
+{
+    TJHeadLineController *vc =[[TJHeadLineController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 #pragma mark - scrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -538,8 +547,10 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (scrollView.tag==AD_Scroll) {
-        [self setupTimer];}else if (scrollView.tag == NEWS_Scroll){
-            [self setNewsTimer];
+//        [self setupTimer];
+        
+    }else if (scrollView.tag == NEWS_Scroll){
+//            [self setNewsTimer];
         }else{
             
         }
@@ -556,7 +567,10 @@
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    if (collectionView.tag==CLASSS_CollectionV) {
+
+        return 2;}
+    return 1;
 }
 
 
@@ -567,7 +581,7 @@
             return 2;}
         return 4;}
     else{
-        return 5;}
+        return self.menuArr.count;}
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (collectionView.tag==CLASSS_CollectionV) {
@@ -577,29 +591,24 @@
             return CGSizeMake((S_W-3)/4,130);
         }
     }else{
-        return CGSizeMake((S_W-100)/5, 50);
+        return CGSizeMake((S_W-100)/5, 60);
     }
 }
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
       if (collectionView.tag==CLASSS_CollectionV) {
           if (indexPath.section==0) {
               TJClassOneCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ClassOneCell" forIndexPath:indexPath];
-              cell.backgroundColor = RandomColor;
-              return cell;
+              cell.model = self.class_TopArr[indexPath.row];
+                return cell;
           }else{
               TJClassTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ClassTwoCell" forIndexPath:indexPath];
-              cell.backgroundColor = RandomColor;
+              cell.model = self.class_bottomArr[indexPath.row];
               return cell;
           }
       }else{
           TJHPMidCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MidCell" forIndexPath:indexPath];
-          cell.imgView.image = [UIImage imageNamed:@"kddq"];
-          if (indexPath.section==0) {
-              cell.titleLab.text = @[@"快递代取",@"推荐好货",@"女装",@"大牌美妆",@"母婴"][indexPath.row];
-          }else{
-              cell.titleLab.text = @[@"男装",@"数码",@"美食",@"鞋包",@"更多"][indexPath.row];
-          }
-          
+          cell.model = self.menuArr[indexPath.row];
+
           return cell;}
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

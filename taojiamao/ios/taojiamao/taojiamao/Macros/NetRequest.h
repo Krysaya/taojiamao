@@ -27,12 +27,12 @@ static NSString * const UserPhone = @"UserPhone";
 #define BASEURL @"http://dev.api.taojiamao.net"
 //2启动页
 #define LaunchImage              [BASEURL stringByAppendingString:@"/api.php?s=index/qad"]
-//3首页商品分类
-#define GOODSCATEGORY            [BASEURL stringByAppendingString:@"/api.php?s=index/index"]
-//4首页banner
-#define HOMEBANNER               [BASEURL stringByAppendingString:@"/api.php?s=index/flash"]
-//5首页中部分类模块
-#define HOMEMiddleModule         [BASEURL stringByAppendingString:@"/api.php?s=index/modle"]
+//3首页
+#define HomePages            [BASEURL stringByAppendingString:@"/v1/pages/index"]
+
+//首页-精选表
+#define HomePageGoods            [BASEURL stringByAppendingString:@"/v1/goods/jing"]
+
 //6获取验证码
 #define GETVerfityCode           [BASEURL stringByAppendingString:@"/v1/members/vcode"]
 //注册

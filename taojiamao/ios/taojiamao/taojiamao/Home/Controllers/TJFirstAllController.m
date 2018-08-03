@@ -44,10 +44,7 @@ static NSString * const HomeHomeFootShowCell = @"HomeHomeFootShowCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RandomColor;
-    //banner请求
-    [self requestBannerWithNetData];
-    //中部模块请求
-    [self requestMiddleModels];
+ 
     //底部推介请求
     self.page = 1;
     [self requestFootShowModelsWithPage:self.page];
@@ -196,39 +193,9 @@ static NSString * const HomeHomeFootShowCell = @"HomeHomeFootShowCell";
         DSLog(@"%ld",(long)currentIndex);
     };
 }
-#pragma mark -requestBannerWithNetData
--(void)requestBannerWithNetData{
-    NSDictionary * parm = @{};
-    [XDNetworking postWithUrl:HOMEBANNER refreshRequest:YES cache:NO params:parm progressBlock:nil successBlock:^(id response) {
-        NSArray * array = response[@"data"];
-        [self.bannerData removeAllObjects];
-        for (NSDictionary*dict in array) {
-            TJHomeBanner * model = [TJHomeBanner yy_modelWithDictionary:dict];
-            [self.bannerData addObject:model];
-        }
-        self.banner.bannerData = self.bannerData;
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
-}
 
-#pragma mark - requestMiddleModels
--(void)requestMiddleModels{
-    NSDictionary * parm = @{};
-    [XDNetworking postWithUrl:HOMEMiddleModule refreshRequest:YES cache:NO params:parm progressBlock:nil successBlock:^(id response) {
-        [self.middleModels removeAllObjects];
-        NSArray * array =response[@"data"];
-        for (NSDictionary*dict in array) {
-            TJHomeMiddleModels * model = [TJHomeMiddleModels yy_modelWithDictionary:dict];
-            [self.middleModels addObject:model];
-        }
-        //section刷新
-        NSIndexSet *indexSetA = [[NSIndexSet alloc]initWithIndex:0];
-        [self.baseView reloadSections:indexSetA withRowAnimation:UITableViewRowAnimationAutomatic];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
-}
+   
+
 #pragma mark - TJMiddleModelsCellDelegate
 -(void)middleModelsCollectionCellClick:(TJHomeMiddleModels *)model{
     DSLog(@"%@",model.name);

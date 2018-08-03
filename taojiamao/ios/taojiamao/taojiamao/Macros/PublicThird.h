@@ -40,8 +40,7 @@
 #import "XHWebImageAutoSize.h"
 #import "SJAttributeWorker.h"
 #import "iCarousel.h"
-
-
+#import "GYRollingNoticeView.h"
 
 
 

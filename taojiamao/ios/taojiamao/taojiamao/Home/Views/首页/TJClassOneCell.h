@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJHomePageModel;
 
 @interface TJClassOneCell : UICollectionViewCell
+@property (nonatomic, strong) TJHomePageModel *model;
 
 @end

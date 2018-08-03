@@ -416,6 +416,8 @@
 		C79FAE882113020B00E5065E /* TJMemberMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C79FAE872113020B00E5065E /* TJMemberMainModel.m */; };
 		C7B3E1A120AEAE85006CEE0A /* TJBottomPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B3E1A020AEAE85006CEE0A /* TJBottomPopupView.m */; };
 		C7B80D9320A5769300C1333B /* TJUserInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B80D9220A5769300C1333B /* TJUserInfoController.m */; };
+		C7B913DC2113E90F00D8729C /* TJHomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B913DB2113E90F00D8729C /* TJHomePageModel.m */; };
+		C7B913DF2113E97300D8729C /* TJHeadLineScrollModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B913DE2113E97300D8729C /* TJHeadLineScrollModel.m */; };
 		C7B9947420F8461700DFFC98 /* SJAttributesRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947120F8461600DFFC98 /* SJAttributesRecorder.m */; };
 		C7B9947520F8461700DFFC98 /* SJAttributeWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947320F8461600DFFC98 /* SJAttributeWorker.m */; };
 		C7B9947820F84B5800DFFC98 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B9947720F84B5800DFFC98 /* UIViewController+Extension.m */; };
@@ -454,6 +456,10 @@
 		C7DE68A220995F5A00160435 /* TJSDCFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DE68A120995F5A00160435 /* TJSDCFlowLayout.m */; };
 		C7DE68A8209985DC00160435 /* NewPagedFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DE68A5209985DC00160435 /* NewPagedFlowView.m */; };
 		C7DE68A9209985DC00160435 /* PGIndexBannerSubiew.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DE68A7209985DC00160435 /* PGIndexBannerSubiew.m */; };
+		C7E69B2E2114605E0007C5F3 /* GYNoticeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E69B2B2114605E0007C5F3 /* GYNoticeViewCell.m */; };
+		C7E69B2F2114605E0007C5F3 /* GYRollingNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E69B2D2114605E0007C5F3 /* GYRollingNoticeView.m */; };
+		C7E69B332114610B0007C5F3 /* TJHeadLineCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E69B312114610B0007C5F3 /* TJHeadLineCustomCell.m */; };
+		C7E69B342114610B0007C5F3 /* TJHeadLineCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E69B322114610B0007C5F3 /* TJHeadLineCustomCell.xib */; };
 		C7E6D47C20A939C70019C827 /* TJChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D47B20A939C70019C827 /* TJChangePhoneController.m */; };
 		C7E6D47F20A96C4B0019C827 /* TJBindTBController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D47E20A96C4B0019C827 /* TJBindTBController.m */; };
 		C7E6D48520A97CEA0019C827 /* TJMineAssetDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48420A97CEA0019C827 /* TJMineAssetDetailsController.m */; };
@@ -1290,6 +1296,10 @@
 		C7B3E1A020AEAE85006CEE0A /* TJBottomPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBottomPopupView.m; sourceTree = "<group>"; };
 		C7B80D9120A5769300C1333B /* TJUserInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUserInfoController.h; sourceTree = "<group>"; };
 		C7B80D9220A5769300C1333B /* TJUserInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUserInfoController.m; sourceTree = "<group>"; };
+		C7B913DA2113E90F00D8729C /* TJHomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJHomePageModel.h; sourceTree = "<group>"; };
+		C7B913DB2113E90F00D8729C /* TJHomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJHomePageModel.m; sourceTree = "<group>"; };
+		C7B913DD2113E97300D8729C /* TJHeadLineScrollModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJHeadLineScrollModel.h; sourceTree = "<group>"; };
+		C7B913DE2113E97300D8729C /* TJHeadLineScrollModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJHeadLineScrollModel.m; sourceTree = "<group>"; };
 		C7B9947020F8461600DFFC98 /* SJAttributesRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAttributesRecorder.h; sourceTree = "<group>"; };
 		C7B9947120F8461600DFFC98 /* SJAttributesRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAttributesRecorder.m; sourceTree = "<group>"; };
 		C7B9947220F8461600DFFC98 /* SJAttributeWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAttributeWorker.h; sourceTree = "<group>"; };
@@ -1366,6 +1376,13 @@
 		C7DE68A5209985DC00160435 /* NewPagedFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPagedFlowView.m; sourceTree = "<group>"; };
 		C7DE68A6209985DC00160435 /* PGIndexBannerSubiew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGIndexBannerSubiew.h; sourceTree = "<group>"; };
 		C7DE68A7209985DC00160435 /* PGIndexBannerSubiew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGIndexBannerSubiew.m; sourceTree = "<group>"; };
+		C7E69B2A2114605E0007C5F3 /* GYNoticeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYNoticeViewCell.h; sourceTree = "<group>"; };
+		C7E69B2B2114605E0007C5F3 /* GYNoticeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYNoticeViewCell.m; sourceTree = "<group>"; };
+		C7E69B2C2114605E0007C5F3 /* GYRollingNoticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYRollingNoticeView.h; sourceTree = "<group>"; };
+		C7E69B2D2114605E0007C5F3 /* GYRollingNoticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYRollingNoticeView.m; sourceTree = "<group>"; };
+		C7E69B302114610B0007C5F3 /* TJHeadLineCustomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJHeadLineCustomCell.h; sourceTree = "<group>"; };
+		C7E69B312114610B0007C5F3 /* TJHeadLineCustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJHeadLineCustomCell.m; sourceTree = "<group>"; };
+		C7E69B322114610B0007C5F3 /* TJHeadLineCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJHeadLineCustomCell.xib; sourceTree = "<group>"; };
 		C7E6D47A20A939C70019C827 /* TJChangePhoneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJChangePhoneController.h; sourceTree = "<group>"; };
 		C7E6D47B20A939C70019C827 /* TJChangePhoneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJChangePhoneController.m; sourceTree = "<group>"; };
 		C7E6D47D20A96C4B0019C827 /* TJBindTBController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBindTBController.h; sourceTree = "<group>"; };
@@ -1887,6 +1904,7 @@
 		C73FC78F209019F300732F2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C7B913D92113E8E000D8729C /* 首页 */,
 				C738FC2E2111A13D00104B69 /* 头条 */,
 				C78E83E9210EB27D00B04E19 /* 分类 */,
 				C75F64C020EF62FD00B55B8B /* 签到 */,
@@ -2184,6 +2202,7 @@
 		C73FC7A520901BC700732F2D /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
+				C7E69B292114605E0007C5F3 /* GYRollingNoticeView */,
 				C781BE7F210B198E00B7BD57 /* SDWebImage */,
 				C758A05E2109BD1E00DDFDAD /* iCarousel */,
 				C772AA14210880800029C515 /* FSCalendar */,
@@ -3191,6 +3210,9 @@
 				C74DFFAB20F75ABF00D83ACF /* TJGoodsListCell.h */,
 				C74DFFAC20F75ABF00D83ACF /* TJGoodsListCell.m */,
 				C74DFFAD20F75ABF00D83ACF /* TJGoodsListCell.xib */,
+				C7E69B302114610B0007C5F3 /* TJHeadLineCustomCell.h */,
+				C7E69B312114610B0007C5F3 /* TJHeadLineCustomCell.m */,
+				C7E69B322114610B0007C5F3 /* TJHeadLineCustomCell.xib */,
 			);
 			path = "首页";
 			sourceTree = "<group>";
@@ -3332,6 +3354,17 @@
 				C79FAE792112F0C700E5065E /* TJContetenCollectListModel.m */,
 			);
 			path = "内容收藏";
+			sourceTree = "<group>";
+		};
+		C7B913D92113E8E000D8729C /* 首页 */ = {
+			isa = PBXGroup;
+			children = (
+				C7B913DA2113E90F00D8729C /* TJHomePageModel.h */,
+				C7B913DB2113E90F00D8729C /* TJHomePageModel.m */,
+				C7B913DD2113E97300D8729C /* TJHeadLineScrollModel.h */,
+				C7B913DE2113E97300D8729C /* TJHeadLineScrollModel.m */,
+			);
+			path = "首页";
 			sourceTree = "<group>";
 		};
 		C7B9946F20F8461600DFFC98 /* SJAttributesFactory */ = {
@@ -3504,6 +3537,17 @@
 			path = NewPagedFlowView;
 			sourceTree = "<group>";
 		};
+		C7E69B292114605E0007C5F3 /* GYRollingNoticeView */ = {
+			isa = PBXGroup;
+			children = (
+				C7E69B2A2114605E0007C5F3 /* GYNoticeViewCell.h */,
+				C7E69B2B2114605E0007C5F3 /* GYNoticeViewCell.m */,
+				C7E69B2C2114605E0007C5F3 /* GYRollingNoticeView.h */,
+				C7E69B2D2114605E0007C5F3 /* GYRollingNoticeView.m */,
+			);
+			path = GYRollingNoticeView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3617,6 +3661,7 @@
 				C73FC7682090180000732F2D /* LaunchScreen.storyboard in Resources */,
 				C79FAE4E2112DDC600E5065E /* TJHeadLineDefaultCell.xib in Resources */,
 				C76BA60620FDC0E6006C749B /* TJHeadLineShareCell.xib in Resources */,
+				C7E69B342114610B0007C5F3 /* TJHeadLineCustomCell.xib in Resources */,
 				C73FC7652090180000732F2D /* Assets.xcassets in Resources */,
 				C7861DA020FC70EC0056574A /* TJMyFootPrintCell.xib in Resources */,
 				C76BA5EC20FD8E17006C749B /* TJHeadLineOneCell.xib in Resources */,
@@ -3760,6 +3805,7 @@
 				C781BEDD210B198E00B7BD57 /* UIImage+GIF.m in Sources */,
 				C74099F92091CF3600DFCC94 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C76BA60020FDA16B006C749B /* TJHeadDetailController.m in Sources */,
+				C7E69B2E2114605E0007C5F3 /* GYNoticeViewCell.m in Sources */,
 				C781BEC3210B198E00B7BD57 /* FLAnimatedImage.m in Sources */,
 				C7C72F522101CD0F0087A8CB /* MJExtensionConst.m in Sources */,
 				C74D894F21007A5F0098754C /* TJReplyController.m in Sources */,
@@ -3798,6 +3844,7 @@
 				C73FC760209017FD00732F2D /* ViewController.m in Sources */,
 				C717877A2105844E009A2034 /* WMProgressView.m in Sources */,
 				C781BEDA210B198E00B7BD57 /* SDWebImageWebPCoder.m in Sources */,
+				C7E69B2F2114605E0007C5F3 /* GYRollingNoticeView.m in Sources */,
 				C73FC81F209025CE00732F2D /* UIWebView+AFNetworking.m in Sources */,
 				C77D0EB120A3F770000F794A /* TJOrderClaimController.m in Sources */,
 				C73FC76B2090180000732F2D /* main.m in Sources */,
@@ -3940,6 +3987,7 @@
 				C75891582092CFF800AC085E /* TJHomeController.m in Sources */,
 				C79BBA4020E9D2C100506C66 /* TJMallOrdersCell.m in Sources */,
 				C73FC812209025CE00732F2D /* AFNetworkReachabilityManager.m in Sources */,
+				C7B913DC2113E90F00D8729C /* TJHomePageModel.m in Sources */,
 				C74DFFAA20F7590500D83ACF /* TJMyFootPrintController.m in Sources */,
 				C79FAE852112F23C00E5065E /* TJMembersModel.m in Sources */,
 				C77D0EA320A3ED5B000F794A /* NSParagraphStyle+YYText.m in Sources */,
@@ -3968,6 +4016,7 @@
 				C7B9949E20F88FA300DFFC98 /* TJGoodsCollectController.m in Sources */,
 				C7206C0020A0031A00957A4A /* XHLaunchAdDownloader.m in Sources */,
 				C77D0EA120A3ED5B000F794A /* YYTextRunDelegate.m in Sources */,
+				C7B913DF2113E97300D8729C /* TJHeadLineScrollModel.m in Sources */,
 				C758915E2092D02E00AC085E /* TJCQuanController.m in Sources */,
 				C756A27D20A92BE700EC5FEB /* TJBaseTableCell.m in Sources */,
 				C781BEE0210B198E00B7BD57 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -4050,6 +4099,7 @@
 				C74D893F210031C40098754C /* SGAlertMenu.m in Sources */,
 				C704044B20AE6A60001D720A /* XHWebImageAutoSize.m in Sources */,
 				C781BEC5210B198E00B7BD57 /* FLAnimatedImageView.m in Sources */,
+				C7E69B332114610B0007C5F3 /* TJHeadLineCustomCell.m in Sources */,
 				C78E5CDD20ABCC2E00C9C1BF /* TJGoodsDetailsController.m in Sources */,
 				C72A72BF209D54B3001CAC75 /* PYSearchViewController.m in Sources */,
 				C74099FA2091CF3600DFCC94 /* IQTextView.m in Sources */,

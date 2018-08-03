@@ -11,7 +11,7 @@
 #import "WMPageController.h"
 #import "XMNetworking.h"
 #import "MJExtension.h"
-
+#import "TJGoodsInfoListModel.h"
 #import "TJTqgTimesListModel.h"
 #define RightMargin 44*W_Scale
 #define TopHeight 50*H_Scale
@@ -20,8 +20,7 @@
 @interface TJTQGouController ()
 @property(nonatomic,strong)NSMutableArray * timesArr;
 
-//@property (nonatomic, strong) TJTqgTimesListModel *timesModel;
-//@property(nonatomic,strong)NSMutableArray<TJGoodsCategory*>*category;
+@property (nonatomic, strong) NSArray *dataArr;
 @end
 
 @implementation TJTQGouController
@@ -103,7 +102,7 @@
             self.menuView.backgroundColor = [UIColor blackColor];
         });
         
-        NSLog(@"onSuccess:%@ ==%ld=====",responseObject,self.timesArr.count);
+//        NSLog(@"onSuccess:%@ ==%ld=====",responseObject,self.timesArr.count);
 
     } onFailure:^(NSError *error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
@@ -115,6 +114,7 @@
 }
 
 - (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
+    self.dataArr  = [NSArray array];
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
     }else{
@@ -139,17 +139,16 @@
         request.httpMethod = kXMHTTPMethodPOST;
 //        request.requestSerializerType = kXMRequestSerializerRAW;
     }onSuccess:^(id responseObject) {
+        self.dataArr = [TJGoodsInfoListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
-        NSDictionary *dicJson = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-
 //        NSDictionary *dict = responseObject[@"data"];
 //        NSArray *arr = dict[@"times"];
 //        self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];
 //
-//        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
 //            [self reloadData];
 //            self.menuView.backgroundColor = [UIColor blackColor];
-//        });
+        });
         
         NSLog(@"onSuccess:===%@",responseObject);
         
@@ -182,6 +181,7 @@
         [self requestGoodsListWithModel:model];
     }
     TJTQGContentController * ccvc = [[TJTQGContentController alloc] init];
+    ccvc.dataArr  = self.dataArr;
 //    ccvc.testName = self.titles[index];
     return ccvc;
 }

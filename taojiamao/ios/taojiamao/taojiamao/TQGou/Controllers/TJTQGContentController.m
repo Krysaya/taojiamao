@@ -43,14 +43,14 @@ static NSString * const TQGContentCell = @"TQGContentCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 5;
+    return self.dataArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TJTQGContentCell *cell = [tableView dequeueReusableCellWithIdentifier:TQGContentCell forIndexPath:indexPath];
   
- 
+    cell.model = self.dataArr[indexPath.row];
     return cell;
 }
 

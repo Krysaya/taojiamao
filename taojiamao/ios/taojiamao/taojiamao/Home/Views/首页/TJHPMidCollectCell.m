@@ -7,8 +7,10 @@
 //
 
 #import "TJHPMidCollectCell.h"
-#import "TJMembersModel.h"
+#import "TJHomePageModel.h"
 @interface TJHPMidCollectCell ()
+@property (nonatomic, strong) UIImageView *imgView;
+@property (nonatomic, strong) UILabel *titleLab;
 
 
 @end
@@ -47,10 +49,10 @@
     return _titleLab;
 }
 
-- (void)setModel:(TJMembersModel *)model{
+- (void)setModel:(TJHomePageModel *)model{
     _model = model;
     self.titleLab.text = model.text;
-    [self.imgView sd_setImageWithURL: [NSURL URLWithString:model.icon]];
+    [self.imgView sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
     
 }
 @end
