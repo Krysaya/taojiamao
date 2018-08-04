@@ -199,6 +199,7 @@
     if (_label == nil) {
         _label = [[UILabel alloc] init];
         _label.textAlignment = NSTextAlignmentCenter;
+        _label.numberOfLines = 0;
     }
     return _label;
 }

@@ -48,15 +48,15 @@
     [self.intro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(12*W_Scale);
         make.right.mas_equalTo(-12*W_Scale);
-        make.top.mas_equalTo(10*W_Scale);
+        make.top.mas_equalTo(5*W_Scale);
         make.bottom.mas_equalTo(-10*W_Scale);
     }];
 }
 -(void)setDetailsIntro:(NSString *)detailsIntro{
     _detailsIntro = detailsIntro;
-//    NSMutableAttributedString * attr = [[NSMutableAttributedString alloc]initWithString:detailsIntro];
-//    attr.yy_font = [UIFont systemFontOfSize:12];
-//    attr.yy_firstLineHeadIndent = 50;
+    NSMutableAttributedString * attr = [[NSMutableAttributedString alloc]initWithString:detailsIntro];
+    attr.yy_font = [UIFont systemFontOfSize:12];
+    attr.yy_firstLineHeadIndent = 50;
     self.intro.attributedText =[self labelRetract:detailsIntro];
 }
 
@@ -75,12 +75,12 @@
     return attrText;
 }
 
-- (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
-    DSLog(@"0-我====%@",model_detail.guide_article);
-
-        self.intro.attributedText =[self labelRetract:model_detail.guide_article];
-    
-}
+//- (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
+//    DSLog(@"0-我====%@",model_detail.guide_article);
+//
+//        self.intro.attributedText =[self labelRetract:model_detail.guide_article];
+//
+//}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

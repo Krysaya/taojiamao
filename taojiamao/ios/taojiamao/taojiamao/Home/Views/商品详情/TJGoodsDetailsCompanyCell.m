@@ -98,7 +98,14 @@
     }];
 }
 -(void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
-//    self.company.text = model_detail.
+    self.company.text = model_detail.sellernick;
+    if ([model_detail.shoptype isEqualToString:@"A"]) {
+        self.type.image = [UIImage imageNamed:@"tm_bs"];
+    }else{
+        self.type.image = [UIImage imageNamed:@"tb_bs"];
+
+    }
+    
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

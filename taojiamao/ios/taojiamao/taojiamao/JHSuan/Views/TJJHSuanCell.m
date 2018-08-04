@@ -28,6 +28,10 @@
 }
 
 - (void)setModel:(TJJHSGoodsListModel *)model{
+    
+//    if (model.shop) {
+//        <#statements#>
+//    }
     self.title_lab.text = model.itemtitle;
     self.yimai_lab.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
     NSString *str = [NSString stringWithFormat:@"券后：¥%@",model.itemendprice];

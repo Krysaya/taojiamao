@@ -14,7 +14,9 @@
 #import "TJReplyController.h"
 
 #import "TJInvitationView.h"
+#import "TJArticlesListModel.h"
 #import "TJArticlesInfoListModel.h"
+#import "TJCommentsListModel.h"
 @interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *view_bottom;
 @property (weak, nonatomic) IBOutlet UIButton *btn_collect;
@@ -24,7 +26,9 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) TJArticlesInfoListModel *model;
+@property (nonatomic, strong) TJArticlesListModel *remodel;
 @property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSMutableArray *commentArr;
 
 @end
 
@@ -32,6 +36,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self requestNewsInfoList];
+    [self requestReplyList];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,7 +62,7 @@
 }
 
 - (void)requestNewsInfoList{
-    
+
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -81,28 +86,28 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodGET;
-        //        request.parameters = @{@"type":type};
+//                request.parameters = @{@"type":type};
     } onSuccess:^(id  _Nullable responseObject) {
 //        DSLog(@"----newsinfo-success-===%@",responseObject);
         
         NSDictionary *dict = responseObject[@"data"];
         TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
+        TJArticlesListModel *remodel = [TJArticlesListModel mj_objectWithKeyValues:dict[@"relate"]];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             self.model = model;
-
+            self.remodel = remodel;
             [self.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        
     }];
 }
 
-- (void)requestReplyListWithType:(NSString *)type{
+- (void)requestReplyList{
     //
-    self.dataArr = [NSMutableArray array];
+    self.commentArr = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -116,7 +121,7 @@
                                 @"app": @"ios",
                                 @"uid":userid,
                                 @"aid":self.aid,
-                                @"cid":type,
+                                
                                 
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
@@ -129,13 +134,16 @@
                             };
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{ @"aid":self.aid,
-                                @"cid":type};
+                                };
     } onSuccess:^(id  _Nullable responseObject) {
+        self.commentArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [self.tableView reloadData];
+        });
         DSLog(@"--pl%@==success==",responseObject);
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--评论-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+
     }];
 }
 
@@ -154,7 +162,11 @@
     return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    if (section==2) {
+        return self.commentArr.count;
+    }
+        return 2;
+//    }
 }
 
 //section底部间距
@@ -192,12 +204,11 @@
             cell.baseView = self.tableView;
             cell.model = model;
             
-            
-//            DSLog(@"-32849 ry23-===%@",model.content);
             return cell;
         }else{
             //            分享
             TJHeadLineShareCell *cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell"];
+            [cell.btn_zan addTarget:self action:@selector(dianzanClick:) forControlEvents:UIControlEventTouchUpInside];
             return cell;
         }
     }else if (indexPath.section==1){
@@ -215,6 +226,7 @@
         }else{
 //推荐
             TJHeadLineThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tuijianCell"];
+            cell.model = self.remodel;
             return cell;
         }
     }else{
@@ -232,7 +244,7 @@
         }else{
             //pinglu
             TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"moreCell"];
-            cell.view_bg.hidden = NO;
+            cell.model = self.commentArr[indexPath.row-1];
             [cell.btn_more addTarget:self action:@selector(moreComments:) forControlEvents:UIControlEventTouchUpInside];
             return cell;
         }
@@ -282,9 +294,7 @@
     }onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"-artcollect-success--%@==",responseObject);
     }onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--收藏-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+       
     }];
 }
 - (IBAction)scrollAllContent:(UIButton *)sender {
@@ -295,6 +305,42 @@
     [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+#pragma mark - zan
+- (void)dianzanClick:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    NSString * i = [NSString stringWithFormat:@"%d",sender.selected];
+    DSLog(@"--dian-%d---mei-",sender.selected);
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"type":i,
+                                @"aid":self.aid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = CommentsPraises;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{@"type":i,@"aid":self.aid};
+    }onSuccess:^(id  _Nullable responseObject) {
+//        DSLog(@"-zan-success--%@==",responseObject);
+    }onFailure:^(NSError * _Nullable error) {
+
+    }];
+}
 #pragma mark - return
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
 //    发布评论
@@ -305,6 +351,7 @@
 - (void)moreComments:(UIButton *)sender
 {
     TJReplyController *vc = [[TJReplyController alloc]init];
+    vc.aid = self.aid;
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

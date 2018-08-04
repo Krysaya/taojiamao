@@ -18,7 +18,7 @@
 #import "TJSearchController.h"
 #import "TJProjectController.h"
 #import "TJClassicController.h"
-
+#import "TJDefaultGoodsDetailController.h"
 #import "TJHeadLineCustomCell.h"
 
 
@@ -27,7 +27,7 @@
 #import "TJHeadLineController.h"
 #import "TJHomePageModel.h"
 #import "TJHeadLineScrollModel.h"
-
+#import "TJGoodsCollectModel.h"
 #define AD_H  200
 #define Cloumns_H  165
 #define News_H  55
@@ -66,6 +66,7 @@
 @property (nonatomic, strong) GYRollingNoticeView *news_scrollView;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UIPageControl *pageC_NEWS;
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSArray *hotSearchArr;
 //@property (nonatomic, strong) UIView *newsView;
@@ -180,7 +181,7 @@
             [self.news_scrollView reloadDataAndStartRoll];
             [self setColumnsCollectView];
             [self setClassCollectionView];
-            [self setBottomTableView];
+            [self setBottomAdImg];
 
             
         });
@@ -192,6 +193,7 @@
     }];
 }
 - (void)requestHomePageGoodsJingXuan{
+//    精选
     self.goodsArr = [NSArray array];
     NSString *userid = GetUserDefaults(UID);
     
@@ -208,7 +210,6 @@
                                 
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    //    DSLog(@"sign==%@,times==%@,uid==%@",md5Str,timeStr,userid);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = HomePageGoods;
         request.headers = @{@"timestamp": timeStr,
@@ -218,10 +219,12 @@
                             };
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
-//        self.hotSearchArr = responseObject[@"data"][@"hot"];
+        self.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        
         DSLog(@"--success---%@",responseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+//            [self.tableView reloadData];
+            [self setBottomTableView];
         });
         
     } onFailure:^(NSError * _Nullable error) {
@@ -236,7 +239,7 @@
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]init];
     big_ScrollVie.frame = S_F;
-    big_ScrollVie.contentSize = CGSizeMake(0, S_H+410);
+    big_ScrollVie.contentSize = CGSizeMake(0, S_H*2);
     big_ScrollVie.delegate = self;
     big_ScrollVie.showsVerticalScrollIndicator = NO;
     big_ScrollVie.showsHorizontalScrollIndicator = NO;
@@ -363,20 +366,22 @@
     [collectionV registerNib:[UINib nibWithNibName:@"TJClassTwoCell" bundle:nil] forCellWithReuseIdentifier:@"ClassTwoCell"];
     [self.big_ScrollView addSubview:collectionV];
 }
-- (void)setBottomTableView{
+- (void)setBottomAdImg{
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+10, S_W, TabAd_H)];
     img.backgroundColor =RandomColor;
     TJHomePageModel *model = self.adSmallImgArr[0];
     [img sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
     [self.big_ScrollView addSubview:img];
+}
+- (void)setBottomTableView{
     
-    
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+10, S_W, 368) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+10, S_W, self.goodsArr.count*150-SafeAreaBottomHeight) style:UITableViewStylePlain];
     tableView.rowHeight = 150;
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.big_ScrollView addSubview:tableView];
+    self.tableView = tableView;
 }
 
 #pragma mark - tableViewDelagte
@@ -385,16 +390,12 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.goodsArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
-//    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-//        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
-//        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
-//    });
-    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO withType:@"0"];
-//    cell.titleLab.attributedText = str;
+
+    [cell cellWithArr:self.goodsArr forIndexPath:indexPath isEditing:NO withType:@"0"];
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -402,6 +403,12 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 68;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
+    TJGoodsCollectModel *model = self.goodsArr[indexPath.row];
+    goodVC.gid = model.itemid;
+    [self.navigationController pushViewController:goodVC animated:YES];
 }
 #pragma mark - setViewForHeaderInSection
 -(UIView*)setViewForHeaderInSectionWith:(NSString*)title withFrame:(CGRect)frame{

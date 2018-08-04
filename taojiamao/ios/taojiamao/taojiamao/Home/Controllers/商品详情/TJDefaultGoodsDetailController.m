@@ -53,7 +53,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 //会员不隐藏推广
 @property(nonatomic,strong)TJButton *popularize;
-@property(nonatomic,strong)NSMutableArray * imageSSS;
+@property(nonatomic,strong)NSArray * imageSSS;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @end
 
@@ -85,11 +85,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 - (void)requestGoodsInfo{
     self.dataArr = [NSMutableArray array];
-    self.imageSSS = [NSMutableArray array];
+    self.imageSSS = [NSArray array];
 
     NSString *userid = GetUserDefaults(UID);
-    
-    DSLog(@"-=====uiddddddd-%@",userid);
     if (userid) {
     }else{
         userid = @"";
@@ -112,12 +110,13 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }onSuccess:^(id responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         
-        NSLog(@"onSuccess详情:%@ =======",responseObject);
+        DSLog(@"onSuccess详情:%@ =======",responseObject);
 
         
         TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
         [self.dataArr addObject:model];
-//        [self.imageSSS addObjectsFromArray:model.detail];
+        self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
+        
 //        TJGoodsInfoListModel *model = self.dataArr[0];
         DSLog(@"==%ld===%ld==%@",self.imageSSS.count,self.dataArr.count,model.itempic);
         
@@ -154,14 +153,14 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(weakSelf.view);
         make.bottom.mas_equalTo(weakSelf.view).offset(-SafeAreaBottomHeight);
-        make.height.mas_equalTo(54*H_Scale);
+        make.height.mas_equalTo(54);
     }];
     
     self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"collection_default" withSelectImage:@"collection_light"];
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
-        make.top.mas_equalTo(10*H_Scale);
+        make.top.mas_equalTo(15*H_Scale);
         make.width.height.mas_equalTo(19*W_Scale);
     }];
     
@@ -233,13 +232,20 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         TJDafultGoodsTitlesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsTitleCell forIndexPath:indexPath];
-        [cell.btn_coupon addTarget:self action:@selector(getCouponClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [cell.btn_coupon addTarget:self action:@selector(getCouponClick:) forControlEvents:UIControlEventTouchUpInside];
         cell.model_detail = self.dataArr[0];
         
         return cell;
     }else if(indexPath.section==1){
         TJGoodsDetailsElectCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsElectCell forIndexPath:indexPath];
-        cell.model_detail = self.dataArr[0];
+        TJJHSGoodsListModel *model = self.dataArr[0];
+        if (model.guide_article==nil) {
+            NSLog(@"----%@0-efwiof",model.guide_article);
+            cell.detailsIntro = model.itemdesc;
+        }else{
+            cell.detailsIntro = model.guide_article;
+
+        }
         return cell;
     }else if(indexPath.section==2){
 
@@ -256,7 +262,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else{
         TJGoodsDetailsImagesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsImagesCell forIndexPath:indexPath];
         cell.urlStr = self.imageSSS[indexPath.row];
-        cell.model_detail = self.dataArr[0];
+//        cell.model_detail = self.dataArr[0];
 
         return cell;
         
@@ -271,8 +277,14 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         return [tableView fd_heightForCellWithIdentifier:GoodsDetailsElectCell cacheByIndexPath:indexPath configuration:^(TJGoodsDetailsElectCell *cell) {
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
             TJJHSGoodsListModel *model = self.dataArr[0];
-            cell.detailsIntro = model.guide_article;
-        }];
+            if (model.guide_article==nil) {
+                NSLog(@"----%@0-efwiof",model.guide_article);
+                cell.detailsIntro = model.itemdesc;
+            }else{
+                cell.detailsIntro = model.guide_article;
+
+            }
+        }]+10;
     }else if (indexPath.section==2){
         return 42;
     }else if(indexPath.section==3){
@@ -298,7 +310,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-   
+    if (section==0) {
+        return 0.1;
+    }
         return 5;
    
 }

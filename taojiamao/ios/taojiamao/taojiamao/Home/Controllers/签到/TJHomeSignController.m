@@ -109,24 +109,26 @@
                 DSLog(@"--TIME%@",time);
                 [self.dataArr addObject:time];
             }
+            NSString *num = responseObject[@"data"][@"num"];
+            NSString*  str;
+            if ([num intValue]==0) {
+                str = @"本月连续签到0天";
+            }else{
+                str = [NSString stringWithFormat:@"本月连续签到%@天",num];}
+            NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+                make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
+                make.append(str);
+                make.rangeEdit(NSMakeRange(6, str.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+                    make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
+                });
+            });
+            NSString *nums = responseObject[@"data"][@"nums"];
+            self.lab_total.text = nums;
+            
+            self.lab.attributedText = attrStr;
+            
               dispatch_async(dispatch_get_main_queue(), ^{
-                  NSString *num = responseObject[@"data"][@"num"];
-                  NSString*  str;
-                  if ([num intValue]==0) {
-                        str = @"本月连续签到0天";
-                  }else{
-                      str = [NSString stringWithFormat:@"本月连续签到%@天",num];}
-                  NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-                      make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
-                      make.append(str);
-                      make.rangeEdit(NSMakeRange(6, str.length), ^(SJAttributesRangeOperator * _Nonnull make) {
-                          make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
-                      });
-                  });
-                  
-                  self.lab_total.text = responseObject[@"data"][@"nums"];
-                  
-                  self.lab.attributedText = attrStr;
+                 
                   [self.calendar reloadData];
                    });
         }

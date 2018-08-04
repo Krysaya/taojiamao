@@ -7,7 +7,8 @@
 //
 
 #import "TJBaseTableCell.h"
-
+@class TJCommentsListModel;
 @interface TJCommentsReplyCell : TJBaseTableCell
 
+@property (nonatomic, strong) TJCommentsListModel *model;
 @end

@@ -7,10 +7,11 @@
 //
 
 #import "TJBaseTableCell.h"
-
+@class TJCommentsListModel;
 @interface TJMoreCommentsCell : TJBaseTableCell
 @property (weak, nonatomic) IBOutlet UIButton *btn_more;
-@property (weak, nonatomic) IBOutlet UIView *view_bg;
+
+@property (nonatomic, strong) TJCommentsListModel *model;
 
 
 @end

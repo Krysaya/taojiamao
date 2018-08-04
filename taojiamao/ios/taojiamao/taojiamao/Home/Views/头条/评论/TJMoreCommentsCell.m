@@ -7,9 +7,16 @@
 //
 
 #import "TJMoreCommentsCell.h"
+#import "TJCommentsListModel.h"
 @interface TJMoreCommentsCell()
 
 @property (weak, nonatomic) IBOutlet UIButton *btn_comments;
+@property (weak, nonatomic) IBOutlet UIImageView *headimg;
+@property (weak, nonatomic) IBOutlet UILabel *lab_nick;
+@property (weak, nonatomic) IBOutlet UILabel *lab_time;
+@property (weak, nonatomic) IBOutlet UILabel *lab_comments;
+//@property (weak, nonatomic) IBOutlet UIButton *btn_nums;
+@property (weak, nonatomic) IBOutlet UIView *view_bg;
 
 @end
 
@@ -26,6 +33,17 @@
 
     // Configure the view for the selected state
 }
-
+- (void)setModel:(TJCommentsListModel *)model{
+    _model = model;
+    [self.headimg sd_setImageWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,model.image]]];
+    self.lab_nick.text = model.username;
+    self.lab_comments.text = model.content;
+    if ([model.num intValue]==0) {
+        self.view_bg.hidden = YES;
+    }else{
+        self.view_bg.hidden = NO;
+    }
+    [self.btn_more setTitle:[NSString stringWithFormat:@"共计%@条评论",model.num] forState:UIControlStateNormal];
+}
 
 @end

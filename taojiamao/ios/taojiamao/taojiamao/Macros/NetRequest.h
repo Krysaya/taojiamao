@@ -55,6 +55,9 @@ static NSString * const UserPhone = @"UserPhone";
 //pl列表
 #define CommentsList          [BASEURL stringByAppendingString:@"/v1/comments"]
 
+//zan
+#define CommentsPraises          [BASEURL stringByAppendingString:@"/v1/praises"]
+
 //商品收藏表
 #define GoodsCollection          [BASEURL stringByAppendingString:@"/v1/collections"]
 

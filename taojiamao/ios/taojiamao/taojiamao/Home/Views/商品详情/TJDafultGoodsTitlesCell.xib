@@ -26,13 +26,16 @@
                         </constraints>
                     </scrollView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deW-Bu-06S">
-                        <rect key="frame" x="12" y="390" width="43" height="23.5"/>
+                        <rect key="frame" x="12" y="390" width="293" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="GoQ-g5-bth"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocx-vW-QYy">
-                        <rect key="frame" x="47" y="427.5" width="35.5" height="33"/>
+                        <rect key="frame" x="47" y="439" width="35.5" height="21.5"/>
                         <attributedString key="attributedText">
                             <fragment content="Label">
                                 <attributes>
@@ -82,7 +85,7 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tb_bs" translatesAutoresizingMaskIntoConstraints="NO" id="Kb7-0q-dku">
-                        <rect key="frame" x="12" y="437.5" width="25" height="13"/>
+                        <rect key="frame" x="12" y="443.5" width="25" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="Ouh-g2-aG8"/>
                             <constraint firstAttribute="width" constant="25" id="vbR-wY-0wY"/>
@@ -120,8 +123,9 @@
                     <constraint firstItem="QnM-Zz-Nzy" firstAttribute="leading" secondItem="dLh-ce-YNq" secondAttribute="trailing" constant="5" id="ghR-UY-nAn"/>
                     <constraint firstItem="g8J-yh-APl" firstAttribute="leading" secondItem="0dc-jc-k0G" secondAttribute="trailing" constant="20" id="hol-cN-mWt"/>
                     <constraint firstItem="Kb7-0q-dku" firstAttribute="centerY" secondItem="Ocx-vW-QYy" secondAttribute="centerY" id="htc-iN-4z5"/>
+                    <constraint firstAttribute="trailing" secondItem="deW-Bu-06S" secondAttribute="trailing" constant="15" id="jHu-Lr-68K"/>
                     <constraint firstItem="0dc-jc-k0G" firstAttribute="bottom" secondItem="dLh-ce-YNq" secondAttribute="bottom" id="jtW-J8-7SU"/>
-                    <constraint firstItem="Kb7-0q-dku" firstAttribute="top" secondItem="deW-Bu-06S" secondAttribute="bottom" constant="24" id="qot-D1-rNy"/>
+                    <constraint firstItem="Kb7-0q-dku" firstAttribute="top" secondItem="deW-Bu-06S" secondAttribute="bottom" constant="18.5" id="lzV-bk-9pi"/>
                     <constraint firstAttribute="trailing" secondItem="WVG-Ro-FA0" secondAttribute="trailing" constant="12" id="rlP-xe-xZr"/>
                     <constraint firstAttribute="trailing" secondItem="ki1-sg-flU" secondAttribute="trailing" constant="12" id="rsI-e5-W95"/>
                     <constraint firstAttribute="bottom" secondItem="WVG-Ro-FA0" secondAttribute="bottom" constant="15" id="v6I-Sc-OLB"/>

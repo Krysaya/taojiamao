@@ -10,4 +10,5 @@
 
 @interface TJReplyController : UITableViewController
 
+@property (nonatomic, strong) NSString *aid;
 @end

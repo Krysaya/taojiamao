@@ -7,6 +7,7 @@
 //
 
 #import "TJTQGContentCell.h"
+#import "TJTqgGoodsModel.h"
 @interface TJTQGContentCell()
 
 @property(nonatomic,strong)UIView *bgview;
@@ -59,22 +60,9 @@
 //        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12*H_Scale);
     }];
     
-//    self.tb_img = [[UIImageView alloc]init];
-//    self.tb_img.backgroundColor = RandomColor;
-//     [self.bgview addSubview:self.tb_img];
-//    [self.tb_img mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(weakSelf.bgview.mas_top).offset(25*H_Scale);
-//        make.left.mas_equalTo(weakSelf.img.mas_right).offset(15*W_Scale);
-//        make.width.mas_equalTo(27*W_Scale);
-//        make.height.mas_equalTo(13*H_Scale);
-//    }];
     
     self.title_lab = [[UILabel alloc]init];
-    NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
-        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费我", 1);
-    });
-    self.title_lab.attributedText = string;
+    
     self.title_lab.numberOfLines = 0;
 //    self.title_lab.backgroundColor = RandomColor;
     self.title_lab.textColor =RGB(51, 51, 51);
@@ -90,19 +78,9 @@
     self.lab_yiqiang = [[UILabel alloc]init];
     [self.bgview addSubview:self.lab_yiqiang];
 
-    //    self.lab_yiqiang.
-    NSString *str = @"已抢201件";
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:0 error:nil];
-    NSArray *numArr = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
+   
 
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str  attributes:@{NSForegroundColorAttributeName:KALLRGB}];
-    for (NSTextCheckingResult *attirbute in numArr) {
-
-        [attributedString setAttributes:@{NSForegroundColorAttributeName:RGB(51, 51, 51)} range:attirbute.range];
-
-    }
     self.lab_yiqiang.font = [UIFont systemFontOfSize:10];
-    self.lab_yiqiang.attributedText = attributedString;
     [self.lab_yiqiang mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.title_lab.mas_bottom).offset(11*H_Scale);
         make.left.mas_equalTo(weakSelf.img.mas_right).offset(50*W_Scale);
@@ -195,5 +173,52 @@
 
     // Configure the view for the selected state
 }
+
+- (void)setModel:(TJTqgGoodsModel *)model{
+    _model = model;
+    
+    [self.img sd_setImageWithURL: [NSURL URLWithString:model.itempic]];
+    
+    NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+        make.insertText(@" ", 1);
+        make.insertText(model.itemtitle, 2);
+    });
+    self.title_lab.attributedText = string;
+    
+    NSString *str  = [NSString stringWithFormat:@"已抢%@件",model.itemsale];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:0 error:nil];
+    NSArray *numArr = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str  attributes:@{NSForegroundColorAttributeName:KALLRGB}];
+    for (NSTextCheckingResult *attirbute in numArr) {
+        
+        [attributedString setAttributes:@{NSForegroundColorAttributeName:RGB(51, 51, 51)} range:attirbute.range];
+        
+    }
+    self.lab_yiqiang.attributedText = attributedString;
+    
+    NSString *quan = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
+    [self.btn_quan setTitle:quan forState:UIControlStateNormal];
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

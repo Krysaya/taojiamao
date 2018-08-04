@@ -64,11 +64,8 @@
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-//            TJTqgTimesListModel *model = self.timesArr[0];
-//            NSLog(@"-----mmdoel---arg===%@",model.arg);
-//            [self requestGoodsListWithModel:model];
+
             [self.collectionV reloadData];
-//            self.menuView.backgroundColor = [UIColor blackColor];
         });
         
         NSLog(@"jhsonSuccess:%@ =======",responseObject);

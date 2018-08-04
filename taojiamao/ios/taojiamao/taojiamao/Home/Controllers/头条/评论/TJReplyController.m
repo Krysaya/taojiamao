@@ -10,6 +10,7 @@
 #import "TJReplyController.h"
 #import "TJCommentsReplyCell.h"
 #import "TJMoreCommentsCell.h"
+#import "TJCommentsListModel.h"
 @interface TJReplyController ()
 
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -17,7 +18,10 @@
 @end
 
 @implementation TJReplyController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestReply];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -27,7 +31,49 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"TJMoreCommentsCell" bundle:nil] forCellReuseIdentifier:@"replyCell"];
 
 }
-
+- (void)requestReply{
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"aid":self.aid,
+                                @"cid":@"1",
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = CommentsList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{   @"cid":@"1",
+                                  @"aid":self.aid,
+};
+    } onSuccess:^(id  _Nullable responseObject) {
+//                DSLog(@"----reply-success-===%@",responseObject);
+        
+        NSDictionary *dict = responseObject[@"data"];
+        self.dataArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+          
+            [self.tableView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
+}
 
 #pragma mark - Table view data source
 
@@ -36,22 +82,26 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+//    if (section==0) {
+//        return 1;
+//    }
+    
+    return self.dataArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 105;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row==0) {
-        TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"replyCell" forIndexPath:indexPath];
-        cell.view_bg.hidden = YES;
-        return cell;
-    }else {
+//    if (indexPath.section==0) {
+//        TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"replyCell" forIndexPath:indexPath];
+////        cell.view_bg.hidden = YES;
+//        return cell;
+//    }else {
         TJCommentsReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentReplyCell" forIndexPath:indexPath];
-        
+        cell.model = self.dataArr[indexPath.row];
         return cell;
-    }
+//    }
    
 }
 

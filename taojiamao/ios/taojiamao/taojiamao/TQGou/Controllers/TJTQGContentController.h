@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TJTQGContentController : UITableViewController
+@interface TJTQGContentController : UIViewController
 
 @property (nonatomic, strong) NSArray *dataArr;
+@property(nonatomic,strong)UITableView *tableView;
+@property (nonatomic, strong) NSString *indexx;
 @end

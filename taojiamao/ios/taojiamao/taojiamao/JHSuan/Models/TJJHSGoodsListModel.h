@@ -52,7 +52,7 @@
 #import <Foundation/Foundation.h>
 
 @interface TJJHSGoodsListModel : NSObject
-@property (nonatomic, strong) NSString *id;//推荐理由
+@property (nonatomic, strong) NSString *product_id;
 @property (nonatomic, strong) NSString *itemid;//
 @property (nonatomic, strong) NSString *seller_id;//
 @property (nonatomic, strong) NSString *itemdesc;//推荐理由
@@ -65,7 +65,7 @@
 @property (nonatomic, strong) NSString *itemendprice;//券后价
 @property (nonatomic, strong) NSString *itemprice;//正常售价
 @property (nonatomic, strong) NSString *fqcat;//类目
-
+@property (nonatomic, strong) NSString *shoptype;//店铺类型
 @property (nonatomic, strong) NSString *taobao_image;//缩略图
 @property (nonatomic, strong) NSString *url;//购买链接
 @property (nonatomic, strong) NSString *sub_title;//子标题
@@ -76,9 +76,11 @@
 //@property (nonatomic, strong) NSString *video;//视频地址
 @property (nonatomic, strong) NSString *videoid;//视频id
 @property (nonatomic, strong) NSString *tktype;//高佣金计划 隐藏 营销
+@property (nonatomic, strong) NSString *tkmoney;//
+@property (nonatomic, strong) NSString *tkurl;
 @property (nonatomic, strong) NSString *tkrates;//比例佣金
 @property (nonatomic, strong) NSString *userid;//店主
-@property (nonatomic, strong) NSString *sellernick;//掌柜名
+@property (nonatomic, strong) NSString *sellernick;//dian名
 
 @property (nonatomic, strong) NSString *couponmoney;//优惠券金额
 @property (nonatomic, strong) NSString *couponurl;//优惠券连接

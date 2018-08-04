@@ -9,7 +9,6 @@
 #import "TJHeadLineShareCell.h"
 
 @interface TJHeadLineShareCell()
-@property (weak, nonatomic) IBOutlet UIButton *btn_zan;
 
 @property (weak, nonatomic) IBOutlet UIButton *btn_pyq;
 @property (weak, nonatomic) IBOutlet UIButton *btn_wx;

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TJHeadLineShareCell : TJBaseTableCell
+@property (weak, nonatomic) IBOutlet UIButton *btn_zan;
 
 @end
