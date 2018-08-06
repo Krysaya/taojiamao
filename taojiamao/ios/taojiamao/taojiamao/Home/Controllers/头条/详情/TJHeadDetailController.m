@@ -266,6 +266,7 @@
 #pragma mark- collect
 
 - (IBAction)sendCollectArticlesRequest:(UIButton *)sender {
+//    收藏文章
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -292,9 +293,14 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"type":@"2",@"rid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"-artcollect-success--%@==",responseObject);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
+        });
     }onFailure:^(NSError * _Nullable error) {
-       
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
 - (IBAction)scrollAllContent:(UIButton *)sender {
@@ -336,14 +342,51 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"type":i,@"aid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
-//        DSLog(@"-zan-success--%@==",responseObject);
+        dispatch_async(dispatch_get_main_queue(), ^{
+        });
     }onFailure:^(NSError * _Nullable error) {
 
     }];
 }
 #pragma mark - return
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
 //    发布评论
+    DSLog(@"send");
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    
+    NSString *content = [textField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"content":content,
+                                @"aid":self.aid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = PulishComments;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{@"content":textField.text,@"aid":self.aid};
+    }onSuccess:^(id  _Nullable responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showSuccessWithStatus:@"发布成功"];
+        });
+    }onFailure:^(NSError * _Nullable error) {
+        
+    }];
     return YES;
 }
 

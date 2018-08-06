@@ -64,47 +64,47 @@
     //注意:请求广告数据前,必须设置此属性,否则会先进入window的的根控制器
     [XHLaunchAd setWaitDataDuration:3];
     
-    [XDNetworking postWithUrl:LaunchImage refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        //广告数据转模型
-        TJLaunchModel * model = [TJLaunchModel yy_modelWithDictionary:response[@"data"]];
-//        //配置广告数据
-        XHLaunchImageAdConfiguration *imageAdconfiguration = [XHLaunchImageAdConfiguration new];
-//        //广告停留时间
-        imageAdconfiguration.duration = DuratioN;
-//        //广告frame
-        imageAdconfiguration.frame = CGRectMake(0, 0, S_W, S_H);
-//        //广告图片URLString/或本地图片名(.jpg/.gif请带上后缀)
-        imageAdconfiguration.imageNameOrURLString = model.content;
-//        //设置GIF动图是否只循环播放一次(仅对动图设置有效)
-//        imageAdconfiguration.GIFImageCycleOnce = NO;
-//        //缓存机制(仅对网络图片有效)
-//        //为告展示效果更好,可设置为XHLaunchAdImageCacheInBackground,先缓存,下次显示
-        imageAdconfiguration.imageOption = XHLaunchAdImageDefault;
-//        //图片填充模式
-        imageAdconfiguration.contentMode = UIViewContentModeScaleAspectFill;
-//        //广告点击打开页面参数(openModel可为NSString,模型,字典等任意类型)
-        imageAdconfiguration.openModel = model.url;
-//        imageAdconfiguration.openModel = @"www.baidu.com";//test
-//        //广告显示完成动画
-        imageAdconfiguration.showFinishAnimate =ShowFinishAnimateFadein;
-//        //广告显示完成动画时间
-        imageAdconfiguration.showFinishAnimateTime = 0.8;
-//        //跳过按钮类型
-        imageAdconfiguration.skipButtonType = SkipTypeTimeText;
-//        //后台返回时,是否显示广告
-        imageAdconfiguration.showEnterForeground = YES;
-//
-//        //图片已缓存 - 显示一个 "已预载" 视图 (可选)
-//        if([XHLaunchAd checkImageInCacheWithURL:[NSURL URLWithString:model.content]]){
-//            //设置要添加的自定义视图(可选)
-//            imageAdconfiguration.subViews = [self launchAdSubViews_alreadyView];
-//
-//        }
-        //显示开屏广告
-        [XHLaunchAd imageAdWithImageAdConfiguration:imageAdconfiguration delegate:self];
-    } failBlock:^(NSError *error) {
-        
-    }];
+//    [XDNetworking postWithUrl:LaunchImage refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+//        //广告数据转模型
+//        TJLaunchModel * model = [TJLaunchModel yy_modelWithDictionary:response[@"data"]];
+////        //配置广告数据
+//        XHLaunchImageAdConfiguration *imageAdconfiguration = [XHLaunchImageAdConfiguration new];
+////        //广告停留时间
+//        imageAdconfiguration.duration = DuratioN;
+////        //广告frame
+//        imageAdconfiguration.frame = CGRectMake(0, 0, S_W, S_H);
+////        //广告图片URLString/或本地图片名(.jpg/.gif请带上后缀)
+//        imageAdconfiguration.imageNameOrURLString = model.content;
+////        //设置GIF动图是否只循环播放一次(仅对动图设置有效)
+////        imageAdconfiguration.GIFImageCycleOnce = NO;
+////        //缓存机制(仅对网络图片有效)
+////        //为告展示效果更好,可设置为XHLaunchAdImageCacheInBackground,先缓存,下次显示
+//        imageAdconfiguration.imageOption = XHLaunchAdImageDefault;
+////        //图片填充模式
+//        imageAdconfiguration.contentMode = UIViewContentModeScaleAspectFill;
+////        //广告点击打开页面参数(openModel可为NSString,模型,字典等任意类型)
+//        imageAdconfiguration.openModel = model.url;
+////        imageAdconfiguration.openModel = @"www.baidu.com";//test
+////        //广告显示完成动画
+//        imageAdconfiguration.showFinishAnimate =ShowFinishAnimateFadein;
+////        //广告显示完成动画时间
+//        imageAdconfiguration.showFinishAnimateTime = 0.8;
+////        //跳过按钮类型
+//        imageAdconfiguration.skipButtonType = SkipTypeTimeText;
+////        //后台返回时,是否显示广告
+//        imageAdconfiguration.showEnterForeground = YES;
+////
+////        //图片已缓存 - 显示一个 "已预载" 视图 (可选)
+////        if([XHLaunchAd checkImageInCacheWithURL:[NSURL URLWithString:model.content]]){
+////            //设置要添加的自定义视图(可选)
+////            imageAdconfiguration.subViews = [self launchAdSubViews_alreadyView];
+////
+////        }
+//        //显示开屏广告
+//        [XHLaunchAd imageAdWithImageAdConfiguration:imageAdconfiguration delegate:self];
+//    } failBlock:^(NSError *error) {
+//        
+//    }];
 
 }
 

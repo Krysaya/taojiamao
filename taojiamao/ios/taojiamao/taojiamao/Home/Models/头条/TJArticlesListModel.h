@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSString *cate_id;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subtitle;
-@property (nonatomic, strong) NSString *description;
+//@property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *thumb;
 @property (nonatomic, strong) NSString *images;
 @property (nonatomic, strong) NSString *create_time;

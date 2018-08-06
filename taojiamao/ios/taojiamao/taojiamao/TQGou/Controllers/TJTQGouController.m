@@ -69,6 +69,7 @@
 
 #pragma mark - requestGoodsChooseNet
 -(void)requestGoodsChooseNet{
+//    时间list
     self.timesArr = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
@@ -78,7 +79,7 @@
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary * param = @{
-                                    //                              @"page":@"5",
+        //                              @"page":@"5",
                                     @"timestamp": timeStr,
                                     @"app": @"ios",
                                     @"uid": userid,
@@ -116,6 +117,7 @@
 }
 
 - (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
+//    商品列表
     self.dataArr  = [NSArray array];
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
@@ -140,16 +142,16 @@
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
         request.httpMethod = kXMHTTPMethodPOST;
         }onSuccess:^(id responseObject) {
+            NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
+
         self.dataArr = [TJGoodsInfoListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         //
         dispatch_async(dispatch_get_main_queue(), ^{
-//                        [self reloadData];
-//            self.vc.dataArr = self.dataArr;
-//            [self.vc.tableView reloadData];
+            self.vc.dataArr = self.dataArr;
+             [self.vc reloadTableViewData];
 
         });
-        
-        NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
+            DSLog(@"=hh==%ldarr",self.dataArr.count);
         
     } onFailure:^(NSError *error) {
         
@@ -163,28 +165,27 @@
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     
     TJTqgTimesListModel *model = self.timesArr[index];
-    
     return model.hour;
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
-    NSLog(@"dianle====%ld",index);
-    if (self.timesArr==nil) {
-        
-    }else{
-        TJTqgTimesListModel *model = self.timesArr[index];
-        NSLog(@"-----mmdoel---arg===%@",model.arg);
-//        [self requestGoodsListWithModel:model];
-    }
+   
     TJTQGContentController * ccvc = [[TJTQGContentController alloc] init];
-    ccvc.dataArr  = self.dataArr;
     self.vc = ccvc;
     return ccvc;
 }
-//- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
-//    CGFloat width = [super menuView:menu widthForItemAtIndex:index];
-//    return width;
-//}
+
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+    NSLog(@"dianle====%@",info[@"index"]);
+    NSInteger indexxx = [info[@"index"] integerValue];
+    if (self.timesArr==nil) {
+        
+    }else{
+        TJTqgTimesListModel *model = self.timesArr[indexxx];
+        NSLog(@"-----mmdoel---arg===%@",model.arg);
+        [self requestGoodsListWithModel:model];
+    }
+}
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
     CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);

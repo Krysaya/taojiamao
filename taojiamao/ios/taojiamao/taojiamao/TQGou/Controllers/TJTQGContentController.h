@@ -13,4 +13,6 @@
 @property (nonatomic, strong) NSArray *dataArr;
 @property(nonatomic,strong)UITableView *tableView;
 @property (nonatomic, strong) NSString *indexx;
+
+- (void)reloadTableViewData;
 @end

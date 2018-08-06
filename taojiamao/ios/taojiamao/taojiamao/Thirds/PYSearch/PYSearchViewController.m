@@ -376,12 +376,16 @@
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
     [titleView addSubview:searchBar];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 11.0) { // iOS 11
-        [NSLayoutConstraint activateConstraints:@[
-                                                  [searchBar.topAnchor constraintEqualToAnchor:titleView.topAnchor],
-                                                  [searchBar.leftAnchor constraintEqualToAnchor:titleView.leftAnchor],
-                                                  [searchBar.rightAnchor constraintEqualToAnchor:titleView.rightAnchor constant:-PYSEARCH_MARGIN],
-                                                  [searchBar.bottomAnchor constraintEqualToAnchor:titleView.bottomAnchor]
-                                                  ]];
+        if (@available(iOS 9.0, *)) {
+            [NSLayoutConstraint activateConstraints:@[
+                                                      [searchBar.topAnchor constraintEqualToAnchor:titleView.topAnchor],
+                                                      [searchBar.leftAnchor constraintEqualToAnchor:titleView.leftAnchor],
+                                                      [searchBar.rightAnchor constraintEqualToAnchor:titleView.rightAnchor constant:-PYSEARCH_MARGIN],
+                                                      [searchBar.bottomAnchor constraintEqualToAnchor:titleView.bottomAnchor]
+                                                      ]];
+        } else {
+            // Fallback on earlier versions
+        }
     } else {
         searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }

@@ -35,7 +35,6 @@
 
 #import "TJInvitationView.h"
 
-#import "SGActionView.h"
 
 #define Setting   9999
 #define Notify    6666
@@ -173,20 +172,21 @@
                                 };
             request.httpMethod = kXMHTTPMethodGET;
         } onSuccess:^(id  _Nullable responseObject) {
-            NSLog(@"----user-success-===%@",responseObject);
+//            NSLog(@"----user-success-===%@",responseObject);
            
             dispatch_async(dispatch_get_main_queue(), ^{
                  self.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
-                [self setHeadTView];
+                self.userName.text = self.model.nickname;
+//                [self setHeadTView];// 加还是不加
 
                 self.tableV.tableHeaderView = self.headTView;
                 [self.tableV reloadData];
             });
            
         } onFailure:^(NSError * _Nullable error) {
-            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-            DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//            DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
             self.hadLogin = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self setHeadTView];
@@ -236,11 +236,8 @@
                             };
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"----会员中心-success-===%@",responseObject);
+
         self.topArr = [TJMembersModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"top"]];
-        
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             for (NSDictionary *dict in responseObject[@"data"][@"main"]) {
                 [self.titleArr addObject:dict[@"name"]];
@@ -248,16 +245,14 @@
             }
             
             self.menuArr = [TJMemberMainModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"main"]];
-            DSLog(@"-==menuarr--%ld",self.menuArr.count);
-
             [self.topCollectView reloadData];
             [self.tableV reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--会员中心-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--会员中心-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
         
     }];
 
@@ -266,7 +261,6 @@
     [super viewDidLoad];
     self.navigationController.delegate = self;
     self.navgationView.alpha = 0;
-
     self.view.backgroundColor = RGB(245, 245, 245);
     
     [self setCustomNavgation];
@@ -313,8 +307,8 @@
         make.top.mas_equalTo(weakSelf.headIcon.mas_top).offset(13*H_Scale);
         
     }];
-    NSLog(@"----nickname--%@",self.model.nickname);
-    NSString * str= [self.model.nickname isEqual:[NSNull null]]?self.model.nickname:@"暂未设置昵称";
+//    NSLog(@"----nickname--%@",self.model.nickname);
+    NSString * str= @"暂未设置昵称";
     self.userName.text = self.hadLogin?str:@"未登录";
 
 
@@ -506,14 +500,15 @@
     if (indexPath.section==0) {
         return 30;
     }else if (indexPath.section==3){
-        return 240;
+        TJMemberMainModel *model = self.menuArr[indexPath.section-1];
+        NSArray *arr = model.menu;
+        NSInteger i = ceilf(arr.count/4.0);
+        return i*60+55;
     }
-        return 112;
+        return 115;
 
 }
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 10.0*H_Scale;//设置section间距
-//}
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TJMineListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mineCell"];
     cell.mineCellDelegate = self;

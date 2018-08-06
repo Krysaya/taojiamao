@@ -18,12 +18,15 @@
 @interface TJHeadLineController ()<TJButtonDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, assign) int  page;
 @end
 
 @implementation TJHeadLineController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestNewsList];
+    self.page = 1;
+    [self loadRequestNormalNewsList];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,9 +47,14 @@
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineOneCell" bundle:nil] forCellReuseIdentifier:@"oneCell"];
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineTwoCell" bundle:nil] forCellReuseIdentifier:@"twoCell"];
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineThreeCell" bundle:nil] forCellReuseIdentifier:@"threeCell"];
+    
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadRequestNewsList)];
+    self.tableView.mj_footer.hidden = YES;
 }
 
-- (void)requestNewsList{
+- (void)loadRequestNormalNewsList{
+    self.page = 1;
+    NSString *pag = [NSString stringWithFormat:@"%d",self.page];
     self.dataArr = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
     
@@ -60,7 +68,8 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-//                                @"type":type,
+                                @"page_size":@"2",
+                                @"page_no":pag,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -71,21 +80,78 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-//        request.parameters = @{@"type":type};
+        request.parameters = @{  @"page_size":@"2",
+                                 @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"----news-success-===%@",responseObject);
         
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        DSLog(@"-%lu--arr==",(unsigned long)self.dataArr.count);
+        NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        [self.dataArr addObjectsFromArray:array];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            if (self.dataArr.count<[md[@"page_size"] integerValue]) {
+                
+                self.tableView.mj_footer.hidden = YES;
+            }else{
+                self.tableView.mj_footer.hidden = NO;
+            }
+            
+        });
+        
+       
+        self.page++;
+    } onFailure:^(NSError * _Nullable error) {
+        
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+}
+- (void)loadRequestNewsList{
+    NSString *pag = [NSString stringWithFormat:@"%d",self.page];
+
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"page_size":@"2",
+                                @"page_no":pag,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = NewsArticles;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{  @"page_size":@"2",
+                                 @"page_no":pag};
+    } onSuccess:^(id  _Nullable responseObject) {
+        
+        NSDictionary *dict = responseObject[@"data"];
+        NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        [self.dataArr addObjectsFromArray:array];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
         
+      
+        self.page++;
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        [self.tableView.mj_footer endRefreshing];
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
 - (void)buttonClick:(UIButton *)but{

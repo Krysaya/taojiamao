@@ -52,21 +52,21 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @implementation TJGoodsDetailsController
 
 -(void)getImages{
-    NSString * url = [NSString stringWithFormat:@"https://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={item_num_id:'%@'}",self.model.num_iid];
-    
-    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    DSLog(@"%@",url);
-    [XDNetworking getWithUrl:url refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        NSDictionary * data = response[@"data"];
-        NSArray * temp = data[@"images"];
-        self.imageSSS = [NSMutableArray arrayWithArray:temp];
-        
-        DSLog(@"%@",self.imageSSS);
-        [self.tableView reloadData];
-        
-    } failBlock:^(NSError *error) {
-        
-    }];
+//    NSString * url = [NSString stringWithFormat:@"https://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={item_num_id:'%@'}",self.model.num_iid];
+//    
+//    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    DSLog(@"%@",url);
+//    [XDNetworking getWithUrl:url refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+//        NSDictionary * data = response[@"data"];
+//        NSArray * temp = data[@"images"];
+//        self.imageSSS = [NSMutableArray arrayWithArray:temp];
+//        
+//        DSLog(@"%@",self.imageSSS);
+//        [self.tableView reloadData];
+//        
+//    } failBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 - (void)viewDidLoad {

@@ -46,6 +46,9 @@ static NSString * const UserPhone = @"UserPhone";
 
 //上传头像--个人中心
 #define UploadHeaderImg          [BASEURL stringByAppendingString:@"/v1/members/head"]
+//修改昵称--个人中心
+#define UploadMemebersNick          [BASEURL stringByAppendingString:@"/v1/members/nick"]
+
 //签到数据
 #define MembersSigns          [BASEURL stringByAppendingString:@"/v1/members/signs"]
 //消息通知
@@ -55,6 +58,9 @@ static NSString * const UserPhone = @"UserPhone";
 //pl列表
 #define CommentsList          [BASEURL stringByAppendingString:@"/v1/comments"]
 
+//发布评论
+#define PulishComments          [BASEURL stringByAppendingString:@"/v1/comments/acomment"]
+
 //zan
 #define CommentsPraises          [BASEURL stringByAppendingString:@"/v1/praises"]
 
@@ -62,7 +68,7 @@ static NSString * const UserPhone = @"UserPhone";
 #define GoodsCollection          [BASEURL stringByAppendingString:@"/v1/collections"]
 
 //取消收藏
-#define CancelGoodsCollect          [BASEURL stringByAppendingString:@"/v1/goods/ccoll"]
+#define CancelGoodsCollect          [BASEURL stringByAppendingString:@"/v1/collections/ccoll"]
 
 //商品搜索
 #define SearchGoods          [BASEURL stringByAppendingString:@"/v1/goods/search"]

@@ -27,7 +27,7 @@
 }
 +(void)judgeNet{
     //网络检查
-    [XDNetworking checkNetworkStatus];
+//    [XMCenter ];
 }
 
 -(BOOL)judgeFirstOpen{

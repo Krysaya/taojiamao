@@ -79,19 +79,7 @@ static NSString * const TJUserBalanceDetailsCell = @"TJUserBalanceDetailsCell";
     return nil;
 }
 -(void)networkWithURL:(NSString*)url{
-//    NSDictionary * dict =@{@"uid":GetUserDefaults(UID)};
-    NSDictionary *dict = @{@"uid":@"1"};//test
-    [XDNetworking postWithUrl:url refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-        DSLog(@"%@",response);
-        NSArray * array = response[@"data"];
-        for (NSDictionary*d in array) {
-            TJBalanceDetailsModel * model = [TJBalanceDetailsModel yy_modelWithDictionary:d];
-            [self.dataArray addObject:model];
-        }
-        [self.tableView reloadData];
-    } failBlock:^(NSError *error) {
-        DSLog(@"%@",error);
-    }];
+
 }
 
 -(NSMutableArray *)dataArray{

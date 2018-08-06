@@ -35,6 +35,7 @@
 }
 
 - (void)requestJHSList{
+//    商品列表页
     self.dataArr = [NSMutableArray array];
     
     NSString *userid = GetUserDefaults(UID);
@@ -60,9 +61,7 @@
     }onSuccess:^(id responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        
-        
-        
+    
         dispatch_async(dispatch_get_main_queue(), ^{
 
             [self.collectionV reloadData];

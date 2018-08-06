@@ -127,10 +127,10 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         
         
     } onFailure:^(NSError *error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        
-        NSLog(@"---onFailure--%@",dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        
+//        NSLog(@"---onFailure--%@",dic_err);
         
     }];
     
@@ -160,7 +160,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
-        make.top.mas_equalTo(15*H_Scale);
+        make.top.mas_equalTo(10*H_Scale);
         make.width.height.mas_equalTo(19*W_Scale);
     }];
     

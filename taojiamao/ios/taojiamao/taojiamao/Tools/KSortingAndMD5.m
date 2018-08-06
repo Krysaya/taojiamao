@@ -62,7 +62,7 @@
     }
     //    最后拼接secret
     [tempStr appendString:[NSString stringWithFormat:@"secret=%@",secret]];
-    DSLog(@"==appstr%@",tempStr);
+    DSLog(@"============appstr%@",tempStr);
     //-----加密
     NSString *md5String = [self md5:tempStr];
     

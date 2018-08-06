@@ -42,7 +42,7 @@
 #define NEWS_Scroll  9556
 #define CLASSS_CollectionV  569845
 #define Columns_CollectionV 475525
-@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,GYRollingNoticeViewDelegate,GYRollingNoticeViewDataSource>
+@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,GYRollingNoticeViewDelegate,GYRollingNoticeViewDataSource,SDCycleScrollViewDelegate>
 
 {
     CGFloat _currentAlpha;
@@ -52,7 +52,7 @@
 @property (nonatomic, strong) NSTimer *timer_news;
 @property (nonatomic,assign) NSInteger currentIndex;/* 当前滑动到了哪个位置**/
 
-@property (nonatomic, strong) NSArray *imgADArr;
+@property (nonatomic, strong) NSMutableArray *imgADArr;
 @property (nonatomic, strong) NSArray *menuArr;
 @property (nonatomic, strong) NSArray *class_TopArr;
 @property (nonatomic, strong) NSArray *class_bottomArr;
@@ -61,8 +61,6 @@
 
 @property (nonatomic, strong) NSArray *goodsArr;
 @property (nonatomic, strong) UIScrollView *big_ScrollView;
-
-@property (nonatomic, strong) UIScrollView *ad_scrollView;
 @property (nonatomic, strong) GYRollingNoticeView *news_scrollView;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UIPageControl *pageC_NEWS;
@@ -88,9 +86,7 @@
 {
     [super viewWillDisappear:animated];
     [self resetSystemNavibar];
-    //关闭定时器
-    [self.timer invalidate];
-    [self.timer_news invalidate];
+
 }
 
 - (void)requestSearchGoodsList{
@@ -110,7 +106,6 @@
                                 
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-//    DSLog(@"sign==%@,times==%@,uid==%@",md5Str,timeStr,userid);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = SearchGoods;
         request.headers = @{@"timestamp": timeStr,
@@ -135,7 +130,7 @@
 
 - (void)requestHomePage{
     //首页
-    self.imgADArr = [NSArray array];
+    self.imgADArr = [NSMutableArray array];
     self.menuArr = [NSArray array];
     self.adSmallImgArr = [NSMutableArray array];
     self.newsArr = [NSMutableArray array];
@@ -164,16 +159,23 @@
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
 //        NSLog(@"---首页--=-%@",responseObject);
-        self.imgADArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
+        NSArray *imgArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
         self.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
         self.newsArr = [TJHeadLineScrollModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"toutiao"]];
        
+        for (int i = 0; i < imgArr.count; i++) {
+                    TJHomePageModel *model = imgArr[i];
+            [self.imgADArr addObject:model.imgurl];
+        }
+        DSLog(@"--ad--%ld",self.imgADArr.count);
+        NSArray *arr = responseObject[@"data"][@"block"];
+        NSDictionary *dict = arr[0];
+        NSDictionary *dict2 = arr[1];
+        self.class_TopArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict[@"menu"]];
+        self.class_bottomArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict2[@"menu"]];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSArray *arr = responseObject[@"data"][@"block"];
-            NSDictionary *dict = arr[0];
-            NSDictionary *dict2 = arr[1];
-            self.class_TopArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict[@"menu"]];
-            self.class_bottomArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict2[@"menu"]];
+         
              TJHomePageModel *adModel = [TJHomePageModel mj_objectWithKeyValues:responseObject[@"data"][@"ad1"]];
             [self.adSmallImgArr addObject:adModel];
             [self setADScrollView];
@@ -221,7 +223,7 @@
     } onSuccess:^(id  _Nullable responseObject) {
         self.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-        DSLog(@"--success---%@",responseObject);
+//        DSLog(@"--success---%@",responseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.tableView reloadData];
             [self setBottomTableView];
@@ -286,42 +288,12 @@
 - (void)setADScrollView{
   
 //    广告滑动
-    
-    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, AD_H)];
-    [self.big_ScrollView addSubview:scrollV];
-    scrollV.showsVerticalScrollIndicator = NO;
-    scrollV.showsHorizontalScrollIndicator = NO;
-    scrollV.pagingEnabled = YES;
-    scrollV.tag = AD_Scroll;
-    scrollV.contentSize = CGSizeMake(self.imgADArr.count * S_W, 0);
-    scrollV.delegate = self;
-    
-    for (int i = 0; i < self.imgADArr.count; i++) {
-        TJHomePageModel *model = self.imgADArr[i];
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:scrollV.bounds];
-        [imageView sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
-        [scrollV addSubview:imageView];
-    }
-    
-    [scrollV.subviews enumerateObjectsUsingBlock:^(UIImageView *imageView, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        CGRect frame = imageView.frame;
-        frame.origin.x = idx * frame.size.width;
-        imageView.frame = frame;
-    }];
-    
-    UIPageControl *pageC = [[UIPageControl alloc]init];
-    pageC.numberOfPages = self.imgADArr.count;
-    pageC.frame = CGRectMake(S_W-92, scrollV.frame.origin.y+170, 80, 12);
-    pageC.pageIndicatorTintColor = RGB(110, 110, 110);
-    pageC.currentPageIndicatorTintColor = KALLRGB;
-    pageC.currentPage = 0;
-    [self.big_ScrollView addSubview:pageC];
-
-    
-    self.ad_scrollView = scrollV;
-    self.pageControl = pageC;
-
+    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, AD_H) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView2.currentPageDotColor = KALLRGB; // 自定义分页控件小圆标颜色
+    cycleScrollView2.pageDotColor = RGB(110, 110, 110);
+    [self.big_ScrollView addSubview:cycleScrollView2];
+        cycleScrollView2.imageURLStringsGroup = self.imgADArr;
 }
 
 - (void)setColumnsCollectView{
@@ -383,7 +355,11 @@
     [self.big_ScrollView addSubview:tableView];
     self.tableView = tableView;
 }
+#pragma mark - SDCycleScrollViewDelegate
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    NSLog(@"---点击了第%ld张图片", (long)index);
 
+}
 #pragma mark - tableViewDelagte
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -478,13 +454,6 @@
        
     }
 }
-#pragma mark - 定时器
-
-- (void)setupTimer{
-    self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerChanged) userInfo:nil repeats:YES];
-    [self.timer setFireDate:[NSDate distantPast]];
-}
-
 
 #pragma mark - gydelegate
 - (NSInteger)numberOfRowsForRollingNoticeView:(GYRollingNoticeView *)rollingView{

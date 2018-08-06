@@ -128,14 +128,44 @@
 #pragma mark - TJButtonDeletage
 -(void)buttonClick:(UIButton *)but{
     if (self.changeNick) {
-        DSLog(@"修改昵称");
+        DSLog(@"sure---修改昵称");
+        [self requestEditUserName];
     }else{
         DSLog(@"查询订单");
     }
 }
 
 - (void)requestEditUserName{
-    
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+     NSString *str = [self.claimF.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"nickname":str,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = UploadMemebersNick;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{@"nickname":self.claimF.text};
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"-success:==%@",responseObject);
+        [self.navigationController popViewControllerAnimated:YES];
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 #warning 这玩意要封装↓
 -(UILabel*)setLabelWith:(NSString*)text font:(CGFloat)font color:(UIColor*)c{

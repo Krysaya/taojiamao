@@ -15,7 +15,7 @@
 
 #import "KSortingAndMD5.h"
 #import "MJExtension.h"
-#import "XDNetworking.h"
+//#import "XDNetworking.h"
 #import "XMNetworking.h"
 #import "ZJScrollPageView.h"
 #import "NSString+Hash.h"
@@ -36,14 +36,15 @@
 #import "MOFSPickerManager.h"
 #import "YYText.h"
 #import "WMPageController.h"
+
 #import "MJRefresh.h"
 #import "XHWebImageAutoSize.h"
 #import "SJAttributeWorker.h"
 #import "iCarousel.h"
 #import "GYRollingNoticeView.h"
+#import "SVProgressHUD.h"
 
-
-
+#import "SDCycleScrollView.h"
 
 #endif
 

@@ -13,6 +13,7 @@
 #import "TJGoodsListCell.h"
 #import "TJContentListCell.h"
 #import "TJGoodsCollectModel.h"
+#import "TJContetenCollectListModel.h"
 @interface TJCollectController ()<ZJScrollPageViewDelegate>
 
 @property (nonatomic, strong) ZJContentView *contentView;
@@ -82,6 +83,7 @@
 }
 
 - (void)requestGoodsCollcetion:(NSString *)type{
+//    收藏列表
     self.dataArr_collcet = [NSMutableArray array];
     
     NSString *userid = GetUserDefaults(UID);
@@ -121,7 +123,7 @@
             });
         }else{
 //            neirong
-            self.dataArr_collcet = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+            self.dataArr_collcet = [TJContetenCollectListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.vc2.dataArr = self.dataArr_collcet;

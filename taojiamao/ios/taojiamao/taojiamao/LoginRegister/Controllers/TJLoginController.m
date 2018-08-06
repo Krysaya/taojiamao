@@ -432,7 +432,7 @@
 
 
                     NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
-
+                    [SVProgressHUD showErrorWithStatus:@"登录失败！"];
                 }];
                 
             
