@@ -10,28 +10,33 @@
 #import "TJMembersModel.h"
 #import "TJMemberMainModel.h"
 #import "TJUserDataModel.h"
+
+
+
+
 #import "TJMiddleView.h"
 #import "TJPersonalCell.h"
 #import "TJMineListCell.h"
 #import "TJMineHeaderCell.h"
 
+#import "TJCourierTakeController.h"//快递
 
-#import "TJUserInfoController.h"
-#import "TJSettingController.h"
-#import "TJLoginController.h"
+#import "TJUserInfoController.h"//个人信息
+#import "TJSettingController.h"//设置
+#import "TJLoginController.h"//登录
 
 #import "TJVipBalanceController.h"
 #import "TJVipFansController.h"
 #import "TJVipPerformanceController.h"
 
-#import "TJOrderClaimController.h"
+#import "TJOrderClaimController.h"//订单认领
 #import "TJAssistanceController.h"
 #import "TJRankingListController.h"
 #import "TJShareMoneyController.h"
-#import "TJCollectController.h"
+#import "TJCollectController.h"//收藏
 #import "TJMyAssetsController.h"
-#import "TJMineOrderController.h"
-#import "TJMyFootPrintController.h"
+#import "TJMineOrderController.h"//订单
+#import "TJMyFootPrintController.h"//足迹
 
 #import "TJInvitationView.h"
 
@@ -139,12 +144,14 @@
     return _tableV;
 }
 #pragma mark -viewDidLoad
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     self.navBarBgAlpha = @"1.0";
     self.isblack = NO;
-//    NSString * token = GetUserDefaults(TOKEN);
+
+
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
     }else{
@@ -172,12 +179,13 @@
                                 };
             request.httpMethod = kXMHTTPMethodGET;
         } onSuccess:^(id  _Nullable responseObject) {
-//            NSLog(@"----user-success-===%@",responseObject);
+            NSLog(@"----user-success-===%@",responseObject);
            
             dispatch_async(dispatch_get_main_queue(), ^{
                  self.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
                 self.userName.text = self.model.nickname;
-//                [self setHeadTView];// 加还是不加
+//                [self.headIcon sd_setImageWithURL:[NSURL URLWithString:self.model.image]];
+                [self setHeadTView];// 加还是不加
 
                 self.tableV.tableHeaderView = self.headTView;
                 [self.tableV reloadData];
@@ -208,6 +216,7 @@
     
     [self requestMemebers];
 }
+
 - (void)requestMemebers
 {
     self.topArr = [NSMutableArray array];
@@ -278,7 +287,7 @@
         make.top.mas_equalTo(53*H_Scale);
     }];
     if (self.hadLogin) {
-        [self.headIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,self.model.image]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [self.headIcon sd_setImageWithURL:[NSURL URLWithString:self.model.image] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (image) {
                 [image lb_cornerImageWithSize:CGSizeMake(70*W_Scale, 70*W_Scale) cornerRadius:70*W_Scale completed:^(UIImage *image) {
                     weakSelf.headIcon.image = image;
@@ -308,7 +317,13 @@
         
     }];
 //    NSLog(@"----nickname--%@",self.model.nickname);
-    NSString * str= @"暂未设置昵称";
+    NSString *str;
+    if (self.model.nickname) {
+         str = self.model.nickname;
+    }else{
+         str = @"暂未设置昵称";
+    }
+    
     self.userName.text = self.hadLogin?str:@"未登录";
 
 
@@ -561,7 +576,18 @@
                 break;
         }
     }else if(cell.indexSection==2){
-        
+        switch (indexPath.row) {
+            case 0:
+                {
+//                    快递代取
+                    TJCourierTakeController *vc = [[TJCourierTakeController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                break;
+                
+            default:
+                break;
+        }
     }else if (cell.indexSection==3){
         DSLog(@"常用工具");
         switch (indexPath.row) {

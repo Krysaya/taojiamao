@@ -6,11 +6,12 @@
 //  Copyright © 2018年 yueyu. All rights reserved.
 //
 
+
 #ifndef StringMacros_h
 #define StringMacros_h
 
+#import "FuctionTools.h"
 
-#endif /* StringMacros_h */
 
 //RGB
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
@@ -21,11 +22,25 @@
 //随机颜色
 #define RandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
 //输出
+//#ifdef DEBUG
+//#define DSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+//#else
+//#define DSLog(...)
+//#endif
+
 #ifdef DEBUG
-#define DSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define NSLog(...) printf("%s[%s line:%d] %s\n", formattedLogDate(), __FUNCTION__, __LINE__, [[NSString stringWithFormat:__VA_ARGS__]UTF8String]);
 #else
-#define DSLog(...)
+#define NSLog(FORMAT, ...) nil
 #endif
+#ifdef DEBUG
+#define DSLog(...) printf("%s[%s line:%d] %s\n", formattedLogDate(), __FUNCTION__, __LINE__, [[NSString stringWithFormat:__VA_ARGS__]UTF8String]);
+#else
+#define DSLog(FORMAT, ...) nil
+#endif
+
+
+
 //布局
 #define S_F   [UIScreen mainScreen].bounds
 #define S_S   [UIScreen mainScreen].bounds.size
@@ -52,15 +67,15 @@
 #define GetUserDefaults(a) [[NSUserDefaults standardUserDefaults] objectForKey:a]
 
 #define SetUserDefaults(a,b) {\
-    NSUserDefaults * defa = [NSUserDefaults standardUserDefaults];\
-    [defa setObject:a forKey:b];\
-    [defa synchronize];\
+NSUserDefaults * defa = [NSUserDefaults standardUserDefaults];\
+[defa setObject:a forKey:b];\
+[defa synchronize];\
 };\
 
 #define RemoveUserDefaults(a){\
-    NSUserDefaults * defa = [NSUserDefaults standardUserDefaults];\
-    [defa removeObjectForKey:a];\
-    [defa synchronize];\
+NSUserDefaults * defa = [NSUserDefaults standardUserDefaults];\
+[defa removeObjectForKey:a];\
+[defa synchronize];\
 };\
 
 #define MAX_V(X,Y) ((X) > (Y) ? (X) : (Y))// 求两个数中的最大值
@@ -80,6 +95,23 @@ if([[UIApplication sharedApplication] canOpenURL:url]) {\
 
 // 懒加载
 #define HT_LAZY(object, assignment) (object = object ?: assignment)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif /* StringMacros_h */
+
+
 
 
 

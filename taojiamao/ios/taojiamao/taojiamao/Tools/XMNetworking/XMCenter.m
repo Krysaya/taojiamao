@@ -523,9 +523,16 @@
     [self.engine sendRequest:request completionHandler:^(id responseObject, NSError *error) {
         // the completionHandler will be execured in a private concurrent dispatch queue.
         if (error) {
-            [self xm_failureWithError:error forRequest:request];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self xm_failureWithError:error forRequest:request];
+            });
+            
         } else {
-            [self xm_successWithResponse:responseObject forRequest:request];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self xm_successWithResponse:responseObject forRequest:request];
+            });
+            
         }
     }];
 }

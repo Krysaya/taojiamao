@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TJCourierTakeController : UIViewController
+@interface TJCourierTakeController : TJBaseViewController
 
 @end

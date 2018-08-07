@@ -125,6 +125,7 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"从相册选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            
             [self presentViewController:self.imagePicker animated:YES completion:nil];
 
             
@@ -146,35 +147,36 @@
     }
 }
 #pragma mark -UIImagePickerController
--(void)imagePickerController{
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;
-    // 2. 创建图片选择控制器
-    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    /**
-     typedef NS_ENUM(NSInteger, UIImagePickerControllerSourceType) {
-     UIImagePickerControllerSourceTypePhotoLibrary, // 相册
-     UIImagePickerControllerSourceTypeCamera, // 用相机拍摄获取
-     UIImagePickerControllerSourceTypeSavedPhotosAlbum // 相簿
-     }
-     */
-    // 3. 设置打开照片相册类型(显示所有相簿)
-    ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    // ipc.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    // 照相机
-    // ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-
-    ipc.delegate = self;
- 
-    [self presentViewController:ipc animated:YES completion:nil];
-
-}
+//-(void)imagePickerController{
+//    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;
+//    // 2. 创建图片选择控制器
+//    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+//    /**
+//     typedef NS_ENUM(NSInteger, UIImagePickerControllerSourceType) {
+//     UIImagePickerControllerSourceTypePhotoLibrary, // 相册
+//     UIImagePickerControllerSourceTypeCamera, // 用相机拍摄获取
+//     UIImagePickerControllerSourceTypeSavedPhotosAlbum // 相簿
+//     }
+//     */
+//    // 3. 设置打开照片相册类型(显示所有相簿)
+//    ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//     ipc.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+//    // 照相机
+//    // ipc.sourceType = UIImagePickerControllerSourceTypeCamera;
+//
+//    ipc.delegate = self;
+// 
+//    [self presentViewController:ipc animated:YES completion:nil];
+//
+//}
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
 
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage]; //通过key值获取到图片
     NSData *fileData1 = UIImageJPEGRepresentation(image, 1.0);
+//    NSURL *urlimg = [info objectForKey:UIImagePickerControllerImageURL];
     //获取
 
-    NSLog(@"===选中图片=====%@",fileData1);
+//    NSLog(@"===选中图片===length————%ld==%@",fileData1.length,fileData1);
        //上传图片到服务器--在这里进行图片上传的网络请求
     NSNumber * uid = GetUserDefaults(UID);
     NSString *userid = [NSString stringWithFormat:@"%@",uid];
@@ -201,21 +203,21 @@
                             @"uid":userid,
                             
                             };
+//        [request addFormDataWithName:@"head[]" fileData:fileData1];
+//        [request addFormDataWithName:<#(nonnull NSString *)#> fileName:<#(nonnull NSString *)#> mimeType:<#(nonnull NSString *)#> fileData:<#(nonnull NSData *)#>];
+        [request addFormDataWithName:@"head" fileName:@"aa" mimeType:@"image/jpeg" fileData:fileData1];
         
-//        [request addFormDataWithName:@"head" fileName:@"aaa.jpg" mimeType:@"image/jpeg" fileURL:url];
-//        [request addFormDataWithName:@"head" fileData:fileData1];
-        [request addFormDataWithName:@"head[]" fileName:@"aa.jpg" mimeType:@"application/octet-stream" fileData:fileData1];
-//        request.responseSerializerType = kXMResponseSerializerJSON;
-        
-        request.httpMethod = kXMRequestUpload;
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.requestType = kXMRequestUpload;
     } onSuccess:^(id  _Nullable responseObject) {
         
         NSLog(@"----上传照片-success-===%@",responseObject);
+        [SVProgressHUD showSuccessWithStatus:@"上传成功！"];
         [picker dismissViewControllerAnimated:YES completion:^{}];
 
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
         DSLog(@"--上传照片≈error-msg=======dict%@",error);
         [picker dismissViewControllerAnimated:YES completion:^{}];
 
