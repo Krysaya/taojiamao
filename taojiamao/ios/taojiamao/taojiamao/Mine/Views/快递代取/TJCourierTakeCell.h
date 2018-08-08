@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TJCourierTakeCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *btn_pl;
 
 @end

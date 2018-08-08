@@ -94,6 +94,7 @@
     TJCollectionClassicCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectClassiCell" forIndexPath: indexPath];
     //    cell.imgView.backgroundColor = RandomColor;
     TJGoodCatesMainListModel *model = self.model.managedSons[indexPath.row];
+    DSLog(@"ewyiry34iruh--%ld-%@",indexPath.row,model.imgurl);
     [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl]];
     
     cell.lab_titel.text = model.catname;

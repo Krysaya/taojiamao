@@ -23,49 +23,52 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXn-NQ-B6K">
                     <rect key="frame" x="0.0" y="64" width="375" height="118"/>
                     <subviews>
-                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7J-AY-LuH">
-                            <rect key="frame" x="51" y="25" width="33" height="31"/>
-                            <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7J-AY-LuH">
+                            <rect key="frame" x="46.5" y="25" width="33" height="31"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="33" id="Ekv-Rl-uvB"/>
                                 <constraint firstAttribute="height" constant="31" id="hwG-iX-rRY"/>
                             </constraints>
+                            <state key="normal" image="kd_fb"/>
+                            <connections>
+                                <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="XdK-Yx-Ojc"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJD-l7-Tk2">
+                        <button opaque="NO" tag="301" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJD-l7-Tk2">
                             <rect key="frame" x="128.5" y="25" width="33" height="31"/>
-                            <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="31" id="d2A-sv-c5Y"/>
                                 <constraint firstAttribute="width" constant="33" id="gJ9-v3-Xxw"/>
                             </constraints>
+                            <state key="normal" image="kd_djd"/>
                             <connections>
                                 <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="hO1-S0-BsO"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sm9-OS-ILj">
+                        <button opaque="NO" tag="302" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sm9-OS-ILj">
                             <rect key="frame" x="213.5" y="25" width="33" height="31"/>
-                            <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="33" id="MXf-ar-ItE"/>
                                 <constraint firstAttribute="height" constant="31" id="gWl-Od-B2H"/>
                             </constraints>
+                            <state key="normal" image="kd_dpj"/>
                             <connections>
                                 <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="6UT-0D-aKi"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnA-5A-Nxh">
-                            <rect key="frame" x="291.5" y="25" width="33" height="31"/>
-                            <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button opaque="NO" tag="303" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnA-5A-Nxh">
+                            <rect key="frame" x="295.5" y="25" width="33" height="31"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="33" id="DeU-tx-vF8"/>
                                 <constraint firstAttribute="height" constant="31" id="HI9-iq-heM"/>
                             </constraints>
+                            <state key="normal" image="kd_notice"/>
                             <connections>
                                 <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="A1A-w2-PDo"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发布" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNA-Sy-giU">
-                            <rect key="frame" x="53" y="76" width="29" height="17"/>
+                            <rect key="frame" x="48.5" y="76" width="29" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -77,7 +80,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ne-9X-53F">
-                            <rect key="frame" x="293.5" y="76" width="29" height="17"/>
+                            <rect key="frame" x="297.5" y="76" width="29" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -106,12 +109,12 @@
                         <constraint firstItem="Sm9-OS-ILj" firstAttribute="leading" secondItem="b0j-PD-C9t" secondAttribute="trailing" constant="25" id="8M0-gT-lb6"/>
                         <constraint firstItem="wJD-l7-Tk2" firstAttribute="top" secondItem="D7J-AY-LuH" secondAttribute="top" id="Bwv-mU-c8a"/>
                         <constraint firstAttribute="height" constant="118" id="D1d-uU-N77"/>
-                        <constraint firstItem="wJD-l7-Tk2" firstAttribute="leading" secondItem="D7J-AY-LuH" secondAttribute="trailing" constant="45" id="DxR-Nh-omR"/>
+                        <constraint firstItem="wJD-l7-Tk2" firstAttribute="leading" secondItem="D7J-AY-LuH" secondAttribute="trailing" constant="49" id="DxR-Nh-omR"/>
                         <constraint firstItem="mg8-rU-RDT" firstAttribute="top" secondItem="wJD-l7-Tk2" secondAttribute="bottom" constant="20" id="ECa-Ek-zzp"/>
                         <constraint firstItem="b0j-PD-C9t" firstAttribute="leading" secondItem="wJD-l7-Tk2" secondAttribute="trailing" constant="25" id="FGV-d4-q6m"/>
                         <constraint firstItem="Sm9-OS-ILj" firstAttribute="top" secondItem="D7J-AY-LuH" secondAttribute="top" id="Szo-mx-JfG"/>
                         <constraint firstItem="eNA-Sy-giU" firstAttribute="centerX" secondItem="D7J-AY-LuH" secondAttribute="centerX" id="TTr-Ur-yGE"/>
-                        <constraint firstItem="QnA-5A-Nxh" firstAttribute="leading" secondItem="Sm9-OS-ILj" secondAttribute="trailing" constant="45" id="TxC-EV-GTX"/>
+                        <constraint firstItem="QnA-5A-Nxh" firstAttribute="leading" secondItem="Sm9-OS-ILj" secondAttribute="trailing" constant="49" id="TxC-EV-GTX"/>
                         <constraint firstItem="GI6-Ra-NBx" firstAttribute="top" secondItem="Sm9-OS-ILj" secondAttribute="bottom" constant="20" id="ded-Rd-u61"/>
                         <constraint firstItem="b0j-PD-C9t" firstAttribute="centerX" secondItem="pXn-NQ-B6K" secondAttribute="centerX" id="fv4-P0-CQD"/>
                         <constraint firstItem="mg8-rU-RDT" firstAttribute="centerX" secondItem="wJD-l7-Tk2" secondAttribute="centerX" id="goP-PP-2lA"/>
@@ -133,4 +136,10 @@
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="kd_djd" width="33" height="30"/>
+        <image name="kd_dpj" width="33" height="30"/>
+        <image name="kd_fb" width="33" height="30"/>
+        <image name="kd_notice" width="33" height="30"/>
+    </resources>
 </document>

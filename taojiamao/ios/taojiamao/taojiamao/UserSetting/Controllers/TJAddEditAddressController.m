@@ -51,13 +51,13 @@
     self.view.backgroundColor = RGB(245, 245, 245);
 
     [self setAllUIRiTNN];
-    [self showModel];
+//    [self showModel];
 }
 -(void)showModel{
     if (self.edit) {
         self.nameField.text = self.model.name;
         self.phoneField.text = self.model.tel;
-        self.areaPicker.text = self.model.full_address;
+//        self.areaPicker.text = self.model.full_address;
         self.details.text = self.model.address;
     }
 }
@@ -183,13 +183,15 @@
         make.height.mas_equalTo(66*H_Scale);
     }];
     
-    self.sure = [[TJButton alloc]initWith:@"完成" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:OVERGO cornerRadius:20.0];
+    self.sure = [[TJButton alloc]initWith:@"完成" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KKDRGB tag:OVERGO cornerRadius:6.0];
     [self.view addSubview:self.sure];
     [self.sure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.headView.mas_bottom).offset(40*H_Scale);
-        make.centerX.mas_equalTo(weakSelf.view);
-        make.width.mas_equalTo(335*W_Scale);
-        make.height.mas_equalTo(40*H_Scale);
+//        make.centerX.mas_equalTo(weakSelf.view);
+//        make.width.mas_equalTo(335*W_Scale);
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
+        make.height.mas_equalTo(44*H_Scale);
     }];
 }
 -(void)buttonClick:(UIButton *)but{
@@ -228,6 +230,7 @@
 //                }];
             }
         }else{
+            [SVProgressHUD showInfoWithStatus:@"手机号格式不正确"];
             DSLog(@"手机号格式不正确");
         }
     }

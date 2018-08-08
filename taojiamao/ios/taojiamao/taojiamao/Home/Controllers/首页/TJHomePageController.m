@@ -17,11 +17,11 @@
 #import "TJHomeController.h"
 #import "TJSearchController.h"
 #import "TJProjectController.h"
-#import "TJClassicController.h"
+//#import "TJClassicController.h"
 #import "TJDefaultGoodsDetailController.h"
 #import "TJHeadLineCustomCell.h"
 
-
+#import "TJClassicController.h"
 #import "TJGoodsListCell.h"
 #import "UIViewController+Extension.h"
 #import "TJHeadLineController.h"
@@ -595,7 +595,13 @@
         if (indexPath.section==0) {
             switch (indexPath.row) {
                 case 0:
+                {
 //                    快递代取
+//                    TJClassicController *vc = [[TJClassicController alloc]init];
+//                    [self.navigationController pushViewController:vc animated:YES];
+                    TJClassicController *vc = [[TJClassicController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
                     break;
                 case 1:
 //                    推荐好货

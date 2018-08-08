@@ -17,8 +17,11 @@
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 //主色
 #define KALLRGB [UIColor colorWithRed:255/255.0 green:71/255.0 blue:119/255.0 alpha:1.0]
-//主色
+//背景
 #define KBGRGB [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0]
+//快递背景
+#define KKDRGB [UIColor colorWithRed:81/255.0 green:162/255.0 blue:249/255.0 alpha:1.0]
+
 //随机颜色
 #define RandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
 //输出

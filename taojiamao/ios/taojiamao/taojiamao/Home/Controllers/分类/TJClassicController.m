@@ -188,6 +188,7 @@
         TJGoodCatesMainListModel *model = self.dataArr_left[indexPath.section];
         TJClassicSecondCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"classicCell"];
         cell2.model = model;
+        DSLog(@"=====%ld======%@",indexPath.section,model.imgurl);
 
         return cell2;
     }

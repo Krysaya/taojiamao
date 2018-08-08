@@ -28,9 +28,9 @@
     if (self) {
         
         self.selectionStyle = UITableViewCellSelectionStyleDefault;
-        _nameLabel = [self setLabelWith:@"" font:15*W_Scale color:[UIColor blackColor]];
-        _phoneLabel = [self setLabelWith:@"" font:15*W_Scale color:[UIColor blackColor]];
-        _addressLabel = [self setLabelWith:@"" font:14*W_Scale color:RGB(51, 51, 51)];
+        _nameLabel = [self setLabelWith:@"胖虎哈哈" font:15*W_Scale color:[UIColor blackColor]];
+        _phoneLabel = [self setLabelWith:@"15889569997" font:15*W_Scale color:[UIColor blackColor]];
+        _addressLabel = [self setLabelWith:@"河北省石家庄市我ID加拿大开始的精髓我发你" font:14*W_Scale color:RGB(51, 51, 51)];
         
         
         [self.contentView addSubview:_nameLabel];
@@ -39,7 +39,7 @@
         
         WeakSelf
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(23*H_Scale);
+            make.top.mas_equalTo(20*H_Scale);
             make.left.mas_equalTo(17*W_Scale);
         }];
         [_phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -53,7 +53,7 @@
         _morenLabel.textAlignment = NSTextAlignmentCenter;
         _morenLabel.font = [UIFont systemFontOfSize:12];
         _morenLabel.textColor = [UIColor whiteColor];
-        _morenLabel.backgroundColor= KALLRGB;
+        _morenLabel.backgroundColor= KKDRGB;
         _morenLabel.layer.masksToBounds = YES;
         _morenLabel.layer.cornerRadius = 7;
         
@@ -68,6 +68,7 @@
         [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(13*H_Scale);
             make.left.mas_equalTo(weakSelf.nameLabel);
+//            make.height.mas_equalTo(30);
             make.width.mas_equalTo(266*W_Scale);
         }];
         
@@ -133,7 +134,8 @@
     _model = model;
     self.nameLabel.text = model.name;
     self.phoneLabel.text = model.tel;
-    self.addressLabel.text = [model.full_address stringByAppendingString:model.address];
+    self.addressLabel.text = model.address;
+//    self.addressLabel.text = [model.full_address stringByAppendingString:model.address];
 }
 -(void)setIndexPath:(NSIndexPath *)indexPath{
     _indexPath = indexPath;

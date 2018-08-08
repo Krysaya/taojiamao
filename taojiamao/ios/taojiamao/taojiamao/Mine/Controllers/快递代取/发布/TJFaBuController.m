@@ -8,10 +8,15 @@
 //
 
 #import "TJFaBuController.h"
+#import "TJOrderPayController.h"//支付
+
+
+
 #import "TJAdressCell.h"
 #import "TJAdressTwoCell.h"
 #import "TJTextFiledCell.h"
 #import "TJPostageMoneyCell.h"//加急
+
 @interface TJFaBuController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -21,31 +26,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"发布";
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-80) style:UITableViewStylePlain];
+    self.view.backgroundColor = KBGRGB;
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-120) style:UITableViewStylePlain];
     tableView.delegate =self;
     tableView.dataSource = self;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.backgroundColor  = KBGRGB;
     tableView.tableFooterView = [UIView new];
     [tableView registerNib:[UINib nibWithNibName:@"TJAdressCell" bundle:nil] forCellReuseIdentifier:@"AdressCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJAdressTwoCell" bundle:nil] forCellReuseIdentifier:@"AdressTwoCell"];
-//    [tableView registerNib:[UINib nibWithNibName:@"TJTextFiledCell" bundle:nil] forCellReuseIdentifier:@"TextFiledCell"];
-//    [tableView registerNib:[UINib nibWithNibName:@"TJPostageMoneyCell" bundle:nil] forCellReuseIdentifier:@"PostageMoneyCell"];
+    [tableView registerNib:[UINib nibWithNibName:@"TJTextFiledCell" bundle:nil] forCellReuseIdentifier:@"TextFiledCell"];
+    [tableView registerNib:[UINib nibWithNibName:@"TJPostageMoneyCell" bundle:nil] forCellReuseIdentifier:@"PostageMoneyCell"];
     [self.view addSubview:tableView];
+    
+    
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(10, S_H-80, S_W-20, 44)];
+    [btn setTitle:@"提交" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    btn.backgroundColor = KKDRGB;
+    btn.layer.masksToBounds = YES;
+    btn.layer.cornerRadius = 5;
+    [self.view addSubview:btn];
 
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)btnClick:(UIButton *)sender
+{
+    TJOrderPayController *vc = [[TJOrderPayController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 #pragma mark - tableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
-        return 80;
-    }else if (indexPath.row==1){
         return 100;
+    }else if (indexPath.row==1){
+        return 80;
     }else if (indexPath.row==5){
-        return 300;
+        return 210;
     }else{
-        return 60;
+        return 55;
     }
     
 }
@@ -60,19 +82,18 @@
     if (indexPath.row==0) {
         TJAdressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressCell"];
         return cell;
-//    }else if (indexPath.row==1){
+    }else if (indexPath.row==1){
         
-    }else{TJAdressTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressTwoCell"];
+    TJAdressTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressTwoCell"];
+        return cell;
+    } else if (indexPath.row==2||indexPath.row==3||indexPath.row==4){
+        TJTextFiledCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFiledCell"];
+        return cell;
+    }else {
+        TJPostageMoneyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostageMoneyCell"];
         return cell;
     }
-//        else if (indexPath.row==2||indexPath.row==3||indexPath.row==4){
-//        TJTextFiledCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFiledCell"];
-//        return cell;
-//    }else {
-//        TJPostageMoneyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostageMoneyCell"];
-//        return cell;
-//    }
-    
+
     
 }
 

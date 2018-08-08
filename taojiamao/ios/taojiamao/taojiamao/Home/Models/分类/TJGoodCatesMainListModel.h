@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSString *_parents;//祖先分类id集合
 @property (nonatomic, strong) NSString *_childs;//子分类id集合
 @property (nonatomic, strong) NSString *_allchilds;//后代分类id集合
-@property (nonatomic, strong) NSDictionary *_sons;
+@property (nonatomic, strong) NSDictionary *_son;
 
 
 @property (nonatomic,   copy) NSArray *managedSons; // 处理后的son

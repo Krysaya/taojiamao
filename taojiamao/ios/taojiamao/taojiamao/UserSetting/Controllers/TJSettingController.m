@@ -132,8 +132,8 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
 
     if (indexPath.section==0) {
         if (indexPath.row==0) {
-            TJMyAddressController * mavc = [[TJMyAddressController alloc]init];
-            [self.navigationController pushViewController:mavc animated:YES];
+//            TJMyAddressController * mavc = [[TJMyAddressController alloc]init];
+//            [self.navigationController pushViewController:mavc animated:YES];
         }else if (indexPath.row==1){
             TJAccountSafeController * asvc = [[TJAccountSafeController alloc]init];
             [self.navigationController pushViewController:asvc animated:YES];

@@ -15,11 +15,25 @@
  "err_msg": "ok",
  "data": [
     {
-    "id": "4",
-    "name": "小鱼儿",
-    "tel": "18231192500",
-    "address": "沙河北大桥",
-    "full_address": "北京市 北京市 东城区 沙河北大桥"
+ "id": 5,
+ 
+ "uid": 1,
+ 
+ "name": "一一",
+ 
+ "sex": 1,
+ 
+ "telephone": "13111221010",
+ 
+ "school_id": 1,
+ 
+ "address": "学府路576号",
+ 
+ "addtime": 1533607032,
+ 
+ "edittime": null,
+ 
+ "is_default": null
     }
  ]
  }
@@ -28,7 +42,7 @@
 @property(nonatomic,copy)NSString *name;
 @property(nonatomic,copy)NSString *tel;
 @property(nonatomic,copy)NSString *address;
-@property(nonatomic,copy)NSString *full_address;
+@property(nonatomic,copy)NSString *sex;
 
 
 

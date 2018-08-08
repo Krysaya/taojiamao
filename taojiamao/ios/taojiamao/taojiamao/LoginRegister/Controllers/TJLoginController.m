@@ -443,8 +443,11 @@
             
              DSLog(@"---user%@----vcode%@",self.phoneNumF.text,self.verifyF.text);
             if (self.phoneNumF.text==nil || self.phoneNumF.text.length==0||self.verifyF.text==nil||self.verifyF.text.length==0) {
-               
+                [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
             }else{
+//                if ([self.phoneNumF.text jud]) {
+//                    <#statements#>
+//                }
                 NSDictionary * dict = @{
                                         @"telephone":self.phoneNumF.text,
                                         @"password":self.verifyF.text,

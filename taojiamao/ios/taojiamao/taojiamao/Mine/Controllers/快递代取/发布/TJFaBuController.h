@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TJFaBuController : UIViewController
+@interface TJFaBuController : TJBaseViewController
 
 @end

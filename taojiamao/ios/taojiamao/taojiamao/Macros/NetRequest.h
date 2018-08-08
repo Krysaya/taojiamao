@@ -116,6 +116,8 @@ static NSString * const UserPhone = @"UserPhone";
 #define AddCollect        [BASEURL stringByAppendingString:@"/v1/collections/coll"]
 
 
+//收货地址列表
+#define AddressList        [BASEURL stringByAppendingString:@"/v1/addresses"]
 
 
 

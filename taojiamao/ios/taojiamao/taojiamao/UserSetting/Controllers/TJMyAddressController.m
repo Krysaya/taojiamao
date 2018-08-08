@@ -51,6 +51,42 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 }
 -(void)netWork{
     
+    
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = AddressList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSLog(@"----address-success-===%@",responseObject);
+        self.dataArray = [TJMyAddressModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        //            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        //            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        //            DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    }];
+    
 }
 -(void)setUI{
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.view.yj_y, S_W, S_H-50) style:UITableViewStyleGrouped];
@@ -65,7 +101,7 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-    self.addNewAdd = [[TJButton alloc]initWith:@"添加新地址" delegate:self font:16*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:AddNewAddress];
+    self.addNewAdd = [[TJButton alloc]initWith:@"添加新地址" delegate:self font:16*W_Scale titleColor:[UIColor whiteColor] backColor:KKDRGB tag:AddNewAddress];
     [self.view addSubview:self.addNewAdd];
     WeakSelf
     [self.addNewAdd mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -164,7 +200,7 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 -(void)editClick:(NSIndexPath *)index{
     DSLog(@"编辑");
     TJAddEditAddressController * aevc = [[TJAddEditAddressController alloc]init];
-    aevc.model = self.dataArray[index.section];
+//    aevc.model = self.dataArray[index.section];
     [self.navigationController pushViewController:aevc animated:YES];
 }
 #pragma mark - TJBUttonDelagate
