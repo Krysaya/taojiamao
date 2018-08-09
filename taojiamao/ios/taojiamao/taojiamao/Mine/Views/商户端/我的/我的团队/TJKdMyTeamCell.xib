@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="99" id="KGk-i7-Jjw" customClass="TJKdMyTeamCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jkh-62-iPl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="编号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQc-g7-qTR">
+                                <rect key="frame" x="90" y="51" width="37" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4845" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mjo-Yd-E67">
+                                <rect key="frame" x="128" y="51" width="31" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnn-6Z-FJZ">
+                                <rect key="frame" x="194.5" y="20" width="23" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="0">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="单">
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="0.32257296954314718" green="0.32257296954314718" blue="0.32257296954314718" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="12" name=".PingFangSC-Regular"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日订单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWj-zo-7Fa">
+                                <rect key="frame" x="176" y="52" width="61.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zQ-MG-Kg5">
+                                <rect key="frame" x="272.5" y="20" width="22.5" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="5">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="单">
+                                        <attributes>
+                                            <color key="NSColor" red="0.28850729695431476" green="0.28850729695431476" blue="0.28850729695431476" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="12" name=".PingFangSC-Regular"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日收入" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMt-A8-7hb">
+                                <rect key="frame" x="253.5" y="52" width="61.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="morentouxiang" translatesAutoresizingMaskIntoConstraints="NO" id="Es6-xF-tdc">
+                                <rect key="frame" x="15" y="15" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="cuc-hY-48t"/>
+                                    <constraint firstAttribute="width" constant="60" id="daG-9h-orF"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="傻逼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QK1-Gg-05i">
+                                <rect key="frame" x="90" y="20" width="35" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2zQ-MG-Kg5" firstAttribute="leading" secondItem="qnn-6Z-FJZ" secondAttribute="trailing" constant="55" id="4e8-NU-wv2"/>
+                            <constraint firstItem="PWj-zo-7Fa" firstAttribute="centerX" secondItem="qnn-6Z-FJZ" secondAttribute="centerX" id="8Oh-lf-CvY"/>
+                            <constraint firstItem="HMt-A8-7hb" firstAttribute="top" secondItem="2zQ-MG-Kg5" secondAttribute="bottom" constant="11" id="Dge-ij-upc"/>
+                            <constraint firstItem="2zQ-MG-Kg5" firstAttribute="top" secondItem="qnn-6Z-FJZ" secondAttribute="top" id="OYT-Bq-FpO"/>
+                            <constraint firstItem="QK1-Gg-05i" firstAttribute="top" secondItem="jkh-62-iPl" secondAttribute="top" constant="20" id="OdJ-Qv-uSX"/>
+                            <constraint firstItem="qnn-6Z-FJZ" firstAttribute="top" secondItem="QK1-Gg-05i" secondAttribute="top" id="QQk-6j-fTT"/>
+                            <constraint firstItem="Mjo-Yd-E67" firstAttribute="leading" secondItem="bQc-g7-qTR" secondAttribute="trailing" constant="1" id="Ujp-em-ji3"/>
+                            <constraint firstItem="Es6-xF-tdc" firstAttribute="leading" secondItem="jkh-62-iPl" secondAttribute="leading" constant="15" id="XyU-mr-qJ8"/>
+                            <constraint firstAttribute="trailing" secondItem="2zQ-MG-Kg5" secondAttribute="trailing" constant="25" id="cUk-qQ-sTI"/>
+                            <constraint firstItem="HMt-A8-7hb" firstAttribute="centerX" secondItem="2zQ-MG-Kg5" secondAttribute="centerX" id="dga-rJ-xjn"/>
+                            <constraint firstItem="bQc-g7-qTR" firstAttribute="leading" secondItem="Es6-xF-tdc" secondAttribute="trailing" constant="15" id="dxT-s6-3gQ"/>
+                            <constraint firstItem="Es6-xF-tdc" firstAttribute="centerY" secondItem="jkh-62-iPl" secondAttribute="centerY" id="gcI-O3-ggE"/>
+                            <constraint firstItem="bQc-g7-qTR" firstAttribute="top" secondItem="QK1-Gg-05i" secondAttribute="bottom" constant="10" id="j25-Uh-iFv"/>
+                            <constraint firstItem="QK1-Gg-05i" firstAttribute="leading" secondItem="Es6-xF-tdc" secondAttribute="trailing" constant="15" id="lFh-G3-2Qo"/>
+                            <constraint firstItem="Mjo-Yd-E67" firstAttribute="top" secondItem="bQc-g7-qTR" secondAttribute="top" id="mtl-Ft-8XE"/>
+                            <constraint firstItem="PWj-zo-7Fa" firstAttribute="top" secondItem="qnn-6Z-FJZ" secondAttribute="bottom" constant="11" id="ynm-Q9-Qrn"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="jkh-62-iPl" secondAttribute="trailing" id="6Ne-Nx-TK0"/>
+                    <constraint firstItem="jkh-62-iPl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="PH4-7h-JwN"/>
+                    <constraint firstAttribute="bottom" secondItem="jkh-62-iPl" secondAttribute="bottom" id="SKW-f3-XgS"/>
+                    <constraint firstItem="jkh-62-iPl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Tzj-xn-qxS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+            <point key="canvasLocation" x="25" y="79.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="morentouxiang" width="100" height="100"/>
+    </resources>
+</document>
