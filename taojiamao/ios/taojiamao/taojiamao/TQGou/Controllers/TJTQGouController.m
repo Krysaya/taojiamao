@@ -14,6 +14,7 @@
 #import "MJExtension.h"
 #import "TJGoodsInfoListModel.h"
 #import "TJTqgTimesListModel.h"
+#import "TJTqgGoodsModel.h"
 #define RightMargin 44*W_Scale
 #define TopHeight 50*H_Scale
 
@@ -101,14 +102,10 @@
         TJTqgTimesListModel *model = self.timesArr[0];
         NSLog(@"-----mmdoel---arg===%@",model.arg);
 
-        [self requestGoodsListWithModel:model];
-
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reloadData];
             self.menuView.backgroundColor = [UIColor blackColor];
         });
-        
-        //        NSLog(@"onSuccess:%@ ==%ld=====",responseObject,self.timesArr.count);
         
     } onFailure:^(NSError *error) {
        
@@ -142,12 +139,13 @@
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
         request.httpMethod = kXMHTTPMethodPOST;
         }onSuccess:^(id responseObject) {
-            NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
+//            NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
 
-        self.dataArr = [TJGoodsInfoListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+//        self.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         //
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.vc.dataArr = self.dataArr;
+            
+            self.vc.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
              [self.vc reloadTableViewData];
 
         });
@@ -181,9 +179,15 @@
     if (self.timesArr==nil) {
         
     }else{
+//        if (indexxx==0) {
+//
+//        }else{
         TJTqgTimesListModel *model = self.timesArr[indexxx];
         NSLog(@"-----mmdoel---arg===%@",model.arg);
-        [self requestGoodsListWithModel:model];
+            [self requestGoodsListWithModel:model];
+        [self.vc reloadTableViewData];
+
+//        }
     }
 }
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {

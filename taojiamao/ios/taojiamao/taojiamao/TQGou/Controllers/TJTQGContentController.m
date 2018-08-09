@@ -20,8 +20,8 @@ static NSString * const TQGContentCell = @"TQGContentCell";
 @implementation TJTQGContentController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"--ccview-%ld--",self.dataArr.count);
-    [self.tableView reloadData];
+   
+//    [self.tableView reloadData];
 }
 //- (void)requestGoodsListWithModel:(NSString *)agr{
 //    //    列表
@@ -100,11 +100,21 @@ static NSString * const TQGContentCell = @"TQGContentCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TJTQGContentCell *cell = [tableView dequeueReusableCellWithIdentifier:TQGContentCell forIndexPath:indexPath];
     NSLog(@"-子-cell-------%ld",self.dataArr.count);
+//    if (self.dataArr.count==0) {
+//        
+//    }else{
+//        self.dataArr = nil;
+//    }
     cell.model = self.dataArr[indexPath.row];
     return cell;
 }
 
 - (void)reloadTableViewData{
+    
+    NSLog(@"--ccview-%ld--",self.dataArr.count);
+//    self.dataArr = nil;
+   
+
     [self.tableView reloadData];
 }
 

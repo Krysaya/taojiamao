@@ -30,7 +30,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = RGB(81, 162, 249);
-    
+//    self.navigationController.navigationBar.translucent = NO;
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,7 +42,7 @@
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, S_W, S_H-SafeAreaTopHeight) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight) style:UITableViewStylePlain];
     tableView.backgroundColor = KBGRGB;
     tableView.delegate = self;
     tableView.dataSource = self;

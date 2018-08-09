@@ -7,6 +7,9 @@
 //
 
 #import "TJPersonalController.h"
+
+#import "TJKdTabbarController.h"
+
 #import "TJMembersModel.h"
 #import "TJMemberMainModel.h"
 #import "TJUserDataModel.h"
@@ -44,7 +47,7 @@
 #define Setting   9999
 #define Notify    6666
 
-@interface TJPersonalController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,UICollectionViewDelegate,UICollectionViewDataSource,testTableViewCellDelegate>
+@interface TJPersonalController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,UICollectionViewDelegate,UICollectionViewDataSource,testTableViewCellDelegate,UITabBarControllerDelegate>
 
 @property(nonatomic,strong)TJUserDataModel * model;
 
@@ -584,7 +587,15 @@
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                 break;
+            case 2:
+            {
+                //                    快递sh
+                TJKdTabbarController *tbc = [[TJKdTabbarController alloc]init];
+                tbc.delegate = self;
+                [UIApplication  sharedApplication].keyWindow.rootViewController = tbc;
                 
+            }
+                break;
             default:
                 break;
         }
@@ -606,7 +617,7 @@
                 [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
-            case 5:
+            case 4:
             {
                 DSLog(@"==排行榜");
 
@@ -615,7 +626,7 @@
                 [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
-            case 6:
+            case 5:
             {
 //                    客服帮助
                 TJAssistanceController *vc= [[TJAssistanceController alloc]init];
@@ -644,5 +655,14 @@
     }
 }
 
-
+#pragma mark - tabbarController delagte
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    UIViewController *vc = [tabBarController.viewControllers objectAtIndex:1];
+    if (viewController == vc) {
+        DSLog(@"刷新-------vc===");
+        return NO;
+    }
+    return YES;
+    
+}
 @end

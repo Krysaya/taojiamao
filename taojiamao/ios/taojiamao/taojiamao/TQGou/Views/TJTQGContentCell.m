@@ -177,16 +177,16 @@
 - (void)setModel:(TJTqgGoodsModel *)model{
     _model = model;
     
-    [self.img sd_setImageWithURL: [NSURL URLWithString:model.itempic]];
+    [self.img sd_setImageWithURL: [NSURL URLWithString:model.pic_url]];
     
     NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
         make.insertText(@" ", 1);
-        make.insertText(model.itemtitle, 2);
+        make.insertText(model.title, 2);
     });
     self.title_lab.attributedText = string;
     
-    NSString *str  = [NSString stringWithFormat:@"已抢%@件",model.itemsale];
+    NSString *str  = [NSString stringWithFormat:@"已抢%@件",model.sold_num];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:0 error:nil];
     NSArray *numArr = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])];
     
@@ -198,8 +198,8 @@
     }
     self.lab_yiqiang.attributedText = attributedString;
     
-    NSString *quan = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
-    [self.btn_quan setTitle:quan forState:UIControlStateNormal];
+//    NSString *quan = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
+//    [self.btn_quan setTitle:quan forState:UIControlStateNormal];
     
     
 }

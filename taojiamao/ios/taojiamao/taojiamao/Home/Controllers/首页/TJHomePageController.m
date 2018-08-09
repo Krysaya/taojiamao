@@ -86,6 +86,7 @@
 {
     [super viewWillDisappear:animated];
     [self resetSystemNavibar];
+    [self.news_scrollView stopRoll];
 
 }
 

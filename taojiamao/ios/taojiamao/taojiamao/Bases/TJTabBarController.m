@@ -49,6 +49,7 @@
 //    VC3.title = @"查券";
     VC4.title = @"聚划算";
     VC5.title = @"我的";
+//    VC1.tabBarItem.image
     //
     NSArray *viewCtrs = @[home,tqg,jhs,mine];
     //
@@ -61,14 +62,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

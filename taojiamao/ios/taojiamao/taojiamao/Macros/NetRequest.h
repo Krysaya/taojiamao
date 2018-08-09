@@ -115,9 +115,36 @@ static NSString * const UserPhone = @"UserPhone";
 //添加收藏
 #define AddCollect        [BASEURL stringByAppendingString:@"/v1/collections/coll"]
 
-
+//------------------k快递
 //收货地址列表
 #define AddressList        [BASEURL stringByAppendingString:@"/v1/addresses"]
+
+//添加地址
+#define AddAddress        [BASEURL stringByAppendingString:@"/v1/addresses/address"]
+
+//修改地址
+#define EditAddress        [BASEURL stringByAppendingString:@"/v1/addresses/eaddress"]
+
+//设置地址
+#define SettingAddress        [BASEURL stringByAppendingString:@"/v1/addresses/default"]
+
+//所有地区
+#define AllAreasList        [BASEURL stringByAppendingString:@"/v1/areas"]
+
+//学习列表
+#define SchoolList        [BASEURL stringByAppendingString:@"/v1/schools"]
+
+//用户-快递-订单详情
+#define UserOrderDetail        [BASEURL stringByAppendingString:@"/v1/kuaidis/detail"]
+
+//用户-快递-修改订单
+#define UserEditOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/ekuaidi"]
+
+//用户-快递-发布订单
+#define UserReleaseOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/kuaidi"]
+
+//用户/商户-快递-订单列表
+#define OrderList        [BASEURL stringByAppendingString:@"/v1/kuaidis"]
 
 
 
