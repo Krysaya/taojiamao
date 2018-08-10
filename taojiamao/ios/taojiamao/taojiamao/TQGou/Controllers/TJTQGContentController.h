@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TJTqgTimesListModel.h"
 
 @interface TJTQGContentController : UIViewController
 
@@ -14,5 +15,6 @@
 @property(nonatomic,strong)UITableView *tableView;
 @property (nonatomic, strong) NSString *indexx;
 
-- (void)reloadTableViewData;
+- (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model;
+
 @end

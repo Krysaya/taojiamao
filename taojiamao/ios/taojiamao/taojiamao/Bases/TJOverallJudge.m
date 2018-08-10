@@ -30,6 +30,25 @@
 //    [XMCenter ];
 }
 
+//检查字符非空 nil null @“” <null>
++(BOOL)judgeBlankString:(NSString *)aStr {
+    if (!aStr) {
+        return YES;
+    }
+    if ([aStr isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if (!aStr.length) {
+        return YES;
+    }
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
+    if (!trimmedStr.length) {
+        return YES;
+    }
+    return NO;
+}
+
 -(BOOL)judgeFirstOpen{
 
     NSString * isFirst = GetUserDefaults(ISFIRST);
@@ -125,14 +144,6 @@
     }
     return NO;
 }
-//+(BOOL)judgeStringIsNull:(NSArray*)array{
-//    for (NSString*str in array) {
-//        if (str.length==0 ||str==nil) {
-//            return YES;
-//        }
-//    }
-//    return NO;
-//}
 
 
 

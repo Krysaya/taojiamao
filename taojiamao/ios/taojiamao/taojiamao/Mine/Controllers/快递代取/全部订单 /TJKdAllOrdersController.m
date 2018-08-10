@@ -10,22 +10,19 @@
 #import "TJKdAllOrdersController.h"
 #import "TJAllOrderContentController.h"
 
-#import "TJKdUserOrderList.h"
 
 @interface TJKdAllOrdersController ()<ZJScrollPageViewDelegate>
 @property (nonatomic, strong) ZJContentView *contentView;
-@property (nonatomic, strong) NSMutableArray *dataArr;
 @end
 
 @implementation TJKdAllOrdersController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadNormalOrderList:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = KBGRGB;
+    self.view.backgroundColor = [UIColor whiteColor];
     ZJSegmentStyle *style = [[ZJSegmentStyle alloc]init];
     style.showLine= YES;
     style.scrollTitle = NO;
@@ -48,52 +45,7 @@
 
 }
 
-- (void)loadNormalOrderList:(NSString *)type{
-    self.dataArr = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"type":@"2",
 
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = OrderList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{ @"type":@"2"};
-    } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"----kdorder=-success-===%@",responseObject);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-        });
-        
-    } onFailure:^(NSError * _Nullable error) {
-//                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//                    DSLog(@"--order-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
-        DSLog(@"--error-%@",error);
-        dispatch_async(dispatch_get_main_queue(), ^{
-          
-        });
-        
-        
-        
-    }];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -105,8 +57,11 @@
 
 - (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index
 {
-    TJAllOrderContentController *vc = [[TJAllOrderContentController alloc]init];
-    return vc;
+    TJAllOrderContentController *childVc = (TJAllOrderContentController *)reuseViewController;
+    if (childVc==nil) {
+        childVc = [[TJAllOrderContentController alloc]init];
+    }
+    return childVc;
 }
 
 

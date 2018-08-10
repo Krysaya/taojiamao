@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJKdUserOrderList;
 @interface TJCourierTakeCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *btn_pl;
 
+@property (nonatomic, strong) TJKdUserOrderList *model;
 @end

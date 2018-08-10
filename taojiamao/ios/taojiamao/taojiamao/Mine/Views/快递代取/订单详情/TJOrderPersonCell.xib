@@ -41,7 +41,7 @@
                                 </constraints>
                                 <state key="normal" image="kd_phone"/>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NGD-nq-mMN">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="morentouxiang" translatesAutoresizingMaskIntoConstraints="NO" id="NGD-nq-mMN">
                                 <rect key="frame" x="20" y="13" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Bu2-YW-vY2"/>
@@ -108,10 +108,18 @@
                     <constraint firstAttribute="trailing" secondItem="4Qn-Ia-2zk" secondAttribute="trailing" constant="10" id="lg1-UP-D9a"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="btn_phone" destination="8pU-I3-IIu" id="A3b-nW-V96"/>
+                <outlet property="img_head" destination="NGD-nq-mMN" id="nkV-sJ-vxb"/>
+                <outlet property="lab_name" destination="e7Q-KW-PNb" id="ZnS-lg-OO1"/>
+                <outlet property="lab_score" destination="Y38-0Q-sbM" id="jGk-pO-par"/>
+                <outlet property="progress" destination="Avf-fC-E7e" id="xs8-ay-Ras"/>
+            </connections>
             <point key="canvasLocation" x="25" y="78"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="kd_phone" width="38" height="38"/>
+        <image name="morentouxiang" width="100" height="100"/>
     </resources>
 </document>

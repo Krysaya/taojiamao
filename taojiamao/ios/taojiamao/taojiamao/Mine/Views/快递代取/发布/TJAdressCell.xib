@@ -82,6 +82,11 @@
                     <constraint firstItem="JgD-rQ-Td3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ycB-TY-16X"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="lab_name" destination="Qcj-Wz-9ed" id="IdL-et-bR2"/>
+                <outlet property="lab_phone" destination="sDU-GC-cFv" id="DQK-XH-BAJ"/>
+                <outlet property="lab_songAddress" destination="D3u-td-Ebf" id="nCG-GR-qSQ"/>
+            </connections>
             <point key="canvasLocation" x="-141" y="6.5"/>
         </tableViewCell>
     </objects>

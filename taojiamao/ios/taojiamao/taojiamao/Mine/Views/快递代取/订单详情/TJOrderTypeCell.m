@@ -8,6 +8,13 @@
 //
 
 #import "TJOrderTypeCell.h"
+@interface TJOrderTypeCell()
+@property (weak, nonatomic) IBOutlet UIImageView *img_kdlogo;
+@property (weak, nonatomic) IBOutlet UILabel *lab_kdtype;
+@property (weak, nonatomic) IBOutlet UILabel *lab_kdnum;
+
+
+@end
 
 @implementation TJOrderTypeCell
 

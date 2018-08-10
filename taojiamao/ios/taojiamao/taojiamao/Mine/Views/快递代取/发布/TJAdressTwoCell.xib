@@ -74,6 +74,9 @@
                 </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="lab_quAddress" destination="8BO-3d-eOv" id="JUT-ie-2Dp"/>
+            </connections>
             <point key="canvasLocation" x="25" y="63.5"/>
         </tableViewCell>
     </objects>

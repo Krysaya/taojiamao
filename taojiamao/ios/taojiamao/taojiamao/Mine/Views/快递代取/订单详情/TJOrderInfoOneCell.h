@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJKdOrderInfoModel;
 
 @interface TJOrderInfoOneCell : UITableViewCell
-
+@property (nonatomic, strong) TJKdOrderInfoModel *model;
 @end

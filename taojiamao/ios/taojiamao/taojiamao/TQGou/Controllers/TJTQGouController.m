@@ -20,19 +20,18 @@
 
 
 @interface TJTQGouController ()<WMPageControllerDelegate>
-{
-    TJTQGContentController * _vc;
-}
+
 @property(nonatomic,strong)NSMutableArray * timesArr;
-@property (nonatomic, strong)TJTQGContentController * vc;;
 @property (nonatomic, strong) NSArray *dataArr;
+@property (nonatomic, strong) NSMutableArray *childVCs;
+
 @end
 
 @implementation TJTQGouController
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self requestGoodsChooseNet];
+    
 
     
 }
@@ -42,7 +41,7 @@
     UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"tqg"]];
     self.navigationItem.titleView = headerImg;
     
-    
+    [self requestGoodsChooseNet];
 }
 
 
@@ -64,6 +63,7 @@
         self.progressViewCornerRadius = 0.f;
         self.postNotification = YES;
         self.delegate = self;
+        
     }
     return self;
 }
@@ -89,18 +89,28 @@
     
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
     //
-    //
+    
+    kWeakSelf(self);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = TQGTimeChoose;
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
         request.httpMethod = kXMHTTPMethodGET;
     }onSuccess:^(id responseObject) {
+        kStrongSelf(self);
         NSDictionary *dict = responseObject[@"data"];
         NSArray *arr = dict[@"times"];
         self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];
         
-        TJTqgTimesListModel *model = self.timesArr[0];
-        NSLog(@"-----mmdoel---arg===%@",model.arg);
+//        TJTqgTimesListModel *model = self.timesArr[0];
+//        NSLog(@"-----mmdoel---arg===%@",model.arg);
+//        [self requestGoodsListWithModel:model];
+        
+        self.childVCs = @[].mutableCopy;
+        for (int i = 0; i < self.timesArr.count; i ++) {
+            TJTQGContentController * ccvc = [[TJTQGContentController alloc] init];
+            [self.childVCs addObject:ccvc];
+        }
+        
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reloadData];
@@ -113,48 +123,7 @@
     }];
 }
 
-- (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
-//    商品列表
-    self.dataArr  = [NSArray array];
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary * param = @{
-                                    @"page_size":@"5",
-                                    @"timestamp": timeStr,
-                                    @"app": @"ios",
-                                    @"uid": userid,
-                                    @"start_time": model.arg,
-                                    
-                                    }.mutableCopy;
-    
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = TQGGoodsList;
-        request.parameters = @{  @"page_size":@"5",@"start_time": model.arg};
-        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
-        request.httpMethod = kXMHTTPMethodPOST;
-        }onSuccess:^(id responseObject) {
-//            NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
 
-//        self.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        //
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.vc.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-             [self.vc reloadTableViewData];
-
-        });
-            DSLog(@"=hh==%ldarr",self.dataArr.count);
-        
-    } onFailure:^(NSError *error) {
-        
-    }];
-}
 #pragma mark -WMPageControllerSetting
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     
@@ -167,10 +136,11 @@
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
-   
-    TJTQGContentController * ccvc = [[TJTQGContentController alloc] init];
-    self.vc = ccvc;
-    return ccvc;
+    TJTQGContentController * ccvc = [self.childVCs objectAtIndex:index];
+    if (ccvc) {
+        return ccvc;
+    }
+    return [UIViewController new];
 }
 
 - (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
@@ -184,8 +154,9 @@
 //        }else{
         TJTqgTimesListModel *model = self.timesArr[indexxx];
         NSLog(@"-----mmdoel---arg===%@",model.arg);
-            [self requestGoodsListWithModel:model];
-        [self.vc reloadTableViewData];
+        TJTQGContentController * ccvc = self.childVCs[indexxx];
+        [ccvc requestGoodsListWithModel:model];
+        
 
 //        }
     }

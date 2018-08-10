@@ -10,4 +10,7 @@
 
 @interface TJOrderInfoController : UIViewController
 
+@property (nonatomic, strong) NSString *kdid;
+@property (nonatomic, strong) NSString *kdstatus;
+
 @end

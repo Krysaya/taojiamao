@@ -66,6 +66,11 @@
 #define WeakSelf __weak typeof(self) weakSelf = self;
 
 
+#define kWeakSelf(type)  __weak typeof(type) weak##type = type;
+#define kStrongSelf(type) __strong typeof(type) type = weak##type;
+
+
+
 //用户中心数据
 #define GetUserDefaults(a) [[NSUserDefaults standardUserDefaults] objectForKey:a]
 

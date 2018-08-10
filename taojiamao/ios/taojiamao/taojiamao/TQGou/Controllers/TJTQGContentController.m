@@ -10,7 +10,7 @@
 #import "TJTQGContentController.h"
 #import "TJTQGContentCell.h"
 #import "TJTqgGoodsModel.h"
-#import "TJTqgTimesListModel.h"
+
 static NSString * const TQGContentCell = @"TQGContentCell";
 
 @interface TJTQGContentController ()<UITableViewDelegate,UITableViewDataSource>
@@ -78,10 +78,47 @@ static NSString * const TQGContentCell = @"TQGContentCell";
 }
 
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
+    //    商品列表
+    self.dataArr  = [NSArray array];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary * param = @{
+                                    @"page_size":@"5",
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid": userid,
+                                    @"start_time": model.arg,
+                                    
+                                    }.mutableCopy;
+    
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = TQGGoodsList;
+        request.parameters = @{  @"page_size":@"5",@"start_time": model.arg};
+        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
+        request.httpMethod = kXMHTTPMethodPOST;
+    }onSuccess:^(id responseObject) {
+        NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
+        
+        self.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        //
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.dataArr = self.dataArr;
+            [self reloadTableViewData];
+            
+        });
+        DSLog(@"=hh==%ldarr",self.dataArr.count);
+        
+    } onFailure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - Table view data source

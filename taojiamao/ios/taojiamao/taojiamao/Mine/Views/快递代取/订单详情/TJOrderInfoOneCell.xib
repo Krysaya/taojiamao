@@ -27,8 +27,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A1-3-21821" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LeN-oS-oDo">
-                                <rect key="frame" x="86" y="15" width="80" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LeN-oS-oDo">
+                                <rect key="frame" x="86" y="24" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.29803921570000003" green="0.62745098040000002" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -74,6 +74,11 @@
                     <constraint firstAttribute="bottom" secondItem="yzU-G9-NgC" secondAttribute="bottom" constant="8" id="cM9-Ak-UHE"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="lab_code" destination="LeN-oS-oDo" id="pA9-V3-mTY"/>
+                <outlet property="lab_detail" destination="7UE-nn-CXX" id="DyD-Cg-JHV"/>
+                <outlet property="lab_time" destination="wfw-Rv-UDR" id="8bu-vl-3LD"/>
+            </connections>
             <point key="canvasLocation" x="-399" y="-28"/>
         </tableViewCell>
     </objects>

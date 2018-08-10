@@ -8,6 +8,13 @@
 //
 
 #import "TJAdressCell.h"
+@interface TJAdressCell()
+@property (weak, nonatomic) IBOutlet UILabel *lab_name;
+@property (weak, nonatomic) IBOutlet UILabel *lab_phone;
+@property (weak, nonatomic) IBOutlet UILabel *lab_songAddress;
+
+
+@end
 
 @implementation TJAdressCell
 

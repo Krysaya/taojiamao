@@ -67,6 +67,11 @@
                     <constraint firstItem="O74-Nn-DtC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="d8c-gy-Zhl"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="img_kdlogo" destination="w4B-cz-u3Y" id="J7K-br-2am"/>
+                <outlet property="lab_kdnum" destination="ROh-pg-Ly7" id="UaM-Go-r8C"/>
+                <outlet property="lab_kdtype" destination="O88-LY-Ipd" id="JG0-9r-ZWB"/>
+            </connections>
             <point key="canvasLocation" x="25" y="70"/>
         </tableViewCell>
     </objects>

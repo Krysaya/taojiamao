@@ -11,6 +11,7 @@
 @interface TJAdressTwoCell()
 //@property (weak, nonatomic) IBOutlet UIImageView *img;
 //@property (weak, nonatomic) IBOutlet UILabel *lab_address;
+@property (weak, nonatomic) IBOutlet UILabel *lab_quAddress;
 
 
 @end

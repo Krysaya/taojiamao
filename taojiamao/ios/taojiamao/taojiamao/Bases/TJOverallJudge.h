@@ -18,6 +18,7 @@
 
 +(BOOL)judgeLoginStatus;
 
++(BOOL)judgeBlankString:(NSString *)aStr;
 //-(void)judgeAuthcode;
 
 +(BOOL)judgeMobile:(NSString *)mobile;
