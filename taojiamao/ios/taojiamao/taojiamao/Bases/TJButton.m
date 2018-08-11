@@ -28,7 +28,7 @@
     
     return [self initWith:title delegate:dele font:font titleColor:color backColor:bc tag:tag cornerRadius:cor borderColor:nil  borderWidth:0.0 withBackImage:nil withSelectImage:nil];
 }
--(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color  tag:(NSInteger)tag   withBackImage:(NSString*)image
+-(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color  tag:(NSInteger)tag   withBackImage:(NSString*)image withEdgeType:(NSString *)type
 {
     self = [super init];
     if (self) {
@@ -43,11 +43,25 @@
         but.titleLabel.font = [UIFont systemFontOfSize:font];
          [but setTitleColor:color forState:UIControlStateNormal];
        
-        // button.imageEdgeInsets = UIEdgeInsetsMake(-button.titleLabel.frame.size.height, 0, 0, -button.titleLabel.frame.size.width);
-        // 由于iOS8中titleLabel的size为0，用上面这样设置有问题，修改一下即可
-        
-        but.imageEdgeInsets = UIEdgeInsetsMake(-but.titleLabel.intrinsicContentSize.height-15, 0, 0, -but.titleLabel.intrinsicContentSize.width);
-         but.titleEdgeInsets = UIEdgeInsetsMake(0, -but.imageView.frame.size.width, -but.imageView.frame.size.height-15, 0);
+        UIImage *img = but.imageView.image;
+        UILabel *lab = but.titleLabel;
+        if ([type isEqualToString:@"top"]) {
+            
+        }else if ([type isEqualToString:@"bottom"]){
+//            文字在下
+            but.imageEdgeInsets = UIEdgeInsetsMake(-but.titleLabel.intrinsicContentSize.height-15, 0, 0, -but.titleLabel.intrinsicContentSize.width);
+            but.titleEdgeInsets = UIEdgeInsetsMake(0, -but.imageView.frame.size.width, -but.imageView.frame.size.height-15, 0);
+        }else if ([type isEqualToString:@"left"]){
+            
+            [but setTitleEdgeInsets:UIEdgeInsetsMake(0, -img.size.width-10, 0, img.size.width)];
+            
+            [but setImageEdgeInsets:UIEdgeInsetsMake(0, lab.bounds.size.width, 0, -lab.bounds.size.width-10)];
+        }else{
+//            [but setTitleEdgeInsets:UIEdgeInsetsMake(0,-10,0,0)];
+//            文字在右--默认
+            [but setImageEdgeInsets:UIEdgeInsetsMake(0,-10,0,0)];
+        }
+       
         self.button = but;
 
         [self addSubview:but];

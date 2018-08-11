@@ -10,4 +10,5 @@
 
 @interface TJClassicSecondController : TJBaseViewController
 
+@property (nonatomic, strong) NSString *title_class;
 @end

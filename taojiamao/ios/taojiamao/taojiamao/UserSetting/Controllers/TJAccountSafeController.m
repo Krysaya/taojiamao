@@ -45,7 +45,7 @@
     if (indexPath.section==0) {
         UILabel * intro = [self setLabelWith:@"修改手机号" font:AccountSafeFont color:RGB(51, 51, 51)];
 //        UILabel * phone = [self setLabelWith:GetUserDefaults(UserPhone) font:AccountSafeFont color:RGB(128, 128, 128)];
-        UILabel * phone = [self setLabelWith:@"17731934096" font:AccountSafeFont color:RGB(128, 128, 128)];
+        UILabel * phone = [self setLabelWith:self.phone font:AccountSafeFont color:RGB(128, 128, 128)];
         UIImageView * jj = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow"]];
         
         [cell.contentView addSubview:intro];
@@ -135,6 +135,7 @@
  
     TJChangePhoneController * cpvc = [[TJChangePhoneController alloc]init];
     cpvc.vcID = indexPath.section;
+    cpvc.phoneNum = self.phone;
     [self.navigationController pushViewController:cpvc animated:YES];
 
 }

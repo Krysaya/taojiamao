@@ -92,12 +92,14 @@
         NSLog(@"----sign-success-===%@",responseObject);
         if (methodtype==kXMHTTPMethodPOST) {
             
-            [self.calendar reloadData];
 
             TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
             successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
             
-            [self presentViewController:successVc animated:NO completion:nil];
+            [self presentViewController:successVc animated:NO completion:^{
+                [self RequestSignInfoWithType:kXMHTTPMethodGET];
+
+            }];
         }else{
             self.bannerArr = [NSArray array];
             self.bannerArr = responseObject[@"data"][@"banner"];
@@ -139,7 +141,7 @@
         }
         
     } onFailure:^(NSError * _Nullable error) {
-        
+        [SVProgressHUD showInfoWithStatus:@"签到失败！"];
     }];
     
 }
@@ -221,10 +223,10 @@
 }
 - (void)setSignBtn{
     UIButton *signBtn = [[UIButton alloc]init];
-    signBtn.frame =CGRectMake(0, 30+18+50+SafeAreaTopHeight+300, 190, 40);
+    signBtn.frame =CGRectMake(0, 30+18+50+SafeAreaTopHeight+300, 220, 40);
     signBtn.center = CGPointMake(self.view.center.x, 30+18+50+SafeAreaTopHeight+300);
     [signBtn setBackgroundColor:KALLRGB];
-    signBtn.layer.cornerRadius = 20;
+    signBtn.layer.cornerRadius = 15;
     signBtn.layer.masksToBounds = YES;
     [signBtn addTarget:self action:@selector(signBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     signBtn.titleLabel.font = [UIFont systemFontOfSize:17];

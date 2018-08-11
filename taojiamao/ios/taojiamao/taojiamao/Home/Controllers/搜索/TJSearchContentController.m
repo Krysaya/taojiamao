@@ -90,7 +90,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 //UICollectionViewCell的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake((S_W-10)/2, 275);
+    return CGSizeMake((S_W-5)/2, 275);
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];

@@ -30,13 +30,12 @@
 @implementation TJHomeController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.isblack = YES;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"商品分类";
-//    [self setChooseHeadview];
+    self.titles = @[@"女装",@"男装",@"内衣",@"母婴",@"化妆品",@"居家",@"鞋包配饰",@"美食",@"文体车品",@"数码家电"];
+
+    self.title = self.title_class;
     //
     self.menuViewStyle = WMMenuViewStyleLine;
     
@@ -46,9 +45,8 @@
     self.titleColorSelected = RGB(255, 71, 119);
     self.titleColorNormal = RGB(102, 102, 102);
     self.progressColor = RGB(255, 71, 119);
-    
-        //
-//    [self setNavTitleItems];
+    [self reloadData];
+    [self setNavTitleItems];
     
 }
 
@@ -61,9 +59,9 @@
 //    self.navigationItem.titleView = title;
     
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action: @selector(searchClick)];
-    UIBarButtonItem *notifiItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(notification)];
-    NSArray *itemsArr = @[notifiItem,searchItem];
-    self.navigationItem.rightBarButtonItems = itemsArr;
+//    UIBarButtonItem *notifiItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(notification)];
+//    NSArray *itemsArr = @[notifiItem,searchItem];
+    self.navigationItem.rightBarButtonItem = searchItem;
     
 }
 
@@ -122,13 +120,14 @@
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
 //    if(index==0) return [[TJFirstAllController alloc]init];
-    if (index==0) {
-        return nil;
-//         return [self.navigationController popViewControllerAnimated:NO];
-    }else{
+//    if (index==0) {
+//        return nil;
+////         return [self.navigationController popViewControllerAnimated:NO];
+//    }else{
             TJContentController * ccvc = [[TJContentController alloc] init];
             ccvc.testName = self.titles[index];
-            return ccvc;}
+            return ccvc;
+//}
 }
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
     CGFloat width = [super menuView:menu widthForItemAtIndex:index];

@@ -11,6 +11,9 @@
 @interface TJNoticeCell()
 @property (weak, nonatomic) IBOutlet UILabel *lab_type;
 @property (weak, nonatomic) IBOutlet UILabel *lab_titel;
+@property (weak, nonatomic) IBOutlet UILabel *lab_time;
+@property (weak, nonatomic) IBOutlet UILabel *lab_detailt;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
 
 @end
 
@@ -18,6 +21,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.lab_type.hidden = YES;
     // Initialization code
 }
 
@@ -30,6 +34,12 @@
 - (void)setModel:(TJNoticeListModel *)model{
     
     self.lab_titel.text = model.message;
+    if ([model.isread intValue]==0) {
+        self.lab_type.hidden = NO;
+    }else{
+        self.lab_type.hidden = YES;
+    }
+    
     
 }
 @end

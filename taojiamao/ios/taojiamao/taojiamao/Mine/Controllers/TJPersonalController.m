@@ -26,6 +26,7 @@
 
 #import "TJUserInfoController.h"//个人信息
 #import "TJSettingController.h"//设置
+#import "TJNoticeController.h"//通知
 #import "TJLoginController.h"//登录
 
 #import "TJVipBalanceController.h"
@@ -40,6 +41,9 @@
 #import "TJMyAssetsController.h"
 #import "TJMineOrderController.h"//订单
 #import "TJMyFootPrintController.h"//足迹
+#import "TJVipBalanceController.h"//累计
+#import "TJVipPerformanceController.h"//推广
+#import "TJMiddleClickController.h"//热推
 
 #import "TJInvitationView.h"
 
@@ -147,7 +151,11 @@
     return _tableV;
 }
 #pragma mark -viewDidLoad
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -195,9 +203,6 @@
             });
            
         } onFailure:^(NSError * _Nullable error) {
-//            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//            DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
             self.hadLogin = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self setHeadTView];
@@ -262,9 +267,6 @@
         });
         
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--会员中心-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
         
     }];
 
@@ -445,10 +447,12 @@
 -(void)buttonClick:(UIButton *)but{
     if (but.tag==Setting) {
         TJSettingController * setvc = [[TJSettingController alloc]init];
+        setvc.phone = self.model.telephone;
         [self.navigationController pushViewController:setvc animated:YES];
     }else{
-        DSLog(@"您尚未登录");
-
+        TJNoticeController *vc = [[TJNoticeController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
     }
 }
 -(void)intoInfoSetting{
@@ -558,21 +562,29 @@
             case 0:
                 {
 //                    累计奖金
+                    TJVipBalanceController *vc  = [[TJVipBalanceController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
                 break;
             case 1:
             {
 //                    我的粉丝
+                TJVipFansController *vc = [[TJVipFansController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 2:
             {
 //                    推广业绩
+                TJVipPerformanceController *vc = [[TJVipPerformanceController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 3:
             {
 //                    热推top
+                TJMiddleClickController *vc = [[TJMiddleClickController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
             default:
@@ -589,7 +601,7 @@
                 break;
             case 2:
             {
-                //                    快递sh
+                //                    快递sh==商户
                 TJKdTabbarController *tbc = [[TJKdTabbarController alloc]init];
                 tbc.delegate = self;
                 [UIApplication  sharedApplication].keyWindow.rootViewController = tbc;

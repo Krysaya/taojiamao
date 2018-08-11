@@ -22,8 +22,16 @@
 @implementation TJMyFootPrintController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     [self requestFootPrint];
 }
+-(void)viewWillDisappear:(BOOL)animated
+
+{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的足迹";
@@ -75,9 +83,9 @@
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--足迹-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--足迹-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 
 }

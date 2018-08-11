@@ -12,8 +12,6 @@
 @interface TJDetailListCell()
 @property (weak, nonatomic) IBOutlet UILabel *lab_type;
 @property (weak, nonatomic) IBOutlet UILabel *lab_time;
-
-
 @property (weak, nonatomic) IBOutlet UILabel *lab_num;
 @end
 
@@ -32,7 +30,21 @@
 
 - (void)setModel:(TJAssetsDetailListModel *)model{
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+     NSString *time = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[model.addtime doubleValue]]];
 //    self.lab_type.text = model.message;
-    self.lab_time.text = model.addtime;
+    self.lab_time.text = time;
+    
+    if ([model.type intValue]==1) {
+        self.lab_type.text = @"签到";
+    }
+    
+    if ([model.operate intValue]==1) {
+        self.lab_num.text = [NSString stringWithFormat:@"+ %@",model.point];
+    }else{
+        self.lab_num.text = [NSString stringWithFormat:@"- %@",model.point];
+
+    }
 }
 @end

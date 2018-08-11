@@ -19,14 +19,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
  
 }
+
 - (void)zj_viewWillAppearForIndex:(NSInteger)index{
-    [self loadMembersMingXiList:@"1"];
+  NSString *str = [NSString stringWithFormat:@"%ld",index+1];
+    [self loadMembersMingXiList:str];
 }
 - (void)zj_viewDidLoadForIndex:(NSInteger)index{
-    NSLog(@"-----%ld---",index);
     NSString *str = [NSString stringWithFormat:@"%ld",index+1];
     [self loadMembersMingXiList:str];
   
@@ -63,17 +63,17 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"style":type};
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"----jifen-success-===%@",responseObject);
+//        NSLog(@"----jifen-success-===%@",responseObject);
         self.dataArr = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        DSLog(@"===jf==%ld",self.dataArr.count);
+//        DSLog(@"===jf==%ld",self.dataArr.count);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--jien-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--jien-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
 - (void)requestMembersDetailWithIndex:(NSInteger)index{

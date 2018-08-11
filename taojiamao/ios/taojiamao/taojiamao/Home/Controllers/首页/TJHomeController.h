@@ -11,4 +11,5 @@
 @interface TJHomeController : WMPageController
 
 @property (nonatomic, assign) int  index;
+@property (nonatomic, strong) NSString *title_class;
 @end

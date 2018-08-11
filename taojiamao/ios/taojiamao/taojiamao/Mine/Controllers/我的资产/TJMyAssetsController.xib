@@ -88,13 +88,13 @@
                     <rect key="frame" x="18" y="319" width="339" height="225"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的集分宝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYU-Ke-XLL">
-                            <rect key="frame" x="25" y="44" width="85" height="18"/>
+                            <rect key="frame" x="25" y="44" width="77" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="赠送集分宝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ajr-Fe-N26">
-                            <rect key="frame" x="135" y="44" width="77" height="18"/>
+                            <rect key="frame" x="127" y="44" width="85" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -125,13 +125,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9R-Ln-ON3">
-                            <rect key="frame" x="63" y="82" width="10.5" height="21"/>
+                            <rect key="frame" x="59" y="82" width="10.5" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.98039215690000003" green="0.28627450980000002" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbD-uk-eM8">
-                            <rect key="frame" x="168.5" y="82" width="10.5" height="21"/>
+                            <rect key="frame" x="164.5" y="82" width="10.5" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.98039215690000003" green="0.28627450980000002" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -160,6 +160,7 @@
                         <constraint firstItem="aAJ-Hg-hEb" firstAttribute="centerX" secondItem="Sdr-wl-2d5" secondAttribute="centerX" id="N30-t4-p6H"/>
                         <constraint firstItem="yIP-Qx-3Fm" firstAttribute="centerX" secondItem="R4c-AM-e9s" secondAttribute="centerX" id="Nnj-46-l08"/>
                         <constraint firstItem="Ajr-Fe-N26" firstAttribute="leading" secondItem="nYU-Ke-XLL" secondAttribute="trailing" constant="25" id="SbQ-kz-uEj"/>
+                        <constraint firstItem="yIP-Qx-3Fm" firstAttribute="centerX" secondItem="Ajr-Fe-N26" secondAttribute="centerX" id="fWB-B4-haA"/>
                         <constraint firstAttribute="height" constant="225" id="fWK-oo-Rnj"/>
                         <constraint firstItem="nYU-Ke-XLL" firstAttribute="top" secondItem="R4c-AM-e9s" secondAttribute="top" constant="44" id="gfQ-0B-ued"/>
                         <constraint firstAttribute="trailing" secondItem="Sdr-wl-2d5" secondAttribute="trailing" constant="25" id="i0I-Pg-yNt"/>

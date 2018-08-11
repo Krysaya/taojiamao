@@ -10,4 +10,5 @@
 
 @interface TJAccountSafeController : TJBaseViewController
 
+@property (nonatomic, strong) NSString *phone;
 @end

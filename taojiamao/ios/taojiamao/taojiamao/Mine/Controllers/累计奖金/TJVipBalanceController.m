@@ -40,6 +40,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"账户余额";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                                      NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:15]}];
+    
     DSLog(@"%@",self.balance);
     
     [self setUIhead];
@@ -49,7 +52,7 @@
 -(void)setUIfoot{
     WeakSelf
     self.footView =[[UIView alloc]init];
-    self.footView.backgroundColor = RandomColor;
+    self.footView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.footView];
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.middleView.mas_bottom).offset(10);
@@ -71,7 +74,7 @@
         make.centerY.mas_equalTo(weakSelf.footView);
     }];
     
-    self.numLabel = [TJLabel setLabelWith:@"1000" font:14 color:[UIColor redColor]];
+    self.numLabel = [TJLabel setLabelWith:@"1000" font:14 color:KALLRGB];
     [self.footView addSubview:self.numLabel];
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(weakSelf.rightLabel.mas_left);
@@ -82,7 +85,7 @@
 -(void)setUImiddle{
     WeakSelf
     self.middleView = [[UIView alloc]init];
-    self.middleView.backgroundColor = RandomColor;
+    self.middleView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.middleView];
     [self.middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.headView.mas_bottom);
@@ -90,7 +93,7 @@
         make.height.mas_equalTo(95);
     }];
     
-    self.balanceDetails = [[TJButton alloc]initWith:@"余额明细" delegate:self font:15 titleColor:[UIColor redColor] backColor:[UIColor whiteColor] tag:BalanceDetailsButton cornerRadius:18 borderColor:[UIColor redColor] borderWidth:1.0 withBackImage:nil withSelectImage:nil];
+    self.balanceDetails = [[TJButton alloc]initWith:@"余额明细" delegate:self font:15 titleColor:KALLRGB backColor:[UIColor whiteColor] tag:BalanceDetailsButton cornerRadius:18 borderColor:[UIColor redColor] borderWidth:1.0 withBackImage:nil withSelectImage:nil];
     [self.middleView addSubview:self.balanceDetails];
     [self.balanceDetails mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.middleView);
@@ -99,7 +102,7 @@
         make.height.mas_equalTo(35);
     }];
     
-    self.drawMoney = [[TJButton alloc]initWith:@"提现" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:VipDrawMoneyButton cornerRadius:18];
+    self.drawMoney = [[TJButton alloc]initWith:@"提现" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:VipDrawMoneyButton cornerRadius:18];
     [self.middleView addSubview:self.drawMoney];
     [self.drawMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.middleView);
@@ -112,7 +115,7 @@
 -(void)setUIhead{
     WeakSelf
     self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 120+SafeAreaTopHeight)];
-    self.headView.backgroundColor = [UIColor redColor];
+    self.headView.backgroundColor = KALLRGB;
     [self.view addSubview:self.headView];
     
     self.intro = [TJLabel setLabelWith:@"可用余额（元）" font:15 color:[UIColor whiteColor]];

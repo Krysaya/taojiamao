@@ -22,7 +22,7 @@
 -(instancetype)initWithFrame:(CGRect)frame placeholder:(NSString*)plac title:(NSString*)text{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = RandomColor;
+        self.backgroundColor = KBGRGB;
         [self setUIwithFrame:frame placeholder:plac title:text];
     }
     return self;
@@ -45,7 +45,7 @@
     self.search.layer.cornerRadius = subviewH*0.5;
     self.search.layer.masksToBounds = YES;
     
-    self.searchButton = [[TJButton alloc]initWith:text delegate:self font:15 titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:1122 cornerRadius:subviewH*0.5];
+    self.searchButton = [[TJButton alloc]initWith:text delegate:self font:15 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:1122 cornerRadius:subviewH*0.5];
     [self addSubview:self.searchButton];
     [self.searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.right.centerY.mas_equalTo(weakSelf.search);

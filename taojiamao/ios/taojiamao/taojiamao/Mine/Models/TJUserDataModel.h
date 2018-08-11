@@ -28,7 +28,7 @@
  */
 
 @property(nonatomic,copy)NSString * id;
-//@property(nonatomic,copy)NSString * uc_uid;
+@property(nonatomic,copy)NSString * telephone;
 @property(nonatomic,copy)NSString * nickname;
 //@property(nonatomic,copy)NSString * share_money;
 //@property(nonatomic,copy)NSString * invite_friend_count;

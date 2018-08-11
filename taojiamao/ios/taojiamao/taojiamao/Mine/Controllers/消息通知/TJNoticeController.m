@@ -70,9 +70,9 @@
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--notice-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--notice-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
 - (void)setButton{
@@ -81,9 +81,9 @@
     [self.view addSubview:bgView];
     
     
-    self.btn_Courier = [[TJButton alloc]initWith:@"快递信息" delegate:self font:12.0 titleColor:RGB(51, 51, 51)  tag:CourierBtn  withBackImage:@"courier_info"];
+    self.btn_Courier = [[TJButton alloc]initWith:@"快递信息" delegate:self font:12.0 titleColor:RGB(51, 51, 51)  tag:CourierBtn  withBackImage:@"courier_info" withEdgeType:@"bottom"];
     [bgView addSubview:self.btn_Courier];
-    self.btn_withdrawal = [[TJButton alloc]initWith:@"提现消息" delegate:self font:12.0 titleColor:RGB(51, 51, 51) tag:Withdrawal  withBackImage:@"withdrawal_info"];
+    self.btn_withdrawal = [[TJButton alloc]initWith:@"提现消息" delegate:self font:12.0 titleColor:RGB(51, 51, 51) tag:Withdrawal  withBackImage:@"withdrawal_info" withEdgeType:@"bottom"];
     [bgView addSubview:self.btn_withdrawal];
     
     
@@ -103,7 +103,7 @@
 }
 
 - (void)setTableView{
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 105+60, S_W, S_H) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 105+60, S_W, S_H-95-SafeAreaTopHeight) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
     tableView.rowHeight = 135;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

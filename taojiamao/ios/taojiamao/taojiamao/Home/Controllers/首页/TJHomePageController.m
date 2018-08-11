@@ -123,9 +123,10 @@
         });
 
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--搜索-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--搜索-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        
     }];
 }
 
@@ -159,7 +160,6 @@
                             };
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
-//        NSLog(@"---首页--=-%@",responseObject);
         NSArray *imgArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
         self.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
         self.newsArr = [TJHeadLineScrollModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"toutiao"]];
@@ -168,7 +168,6 @@
                     TJHomePageModel *model = imgArr[i];
             [self.imgADArr addObject:model.imgurl];
         }
-        DSLog(@"--ad--%ld",self.imgADArr.count);
         NSArray *arr = responseObject[@"data"][@"block"];
         NSDictionary *dict = arr[0];
         NSDictionary *dict2 = arr[1];
@@ -190,9 +189,10 @@
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--首页-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--首页-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
     }];
 }
 - (void)requestHomePageGoodsJingXuan{
@@ -227,22 +227,24 @@
 //        DSLog(@"--success---%@",responseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.tableView reloadData];
+            self.big_ScrollView.contentSize = CGSizeMake(0, S_H+self.goodsArr.count*150-SafeAreaBottomHeight);
+
             [self setBottomTableView];
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--jingxiuan-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--jingxiuan-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        DSLog(@"error--%@==",error);
     }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.view.backgroundColor = RGB(245, 245, 245);
-    UIScrollView * big_ScrollVie = [[UIScrollView alloc]init];
+    UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaBottomHeight)];
     big_ScrollVie.frame = S_F;
-    big_ScrollVie.contentSize = CGSizeMake(0, S_H*2);
     big_ScrollVie.delegate = self;
     big_ScrollVie.showsVerticalScrollIndicator = NO;
     big_ScrollVie.showsHorizontalScrollIndicator = NO;
@@ -348,7 +350,7 @@
 }
 - (void)setBottomTableView{
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+10, S_W, self.goodsArr.count*150-SafeAreaBottomHeight) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+10, S_W, self.goodsArr.count*150-SafeAreaBottomHeight-SafeAreaTopHeight) style:UITableViewStylePlain];
     tableView.rowHeight = 150;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -585,8 +587,9 @@
       }else{
           TJHPMidCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MidCell" forIndexPath:indexPath];
           cell.model = self.menuArr[indexPath.row];
-
-          return cell;}
+          return cell;
+          
+      }
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (collectionView.tag==CLASSS_CollectionV) {
@@ -598,70 +601,75 @@
                 case 0:
                 {
 //                    快递代取
-//                    TJClassicController *vc = [[TJClassicController alloc]init];
-//                    [self.navigationController pushViewController:vc animated:YES];
-                    TJClassicController *vc = [[TJClassicController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
+   
                 }
-                    break;
-                case 1:
+                    break;case 1:
 //                    推荐好货
                 {
                     TJProjectController *vc = [[TJProjectController alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];
                 }
-                    break;
-                case 2:
+                    break;case 2:
 //                    女装
                 {
                     TJHomeController *homev = [[TJHomeController alloc]init];
-                    homev.index = 1;
+                    homev.index = 0;
+                    homev.title_class = @"女装";
                     [self.navigationController pushViewController:homev animated:YES];
                 }
                     
-                    break;
-                case 3:
+                    break;case 3:
 //                美妆
                 {
                     TJHomeController *homev = [[TJHomeController alloc]init];
-                    homev.index = 5;
+                    homev.index = 4;
+                    homev.title_class = @"美妆";
+                    [self.navigationController pushViewController:homev animated:YES];
+                }
+                    break;case 4://母婴
+                    {
+                        TJHomeController *homev = [[TJHomeController alloc]init];
+                        homev.index = 3;
+                        homev.title_class = @"母婴";
+                        [self.navigationController pushViewController:homev animated:YES];
+                    }
+                    break;case 5://男装
+                    {
+                        TJHomeController *homev = [[TJHomeController alloc]init];
+                        homev.index = 2;
+                        homev.title_class = @"男装";
+                        [self.navigationController pushViewController:homev animated:YES];
+                    }
+                    break;case 6://数码
+                    {
+                        TJHomeController *homev = [[TJHomeController alloc]init];
+                        homev.index = 9;
+                        homev.title_class = @"数码";
+                        [self.navigationController pushViewController:homev animated:YES];
+                    }
+                    break;case 7://美食
+                    {
+                        TJHomeController *homev = [[TJHomeController alloc]init];
+                        homev.index = 7;
+                        homev.title_class = @"美食";
+                        [self.navigationController pushViewController:homev animated:YES];
+                    }
+                    break;  case 8://鞋包
+                {
+                    TJHomeController *homev = [[TJHomeController alloc]init];
+                    homev.index = 6;
+                    homev.title_class = @"鞋包";
                     [self.navigationController pushViewController:homev animated:YES];
                 }
                     break;
-                    
-                
-                    break;
-                default:
-                    break;
-            }
-        }else{
-            switch (indexPath.row) {
-                case 0:
+                case 9:
                     {
-                        
-                    }
-                    break;
-                case 1:
-                {
-                    
-                }
-                    break;
-                case 2:
-                {
-                    
-                }
-                    break;
-                case 3:
-                {
-                    
-                }
-                    break;
-                case 4:
-                {
+                    DSLog(@"--更多--")
                     TJClassicController *vc = [[TJClassicController alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];
-                }
+                    }
                     break;
+              
                 default:
                     break;
             }

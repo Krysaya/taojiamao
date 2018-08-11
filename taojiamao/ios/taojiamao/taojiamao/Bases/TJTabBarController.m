@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = RandomColor;
+    self.view.backgroundColor = KBGRGB;
     //setControllers
     [self setControllers];
 }

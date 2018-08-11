@@ -51,10 +51,13 @@
         
         _rightViewTrailing.constant = 0.f;
     }
-    
+
     // 这里取出model， 根据model的是否选中属性，标记checkBtn的select状态，图标会自动转换
     if ([type intValue]==0) {
+
         TJJHSGoodsListModel *model = [arr objectAtIndex:indexPath.row];
+        DSLog(@"--bian----%@",model.itemtitle);
+
 //        _selectBtn.selected = model.isChecked;
         [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
         NSAttributedString *str_tb = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
@@ -71,14 +74,15 @@
         self.lab_yuanjia.attributedText = attribt_yuanj;
         self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
         NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
-        NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-            make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
-            make.append(str_coupon);
-            make.rangeEdit(NSMakeRange(3, model.itemprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
-                make.font([UIFont systemFontOfSize:19.f]).textColor([UIColor whiteColor]);
-            });
-        });
-        [self.btn_quan setAttributedTitle:attrStr forState:UIControlStateNormal];
+        [self.btn_quan setTitle:str_coupon forState:UIControlStateNormal];
+//        NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+//            make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
+//            make.append(str_coupon);
+//            make.rangeEdit(NSMakeRange(3, model.itemprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+//                make.font([UIFont systemFontOfSize:19.f]).textColor([UIColor whiteColor]);
+//            });
+//        });
+//        [self.btn_quan setAttributedTitle:str_coupon forState:UIControlStateNormal];
     }else{
         TJGoodsCollectModel *model = [arr objectAtIndex:indexPath.row];
         _selectBtn.selected = model.isChecked;

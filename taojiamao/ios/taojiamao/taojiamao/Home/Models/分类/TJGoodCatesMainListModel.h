@@ -31,10 +31,10 @@
 @property (nonatomic, strong) NSString *isshow;//是否显示
 @property (nonatomic, strong) NSString *sort;//分类排序
 @property (nonatomic, strong) NSString *_depth;//分类深度
-@property (nonatomic, strong) NSString *_parents;//祖先分类id集合
+//@property (nonatomic, strong) NSString *_parents;//祖先分类id集合
 @property (nonatomic, strong) NSString *_childs;//子分类id集合
 @property (nonatomic, strong) NSString *_allchilds;//后代分类id集合
-@property (nonatomic, strong) NSDictionary *_son;
+@property (nonatomic, strong) NSDictionary *son;
 
 
 @property (nonatomic,   copy) NSArray *managedSons; // 处理后的son

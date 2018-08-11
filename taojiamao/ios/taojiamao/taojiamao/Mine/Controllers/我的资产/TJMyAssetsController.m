@@ -20,10 +20,23 @@
 @end
 
 @implementation TJMyAssetsController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//    self.navigationController.navigationBar.barTintColor = KBGRGB;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+
+}
+-(void)viewWillDisappear:(BOOL)animated
+
+{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的资产";
+    
     TJButton *right = [[TJButton alloc]initWith:@"明细" delegate:self font:15 titleColor:RGB(51, 51, 51) backColor:nil tag:1289];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:right];
 }

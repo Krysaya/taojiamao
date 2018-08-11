@@ -68,7 +68,7 @@
         make.centerY.mas_equalTo(weakSelf.jj);
     }];
     
-    self.cancel = [[TJButton alloc]initWith:@"取消绑定" delegate:self font:14*W_Scale titleColor:[UIColor redColor] backColor:[UIColor whiteColor] tag:BindButton];
+    self.cancel = [[TJButton alloc]initWith:@"去绑定" delegate:self font:14*W_Scale titleColor:[UIColor redColor] backColor:[UIColor whiteColor] tag:BindButton];
     [self.headView addSubview:self.cancel];
     [self.cancel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-30*W_Scale);

@@ -33,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = KBGRGB;
     self.title = @"兑换集分";
     [self setNavRightItem];
     [self setUIhead];
@@ -42,11 +43,11 @@
 }
 -(void)setUIhead{
     self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 95*H_Scale)];
-    self.headView.backgroundColor =RandomColor;
+    self.headView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.headView];
     
     WeakSelf
-    self.iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"exchange"]];
     [self.headView addSubview:self.iconView];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.headView);
@@ -73,7 +74,7 @@
 -(void)setInputView{
     WeakSelf
     self.numView = [[UIView alloc]init];
-    self.numView.backgroundColor = RandomColor;
+    self.numView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.numView];
     [self.numView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.headView.mas_bottom).offset(10*H_Scale);
@@ -97,7 +98,7 @@
 }
 -(void)setExchangeButtons{
     WeakSelf
-    self.exchangeButton =[[TJButton alloc] initWith:@"兑换" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:ECTXButton cornerRadius:20];
+    self.exchangeButton =[[TJButton alloc] initWith:@"兑换" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:ECTXButton cornerRadius:20];
     [self.view addSubview:self.exchangeButton];
     [self.exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.numView.mas_bottom).offset(40*H_Scale);
@@ -111,7 +112,7 @@
     self.footIntro = [[UIView alloc]init];
     self.footIntro.layer.cornerRadius = 15;
     self.footIntro.layer.masksToBounds = YES;
-    self.footIntro.backgroundColor =RandomColor;
+    self.footIntro.backgroundColor =KBGRGB;
     [self.view addSubview:self.footIntro];
     [self.footIntro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.exchangeButton.mas_bottom).offset(40*H_Scale);

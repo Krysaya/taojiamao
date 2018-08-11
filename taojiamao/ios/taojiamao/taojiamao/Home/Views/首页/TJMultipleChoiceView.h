@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TJMultipleChoiceViewDelegate<NSObject>
+- (void)buttonSureSelectString:(NSMutableDictionary *)sureDict;
+@end
+
+
 @interface TJMultipleChoiceView : UIView
+@property(nonatomic,assign)id<TJMultipleChoiceViewDelegate>deletage;
 
 @end

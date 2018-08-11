@@ -59,7 +59,6 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u1I-EF-cta">
                                 <rect key="frame" x="226" y="40" width="59" height="59"/>
-                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="Xom-Ip-np4"/>
                                     <constraint firstAttribute="width" constant="59" id="ZCz-cF-OyF"/>
@@ -103,6 +102,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="img" destination="u1I-EF-cta" id="G1I-WL-sis"/>
+                <outlet property="lab_detailt" destination="TB6-uo-HTR" id="phZ-Hn-21g"/>
+                <outlet property="lab_time" destination="zhX-NC-Rsm" id="AO8-I0-sh4"/>
                 <outlet property="lab_titel" destination="WuT-DW-why" id="K9o-nf-C0p"/>
                 <outlet property="lab_type" destination="6xY-kl-IT9" id="UaW-Je-sqm"/>
             </connections>

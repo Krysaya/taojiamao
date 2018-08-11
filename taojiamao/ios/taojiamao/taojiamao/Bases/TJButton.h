@@ -22,8 +22,8 @@
 -(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color backColor:(UIColor*)bc tag:(NSInteger)tag;
 
 -(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color backColor:(UIColor*)bc tag:(NSInteger)tag cornerRadius:(CGFloat)cor;
--(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color  tag:(NSInteger)tag   withBackImage:(NSString*)image;
-
+//图片与文字位置关系
+-(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color  tag:(NSInteger)tag   withBackImage:(NSString*)image withEdgeType:(NSString *)type;
 -(instancetype)initWith:(NSString*)title delegate:(id<TJButtonDelegate>)dele font:(CGFloat)font titleColor:(UIColor*)color backColor:(UIColor*)bc tag:(NSInteger)tag cornerRadius:(CGFloat)cor borderColor:(UIColor*)bcolor  borderWidth:(CGFloat)bw withBackImage:(NSString*)image withSelectImage:(NSString*)selectimage;
 
 @end

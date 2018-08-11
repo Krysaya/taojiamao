@@ -8,10 +8,12 @@
 //
 
 #import "TJClassicController.h"
+#import "TJClassicSecondController.h"
+
 #import "TJClassicSecondCell.h"
 #import "TJClassicFirstCell.h"
 #import "TJGoodCatesMainListModel.h"
-@interface TJClassicController ()<UITableViewDataSource,UITableViewDelegate>
+@interface TJClassicController ()<UITableViewDataSource,UITableViewDelegate,TabCollectCellDelegate>
 
 @property(nonatomic,strong)UITableView *tableView_left;
 @property (nonatomic, strong) UITableView *tableView_right;
@@ -97,31 +99,25 @@
         request.httpMethod = kXMHTTPMethodGET;
     
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"----主分类-success-===%@",responseObject);
         NSDictionary *dict = responseObject[@"data"];
         for (int i=1; i<dict.count+1; i++) {
             NSString *str = [NSString stringWithFormat:@"%d",i];
             TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
-            DSLog(@"---fl=%@",dict[str]);
+//            DSLog(@"---fl=%@",dict[str]);
             [self.dataArr_left addObject:model];
     
         }
-        
-        
-        
 
-        
-        DSLog(@"---num--%ld",self.dataArr_left.count);
-        dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView_left reloadData];
             [self.tableView_right reloadData];
 
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--分类-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        DSLog(@"--分类-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
 #pragma mark  - delegate
@@ -150,7 +146,6 @@
         TJGoodCatesMainListModel *model = self.dataArr_left[indexPath.section];
         NSArray * childsArray = [model._childs componentsSeparatedByString:@","];
         NSInteger i = ceilf(childsArray.count/3.0);
-        DSLog(@"0980809=====%ld==%ld====%ld",i,indexPath.section,childsArray.count);
 
         if (i==0||i==1) {
             
@@ -188,8 +183,8 @@
         TJGoodCatesMainListModel *model = self.dataArr_left[indexPath.section];
         TJClassicSecondCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"classicCell"];
         cell2.model = model;
-        DSLog(@"=====%ld======%@",indexPath.section,model.imgurl);
-
+        cell2.mineCellDelegate = self;
+        cell2.indexSection = indexPath.section;
         return cell2;
     }
    
@@ -197,9 +192,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.tag==1000) {
         self.select_index = [NSString stringWithFormat:@"%ld",indexPath.row];
-        [self.tableView_right reloadData];
-//        [self.tableView_right scrollToRowAtIndexPath:indexPath.section atScrollPosition:<#(UITableViewScrollPosition)#> animated:<#(BOOL)#>];
+//        [self.tableView_right reloadData];
+        NSIndexPath * index = [NSIndexPath indexPathWithIndex:indexPath.row];
+//        [self.tableView_right scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        
+    }else{
+        
         
     }
+}
+
+-(void)collectionCell:(TJClassicSecondCell *)cell didSelectItemIndexPath:(NSIndexPath *)indexPath{
+    
+    TJGoodCatesMainListModel *model = self.dataArr_left[cell.indexSection];
+    TJGoodCatesMainListModel *model2 = model.managedSons[indexPath.row];
+
+    TJClassicSecondController *vc = [[TJClassicSecondController alloc]init] ;
+    vc.title_class = model2.catname;
+    [self.navigationController pushViewController:vc animated:YES];
+   
 }
 @end

@@ -16,7 +16,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    //设置全局状态栏字体颜色为黑色
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    //设置全局状态栏字体颜色为白色
+    // [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     //TJOverallJudge
     [self doTJOverallJudge];

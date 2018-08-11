@@ -51,7 +51,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     layout.minimumInteritemSpacing = 0;
     
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight-85) collectionViewLayout:layout];
-    self.collectionView.backgroundColor = RandomColor;
+    self.collectionView.backgroundColor = KBGRGB;
     self.collectionView.delegate=self;
     self.collectionView.dataSource=self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"TJJHSuanCell" bundle:nil] forCellWithReuseIdentifier:TJSearchContentCollectionCell];
@@ -97,7 +97,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
     goodVC.gid = model.itemid;
-    DSLog(@"ew89ur424colll====%@",model.guide_article);
+//    DSLog(@"ew89ur424colll====%@",model.guide_article);
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 #pragma mark - 通知

@@ -11,5 +11,5 @@
 @interface TJChangePhoneController : TJBaseViewController
 
 @property(nonatomic,assign)NSUInteger vcID;
-
+@property (nonatomic, strong) NSString *phoneNum;
 @end

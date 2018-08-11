@@ -94,7 +94,7 @@
     TJCollectionClassicCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectClassiCell" forIndexPath: indexPath];
     //    cell.imgView.backgroundColor = RandomColor;
     TJGoodCatesMainListModel *model = self.model.managedSons[indexPath.row];
-    DSLog(@"ewyiry34iruh--%ld-%@",indexPath.row,model.imgurl);
+//    DSLog(@"ewyiry34iruh--%ld-%@",indexPath.row,model.imgurl);
     [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl]];
     
     cell.lab_titel.text = model.catname;
@@ -115,7 +115,14 @@
     
 }
 
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    if (self.mineCellDelegate && [self.mineCellDelegate respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)])
+//    {
+        // 调用代理方法
+        [self.mineCellDelegate collectionCell:self didSelectItemIndexPath:indexPath];
+//    }
+    
+}
 - (void)setModel:(TJGoodCatesMainListModel *)model{
     _model = model;
     self.titleLab.text = model.catname;

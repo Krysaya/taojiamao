@@ -31,7 +31,17 @@
 @end
 
 @implementation TJVipPerformanceController
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"推广业绩";
@@ -69,7 +79,7 @@
 -(void)setUIorderView{
     WeakSelf
     self.orderDetails = [[UIView alloc]init];
-    self.orderDetails.backgroundColor = RandomColor;
+    self.orderDetails.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.orderDetails];
     [self.orderDetails mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.firstView.mas_bottom).offset(10);
@@ -104,14 +114,14 @@
 -(UIView*)setUIEstimateView:(NSString*)lt leftBottom:(NSString*)lb rightTop:(NSString*)rt rightBottom:(NSString*)rb{
     WeakSelf
     UIView * estimateView = [[UIView alloc]init];
-    estimateView.backgroundColor = RandomColor;
+    estimateView.backgroundColor = KBGRGB;;
     
     UIView * leftView = [[UIView alloc]init];
-    leftView.backgroundColor = RandomColor;
+    leftView.backgroundColor = [UIColor whiteColor];;
     [estimateView addSubview:leftView];
     [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.left.mas_equalTo(estimateView);
-        make.width.mas_equalTo(187);
+        make.width.mas_equalTo(S_W/2-1);
     }];
     
     self.leftTop = [TJLabel setLabelWith:lt font:15 color:RGB(51, 51, 51)];
@@ -129,11 +139,11 @@
     }];
     
     UIView * rightView = [[UIView alloc]init];
-    rightView.backgroundColor = RandomColor;
+    rightView.backgroundColor = [UIColor whiteColor];;
     [estimateView addSubview:rightView];
     [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.right.mas_equalTo(estimateView);
-        make.width.mas_equalTo(187);
+        make.width.mas_equalTo(S_W/2-1);
     }];
     
     self.rightTop = [TJLabel setLabelWith:rt font:15 color:RGB(51, 51, 51)];
@@ -155,7 +165,7 @@
 -(void)setUIhead{
     WeakSelf
     self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 95)];
-    self.headView.backgroundColor = RandomColor;
+    self.headView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.headView];
     
     self.mineBalance = [TJLabel setLabelWith:@"我的余额" font:16 color:RGB(51, 51, 51)];
@@ -168,11 +178,11 @@
     self.numBalance = [TJLabel setLabelWith:@"1546.00" font:30 color:RGB(255, 71, 119)];
     [self.headView addSubview:self.numBalance];
     [self.numBalance mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.mineBalance.mas_bottom).offset(15);
+        make.top.mas_equalTo(weakSelf.mineBalance.mas_bottom).offset(12);
         make.left.mas_equalTo(weakSelf.mineBalance);
     }];
     
-    self.popularize = [[TJButton alloc]initWith:@"推广赚钱" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:VipPopularizeButton cornerRadius:18];
+    self.popularize = [[TJButton alloc]initWith:@"推广赚钱" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:VipPopularizeButton cornerRadius:18];
     [self.headView addSubview:self.popularize];
     [self.popularize mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.headView);
@@ -189,14 +199,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

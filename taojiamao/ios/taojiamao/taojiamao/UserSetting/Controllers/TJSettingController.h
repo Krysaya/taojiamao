@@ -10,4 +10,5 @@
 
 @interface TJSettingController : TJBaseViewController
 
+@property (nonatomic, strong) NSString *phone;
 @end

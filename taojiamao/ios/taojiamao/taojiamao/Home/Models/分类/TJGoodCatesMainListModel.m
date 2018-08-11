@@ -20,7 +20,7 @@
         
         NSMutableArray *temp = @[].mutableCopy;
         for (NSString *str in childsArray) {
-            TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:self._son[str]];
+            TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:self.son[str]];
             [temp addObject:childsModel];
         }
         

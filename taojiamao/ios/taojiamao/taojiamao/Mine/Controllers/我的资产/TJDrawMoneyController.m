@@ -38,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"余额提现";
     [self setNavRightItem];
     [self setUIhead];
@@ -47,7 +48,7 @@
 }
 -(void)setExchangeButtons{
     WeakSelf
-    self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:123 cornerRadius:20];
+    self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:123 cornerRadius:20];
     [self.view addSubview:self.exchangeButton];
     [self.exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.input.mas_bottom).offset(40*H_Scale);
@@ -71,7 +72,7 @@
 -(void)setUIinputView{
     WeakSelf
     self.inputView = [[UIView alloc]init];
-    self.inputView.backgroundColor = RandomColor;
+    self.inputView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.inputView];
     [self.inputView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(weakSelf.view);
@@ -106,7 +107,7 @@
 -(void)setUIalipayView{
     WeakSelf
     self.alipayView = [[UIView alloc]init];
-    self.alipayView.backgroundColor = RandomColor;
+    self.alipayView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.alipayView];
     [self.alipayView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(weakSelf.view);
@@ -115,7 +116,7 @@
     }];
     
     self.line = [[UIView alloc]init];
-    self.line.backgroundColor = RandomColor;
+    self.line.backgroundColor = KBGRGB;
     [self.alipayView addSubview:self.line];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.alipayView);
@@ -156,11 +157,11 @@
 }
 -(void)setUIhead{
     self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 95*H_Scale)];
-    self.headView.backgroundColor =RandomColor;
+    self.headView.backgroundColor =[UIColor whiteColor];
     [self.view addSubview:self.headView];
     
     WeakSelf
-    self.iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"balance"]];
     [self.headView addSubview:self.iconView];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.headView);

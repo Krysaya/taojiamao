@@ -9,6 +9,7 @@
 #import "TJOrderClaimController.h"
 #import "TJOrderClaimDetailsController.h"
 
+#import "TJPersonalController.h"
 #define  ClaimOrderButton  58552299
 
 @interface TJOrderClaimController ()<TJButtonDelegate>
@@ -161,9 +162,17 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"nickname":self.claimF.text};
     } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"-success:==%@",responseObject);
-        [self.navigationController popViewControllerAnimated:YES];
-    } onFailure:^(NSError * _Nullable error) {
+//        DSLog(@"-success:==%@",responseObject);
+        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+//------------回指定页面
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[TJPersonalController class]]) {
+                TJPersonalController *vc =(TJPersonalController *)controller;
+                [self.navigationController popToViewController:vc animated:YES];
+            }
+        }
+        
+        } onFailure:^(NSError * _Nullable error) {
         
     }];
 }

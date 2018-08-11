@@ -79,7 +79,7 @@
         make.height.mas_equalTo(TwoButtonsH);
     }];
     
-    self.sure = [[TJButton alloc]initWith:@"完成" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:SureButton];
+    self.sure = [[TJButton alloc]initWith:@"完成" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:SureButton];
     [self.tableback addSubview:self.sure];
     [self.sure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.reset.mas_right);
@@ -93,7 +93,7 @@
         
         if (!(but == self.TBTM)) {
             self.TBTM.selected = NO;
-            [self.TBTM setBackgroundColor:RGB(111, 111, 111)];
+            [self.TBTM setBackgroundColor:RGB(244, 244, 244)];
             but.selected = YES;
             [but setBackgroundColor:[UIColor redColor]];
             self.TBTM = but;
@@ -107,7 +107,7 @@
         self.recordStr= @"";
         
         self.TBTM.selected = NO;
-        [self.TBTM setBackgroundColor:RGB(111, 111, 111)];
+        [self.TBTM setBackgroundColor:RGB(244, 244, 244)];
         self.TBTM = nil;
         self.TBTMStr = @"";
         
@@ -115,11 +115,19 @@
         self.MAX.text = @"";
         
     }else if (but.tag==SureButton){
+        NSMutableDictionary *dict = @{}.mutableCopy;
+        dict[@"min"] = self.MIN.text;
+        dict[@"max"] = self.MAX.text;
+        dict[@"type"] = self.TBTMStr;
+        dict[@"class"] = self.recordStr;
+        if (self.deletage) {
+            [self.deletage buttonSureSelectString:dict];
+        }
         DSLog(@"%@----%@---%@----%@",self.MIN.text,self.MAX.text,self.TBTMStr,self.recordStr);
     }else{
         if (!(but==self.record)) {
             self.record.selected = NO;
-            [self.record setBackgroundColor:RGB(111, 111, 111)];
+            [self.record setBackgroundColor:RGB(244, 244, 244)];
             but.selected = YES;
             [but setBackgroundColor:[UIColor redColor]];
             self.record = but;
@@ -139,7 +147,7 @@
     WeakSelf
     if (indexPath.section==0) {
         
-        self.MIN = [TJTextField setTextFieldWith:@"最低价" font:15 textColor:RGB(61, 61, 61) backColor:RGB(111, 111, 111)];
+        self.MIN = [TJTextField setTextFieldWith:@"最低价" font:15 textColor:RGB(61, 61, 61) backColor:RGB(244, 244, 244)];
         self.MIN.layer.cornerRadius = 4;
         self.MIN.layer.masksToBounds = YES;
         self.MIN.textAlignment = NSTextAlignmentCenter;
@@ -152,7 +160,7 @@
         }];
         
         UIView * line = [[UIView alloc]init];
-        line.backgroundColor = RGB(111, 111, 111);
+        line.backgroundColor = RGB(244, 244, 244);
         [cell.contentView addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(cell.contentView);
@@ -161,7 +169,7 @@
             make.height.mas_equalTo(2);
         }];
         
-        self.MAX = [TJTextField setTextFieldWith:@"最高价" font:15 textColor:RGB(61, 61, 61) backColor:RGB(111, 111, 111)];
+        self.MAX = [TJTextField setTextFieldWith:@"最高价" font:15 textColor:RGB(61, 61, 61) backColor:RGB(244, 244, 244)];
         self.MAX.layer.cornerRadius = 4;
         self.MAX.layer.masksToBounds = YES;
         self.MAX.textAlignment = NSTextAlignmentCenter;
@@ -174,7 +182,7 @@
         
     }else if(indexPath.section==1){
         
-        self.TB = [[TJButton alloc]initWith:@"淘宝" delegate:self font:15 titleColor:RGB(61, 61, 61) backColor:RGB(111, 111, 111) tag:TBButton cornerRadius:4];
+        self.TB = [[TJButton alloc]initWith:@"淘宝" delegate:self font:15 titleColor:RGB(61, 61, 61) backColor:RGB(244, 244, 244) tag:TBButton cornerRadius:4];
         [cell.contentView addSubview:self.TB];
         [self.TB mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(cell.contentView);
@@ -183,7 +191,7 @@
             make.height.mas_equalTo(35);
         }];
         
-        self.TM =[[TJButton alloc]initWith:@"天猫" delegate:self font:15 titleColor:RGB(61, 61, 61) backColor:RGB(111, 111, 111) tag:TMButton cornerRadius:4];
+        self.TM =[[TJButton alloc]initWith:@"天猫" delegate:self font:15 titleColor:RGB(61, 61, 61) backColor:RGB(244, 244, 244) tag:TMButton cornerRadius:4];
         [cell.contentView addSubview:self.TM];
         [self.TM mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(cell.contentView);
@@ -214,7 +222,7 @@
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * head = [[UIView alloc]init];
-    head.backgroundColor =RandomColor;
+    head.backgroundColor = [UIColor whiteColor];
     TJLabel * label = [TJLabel setLabelWith:@"" font:15 color:RGB(77, 77, 77)];
     [head addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -235,7 +243,7 @@
 }
 -(UIView*)setButtonsWith:(NSMutableArray*)array{
     UIView * view= [[UIView alloc]init];
-    view.backgroundColor = RandomColor;
+    view.backgroundColor = [UIColor whiteColor];
     
     CGFloat W = 80;
     CGFloat H = 35;
@@ -243,7 +251,7 @@
     
     for (int i = 0; i <array.count; i++) {
 
-        TJButton *button = [[TJButton alloc]initWith:array[i] delegate:self font:15 titleColor:RGB(61, 61, 61) backColor:RGB(111, 111, 111) tag:(1200+i) cornerRadius:4];
+        TJButton *button = [[TJButton alloc]initWith:array[i] delegate:self font:15 titleColor:RGB(61, 61, 61) backColor:RGB(244, 244, 244) tag:(1200+i) cornerRadius:4];
         
         NSInteger row = i / rank;
         NSInteger col = i % rank;
@@ -262,7 +270,7 @@
 
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
-        _dataArray = [NSMutableArray arrayWithObjects:@"全部", @"女装",@"男装",@"内衣",@"母婴",@"化妆品",@"居家",@"鞋包配饰",@"美食",@"文体车品",@"数码家电",nil];
+        _dataArray = [NSMutableArray arrayWithObjects: @"女装",@"男装",@"内衣",@"母婴",@"化妆品",@"居家",@"鞋包配饰",@"美食",@"文体车品",@"数码家电",nil];
     }
     return _dataArray;
 }

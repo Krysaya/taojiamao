@@ -29,7 +29,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    DSLog(@"-set--phone==%@",self.phone);
 }
 
 - (void)viewDidLoad {
@@ -136,6 +136,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
 //            [self.navigationController pushViewController:mavc animated:YES];
         }else if (indexPath.row==1){
             TJAccountSafeController * asvc = [[TJAccountSafeController alloc]init];
+            asvc.phone = self.phone;
             [self.navigationController pushViewController:asvc animated:YES];
         }else{
             TJBindTBController * bvc = [[TJBindTBController alloc]init];

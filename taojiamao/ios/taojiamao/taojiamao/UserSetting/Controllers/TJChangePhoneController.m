@@ -82,7 +82,7 @@
     
     if (self.vcID==0) {
 //        self.phoneField.text = GetUserDefaults(UserPhone);
-        self.phoneField.text = @"17731934096";
+        self.phoneField.text = self.phoneNum;
         self.phoneField.userInteractionEnabled  = NO;
     }else if (self.vcID==1){
         self.phoneField.placeholder = @"请填写支付宝账号";
@@ -159,7 +159,7 @@
         }];
         
         self.passField = [[UITextField alloc]init];
-        self.passField.backgroundColor = [UIColor grayColor];
+//        self.passField.backgroundColor = KBGRGB;
         self.passField.placeholder = self.vcID==2?@"请输入新密码":@"登录密码(6-16位字符)";
         self.passField.font = [UIFont systemFontOfSize:15*W_Scale];
         [self.headView addSubview:self.passField];
@@ -306,6 +306,8 @@
                                      };
             } onSuccess:^(id  _Nullable responseObject) {
                 DSLog(@"设置成功===%@",responseObject);
+                [SVProgressHUD showSuccessWithStatus:@"设置成功！"];
+                [self.navigationController popViewControllerAnimated:YES];
                 
             } onFailure:^(NSError * _Nullable error) {
                 

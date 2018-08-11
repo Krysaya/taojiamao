@@ -39,7 +39,17 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
    
     
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"热推TOP";
@@ -59,10 +69,10 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 -(void)setUIBottomShare{
     WeakSelf
     self.bottomShare = [[UIView alloc]initWithFrame:CGRectMake(0, S_H-55-SafeAreaBottomHeight, S_W, 55+SafeAreaBottomHeight)];
-    self.bottomShare.backgroundColor = RandomColor;
+    self.bottomShare.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.bottomShare];
     
-    self.icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading1"]];
+    self.icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check_default"]];
     [self.bottomShare addSubview:self.icon];
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(10);
@@ -89,7 +99,10 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
         make.top.mas_equalTo(weakSelf.random.mas_bottom).offset(5);
     }];
     
-    self.shareButton = [[TJButton alloc]initWith:@"一键分享" delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:RGB(255, 79, 119) tag:3521 cornerRadius:20];
+    self.shareButton = [[TJButton alloc]initWith:@"一键分享" delegate:self font:17 titleColor:[UIColor whiteColor] tag:3521 withBackImage:@"share" withEdgeType:@"right"];
+    self.shareButton.layer.masksToBounds = YES;
+    self.shareButton.layer.cornerRadius = 20;
+    self.shareButton.backgroundColor = KALLRGB;
     [self.bottomShare addSubview:self.shareButton];
     [self.shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(6);
@@ -124,7 +137,7 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 -(NSMutableAttributedString*)textChangeColor:(NSString*)str{
     NSMutableAttributedString * attr = [[NSMutableAttributedString alloc]initWithString:str];
     
-    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(3,2)];
+    [attr addAttribute:NSForegroundColorAttributeName value:KALLRGB range:NSMakeRange(3,2)];
     
     return attr;
 }
@@ -134,6 +147,7 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
     [self.view addSubview:self.search];
     
     self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+self.search.mj_h, S_W, 45) withMargin:33];
+    self.filtrate.backgroundColor = [UIColor whiteColor];
     self.filtrate.deletage =self;
     [self.view addSubview:self.filtrate];
 }
