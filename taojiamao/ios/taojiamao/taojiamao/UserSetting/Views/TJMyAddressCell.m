@@ -39,13 +39,13 @@
         
         WeakSelf
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(20*H_Scale);
+            make.top.mas_equalTo(15*H_Scale);
             make.left.mas_equalTo(17*W_Scale);
         }];
         [_phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(23*H_Scale);
+//            make.top.mas_equalTo(23*H_Scale);
             make.left.mas_equalTo(weakSelf.nameLabel.mas_right).offset(28*W_Scale);
-
+            make.centerY.mas_equalTo(weakSelf.nameLabel);
         }];
         
         _morenLabel = [[UILabel alloc]init];
@@ -59,10 +59,12 @@
         
         [self.contentView addSubview:_morenLabel];
         [_morenLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(weakSelf.phoneLabel);
+//            make.bottom.mas_equalTo(weakSelf.phoneLabel);
+            make.centerY.mas_equalTo(weakSelf.phoneLabel);
+
             make.left.mas_equalTo(weakSelf.phoneLabel.mas_right).offset(15*W_Scale);
             make.width.mas_equalTo(37*W_Scale);
-            make.height.mas_equalTo(15*H_Scale);
+            make.height.mas_equalTo(17*H_Scale);
         }];
         
         [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,6 +80,7 @@
             make.width.height.mas_equalTo(17);
             make.bottom.mas_equalTo(weakSelf.contentView).offset(-20*H_Scale);
             make.right.mas_equalTo(weakSelf.contentView).offset(-15*W_Scale);
+            
         }];
         
         
@@ -133,7 +136,7 @@
 -(void)setModel:(TJMyAddressModel *)model{
     _model = model;
     self.nameLabel.text = model.name;
-    self.phoneLabel.text = model.tel;
+    self.phoneLabel.text = model.telephone;
     self.addressLabel.text = model.address;
 //    self.addressLabel.text = [model.full_address stringByAppendingString:model.address];
 }
@@ -144,7 +147,7 @@
     }else{
         _morenLabel.hidden = YES;
     }
-    DSLog(@"%ld",(long)indexPath.section);
+//    DSLog(@"%ld",(long)indexPath.section);
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

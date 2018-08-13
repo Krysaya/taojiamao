@@ -16,7 +16,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     //设置全局状态栏字体颜色为黑色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     //设置全局状态栏字体颜色为白色

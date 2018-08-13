@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXn-NQ-B6K">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="118"/>
                     <subviews>
                         <button opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7J-AY-LuH">
                             <rect key="frame" x="46.5" y="25" width="33" height="31"/>
@@ -129,7 +129,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="pXn-NQ-B6K" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NH7-mB-c3J"/>
-                <constraint firstItem="pXn-NQ-B6K" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eOW-3U-Y0w"/>
+                <constraint firstItem="pXn-NQ-B6K" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="eOW-3U-Y0w"/>
                 <constraint firstAttribute="trailing" secondItem="pXn-NQ-B6K" secondAttribute="trailing" id="iHz-W9-hob"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

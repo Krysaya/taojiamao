@@ -13,11 +13,16 @@
 
 @interface TJKdAllOrdersController ()<ZJScrollPageViewDelegate>
 @property (nonatomic, strong) ZJContentView *contentView;
+@property (nonatomic, strong) ZJScrollSegmentView *segment;
 @end
 
 @implementation TJKdAllOrdersController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if ([self.selectIndex intValue]==2) {
+        DSLog(@"待评价");
+        [self.segment setSelectedIndex:2 animated:NO];
+    }
 }
 
 - (void)viewDidLoad {
@@ -37,6 +42,7 @@
     ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 50) segmentStyle:style delegate:self titles:@[@"全部",@"待完成",@"待评价",@"已完成"] titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
         [weakSelf.contentView setContentOffSet:CGPointMake(self.contentView.bounds.size.width * index, 0.0) animated:YES];
     }];
+    self.segment = segment;
     [self.view addSubview:segment];
     
     ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, SafeAreaTopHeight+50, S_W, S_H - SafeAreaTopHeight-50) segmentView:segment parentViewController:self delegate:self];

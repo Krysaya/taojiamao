@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJKdUserOrderList;
 @interface TJKdHomeOrderCell : UITableViewCell
 
+@property (nonatomic, strong) TJKdUserOrderList *model;
 @end

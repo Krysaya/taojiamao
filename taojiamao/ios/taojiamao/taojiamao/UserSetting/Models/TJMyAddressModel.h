@@ -40,10 +40,12 @@
  */
 @property(nonatomic,copy)NSString *id;
 @property(nonatomic,copy)NSString *name;
-@property(nonatomic,copy)NSString *tel;
+@property(nonatomic,copy)NSString *telephone;
 @property(nonatomic,copy)NSString *address;
 @property(nonatomic,copy)NSString *sex;
-
+@property (nonatomic, strong) NSString *addtime;
+@property (nonatomic, strong) NSString *is_default;
+@property (nonatomic, strong) NSString *school_id;
 
 
 

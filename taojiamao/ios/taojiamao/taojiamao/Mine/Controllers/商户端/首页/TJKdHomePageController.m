@@ -11,6 +11,8 @@
 #import "TJKdHomePaContentController.h"
 #import "TJKdHomePageContentTwoController.h"
 #import "TJTabBarController.h"
+
+
 #define NoticeTag  3732
 #define BackTag  3452
 @interface TJKdHomePageController ()<ZJScrollPageViewDelegate,TJButtonDelegate>
@@ -34,7 +36,7 @@
     style.showLine= YES;
     style.scrollTitle = NO;
     style.adjustCoverOrLineWidth = YES;
-    style.titleFont = [UIFont systemFontOfSize:15];
+    style.titleFont = [UIFont systemFontOfSize:17];
     style.normalTitleColor = RGB(51, 51, 51);
     style.selectedTitleColor = KKDRGB;
     style.scrollLineColor = KKDRGB;
@@ -48,7 +50,7 @@
     self.navigationItem.titleView = segment;
     
     
-    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 64, S_W, S_H - 64 - SafeAreaBottomHeight) segmentView:segment parentViewController:self delegate:self];
+    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 64, S_W, S_H - 64 - 49) segmentView:segment parentViewController:self delegate:self];
     self.contentView = content;
     [self.view addSubview:content];
     
@@ -62,6 +64,7 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 #pragma mark - rightbtnDELEGATE
 - (void)buttonClick:(UIButton *)but{
     if (but.tag==NoticeTag) {

@@ -15,6 +15,9 @@
 
 //RGB
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+//RGBA
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
 //主色
 #define KALLRGB [UIColor colorWithRed:255/255.0 green:71/255.0 blue:119/255.0 alpha:1.0]
 //背景
@@ -54,7 +57,7 @@
 
 #define SafeAreaTopHeight (S_H == 812.0 ? 88 : 64)
 #define SafeAreaBottomHeight (S_H == 812.0 ? 34 : 0)
-
+//#define BottmHeight  
 //检测程序是在真机上还是在模拟器上
 #if TARGET_IPHONE_SIMULATOR
 #define SIMULATOR 1

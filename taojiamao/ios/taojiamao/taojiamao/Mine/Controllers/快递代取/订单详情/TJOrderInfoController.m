@@ -18,7 +18,7 @@
 
 #import "TJKdOrderInfoModel.h"
 
-@interface TJOrderInfoController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TJOrderInfoController ()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @end
@@ -32,8 +32,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单详情";
-    self.navigationController.navigationBar.barTintColor = RGB(81, 162, 249);
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H) style:UITableViewStylePlain];
+//    self.navigationController.navigationBar.barTintColor = RGB(81, 162, 249);
+    
+    TJButton *button_right = [[TJButton alloc]initWith:@"取消订单" delegate:self font:15.0 titleColor:[UIColor whiteColor] backColor:nil tag:142];
+    
+    // 修改导航栏左边的item
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
+    
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-60) style:UITableViewStylePlain];
     tableView.backgroundColor = KBGRGB;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -49,8 +55,30 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
+    if ([self.kdstatus intValue]==0) {
+        [self setBottmButtonWithBtnTitle:@"修改订单"];
+    }
+    
+}
+- (void)setBottmButtonWithBtnTitle:(NSString *)title
+{
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(15, S_H-50, S_W-30, 40)];
+    btn.backgroundColor = KKDRGB;
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [btn addTarget:self action:@selector(editOrderClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
+- (void)editOrderClick:(UIButton *)sender{
+//    修改订单
+}
+#pragma mark - tjbuttonDelegate
+- (void)buttonClick:(UIButton *)but{
+//    取消订单
+}
+#pragma mark - request
 - (void)loadrequestOrderInfoList{
     self.dataArr = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);

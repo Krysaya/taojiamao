@@ -12,6 +12,9 @@
 #import "TJHPMidCollectCell.h"
 #import "TJClassOneCell.h"
 #import "TJClassTwoCell.h"
+#import "TJHeadLineCustomCell.h"
+#import "TJGoodsListCell.h"
+
 #import "TJHomeSignController.h"
 #import "TJNoticeController.h"
 #import "TJHomeController.h"
@@ -19,15 +22,18 @@
 #import "TJProjectController.h"
 //#import "TJClassicController.h"
 #import "TJDefaultGoodsDetailController.h"
-#import "TJHeadLineCustomCell.h"
-
 #import "TJClassicController.h"
-#import "TJGoodsListCell.h"
-#import "UIViewController+Extension.h"
 #import "TJHeadLineController.h"
+#import "TJBargainController.h"//9.9
+
+
+#import "UIViewController+Extension.h"
+
 #import "TJHomePageModel.h"
 #import "TJHeadLineScrollModel.h"
 #import "TJGoodsCollectModel.h"
+
+
 #define AD_H  200
 #define Cloumns_H  165
 #define News_H  55
@@ -123,9 +129,6 @@
         });
 
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--搜索-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
         
     }];
 }
@@ -594,6 +597,19 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (collectionView.tag==CLASSS_CollectionV) {
 //        今日
+        if (indexPath.section==0) {
+            if (indexPath.row==0) {
+//                今日值得买
+                TJBargainController *vc= [[TJBargainController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else{
+//                白菜党
+            }
+        }else{
+            
+            
+            
+        }
     }else{
 //        导航模块
         if (indexPath.section==0) {

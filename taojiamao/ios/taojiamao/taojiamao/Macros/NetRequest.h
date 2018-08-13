@@ -53,6 +53,8 @@ static NSString * const UserPhone = @"UserPhone";
 #define MembersSigns          [BASEURL stringByAppendingString:@"/v1/members/signs"]
 //消息通知
 #define MessageNotice          [BASEURL stringByAppendingString:@"/v1/messages"]
+//排行榜
+#define RanksList          [BASEURL stringByAppendingString:@"/v1/ranks"]
 
 
 //pl列表
@@ -131,7 +133,7 @@ static NSString * const UserPhone = @"UserPhone";
 //所有地区
 #define AllAreasList        [BASEURL stringByAppendingString:@"/v1/areas"]
 
-//学习列表
+//学校列表
 #define SchoolList        [BASEURL stringByAppendingString:@"/v1/schools"]
 
 //用户-快递-订单详情

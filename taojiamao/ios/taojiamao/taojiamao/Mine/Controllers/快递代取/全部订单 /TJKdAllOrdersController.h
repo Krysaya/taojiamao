@@ -10,4 +10,5 @@
 
 @interface TJKdAllOrdersController : UIViewController
 
+@property (nonatomic, strong) NSString *selectIndex;
 @end

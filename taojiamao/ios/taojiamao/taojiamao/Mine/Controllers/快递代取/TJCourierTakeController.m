@@ -15,6 +15,9 @@
 #import "TJKdAllOrdersController.h"//全部订单
 #import "TJMyAddressController.h"//地址
 #import "TJEvaluationController.h"//评价
+#import "TJKdAllOrdersController.h"//待评价
+#import "TJNoticeController.h"//通知
+#import "TJWaitingOrderController.h"//待接单
 #define RIGHTBTN  4783
 @interface TJCourierTakeController ()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -42,7 +45,7 @@
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 118+SafeAreaTopHeight, S_W, S_H-SafeAreaTopHeight-118) style:UITableViewStylePlain];
     tableView.backgroundColor = KBGRGB;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -99,19 +102,25 @@
         {
 //          待接单
             DSLog(@"jd");
-            
+            TJWaitingOrderController *vc = [[TJWaitingOrderController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 302:
         {
 //            待评价
             DSLog(@"pj");
+            TJKdAllOrdersController *vc = [[TJKdAllOrdersController alloc]init];
+            vc.selectIndex = @"2";
+            [self.navigationController pushViewController:vc animated:YES];
 
         }
             break;
         case 303:
         {
 //         通知
+            TJNoticeController *vc = [[TJNoticeController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:
@@ -120,11 +129,13 @@
 }
 
 #pragma mark - tableViewDelegate
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = self.headView;
-    return view;
-}
-
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    UIView *view = self.headView;
+//    return view;
+//}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 118;
+//}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }

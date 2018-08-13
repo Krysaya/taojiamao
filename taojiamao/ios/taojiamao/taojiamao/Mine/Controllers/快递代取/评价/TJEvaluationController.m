@@ -72,6 +72,9 @@
     
     
 }
+- (void)butClick:(UIButton *)sender{
+    
+}
 #pragma mark - star--deleagte
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
