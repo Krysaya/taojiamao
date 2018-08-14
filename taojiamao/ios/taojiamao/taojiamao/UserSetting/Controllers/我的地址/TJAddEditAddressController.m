@@ -11,7 +11,7 @@
 
 #define OVERGO 746910
 
-@interface TJAddEditAddressController ()<TJButtonDelegate>
+@interface TJAddEditAddressController ()<TJButtonDelegate,ChooseSchoolControllerDelegate>
 
 @property(nonatomic,assign)BOOL edit;
 
@@ -24,6 +24,10 @@
 @property(nonatomic,strong)UILabel * phoneLabel;
 @property(nonatomic,strong)UITextField * phoneField;
 @property(nonatomic,strong)UIView * phoneLine;
+
+@property (nonatomic, strong) UILabel *sexLab;
+@property (nonatomic, strong) UITextField *sexfield;
+@property (nonatomic, strong) UIView *sexLine;
 
 @property(nonatomic,strong)UILabel * areaLabel;
 @property(nonatomic,strong)UILabel * areaPicker;
@@ -105,8 +109,6 @@
     }];
     
     self.phoneField = [[UITextField alloc]init];
-//    self.phoneField.backgroundColor = [UIColor grayColor];
-
     self.phoneField.placeholder = @"请输入电话号码";
     self.phoneField.font = [UIFont systemFontOfSize:15*W_Scale];
     [self.headView addSubview:self.phoneField];
@@ -124,11 +126,36 @@
         make.height.width.mas_equalTo(weakSelf.nameLine);
     }];
     
+    self.sexLab = [self setLabelWith:@"选择性别" font:15*W_Scale color:RGB(51, 51, 51)];
+    [self.headView addSubview:self.sexLab];
+    [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.phoneLine.mas_bottom).offset(17*H_Scale);
+        make.left.mas_equalTo(weakSelf.phoneLabel);
+    }];
+    
+    self.sexfield = [[UITextField alloc]init];
+    self.sexfield.placeholder = @"请选择性别";
+    self.sexfield.font = [UIFont systemFontOfSize:15*W_Scale];
+    [self.headView addSubview:self.sexfield];
+    [self.sexfield mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.height.mas_equalTo(weakSelf.phoneField);
+        make.centerY.mas_equalTo(weakSelf.sexLab);
+    }];
+    
+    self.sexLine = [[UIView alloc]init];
+    self.sexLine.backgroundColor = RGB(217, 217, 217);
+    [self.headView addSubview:self.sexLine];
+    [self.sexLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.sexfield.mas_bottom).offset(17*H_Scale);
+        make.centerX.mas_equalTo(weakSelf.headView);
+        make.height.width.mas_equalTo(weakSelf.nameLine);
+    }];
+    
     self.areaLabel = [self setLabelWith:@"所在学校" font:15*W_Scale color:RGB(51, 51, 51)];
     [self.headView addSubview:self.areaLabel];
     [self.areaLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.phoneLabel);
-        make.top.mas_equalTo(weakSelf.phoneLine.mas_bottom).offset(17*H_Scale);
+        make.left.mas_equalTo(weakSelf.sexLab);
+        make.top.mas_equalTo(weakSelf.sexLine.mas_bottom).offset(17*H_Scale);
     }];
     
     self.areaPicker = [[UILabel alloc]init];
@@ -202,19 +229,30 @@
     }else{
         if ([TJOverallJudge judgeMobile:self.phoneField.text]) {
             
-            NSDictionary * dict =@{
-                                   @"uid":GetUserDefaults(UID),
-                                   @"province_id":self.areas[0],
-                                   @"city_id":self.areas[1],
-                                   @"area_id":self.areas[2],
-                                   @"nickname":self.nameField.text,
-                                   @"tel":self.phoneField.text,
-                                   @"address":self.details.text,
-                                   };
-            NSMutableDictionary * mdict = [NSMutableDictionary dictionaryWithDictionary:dict];
+            NSString *userid = GetUserDefaults(UID);
+            if (userid) {
+            }else{
+                userid = @"";
+            }
+            KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+            NSString *timeStr = [MD5 timeStr];
+            NSString *name = [self.nameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//            NSString *sex
+            NSMutableDictionary *md = @{
+                                        @"timestamp": timeStr,
+                                        @"app": @"ios",
+                                        @"uid":userid,
+                                        @"name":userid,
+                                        @"uid":userid,
+                                        @"uid":userid,
+                                        @"uid":userid,
+                                        @"uid":userid,
+
+                                        }.mutableCopy;
+            NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
             if (self.edit) {
                 DSLog(@"编辑");
-                [mdict setValue:self.model.id forKey:@"id"];
+
 //                [XDNetworking postWithUrl:UserUpdateAddress refreshRequest:NO cache:NO params:mdict progressBlock:nil successBlock:^(id response) {
 //                    DSLog(@"编辑成功");
 //                    [self.navigationController popViewControllerAnimated:YES];
@@ -223,12 +261,7 @@
 //                }];
             }else{
                 DSLog(@"添加");
-//                [XDNetworking postWithUrl:UserAddAddress refreshRequest:NO cache:NO params:dict progressBlock:nil successBlock:^(id response) {
-//                    DSLog(@"添加成功");
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                } failBlock:^(NSError *error) {
-//                    DSLog(@"%@",error);
-//                }];
+
             }
         }else{
             [SVProgressHUD showInfoWithStatus:@"手机号格式不正确"];
@@ -237,22 +270,15 @@
     }
 }
 
+#pragma mark - 代理
+- (void)getSchoolInfoValue:(NSString *)schoolID{
+    self.areaLabel.text = schoolID;
+    
+}
 -(void)chooseArea{
     TJKdChooseSchoolController *vc = [[TJKdChooseSchoolController alloc]init];
+    vc.delegate = self;
     [self.navigationController  pushViewController:vc animated:YES];
-//    [self.view endEditing:YES];
-//    WeakSelf
-//    [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultAddress:@"河北省-石家庄市-裕华区" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *address, NSString *zipcode) {
-//
-//            weakSelf.areaPicker.textColor = RGB(51, 51, 51);
-//
-//
-//        weakSelf.areaPicker.text = address;
-//        NSArray* array = [zipcode componentsSeparatedByString:@"-"];
-//        self.areas = array;
-//    } cancelBlock:^{
-//
-//    }];
 }
 -(UILabel*)setLabelWith:(NSString*)text font:(CGFloat)font color:(UIColor*)c{
     UILabel*label =  [[UILabel alloc]init];

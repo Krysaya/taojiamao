@@ -14,7 +14,11 @@
 @end
 
 @implementation TJKdMyOpintionMyController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"意见反馈";

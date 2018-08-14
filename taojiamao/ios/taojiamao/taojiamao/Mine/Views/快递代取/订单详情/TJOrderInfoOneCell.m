@@ -35,7 +35,7 @@
         case 0:
         {
             self.lab_detail.text = @"取件码：";
-            self.lab_code.text = model.confirm_code;
+            self.lab_code.text = model.qu_code;
         }
             break; case 1:
         {
@@ -43,7 +43,7 @@
         }
             break; case 2:
         {
-            self.lab_detail.text = @"";
+            self.lab_detail.text = @"待完成~";
         }
             break; case 3:
         {

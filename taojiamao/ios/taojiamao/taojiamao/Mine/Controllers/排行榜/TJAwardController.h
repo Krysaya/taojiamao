@@ -10,4 +10,5 @@
 
 @interface TJAwardController : WMPageController
 
+@property (nonatomic, assign) NSInteger  type;
 @end

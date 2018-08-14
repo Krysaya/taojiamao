@@ -135,7 +135,6 @@
 		C73D393220E362340004D5B4 /* TJAwardController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D393120E362340004D5B4 /* TJAwardController.m */; };
 		C73D393520E363730004D5B4 /* TJInviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D393420E363730004D5B4 /* TJInviteController.m */; };
 		C73D393820E363BB0004D5B4 /* TJRankingListContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D393720E363BB0004D5B4 /* TJRankingListContentController.m */; };
-		C73D393B20E364600004D5B4 /* TJRankingListContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D393A20E364600004D5B4 /* TJRankingListContentCell.m */; };
 		C73D394120E38E8E0004D5B4 /* TJTaoBaoOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D394020E38E8E0004D5B4 /* TJTaoBaoOrderController.m */; };
 		C73D394420E38F520004D5B4 /* TJTBOrderContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D394320E38F520004D5B4 /* TJTBOrderContentController.m */; };
 		C73D394720E38F8C0004D5B4 /* TJTBOrderContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C73D394620E38F8C0004D5B4 /* TJTBOrderContentCell.m */; };
@@ -280,7 +279,6 @@
 		C76260F120FEDDA0006889DF /* TJCollectionClassicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C76260EF20FEDDA0006889DF /* TJCollectionClassicCell.xib */; };
 		C763617820B50560002F239F /* TJVipFansController.m in Sources */ = {isa = PBXBuildFile; fileRef = C763617720B50560002F239F /* TJVipFansController.m */; };
 		C763617B20B5553B002F239F /* TJVipFansContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C763617A20B5553B002F239F /* TJVipFansContentController.m */; };
-		C763617E20B5593E002F239F /* TJVipFansContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C763617D20B5593E002F239F /* TJVipFansContentCell.m */; };
 		C7679C6820EB13AB0053A6A8 /* TJShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7679C6720EB13AB0053A6A8 /* TJShareView.m */; };
 		C7679C6B20EB75E80053A6A8 /* TJPersonalController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7679C6A20EB75E80053A6A8 /* TJPersonalController.m */; };
 		C76A61C020EC621A000B747C /* TJMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C76A61BF20EC621A000B747C /* TJMiddleView.m */; };
@@ -344,6 +342,12 @@
 		C77B44692118667800332147 /* TJCourierTakeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77B44672118667800332147 /* TJCourierTakeController.xib */; };
 		C77B7A9F20F4595A005DD2BD /* TJCourierInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77B7A9E20F4595A005DD2BD /* TJCourierInfoController.m */; };
 		C77B7AA220F4B003005DD2BD /* TJMineHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77B7AA120F4B003005DD2BD /* TJMineHeaderCell.m */; };
+		C77BAC992122680F00C599DB /* TJRankingListContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77BAC982122680F00C599DB /* TJRankingListContentCell.m */; };
+		C77BACA02122684200C599DB /* TJRankingHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77BAC9E2122684200C599DB /* TJRankingHeaderCell.m */; };
+		C77BACA12122684200C599DB /* TJRankingHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77BAC9F2122684200C599DB /* TJRankingHeaderCell.xib */; };
+		C77BACA521226A3400C599DB /* TJRankListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C77BACA421226A3400C599DB /* TJRankListModel.m */; };
+		C77BACA92122704E00C599DB /* TJVipFansContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77BACA82122704E00C599DB /* TJVipFansContentCell.m */; };
+		C77BACAD2122707000C599DB /* TJVipFensListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C77BACAC2122707000C599DB /* TJVipFensListModel.m */; };
 		C77CB814211D46DE00CD6952 /* TJKdOrderInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C77CB813211D46DE00CD6952 /* TJKdOrderInfoModel.m */; };
 		C77CD41E20F60579003A55FC /* TJSignCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77CD41D20F60579003A55FC /* TJSignCalendarCell.m */; };
 		C77D0E9420A3ED5B000F794A /* YYTextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D0E6220A3ED5B000F794A /* YYTextContainerView.m */; };
@@ -573,6 +577,12 @@
 		C7E6D47F20A96C4B0019C827 /* TJBindTBController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D47E20A96C4B0019C827 /* TJBindTBController.m */; };
 		C7E6D48520A97CEA0019C827 /* TJMineAssetDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48420A97CEA0019C827 /* TJMineAssetDetailsController.m */; };
 		C7E6D48B20A9B02E0019C827 /* TJJFBExchangeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48A20A9B02E0019C827 /* TJJFBExchangeController.m */; };
+		C7FEE0AF2122815B008BDBA4 /* TJKdMyOrderContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0AE2122815B008BDBA4 /* TJKdMyOrderContentController.m */; };
+		C7FEE0B22122D872008BDBA4 /* TJMySchoolListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0B12122D872008BDBA4 /* TJMySchoolListModel.m */; };
+		C7FEE0B72122F455008BDBA4 /* TJAddAddressDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0B52122F455008BDBA4 /* TJAddAddressDefaultCell.m */; };
+		C7FEE0B82122F455008BDBA4 /* TJAddAddressDefaultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FEE0B62122F455008BDBA4 /* TJAddAddressDefaultCell.xib */; };
+		C7FEE0BC2122F523008BDBA4 /* TJAddAddressContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0BA2122F523008BDBA4 /* TJAddAddressContentCell.m */; };
+		C7FEE0BD2122F523008BDBA4 /* TJAddAddressContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FEE0BB2122F523008BDBA4 /* TJAddAddressContentCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -839,8 +849,6 @@
 		C73D393420E363730004D5B4 /* TJInviteController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJInviteController.m; sourceTree = "<group>"; };
 		C73D393620E363BB0004D5B4 /* TJRankingListContentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJRankingListContentController.h; sourceTree = "<group>"; };
 		C73D393720E363BB0004D5B4 /* TJRankingListContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJRankingListContentController.m; sourceTree = "<group>"; };
-		C73D393920E364600004D5B4 /* TJRankingListContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJRankingListContentCell.h; sourceTree = "<group>"; };
-		C73D393A20E364600004D5B4 /* TJRankingListContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJRankingListContentCell.m; sourceTree = "<group>"; };
 		C73D393F20E38E8E0004D5B4 /* TJTaoBaoOrderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTaoBaoOrderController.h; sourceTree = "<group>"; };
 		C73D394020E38E8E0004D5B4 /* TJTaoBaoOrderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTaoBaoOrderController.m; sourceTree = "<group>"; };
 		C73D394220E38F520004D5B4 /* TJTBOrderContentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTBOrderContentController.h; sourceTree = "<group>"; };
@@ -1136,8 +1144,6 @@
 		C763617720B50560002F239F /* TJVipFansController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJVipFansController.m; sourceTree = "<group>"; };
 		C763617920B5553B002F239F /* TJVipFansContentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJVipFansContentController.h; sourceTree = "<group>"; };
 		C763617A20B5553B002F239F /* TJVipFansContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJVipFansContentController.m; sourceTree = "<group>"; };
-		C763617C20B5593E002F239F /* TJVipFansContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJVipFansContentCell.h; sourceTree = "<group>"; };
-		C763617D20B5593E002F239F /* TJVipFansContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJVipFansContentCell.m; sourceTree = "<group>"; };
 		C7679C6620EB13AB0053A6A8 /* TJShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJShareView.h; sourceTree = "<group>"; };
 		C7679C6720EB13AB0053A6A8 /* TJShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJShareView.m; sourceTree = "<group>"; };
 		C7679C6920EB75E80053A6A8 /* TJPersonalController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPersonalController.h; sourceTree = "<group>"; };
@@ -1253,6 +1259,17 @@
 		C77B7A9E20F4595A005DD2BD /* TJCourierInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJCourierInfoController.m; sourceTree = "<group>"; };
 		C77B7AA020F4B003005DD2BD /* TJMineHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMineHeaderCell.h; sourceTree = "<group>"; };
 		C77B7AA120F4B003005DD2BD /* TJMineHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMineHeaderCell.m; sourceTree = "<group>"; };
+		C77BAC972122680F00C599DB /* TJRankingListContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJRankingListContentCell.h; sourceTree = "<group>"; };
+		C77BAC982122680F00C599DB /* TJRankingListContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJRankingListContentCell.m; sourceTree = "<group>"; };
+		C77BAC9D2122684200C599DB /* TJRankingHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJRankingHeaderCell.h; sourceTree = "<group>"; };
+		C77BAC9E2122684200C599DB /* TJRankingHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJRankingHeaderCell.m; sourceTree = "<group>"; };
+		C77BAC9F2122684200C599DB /* TJRankingHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJRankingHeaderCell.xib; sourceTree = "<group>"; };
+		C77BACA321226A3400C599DB /* TJRankListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJRankListModel.h; sourceTree = "<group>"; };
+		C77BACA421226A3400C599DB /* TJRankListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJRankListModel.m; sourceTree = "<group>"; };
+		C77BACA72122704E00C599DB /* TJVipFansContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJVipFansContentCell.h; sourceTree = "<group>"; };
+		C77BACA82122704E00C599DB /* TJVipFansContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJVipFansContentCell.m; sourceTree = "<group>"; };
+		C77BACAB2122707000C599DB /* TJVipFensListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJVipFensListModel.h; sourceTree = "<group>"; };
+		C77BACAC2122707000C599DB /* TJVipFensListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJVipFensListModel.m; sourceTree = "<group>"; };
 		C77CB812211D46DE00CD6952 /* TJKdOrderInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdOrderInfoModel.h; sourceTree = "<group>"; };
 		C77CB813211D46DE00CD6952 /* TJKdOrderInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdOrderInfoModel.m; sourceTree = "<group>"; };
 		C77CD41C20F60579003A55FC /* TJSignCalendarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSignCalendarCell.h; sourceTree = "<group>"; };
@@ -1684,6 +1701,16 @@
 		C7E6D48420A97CEA0019C827 /* TJMineAssetDetailsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMineAssetDetailsController.m; sourceTree = "<group>"; };
 		C7E6D48920A9B02E0019C827 /* TJJFBExchangeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJJFBExchangeController.h; sourceTree = "<group>"; };
 		C7E6D48A20A9B02E0019C827 /* TJJFBExchangeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJJFBExchangeController.m; sourceTree = "<group>"; };
+		C7FEE0AD2122815B008BDBA4 /* TJKdMyOrderContentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdMyOrderContentController.h; sourceTree = "<group>"; };
+		C7FEE0AE2122815B008BDBA4 /* TJKdMyOrderContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMyOrderContentController.m; sourceTree = "<group>"; };
+		C7FEE0B02122D872008BDBA4 /* TJMySchoolListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMySchoolListModel.h; sourceTree = "<group>"; };
+		C7FEE0B12122D872008BDBA4 /* TJMySchoolListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMySchoolListModel.m; sourceTree = "<group>"; };
+		C7FEE0B42122F455008BDBA4 /* TJAddAddressDefaultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAddAddressDefaultCell.h; sourceTree = "<group>"; };
+		C7FEE0B52122F455008BDBA4 /* TJAddAddressDefaultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAddAddressDefaultCell.m; sourceTree = "<group>"; };
+		C7FEE0B62122F455008BDBA4 /* TJAddAddressDefaultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJAddAddressDefaultCell.xib; sourceTree = "<group>"; };
+		C7FEE0B92122F523008BDBA4 /* TJAddAddressContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAddAddressContentCell.h; sourceTree = "<group>"; };
+		C7FEE0BA2122F523008BDBA4 /* TJAddAddressContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAddAddressContentCell.m; sourceTree = "<group>"; };
+		C7FEE0BB2122F523008BDBA4 /* TJAddAddressContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJAddAddressContentCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2012,6 +2039,8 @@
 				C758CBFA20A2C717000F1903 /* TJMyAddressModel.m */,
 				C71D20862121838000580DA5 /* TJAreaListModel.h */,
 				C71D20872121838000580DA5 /* TJAreaListModel.m */,
+				C7FEE0B02122D872008BDBA4 /* TJMySchoolListModel.h */,
+				C7FEE0B12122D872008BDBA4 /* TJMySchoolListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2026,6 +2055,7 @@
 		C722E63220A12A9800EE9D61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C7FEE0B32122F436008BDBA4 /* 添加地址 */,
 				C7249B3020A19EAA00BB385E /* TJCleanCacheCell.h */,
 				C7249B3120A19EAA00BB385E /* TJCleanCacheCell.m */,
 				C758CBFC20A2C7D2000F1903 /* TJMyAddressCell.h */,
@@ -2503,6 +2533,8 @@
 		C73FC79B20901BC700732F2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C77BACAA2122705F00C599DB /* 我的粉丝 */,
+				C77BACA221226A2300C599DB /* 排行榜 */,
 				C77FF1F3211C515A00D07AFE /* 快递代取 */,
 				C79FAE832112F23C00E5065E /* TJMembersModel.h */,
 				C79FAE842112F23C00E5065E /* TJMembersModel.m */,
@@ -2518,6 +2550,8 @@
 		C73FC79C20901BC700732F2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C77BACA62122704E00C599DB /* 我的粉丝 */,
+				C77BAC962122680F00C599DB /* 排行榜 */,
 				C73C5296211ADCDD00458587 /* 商户端 */,
 				C77B44632118653E00332147 /* 快递代取 */,
 				C7C72F31210184130087A8CB /* 邀请 */,
@@ -2532,12 +2566,8 @@
 				C77B7AA120F4B003005DD2BD /* TJMineHeaderCell.m */,
 				C76A61C120EC6D0E000B747C /* TJPersonalCell.h */,
 				C76A61C220EC6D0E000B747C /* TJPersonalCell.m */,
-				C763617C20B5593E002F239F /* TJVipFansContentCell.h */,
-				C763617D20B5593E002F239F /* TJVipFansContentCell.m */,
 				C742DA3420BBB4310041F1C6 /* TJSearchView.h */,
 				C742DA3520BBB4310041F1C6 /* TJSearchView.m */,
-				C73D393920E364600004D5B4 /* TJRankingListContentCell.h */,
-				C73D393A20E364600004D5B4 /* TJRankingListContentCell.m */,
 				C76A61BE20EC621A000B747C /* TJMiddleView.h */,
 				C76A61BF20EC621A000B747C /* TJMiddleView.m */,
 			);
@@ -3558,6 +3588,45 @@
 			path = "快递代取";
 			sourceTree = "<group>";
 		};
+		C77BAC962122680F00C599DB /* 排行榜 */ = {
+			isa = PBXGroup;
+			children = (
+				C77BAC972122680F00C599DB /* TJRankingListContentCell.h */,
+				C77BAC982122680F00C599DB /* TJRankingListContentCell.m */,
+				C77BAC9D2122684200C599DB /* TJRankingHeaderCell.h */,
+				C77BAC9E2122684200C599DB /* TJRankingHeaderCell.m */,
+				C77BAC9F2122684200C599DB /* TJRankingHeaderCell.xib */,
+			);
+			path = "排行榜";
+			sourceTree = "<group>";
+		};
+		C77BACA221226A2300C599DB /* 排行榜 */ = {
+			isa = PBXGroup;
+			children = (
+				C77BACA321226A3400C599DB /* TJRankListModel.h */,
+				C77BACA421226A3400C599DB /* TJRankListModel.m */,
+			);
+			path = "排行榜";
+			sourceTree = "<group>";
+		};
+		C77BACA62122704E00C599DB /* 我的粉丝 */ = {
+			isa = PBXGroup;
+			children = (
+				C77BACA72122704E00C599DB /* TJVipFansContentCell.h */,
+				C77BACA82122704E00C599DB /* TJVipFansContentCell.m */,
+			);
+			path = "我的粉丝";
+			sourceTree = "<group>";
+		};
+		C77BACAA2122705F00C599DB /* 我的粉丝 */ = {
+			isa = PBXGroup;
+			children = (
+				C77BACAB2122707000C599DB /* TJVipFensListModel.h */,
+				C77BACAC2122707000C599DB /* TJVipFensListModel.m */,
+			);
+			path = "我的粉丝";
+			sourceTree = "<group>";
+		};
 		C77D0E5F20A3ED5B000F794A /* YYText */ = {
 			isa = PBXGroup;
 			children = (
@@ -3643,6 +3712,8 @@
 			children = (
 				C77FF1D4211C24F700D07AFE /* TKdMyOrderController.h */,
 				C77FF1D5211C24F700D07AFE /* TKdMyOrderController.m */,
+				C7FEE0AD2122815B008BDBA4 /* TJKdMyOrderContentController.h */,
+				C7FEE0AE2122815B008BDBA4 /* TJKdMyOrderContentController.m */,
 			);
 			path = "我的订单";
 			sourceTree = "<group>";
@@ -4402,6 +4473,19 @@
 			path = GYRollingNoticeView;
 			sourceTree = "<group>";
 		};
+		C7FEE0B32122F436008BDBA4 /* 添加地址 */ = {
+			isa = PBXGroup;
+			children = (
+				C7FEE0B42122F455008BDBA4 /* TJAddAddressDefaultCell.h */,
+				C7FEE0B52122F455008BDBA4 /* TJAddAddressDefaultCell.m */,
+				C7FEE0B62122F455008BDBA4 /* TJAddAddressDefaultCell.xib */,
+				C7FEE0B92122F523008BDBA4 /* TJAddAddressContentCell.h */,
+				C7FEE0BA2122F523008BDBA4 /* TJAddAddressContentCell.m */,
+				C7FEE0BB2122F523008BDBA4 /* TJAddAddressContentCell.xib */,
+			);
+			path = "添加地址";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4510,6 +4594,8 @@
 				C76BA5F620FD95DD006C749B /* TJHeadLineThreeCell.xib in Resources */,
 				C75F64B920EF1DE600B55B8B /* TJJHSuanCell.xib in Resources */,
 				C74D894C2100769A0098754C /* TJCommentsReplyCell.xib in Resources */,
+				C77BACA12122684200C599DB /* TJRankingHeaderCell.xib in Resources */,
+				C7FEE0BD2122F523008BDBA4 /* TJAddAddressContentCell.xib in Resources */,
 				C76BA60120FDA16B006C749B /* TJHeadDetailController.xib in Resources */,
 				C73C527E211AC48900458587 /* TJPayMoneyCell.xib in Resources */,
 				C786473520F3410A00995A8F /* TJClassTwoCell.xib in Resources */,
@@ -4527,6 +4613,7 @@
 				C73FC7652090180000732F2D /* Assets.xcassets in Resources */,
 				C7ADB497211A922100AD4D95 /* TJOrderInfoCell.xib in Resources */,
 				C71D207621217BF200580DA5 /* unicode_to_hanyu_pinyin.txt in Resources */,
+				C7FEE0B82122F455008BDBA4 /* TJAddAddressDefaultCell.xib in Resources */,
 				C7D9CF24211BE50700E70DD0 /* TJKdMineDefaultCell.xib in Resources */,
 				C7861DA020FC70EC0056574A /* TJMyFootPrintCell.xib in Resources */,
 				C76BA5EC20FD8E17006C749B /* TJHeadLineOneCell.xib in Resources */,
@@ -4629,12 +4716,14 @@
 				C7C72F592101CD0F0087A8CB /* NSObject+MJKeyValue.m in Sources */,
 				C722E63A20A138F300EE9D61 /* UINavigationController+Cloudox.m in Sources */,
 				C77B445B2118430B00332147 /* TADotView.m in Sources */,
+				C7FEE0BC2122F523008BDBA4 /* TJAddAddressContentCell.m in Sources */,
 				C781BEC7210B198E00B7BD57 /* MKAnnotationView+WebCache.m in Sources */,
 				C73FC81D209025CE00732F2D /* UIProgressView+AFNetworking.m in Sources */,
 				C77FF1E1211C272C00D07AFE /* TJKdMyTeamCell.m in Sources */,
 				C71D20882121838000580DA5 /* TJAreaListModel.m in Sources */,
 				C74099F32091CF3600DFCC94 /* IQUIScrollView+Additions.m in Sources */,
 				C79646812111C7A100F1AB26 /* TJHeadLineContentCell.m in Sources */,
+				C77BACA92122704E00C599DB /* TJVipFansContentCell.m in Sources */,
 				C7206BFF20A0031A00957A4A /* XHLaunchAdController.m in Sources */,
 				C77D0E9620A3ED5B000F794A /* YYTextEffectWindow.m in Sources */,
 				C74099FE2091CF3600DFCC94 /* IQToolbar.m in Sources */,
@@ -4707,6 +4796,7 @@
 				C77B445D2118430B00332147 /* SDCollectionViewCell.m in Sources */,
 				C7ADB4BB211AC32500AD4D95 /* TJPayDefaultCell.m in Sources */,
 				C781BEC9210B198E00B7BD57 /* NSData+ImageContentType.m in Sources */,
+				C77BACA521226A3400C599DB /* TJRankListModel.m in Sources */,
 				C74C31AB20B2C2DF0074AC00 /* TJContentCollectionCell.m in Sources */,
 				C74099CA2091596400DFCC94 /* TJOverallJudge.m in Sources */,
 				C7292A3920955F1A00073099 /* TJContentController.m in Sources */,
@@ -4746,6 +4836,7 @@
 				C7A3FC4021211D5200072A57 /* TJBargainHeadCell.m in Sources */,
 				C76BA5F020FD9003006C749B /* TJHeadLineTwoCell.m in Sources */,
 				C758914B2092B85D00AC085E /* ViewController+MASAdditions.m in Sources */,
+				C77BAC992122680F00C599DB /* TJRankingListContentCell.m in Sources */,
 				C78E5CD620ABB5E700C9C1BF /* MJRefreshConst.m in Sources */,
 				C7B9949620F884B000DFFC98 /* ZJScrollPageView.m in Sources */,
 				C776E3B520BE3FBD00CF9901 /* TJMultipleChoiceView.m in Sources */,
@@ -4819,6 +4910,7 @@
 				C772AA3D210880800029C515 /* FSCalendarConstants.m in Sources */,
 				C77CD41E20F60579003A55FC /* TJSignCalendarCell.m in Sources */,
 				C74099FD2091CF3600DFCC94 /* IQTitleBarButtonItem.m in Sources */,
+				C77BACAD2122707000C599DB /* TJVipFensListModel.m in Sources */,
 				C77B4442211830CE00332147 /* TJThreeImageCell.m in Sources */,
 				C742A31E2099DA260026311A /* MyMaker.m in Sources */,
 				C71D207121217BF200580DA5 /* HanyuPinyinOutputFormat.m in Sources */,
@@ -4848,6 +4940,7 @@
 				C7B80D9320A5769300C1333B /* TJUserInfoController.m in Sources */,
 				C7206C0320A0031A00957A4A /* XHLaunchAdView.m in Sources */,
 				C742DA3920BBD67A0041F1C6 /* TJFiltrateView.m in Sources */,
+				C7FEE0B22122D872008BDBA4 /* TJMySchoolListModel.m in Sources */,
 				C78E5CCF20ABB5E700C9C1BF /* MJRefreshBackGifFooter.m in Sources */,
 				C78E5CCD20ABB5E700C9C1BF /* MJRefreshAutoNormalFooter.m in Sources */,
 				C77B443D211830B500332147 /* TJNoImageCell.m in Sources */,
@@ -4941,6 +5034,7 @@
 				C7E6D48520A97CEA0019C827 /* TJMineAssetDetailsController.m in Sources */,
 				C742A31C2099DA260026311A /* MyLayoutSizeClass.m in Sources */,
 				C756A27A20A91F4000EC5FEB /* TJAccountSafeController.m in Sources */,
+				C7FEE0B72122F455008BDBA4 /* TJAddAddressDefaultCell.m in Sources */,
 				C7249B1220A1458A00BB385E /* TJBalanceDetailsCell.m in Sources */,
 				C76260EC20FEDCCF006889DF /* TJClassicSecondCell.m in Sources */,
 				C772AA38210880800029C515 /* FSCalendarAppearance.m in Sources */,
@@ -4949,7 +5043,6 @@
 				C78114A021115F8B0078F8F3 /* TJSuperSearchController.m in Sources */,
 				C78E5CD420ABB5E700C9C1BF /* MJRefreshStateHeader.m in Sources */,
 				C7C72F5B2101CD0F0087A8CB /* NSString+MJExtension.m in Sources */,
-				C73D393B20E364600004D5B4 /* TJRankingListContentCell.m in Sources */,
 				C7ADB487211A8FD200AD4D95 /* TJOrderInfoController.m in Sources */,
 				C796467D2111C5A100F1AB26 /* TJArticlesInfoListModel.m in Sources */,
 				C772AA3C210880800029C515 /* FSCalendarCollectionViewLayout.m in Sources */,
@@ -5014,6 +5107,7 @@
 				C75891462092B85D00AC085E /* MASViewAttribute.m in Sources */,
 				C7249B1820A152E200BB385E /* TJAssistanceCell.m in Sources */,
 				C704044920AE6A60001D720A /* UICollectionView+XHWebImageAutoSize.m in Sources */,
+				C7FEE0AF2122815B008BDBA4 /* TJKdMyOrderContentController.m in Sources */,
 				C758A05C2109B33000DDFDAD /* TJSignListModel.m in Sources */,
 				C71D207421217BF200580DA5 /* PinYinForObjc.m in Sources */,
 				C7B9949420F884B000DFFC98 /* ZJCollectionView.m in Sources */,
@@ -5059,6 +5153,7 @@
 				C7E69B332114610B0007C5F3 /* TJHeadLineCustomCell.m in Sources */,
 				C78E5CDD20ABCC2E00C9C1BF /* TJGoodsDetailsController.m in Sources */,
 				C72A72BF209D54B3001CAC75 /* PYSearchViewController.m in Sources */,
+				C77BACA02122684200C599DB /* TJRankingHeaderCell.m in Sources */,
 				C74099FA2091CF3600DFCC94 /* IQTextView.m in Sources */,
 				C75003882119B6A000F0C942 /* TJFaBuController.m in Sources */,
 				C7C72F562101CD0F0087A8CB /* MJPropertyType.m in Sources */,
@@ -5086,7 +5181,6 @@
 				C77D0E9820A3ED5B000F794A /* YYTextKeyboardManager.m in Sources */,
 				C71D207521217BF200580DA5 /* PinyinHelper.m in Sources */,
 				C79B99D620FF0F430096E9C6 /* TJClassicSecondController.m in Sources */,
-				C763617E20B5593E002F239F /* TJVipFansContentCell.m in Sources */,
 				C7181E0920AAB72900AEC7D5 /* TJHomeFootShowModel.m in Sources */,
 				C71787792105844E009A2034 /* WMMenuView.m in Sources */,
 				C7292A2E2095566700073099 /* NSObject+YYModel.m in Sources */,

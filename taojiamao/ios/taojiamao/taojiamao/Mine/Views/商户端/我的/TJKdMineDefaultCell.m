@@ -8,12 +8,17 @@
 //
 
 #import "TJKdMineDefaultCell.h"
+@interface TJKdMineDefaultCell()
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UILabel *lab_title;
+
+@end
 
 @implementation TJKdMineDefaultCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,4 +27,14 @@
     // Configure the view for the selected state
 }
 
+- (void)setType:(NSString *)type{
+    _type =  type;
+    if ([type intValue]==0) {
+        self.img.image = [UIImage imageNamed:@"kd_money_yue"];
+        self.lab_title.text = @"余额提现";
+    }else{
+        self.img.image = [UIImage imageNamed:@"kd_money_mx"];
+        self.lab_title.text = @"余额明细";
+    }
+}
 @end

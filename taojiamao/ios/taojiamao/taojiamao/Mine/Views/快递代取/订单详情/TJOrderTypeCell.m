@@ -8,6 +8,7 @@
 //
 
 #import "TJOrderTypeCell.h"
+#import "TJKdOrderInfoModel.h"
 @interface TJOrderTypeCell()
 @property (weak, nonatomic) IBOutlet UIImageView *img_kdlogo;
 @property (weak, nonatomic) IBOutlet UILabel *lab_kdtype;
@@ -28,5 +29,9 @@
 
     // Configure the view for the selected state
 }
-
+- (void)setModel:(TJKdOrderInfoModel *)model{
+    _model = model;
+    self.lab_kdtype.text =  model.name;
+    
+}
 @end

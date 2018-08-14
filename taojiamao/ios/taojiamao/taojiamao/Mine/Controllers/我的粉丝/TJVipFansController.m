@@ -64,8 +64,9 @@
     return self.titles[index];
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-   
-        return [[TJVipFansContentController alloc]init];
+   TJVipFansContentController *vc = [[TJVipFansContentController alloc]init];
+    vc.index = [NSString stringWithFormat:@"%ld",index];
+    return vc;
     
 }
 //- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {

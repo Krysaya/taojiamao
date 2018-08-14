@@ -10,4 +10,5 @@
 
 @interface TJVipFansContentController : TJBaseViewController
 
+@property (nonatomic, strong) NSString *index;
 @end

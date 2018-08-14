@@ -23,13 +23,23 @@
 }
 
 - (void)zj_viewWillAppearForIndex:(NSInteger)index{
-  NSString *str = [NSString stringWithFormat:@"%ld",index+1];
-    [self loadMembersMingXiList:str];
+//  NSString *str = [NSString stringWithFormat:@"%ld",index+1];
+//    [self loadMembersMingXiList:str];
 }
 - (void)zj_viewDidLoadForIndex:(NSInteger)index{
+   
     NSString *str = [NSString stringWithFormat:@"%ld",index+1];
-    [self loadMembersMingXiList:str];
-  
+    if ([self.type_mxx isEqualToString:@"put"]) {
+//        普通
+        DSLog(@"put");
+        [self loadMembersMingXiList:str withUserType:@"1"];
+    }else{
+//        快递
+        DSLog(@"kuaid");
+
+        [self loadMembersMingXiList:str withUserType:@"2"];
+
+    }
     self.tableView.rowHeight = 62;
     self.tableView.backgroundColor =RGB(245, 245, 245);
     self.tableView.tableFooterView = [UIView new];
@@ -37,7 +47,7 @@
     
 }
 
-- (void)loadMembersMingXiList:(NSString *)type{
+- (void)loadMembersMingXiList:(NSString *)type withUserType:(NSString *)userType{
     self.dataArr = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
@@ -51,6 +61,8 @@
                                 @"app": @"ios",
                                 @"uid":userid,
                                 @"style":type,
+                                @"user_type":userType,
+
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -61,19 +73,17 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"style":type};
+        request.parameters = @{@"style":type,
+                               @"user_type":userType,
+                               };
     } onSuccess:^(id  _Nullable responseObject) {
-//        NSLog(@"----jifen-success-===%@",responseObject);
         self.dataArr = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-//        DSLog(@"===jf==%ld",self.dataArr.count);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--jien-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+
     }];
 }
 - (void)requestMembersDetailWithIndex:(NSInteger)index{

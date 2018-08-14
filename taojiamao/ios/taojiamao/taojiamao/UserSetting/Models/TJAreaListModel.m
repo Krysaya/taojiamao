@@ -10,5 +10,9 @@
 #import "TJAreaListModel.h"
 
 @implementation TJAreaListModel
++(NSDictionary *)mj_objectClassInArray{
+
+    return @{@"son":[TJAreaListModel class]};
+}
 
 @end

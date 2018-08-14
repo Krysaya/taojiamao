@@ -45,6 +45,15 @@
     [self setUIalipayView];
     [self setUIinputView];
     [self setExchangeButtons];
+    
+    if ([self.type_tx intValue]==0) {
+        self.exchangeButton.backgroundColor = KALLRGB;
+        self.iconView.image = [UIImage imageNamed:@"balance"];
+    }else{
+        self.exchangeButton.backgroundColor = KKDRGB;
+        self.iconView.image = [UIImage imageNamed:@"kd_money_m"];
+
+    }
 }
 -(void)setExchangeButtons{
     WeakSelf

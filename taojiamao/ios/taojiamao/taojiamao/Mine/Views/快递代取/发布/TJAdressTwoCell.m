@@ -8,6 +8,7 @@
 //
 
 #import "TJAdressTwoCell.h"
+#import "TJKdOrderInfoModel.h"
 @interface TJAdressTwoCell()
 //@property (weak, nonatomic) IBOutlet UIImageView *img;
 //@property (weak, nonatomic) IBOutlet UILabel *lab_address;
@@ -29,4 +30,8 @@
     // Configure the view for the selected state
 }
 
+- (void)setModel:(TJKdOrderInfoModel *)model{
+    _model = model;
+    self.lab_quAddress.text = [NSString stringWithFormat:@"[取件地址]%@",model.qu_address];
+}
 @end

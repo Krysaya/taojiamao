@@ -74,7 +74,7 @@
 -(void)indexDidChangeForSegmentedControl:(UISegmentedControl *)sender
 {
     NSUInteger segIndex = [sender selectedSegmentIndex];
-    UIViewController *controller = [self controllerForSegIndex:segIndex];
+    UIViewController *controller = [self controllerForSegIndex:segIndex];    
     NSArray *array2 = [self.view subviews];
     //NSLog(@"array2-->%@",array2);
     //将当旧VC的view移除，然后在添加新VC的view

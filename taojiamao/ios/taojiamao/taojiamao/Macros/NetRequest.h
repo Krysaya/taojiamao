@@ -56,7 +56,8 @@ static NSString * const UserPhone = @"UserPhone";
 //排行榜
 #define RanksList          [BASEURL stringByAppendingString:@"/v1/ranks"]
 
-
+//排行榜
+#define MemeberFans          [BASEURL stringByAppendingString:@"/v1//members/fans"]
 //pl列表
 #define CommentsList          [BASEURL stringByAppendingString:@"/v1/comments"]
 

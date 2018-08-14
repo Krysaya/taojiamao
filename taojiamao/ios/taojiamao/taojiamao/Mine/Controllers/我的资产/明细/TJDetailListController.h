@@ -10,4 +10,5 @@
 
 @interface TJDetailListController : UITableViewController
 
+@property (nonatomic, strong) NSString *type_mxx;
 @end

@@ -22,15 +22,21 @@
     self.title = @"收支明细";
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-
     ZJSegmentStyle *style = [[ZJSegmentStyle alloc] init];
+
+    if ([self.type_mx isEqualToString:@"put"]) {
+        style.selectedTitleColor = KALLRGB;
+        style.scrollLineColor = KALLRGB;
+    }else{
+        style.selectedTitleColor = KKDRGB;
+        style.scrollLineColor = KKDRGB;
+    }
     style.titleMargin  = 80;
     style.segmentViewBounces = NO;
     style.showLine= YES;
     style.titleFont = [UIFont systemFontOfSize:15];
     style.normalTitleColor = RGB(51, 51, 51);
-    style.selectedTitleColor = KALLRGB;
-    style.scrollLineColor = KALLRGB;
+    
     style.scrollLineSize = CGSizeMake(79, 2);
 
     
@@ -63,9 +69,12 @@
     // 这里一定要判断传过来的是否是nil, 如果为nil直接使用并返回
     // 如果不为nil 就创建
     if (childVc == nil) {
-        childVc = [[TJDetailListController alloc]init];
+        TJDetailListController *vc = [[TJDetailListController alloc]init];
+        vc.type_mxx = self.type_mx;
+        childVc = vc;
         
         if (index%2 == 0) {
+            
             childVc.view.backgroundColor = [UIColor redColor];
         } else {
             childVc.view.backgroundColor = [UIColor cyanColor];

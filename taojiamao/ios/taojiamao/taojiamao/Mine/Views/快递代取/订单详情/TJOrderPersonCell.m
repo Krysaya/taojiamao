@@ -8,9 +8,9 @@
 //
 
 #import "TJOrderPersonCell.h"
+#import "TJKdOrderInfoModel.h"
 @interface TJOrderPersonCell()
 @property (weak, nonatomic) IBOutlet UILabel *lab_name;
-@property (weak, nonatomic) IBOutlet UILabel *lab_songAddress;
 @property (weak, nonatomic) IBOutlet UIProgressView *progress;
 @property (weak, nonatomic) IBOutlet UILabel *lab_score;
 @property (weak, nonatomic) IBOutlet UIImageView *img_head;
@@ -30,5 +30,9 @@
 
     // Configure the view for the selected state
 }
-
+- (void)setModel:(TJKdOrderInfoModel *)model{
+    _model = model;
+    self.lab_name.text = [NSString stringWithFormat:@"接单人：%@",model.daili_name];
+//    self.b.text
+}
 @end

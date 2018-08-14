@@ -10,8 +10,9 @@
 #import "TJKdHomePaContentController.h"
 #import "TJKdHomeOrderCell.h"
 #import "TJKdUserOrderList.h"
+#import "TJKdMeOrderInfoController.h"//订单详情
 
-#import "TJOrderInfoController.h"//订单详情
+//#import "TJOrderInfoController.h"
 @interface TJKdHomePaContentController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
@@ -97,6 +98,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    TJKdUserOrderList *model = self.dataArr[indexPath.row];
+    TJKdMeOrderInfoController *vc = [[TJKdMeOrderInfoController alloc]init];
+    vc.kdid = model.id;
+    vc.kdstatus = model.status;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

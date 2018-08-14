@@ -10,4 +10,5 @@
 
 @interface TJAssetsDetailController : TJBaseViewController
 
+@property (nonatomic, strong) NSString *type_mx;
 @end

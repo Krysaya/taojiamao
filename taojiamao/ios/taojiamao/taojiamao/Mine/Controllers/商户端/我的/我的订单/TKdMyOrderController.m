@@ -8,14 +8,18 @@
 //
 
 #import "TKdMyOrderController.h"
-#import "TJKdHomePageContentTwoController.h"
+#import "TJKdMyOrderContentController.h"
 @interface TKdMyOrderController ()<ZJScrollPageViewDelegate>
 @property (nonatomic, strong) ZJContentView *contentView;
 
 @end
 
 @implementation TKdMyOrderController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的订单";
@@ -52,8 +56,7 @@
 
 - (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index
 {
-//    TJAllOrderContentController *vc = [[TJAllOrderContentController alloc]init];
-    TJKdHomePageContentTwoController *vc = [[TJKdHomePageContentTwoController alloc]init];
+    TJKdMyOrderContentController *vc = [[TJKdMyOrderContentController alloc]init];
     return vc;
 }
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods{

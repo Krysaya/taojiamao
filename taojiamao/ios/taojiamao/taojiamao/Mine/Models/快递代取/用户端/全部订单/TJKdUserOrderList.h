@@ -46,4 +46,5 @@
 @property (nonatomic, strong) NSString *song_end_time;
 @property (nonatomic, strong) NSString *status;//订单状态 0：待接单；1：已接单；2：待完成；3待评价；4：已完成；5：已失效；6：已取消
 @property (nonatomic, strong) NSString *is_ji; //是否加急   0：不加急；1：1元加急；2：2元加急；3：3元加急；4：4元加急；5：5元加急；6：10元加急
+@property (nonatomic, strong) NSString *timeout;
 @end

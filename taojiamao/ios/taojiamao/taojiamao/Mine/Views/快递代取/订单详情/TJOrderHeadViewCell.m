@@ -33,42 +33,26 @@
 - (void)setModel:(TJKdOrderInfoModel *)model{
     _model = model;
     
-    switch ([model.status intValue]) {
-        case 0:
-        {
-            self.lab_status.text = @"等待接单";
+    if ([model.status intValue]==0) {
+        self.lab_status.text = @"等待接单";
+
+    }else if ([model.status integerValue]==4){
+        self.lab_status.text = @"订单已完成";
+        self.btn_right.hidden = NO;
+        [self.btn_right setTitle:@"评论" forState:UIControlStateNormal];
+    }else if ([model.status integerValue]==1){
+        self.lab_status.text = @"已接单，请按时送达";
+
+    }else{
+        
+        if ([model.timeout integerValue]==1) {
+            self.lab_status.text = @"即将超时，请尽快送达";
+        }else{
+            self.lab_status.text = @"已超时";
+
         }
-            break; case 1:
-        {
-            self.lab_status.text = @"已接单，请耐心等待";
-        }
-            break; case 2:
-        {
-            self.lab_status.text = @"";
-        }
-            break; case 3:
-        {
-            self.lab_status.text = @"订单待评价";
-        }
-            break; case 4:
-        {
-            self.lab_status.text = @"订单已完成";
-            self.btn_right.hidden = NO;
-            [self.btn_right setTitle:@"评论" forState:UIControlStateNormal];
-        }
-            break; case 5:
-        {
-            self.lab_status.text = @"订单已失效";
-        }
-            break; case 6:
-        {
-            self.lab_status.text = @"订单已取消";
-        }
-            break;
-            
-        default:
-            break;
     }
+   
 }
 
 @end

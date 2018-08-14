@@ -21,6 +21,7 @@
 @interface TJOrderInfoController ()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) TJKdOrderInfoModel *model;
 @end
 
 @implementation TJOrderInfoController
@@ -109,8 +110,8 @@
         request.parameters = @{ @"id":self.kdid};
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"----kdorder=-success-===%@",responseObject);
-        self.dataArr = [TJKdOrderInfoModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        
+        TJKdOrderInfoModel *model = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
+        self.model = model;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -141,7 +142,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    TJKdOrderInfoModel *model = self.dataArr[0];
+    TJKdOrderInfoModel *model = self.model;
     if ([self.kdstatus intValue]==0||[self.kdstatus intValue]==5||[self.kdstatus intValue]==6) {
     
         if (indexPath.row==0) {
@@ -152,52 +153,64 @@
         }else if (indexPath.row==1){
             //        订单信息
             TJOrderInfoOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoOneCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==2){
             //        快递类型
             TJOrderTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderTypeCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==3){
             //        送
             TJAdressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==4){
             //        取件
             TJAdressTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressTwoCell"];
+            cell.model = model;
             return cell;
         }else{
             //        订单号
             TJOrderInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoCell"];
+            cell.model = model;
             return cell;
         }
     }else{
         if (indexPath.row==0) {
             //        订单状态
             TJOrderHeadViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderHeadViewCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==1){
             //        订单信息
             TJOrderInfoOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoOneCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==2){
             //        快递类型
             TJOrderTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderTypeCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==3){
             //        人
             TJOrderPersonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderPersonCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==4){
             //        取件
-            TJAdressTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressTwoCell"];
+            TJAdressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressCell"];
+            cell.model = model;
             return cell;
         }else if (indexPath.row==5){
             //        取件
-            TJAdressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressCell"];
+            TJAdressTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AdressTwoCell"];
+            cell.model = model;
             return cell;
         }else{
             //        订单号
             TJOrderInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoCell"];
+            cell.model = model;
             return cell;
         }
     }

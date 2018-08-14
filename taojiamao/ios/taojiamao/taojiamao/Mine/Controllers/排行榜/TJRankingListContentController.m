@@ -9,28 +9,56 @@
 
 #import "TJRankingListContentController.h"
 #import "TJRankingListContentCell.h"
+
+#import "TJRankListModel.h"
 static NSString * const RankingListContentCell = @"RankingListContentCell";
 
 @interface TJRankingListContentController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
-
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @end
 
 @implementation TJRankingListContentController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+   
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if ([self.type_main intValue]==1) {
+        DSLog(@"rank---奖励");
+        if ([self.time intValue]==0) {
+            DSLog(@"jl===benz");
+            [self laodRequestRankList:@"1" withTime:@"1"];
+        }else{
+            DSLog(@"jl===sshangz");
+            [self laodRequestRankList:@"1" withTime:@"2"];
+            
+        }
+    }else{
+        DSLog(@"ramk===邀请");
+        if ([self.time intValue]==0) {
+            DSLog(@"yq===benz");
+            [self laodRequestRankList:@"2" withTime:@"1"];
+            
+        }else{
+            DSLog(@"yq===sshangz");
+            [self laodRequestRankList:@"2" withTime:@"2"];
+            
+        }
+    }
+   
     self.tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[TJRankingListContentCell class] forCellReuseIdentifier:RankingListContentCell];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
-    // Do any additional setup after loading the view.
 }
 
-- (void)laodRequestRankList:(NSString *)type{
+- (void)laodRequestRankList:(NSString *)type withTime:(NSString *)time{
+    self.dataArr = @{}.mutableCopy;
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
     }else{
@@ -43,7 +71,7 @@ static NSString * const RankingListContentCell = @"RankingListContentCell";
                                 @"app": @"ios",
                                 @"uid":userid,
                                 @"type":type,
-                                
+                                @"time":time,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -53,12 +81,15 @@ static NSString * const RankingListContentCell = @"RankingListContentCell";
                             @"sign":md5Str,
                             @"uid":userid,
                             };
-        request.parameters = @{@"type":type};
+        request.parameters = @{@"type":type,
+                               @"time":time,
+                               };
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"rank--%@",responseObject);
+        self.dataArr = [TJRankListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
-           
+            [self.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
@@ -67,7 +98,7 @@ static NSString * const RankingListContentCell = @"RankingListContentCell";
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return self.dataArr.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -78,7 +109,7 @@ static NSString * const RankingListContentCell = @"RankingListContentCell";
 //        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell0"];
 //    }
     TJRankingListContentCell * cell = [tableView dequeueReusableCellWithIdentifier:RankingListContentCell forIndexPath:indexPath];
-    
+    cell.model = self.dataArr[indexPath.section];
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

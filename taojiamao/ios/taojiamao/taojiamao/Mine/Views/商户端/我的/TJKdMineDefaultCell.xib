@@ -64,6 +64,10 @@
                     <constraint firstItem="WUd-tm-X3I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="z7X-0v-0oB"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="img" destination="4KT-sA-er5" id="h3V-aQ-HGe"/>
+                <outlet property="lab_title" destination="fwq-db-Yau" id="phd-qM-Mdr"/>
+            </connections>
             <point key="canvasLocation" x="30" y="43.5"/>
         </tableViewCell>
     </objects>

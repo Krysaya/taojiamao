@@ -86,5 +86,6 @@
 @property (nonatomic, strong) NSString *card_image;//学生证照片
 @property (nonatomic, strong) NSString *qu_fee;//取件费
 @property (nonatomic, strong) NSString *confirm_code;
+@property (nonatomic, strong) NSString *timeout;
 
 @end

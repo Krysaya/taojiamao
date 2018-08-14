@@ -10,4 +10,6 @@
 
 @interface TJRankingListContentController : TJBaseViewController
 
+@property (nonatomic, strong) NSString *type_main;
+@property (nonatomic, strong) NSString *time;
 @end

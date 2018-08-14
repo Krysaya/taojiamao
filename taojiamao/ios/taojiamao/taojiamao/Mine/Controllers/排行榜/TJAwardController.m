@@ -17,10 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.frame = CGRectMake(0, 20, S_W, S_H);
-//    奖励排行
     [self setControllers];
 
-    // Do any additional setup after loading the view.
 }
 
 -(void)setControllers{
@@ -48,8 +46,10 @@
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
 
- 
-    return [[TJRankingListContentController alloc]init];
+    TJRankingListContentController *vc = [[TJRankingListContentController alloc]init];
+    vc.time = [NSString stringWithFormat:@"%ld",index];
+    vc.type_main = @"1";
+    return vc;
 
 }
 //- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {

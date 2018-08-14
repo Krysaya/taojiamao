@@ -10,4 +10,5 @@
 
 @interface TJKdMineDefaultCell : UITableViewCell
 
+@property (nonatomic, strong) NSString *type;
 @end

@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pi5-Ot-kev">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="280"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的余额（元）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V38-Gw-p8G">
                             <rect key="frame" x="126.5" y="40" width="122" height="21"/>
@@ -100,7 +100,7 @@
             </subviews>
             <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Pi5-Ot-kev" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="J37-oY-N10"/>
+                <constraint firstItem="Pi5-Ot-kev" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="J37-oY-N10"/>
                 <constraint firstItem="Pi5-Ot-kev" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Mys-TV-8R7"/>
                 <constraint firstAttribute="trailing" secondItem="Pi5-Ot-kev" secondAttribute="trailing" id="jlF-iF-Jd9"/>
             </constraints>

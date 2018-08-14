@@ -8,6 +8,7 @@
 //
 
 #import "TJAdressCell.h"
+#import "TJKdOrderInfoModel.h"
 @interface TJAdressCell()
 @property (weak, nonatomic) IBOutlet UILabel *lab_name;
 @property (weak, nonatomic) IBOutlet UILabel *lab_phone;
@@ -28,5 +29,10 @@
 
     // Configure the view for the selected state
 }
-
+- (void)setModel:(TJKdOrderInfoModel *)model{
+    _model = model;
+    self.lab_name.text = model.name;
+    self.lab_phone.text = model.shou_telephone;
+    self.lab_songAddress.text = [NSString stringWithFormat:@"[送件地址]%@",model.song_address];
+}
 @end

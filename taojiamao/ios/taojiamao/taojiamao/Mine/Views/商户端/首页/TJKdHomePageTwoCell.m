@@ -40,6 +40,12 @@
         DSLog(@"no??");
     }
     
+    
+    if ([model.timeout integerValue]==1) {
+        self.lab_chao.text = @"即将超时";
+    }else{
+        self.lab_chao.text = @"已超时";
+    }
     self.lab_phone.text = model.shou_telephone;
     self.lab_qu.text = [NSString stringWithFormat:@"[取件地址]%@",model.qu_address];
     self.lab_song.text = [NSString stringWithFormat:@"[送件地址]%@",model.song_address];

@@ -56,6 +56,7 @@
 - (void)buttonClick:(UIButton *)but
 {
     TJAssetsDetailController *vc = [[TJAssetsDetailController alloc]init];
+    vc.type_mx = @"put";
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end
