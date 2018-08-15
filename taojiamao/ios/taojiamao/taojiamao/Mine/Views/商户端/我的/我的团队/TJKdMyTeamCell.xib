@@ -22,13 +22,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="编号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQc-g7-qTR">
-                                <rect key="frame" x="90" y="51" width="37" height="15"/>
+                                <rect key="frame" x="90" y="56" width="37" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4845" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mjo-Yd-E67">
-                                <rect key="frame" x="128" y="51" width="31" height="15"/>
+                                <rect key="frame" x="128" y="56" width="31" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日订单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWj-zo-7Fa">
-                                <rect key="frame" x="176" y="52" width="61.5" height="18"/>
+                                <rect key="frame" x="176" y="56" width="61.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日收入" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMt-A8-7hb">
-                                <rect key="frame" x="253.5" y="52" width="61.5" height="18"/>
+                                <rect key="frame" x="253.5" y="56" width="61.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                         <constraints>
                             <constraint firstItem="2zQ-MG-Kg5" firstAttribute="leading" secondItem="qnn-6Z-FJZ" secondAttribute="trailing" constant="55" id="4e8-NU-wv2"/>
                             <constraint firstItem="PWj-zo-7Fa" firstAttribute="centerX" secondItem="qnn-6Z-FJZ" secondAttribute="centerX" id="8Oh-lf-CvY"/>
-                            <constraint firstItem="HMt-A8-7hb" firstAttribute="top" secondItem="2zQ-MG-Kg5" secondAttribute="bottom" constant="11" id="Dge-ij-upc"/>
+                            <constraint firstItem="HMt-A8-7hb" firstAttribute="top" secondItem="2zQ-MG-Kg5" secondAttribute="bottom" constant="15" id="Dge-ij-upc"/>
                             <constraint firstItem="2zQ-MG-Kg5" firstAttribute="top" secondItem="qnn-6Z-FJZ" secondAttribute="top" id="OYT-Bq-FpO"/>
                             <constraint firstItem="QK1-Gg-05i" firstAttribute="top" secondItem="jkh-62-iPl" secondAttribute="top" constant="20" id="OdJ-Qv-uSX"/>
                             <constraint firstItem="qnn-6Z-FJZ" firstAttribute="top" secondItem="QK1-Gg-05i" secondAttribute="top" id="QQk-6j-fTT"/>
@@ -114,10 +114,10 @@
                             <constraint firstItem="HMt-A8-7hb" firstAttribute="centerX" secondItem="2zQ-MG-Kg5" secondAttribute="centerX" id="dga-rJ-xjn"/>
                             <constraint firstItem="bQc-g7-qTR" firstAttribute="leading" secondItem="Es6-xF-tdc" secondAttribute="trailing" constant="15" id="dxT-s6-3gQ"/>
                             <constraint firstItem="Es6-xF-tdc" firstAttribute="centerY" secondItem="jkh-62-iPl" secondAttribute="centerY" id="gcI-O3-ggE"/>
-                            <constraint firstItem="bQc-g7-qTR" firstAttribute="top" secondItem="QK1-Gg-05i" secondAttribute="bottom" constant="10" id="j25-Uh-iFv"/>
+                            <constraint firstItem="bQc-g7-qTR" firstAttribute="top" secondItem="QK1-Gg-05i" secondAttribute="bottom" constant="15" id="j25-Uh-iFv"/>
                             <constraint firstItem="QK1-Gg-05i" firstAttribute="leading" secondItem="Es6-xF-tdc" secondAttribute="trailing" constant="15" id="lFh-G3-2Qo"/>
                             <constraint firstItem="Mjo-Yd-E67" firstAttribute="top" secondItem="bQc-g7-qTR" secondAttribute="top" id="mtl-Ft-8XE"/>
-                            <constraint firstItem="PWj-zo-7Fa" firstAttribute="top" secondItem="qnn-6Z-FJZ" secondAttribute="bottom" constant="11" id="ynm-Q9-Qrn"/>
+                            <constraint firstItem="PWj-zo-7Fa" firstAttribute="top" secondItem="qnn-6Z-FJZ" secondAttribute="bottom" constant="15" id="ynm-Q9-Qrn"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -129,6 +129,13 @@
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+            <connections>
+                <outlet property="img" destination="Es6-xF-tdc" id="jV1-30-mJs"/>
+                <outlet property="lab_id" destination="Mjo-Yd-E67" id="zfN-Hb-vy9"/>
+                <outlet property="lab_title" destination="QK1-Gg-05i" id="kvd-fn-vne"/>
+                <outlet property="lab_todayDan" destination="qnn-6Z-FJZ" id="GkJ-72-TZZ"/>
+                <outlet property="lab_todayMoney" destination="2zQ-MG-Kg5" id="fZo-ug-G9b"/>
+            </connections>
             <point key="canvasLocation" x="25" y="79.5"/>
         </tableViewCell>
     </objects>

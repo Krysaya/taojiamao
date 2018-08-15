@@ -9,7 +9,7 @@
 #import "TJMyAddressController.h"
 #import "TJMyAddressCell.h"
 #import "TJMyAddressModel.h"
-#import "TJAddEditAddressController.h"
+#import "TJAddAddressController.h"
 
 #define AddNewAddress 65721894
 
@@ -30,28 +30,31 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 @implementation TJMyAddressController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear: animated];
-    [self netWork];
+    [self loadRequestMyAddressList];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.editBtn.frame =CGRectMake(0,0, 60, 44);
-    [self.editBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
-    [self.editBtn setTitle:@"编辑"forState:UIControlStateNormal];
-    self.editBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [self.editBtn addTarget:self action:@selector(editCell:)forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem  *barBut = [[UIBarButtonItem alloc]initWithCustomView:self.editBtn];
-    self.navigationItem.rightBarButtonItem = barBut;
+//    self.editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.editBtn.frame =CGRectMake(0,0, 60, 44);
+//    [self.editBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+//    [self.editBtn setTitle:@"编辑"forState:UIControlStateNormal];
+//    self.editBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//    [self.editBtn addTarget:self action:@selector(editCell:)forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem  *barBut = [[UIBarButtonItem alloc]initWithCustomView:self.editBtn];
+//    self.navigationItem.rightBarButtonItem = barBut;
     
     self.title = @"我的收货地址";
     
     [self setUI];
+    if ([self.type isEqualToString:@"fb"]) {
+        self.addNewAdd.hidden = YES;
+    }
 }
--(void)netWork{
-    
-    
+-(void)loadRequestMyAddressList{
+
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
     }else{
@@ -74,7 +77,7 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
                             };
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"----address-success-===%@",responseObject);
+//        NSLog(@"----address-success-===%@",responseObject);
         self.dataArray = [TJMyAddressModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -82,20 +85,54 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        //            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        //            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        //            DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+
     }];
+}
+- (void)loadReuqstDeleteAddressWithAddressID:(NSString *)ID{
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
     
+    NSString *strid = [ID stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"address_id":strid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+//    DSLog(@"-sign++:%@--strID--%@----id-:%@",md5Str,strid,ID);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = DeleteAddress;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.parameters = @{  @"address_id":ID,};
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"----DELETE-success-===%@",responseObject);
+        [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadRequestMyAddressList];
+        });
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 -(void)setUI{
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.view.yj_y, S_W, S_H-50) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
-//    self.editBtn.hidden = YES;
+    self.tableView.backgroundColor = KBGRGB;
     
-    self.tableView.backgroundColor = [UIColor whiteColor];
     [self.tableView registerClass:[TJMyAddressCell class] forCellReuseIdentifier:SettingMyAddressCell];
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -109,46 +146,39 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
         make.top.mas_equalTo(weakSelf.tableView.mas_bottom);
     }];
 }
-- (void)editCell:(UIButton *)sender{
-    self.tableView.editing = YES;
-    if (self.tableView.editing) {
-        [sender setTitle:@"删除" forState:UIControlStateNormal];
-        [sender addTarget:self action:@selector(deleteClick:) forControlEvents:UIControlEventTouchUpInside];
-    }else{
-        [sender setTitle:@"编辑" forState:UIControlStateNormal];
-        
-    }
-    
-    
-//    [self.tableView setEditing:!self.tableView.editing animated:YES];
-
-}
 
 #pragma mark - tableViewDelegate
+//先要设Cell可编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+//修改编辑按钮文字
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+//设置进入编辑状态时，Cell不会缩进
+- (BOOL)tableView: (UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete ;
-   
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //选中数据
-    TJMyAddressCell *cell = (TJMyAddressCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.selected = YES;
-    [self.selectorPatnArray addObject:self.dataArray[indexPath.section]];
-    if (self.selectorPatnArray.count == 0) {
-//        self
-    }
-    
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //从选中中取消
-    if (self.selectorPatnArray.count > 0) {
-
-        [self.selectorPatnArray removeObject:self.dataArray[indexPath.section]];
-    }
+//点击删除
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //在这里实现删除操作
+    DSLog(@"删除");
+    TJMyAddressModel *model = self.dataArray[indexPath.section];
+    NSMutableArray *arr = [NSMutableArray array];
+    [arr addObject:model.id];
+    NSString *strGid = arr.mj_JSONString;
+    TJAlertController * avc = [TJAlertController alertWithTitle:@"提示" message:@"确定要删除此条地址吗?" style:UIAlertControllerStyleAlert sureClick:^(UIAlertAction * _Nonnull action) {
+        [self loadReuqstDeleteAddressWithAddressID:strGid];
+    } cancelClick:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [self presentViewController:avc animated:YES completion:nil];
     
 }
 
@@ -161,10 +191,19 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJMyAddressCell * cell = [tableView dequeueReusableCellWithIdentifier:SettingMyAddressCell forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = self.dataArray[indexPath.section];
     cell.deletage =self;
     cell.indexPath = indexPath;
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self.type isEqualToString:@"fb"]) {
+        TJMyAddressModel *m = self.dataArray[indexPath.section];
+        [self.delegate getSongAddressInfoValue:m];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+   
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 87*H_Scale;
@@ -186,27 +225,17 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
     return 0;
 }
 #pragma mark - TJMyAddressDelegate
--(void)deleteClick:(NSIndexPath *)index{
-    DSLog(@"删除");
-//    WeakSelf
-    TJAlertController * avc = [TJAlertController alertWithTitle:@"提示" message:@"确定要删除此条地址吗?" style:UIAlertControllerStyleAlert sureClick:^(UIAlertAction * _Nonnull action) {
-//        [weakSelf.dataArray removeObject:self.selectorPatnArray[index.section]];
-//        [weakSelf.tableView reloadData];
-    } cancelClick:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [self presentViewController:avc animated:YES completion:nil];
-}
 -(void)editClick:(NSIndexPath *)index{
-    DSLog(@"编辑");
-    TJAddEditAddressController * aevc = [[TJAddEditAddressController alloc]init];
+    DSLog(@"bianji地址");
+    TJAddAddressController * aevc = [[TJAddAddressController alloc]init];
     aevc.model = self.dataArray[index.section];
     [self.navigationController pushViewController:aevc animated:YES];
 }
+
 #pragma mark - TJBUttonDelagate
 -(void)buttonClick:(UIButton *)but{
     DSLog(@"添加新地址");
-    TJAddEditAddressController * aevc = [[TJAddEditAddressController alloc]init];
+    TJAddAddressController * aevc = [[TJAddAddressController alloc]init];
     [self.navigationController pushViewController:aevc animated:YES];
 }
 #pragma mark - lazy
@@ -231,14 +260,6 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 -(void)dealloc{
 //    DSLog(@"%s",__func__);
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

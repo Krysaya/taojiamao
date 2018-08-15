@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/UserSetting/Controllers/&#x6211;&#x7684;&#x5730;&#x5740;/TJKdChooseSchoolController.m"
-            timestampString = "555938632.175898"
+            filePath = "taojiamao/Mine/Controllers/&#x5feb;&#x9012;&#x4ee3;&#x53d6;/&#x53d1;&#x5e03;/TJFaBuController.m"
+            timestampString = "556022942.015494"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "-tableView:titleForHeaderInSection:"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "-pickerView:titleForRow:forComponent:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/UserSetting/Controllers/&#x6211;&#x7684;&#x5730;&#x5740;/TJKdChooseSchoolController.m"
-            timestampString = "555938632.175964"
+            filePath = "taojiamao/Mine/Controllers/&#x5feb;&#x9012;&#x4ee3;&#x53d6;/&#x53d1;&#x5e03;/TJFaBuController.m"
+            timestampString = "556022942.015592"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "-tableView:numberOfRowsInSection:"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "-getSongAddressInfoValue:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

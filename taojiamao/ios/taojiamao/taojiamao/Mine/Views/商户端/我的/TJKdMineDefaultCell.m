@@ -32,9 +32,18 @@
     if ([type intValue]==0) {
         self.img.image = [UIImage imageNamed:@"kd_money_yue"];
         self.lab_title.text = @"余额提现";
-    }else{
+    }else if ([type intValue]==1) {
         self.img.image = [UIImage imageNamed:@"kd_money_mx"];
         self.lab_title.text = @"余额明细";
+    }else if ([type intValue]==3) {
+        self.img.image = [UIImage imageNamed:@"kd_my_yq"];
+        self.lab_title.text = @"邀请好友";
+    }else if ([type intValue]==4) {
+        self.img.image = [UIImage imageNamed:@"kd_my_kf"];
+        self.lab_title.text = @"客服中心";
+    }else if ([type intValue]==5) {
+        self.img.image = [UIImage imageNamed:@"kd_my_fk"];
+        self.lab_title.text = @"意见反馈";
     }
 }
 @end

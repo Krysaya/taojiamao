@@ -11,7 +11,7 @@
 
 @protocol TJMyAddressDelegate<NSObject>
 
--(void)deleteClick:(NSIndexPath*)index;
+//-(void)deleteClick:(NSIndexPath*)index;
 -(void)editClick:(NSIndexPath*)index;
 
 @end

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class TJKdOrderInfoModel;
+@class TJMyAddressModel;
 
 @interface TJAdressCell : UITableViewCell
+@property (nonatomic, strong) NSString *type;
 
+@property (nonatomic, strong) TJMyAddressModel *m_fb;
 @property (nonatomic, strong) TJKdOrderInfoModel *model;
 @end

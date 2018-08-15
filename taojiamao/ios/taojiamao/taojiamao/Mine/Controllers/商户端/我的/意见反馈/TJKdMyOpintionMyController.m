@@ -11,6 +11,7 @@
 #import "XMTextView.h"
 @interface TJKdMyOpintionMyController ()
 
+@property(nonatomic,strong)NSString *content;
 @end
 
 @implementation TJKdMyOpintionMyController
@@ -35,7 +36,8 @@
     tv.borderLineWidth = 0;
     tv.textFont = [UIFont systemFontOfSize:15];
     tv.textViewListening = ^(NSString *textViewStr) {
-        NSLog(@"tv监听输入的内容：%@",textViewStr);
+        DSLog(@"tv监听输入的内容：%@",textViewStr);
+        self.content = textViewStr;
     };
     [bg  addSubview:tv];
     
@@ -49,7 +51,41 @@
 }
 -(void)btnClick:(UIButton *)sender
 {
+    if (self.content.length<=0) {
+        [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
+    }
 // 提交
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSString *content = [self.content stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"content":content,      
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = FeedBack;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{ @"content":self.content,
+                                };
+    } onSuccess:^(id  _Nullable responseObject) {
+        [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+        [self.navigationController  popViewControllerAnimated:YES];
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

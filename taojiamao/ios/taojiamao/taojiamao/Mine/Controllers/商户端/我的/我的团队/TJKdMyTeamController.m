@@ -7,16 +7,18 @@
 //
 
 #import "TJKdMyTeamController.h"
+#import "TJKdMyTeamListModel.h"
+
 #import "TJKdMyTeamCell.h"
 @interface TJKdMyTeamController ()
-
+@property(nonatomic,strong)NSMutableArray *dataArr;
 @end
 
 @implementation TJKdMyTeamController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    
+    [self loadRequestMyTeam];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,7 +28,41 @@
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"TJKdMyTeamCell" bundle:nil] forCellReuseIdentifier:@"KdMyTeamCell"];
 }
-
+#pragma mark - request
+- (void)loadRequestMyTeam{
+    self.dataArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = KdMyTeam;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"我的团队===%@",responseObject);
+        self.dataArr = [TJKdMyTeamListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -39,22 +75,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return self.dataArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TJKdMyTeamCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMyTeamCell"];
+    cell.model = self.dataArr[indexPath.row];
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
 /*
 // Override to support editing the table view.

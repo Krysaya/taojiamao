@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TJTextFiledCell : UITableViewCell
+@property (nonatomic, strong) NSString *type;
+@property (weak, nonatomic) IBOutlet UITextField *tf;
 
 @end

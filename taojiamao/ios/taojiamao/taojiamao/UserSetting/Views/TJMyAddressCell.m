@@ -27,11 +27,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.selectionStyle = UITableViewCellSelectionStyleDefault;
+//        self.selectionStyle = UITableViewCellSelectionStyleDefault;
         _nameLabel = [self setLabelWith:@"胖虎哈哈" font:15*W_Scale color:[UIColor blackColor]];
         _phoneLabel = [self setLabelWith:@"15889569997" font:15*W_Scale color:[UIColor blackColor]];
-        _addressLabel = [self setLabelWith:@"河北省石家庄市我ID加拿大开始的精髓我发你" font:14*W_Scale color:RGB(51, 51, 51)];
-        
+        _addressLabel = [self setLabelWith:@"河北省石家庄市我ID加拿大开始的精髓我发你" font:13*W_Scale color:RGB(51, 51, 51)];
+        _addressLabel.numberOfLines = 0;
         
         [self.contentView addSubview:_nameLabel];
         [self.contentView addSubview:_phoneLabel];
@@ -63,14 +63,14 @@
             make.centerY.mas_equalTo(weakSelf.phoneLabel);
 
             make.left.mas_equalTo(weakSelf.phoneLabel.mas_right).offset(15*W_Scale);
-            make.width.mas_equalTo(37*W_Scale);
-            make.height.mas_equalTo(17*H_Scale);
+            make.width.mas_equalTo(37);
+            make.height.mas_equalTo(17);
         }];
         
         [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(13*H_Scale);
+            make.top.mas_equalTo(weakSelf.nameLabel.mas_bottom).offset(8*H_Scale);
             make.left.mas_equalTo(weakSelf.nameLabel);
-//            make.height.mas_equalTo(30);
+            make.height.mas_equalTo(35);
             make.width.mas_equalTo(266*W_Scale);
         }];
         
@@ -78,8 +78,8 @@
         [self.contentView addSubview:_edit];
         [_edit mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.mas_equalTo(17);
-            make.bottom.mas_equalTo(weakSelf.contentView).offset(-20*H_Scale);
-            make.right.mas_equalTo(weakSelf.contentView).offset(-15*W_Scale);
+            make.bottom.mas_equalTo(weakSelf.contentView).offset(-20);
+            make.right.mas_equalTo(weakSelf.contentView).offset(-15);
             
         }];
         
@@ -113,6 +113,11 @@
 //    [button setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
     return button;
 }
+-(void)deButtonClick:(UIButton*)button{
+    if (self.deletage && [self.deletage respondsToSelector:@selector(editClick:)]) {
+        [self.deletage editClick:self.indexPath];
+    }
+}
 -(UILabel*)setLabelWith:(NSString*)text font:(CGFloat)font color:(UIColor*)c{
     UILabel*label =  [[UILabel alloc]init];
     label.text = text;
@@ -120,19 +125,7 @@
     label.textColor = c;
     return label;
 }
--(void)deButtonClick:(UIButton*)button{
-    if (button.tag==DeleteButton) {
 
-        if (self.deletage && [self.deletage respondsToSelector:@selector(deleteClick:)]) {
-            [self.deletage deleteClick:self.indexPath];
-        }
-    }else{
- 
-        if (self.deletage && [self.deletage respondsToSelector:@selector(editClick:)]) {
-            [self.deletage editClick:self.indexPath];
-        }
-    }
-}
 -(void)setModel:(TJMyAddressModel *)model{
     _model = model;
     self.nameLabel.text = model.name;

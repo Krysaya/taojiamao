@@ -14,7 +14,6 @@
 #import "ZYPinYinSearch.h"
 #import "HCSortString.h"
 
-#import "PGPickerView.h"
 @interface TJKdChooseSchoolController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,TJButtonDelegate>
 @property (strong, nonatomic) NSDictionary *allDataSource;/**<排序后的整个数据源*/
 @property (strong, nonatomic) NSArray *dataSource;/**<排序前的整个数据源*/
@@ -72,7 +71,6 @@
 //                                @"int":pid,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-//    WeakSelf
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = SchoolList;
         request.headers = @{@"timestamp": timeStr,
@@ -84,11 +82,6 @@
 
     } onSuccess:^(id  _Nullable responseObject) {
         NSArray *arr = [TJMySchoolListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-
-//        for (TJMySchoolListModel *model in arr) {
-//            [self.schoolArr addObject:model.name];
-//        }
-
         self.allDataSource = [HCSortString sortAndGroupForArray:arr PropertyName:@"name"];
         
         self.indexDataSource = [HCSortString sortForStringAry:[self.allDataSource allKeys]];
@@ -154,10 +147,8 @@
     if (section==0) {
         return 1;
     }else{
-//        return self.schoolArr.count;
         NSArray *value = [self.allDataSource objectForKey:self.indexDataSource[section-1]];
         return value.count;
-       
     }
 }
 
@@ -208,9 +199,9 @@
     }else{
          NSArray *value = [self.allDataSource objectForKey:self.indexDataSource[indexPath.section-1]];
          TJMySchoolListModel *m = value[indexPath.row];
-        if (self.delegate&&[self.delegate respondsToSelector:@selector(getArgument:atIndex:)]) {
-            [self.delegate getSchoolInfoValue:m.name];
-        }
+//        if (self.delegate&&[self.delegate respondsToSelector:@selector(getArgument:atIndex:)]) {
+            [self.delegate getSchoolInfoValue:m];
+//        }
         
         [self.navigationController  popViewControllerAnimated:YES];
     }
@@ -243,15 +234,6 @@
     pickerV.backgroundColor = [UIColor whiteColor];
     pickerV.delegate = self;
     pickerV.dataSource = self;
-    
-//    pickerV.rowHeight = 40;
-    
-    //设置线条的颜色
-//    pickerV.lineBackgroundColor = [UIColor clearColor];
-//    //设置选中行的字体颜色
-//    pickerV.textColorOfSelectedRow = [UIColor blackColor];
-//    //设置未选中行的字体颜色
-//    pickerV.textColorOfOtherRow = [UIColor grayColor];
     [self pickerView:pickerV didSelectRow:0 inComponent:0];
 
     [bg_view addSubview:pickerV];

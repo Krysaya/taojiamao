@@ -37,11 +37,8 @@
 		C71C27A621158EAA0077C6AA /* TJCommentsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C71C27A521158EAA0077C6AA /* TJCommentsListModel.m */; };
 		C71D204121215F4300580DA5 /* TJWaitingOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D204021215F4300580DA5 /* TJWaitingOrderController.m */; };
 		C71D204521216A4300580DA5 /* TJKdMeOrderInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D204421216A4300580DA5 /* TJKdMeOrderInfoController.m */; };
-		C71D204B212173A300580DA5 /* TJAddEditAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D2048212173A300580DA5 /* TJAddEditAddressController.m */; };
 		C71D204C212173A300580DA5 /* TJMyAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D204A212173A300580DA5 /* TJMyAddressController.m */; };
 		C71D204F212173B800580DA5 /* TJKdChooseSchoolController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D204E212173B800580DA5 /* TJKdChooseSchoolController.m */; };
-		C71D2053212177F100580DA5 /* TJChooseAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D2051212177F100580DA5 /* TJChooseAreaCell.m */; };
-		C71D2054212177F100580DA5 /* TJChooseAreaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C71D2052212177F100580DA5 /* TJChooseAreaCell.xib */; };
 		C71D206D21217BF200580DA5 /* HCSortString.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D205821217BF200580DA5 /* HCSortString.m */; };
 		C71D206E21217BF200580DA5 /* UIAlertController+HCAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D205A21217BF200580DA5 /* UIAlertController+HCAdd.m */; };
 		C71D206F21217BF200580DA5 /* ChineseInclude.m in Sources */ = {isa = PBXBuildFile; fileRef = C71D205D21217BF200580DA5 /* ChineseInclude.m */; };
@@ -94,10 +91,6 @@
 		C7249B2F20A1843900BB385E /* TJSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B2E20A1843900BB385E /* TJSettingController.m */; };
 		C7249B3220A19EAA00BB385E /* TJCleanCacheCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B3120A19EAA00BB385E /* TJCleanCacheCell.m */; };
 		C7266E0320A521A6005FD81A /* TJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C7266E0220A521A6005FD81A /* TJButton.m */; };
-		C72857532121A0F5004C9492 /* PGPickerColumnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C728574C2121A0F5004C9492 /* PGPickerColumnCell.m */; };
-		C72857542121A0F5004C9492 /* PGPickerColumnView.m in Sources */ = {isa = PBXBuildFile; fileRef = C728574E2121A0F5004C9492 /* PGPickerColumnView.m */; };
-		C72857552121A0F5004C9492 /* PGPickerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C72857502121A0F5004C9492 /* PGPickerTableView.m */; };
-		C72857562121A0F5004C9492 /* PGPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C72857522121A0F5004C9492 /* PGPickerView.m */; };
 		C7292A272095556C00073099 /* TJGoodsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A262095556C00073099 /* TJGoodsCategory.m */; };
 		C7292A2E2095566700073099 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A2A2095566700073099 /* NSObject+YYModel.m */; };
 		C7292A2F2095566700073099 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A2C2095566700073099 /* YYClassInfo.m */; };
@@ -261,7 +254,6 @@
 		C758A0672109D40B00DDFDAD /* TJNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C758A0662109D40A00DDFDAD /* TJNoticeController.m */; };
 		C758CBF520A27B63000F1903 /* TJAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CBF420A27B63000F1903 /* TJAlertController.m */; };
 		C758CBFB20A2C717000F1903 /* TJMyAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CBFA20A2C717000F1903 /* TJMyAddressModel.m */; };
-		C758CBFE20A2C7D2000F1903 /* TJMyAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CBFD20A2C7D2000F1903 /* TJMyAddressCell.m */; };
 		C758CC1020A2FCD1000F1903 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CC0420A2FCD0000F1903 /* AddressModel.m */; };
 		C758CC1120A2FCD1000F1903 /* MOFSAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CC0620A2FCD0000F1903 /* MOFSAddressPickerView.m */; };
 		C758CC1220A2FCD1000F1903 /* MOFSDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CC0820A2FCD0000F1903 /* MOFSDatePicker.m */; };
@@ -462,6 +454,21 @@
 		C78E83EC210EB2B200B04E19 /* TJGoodCatesMainListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C78E83EB210EB2B200B04E19 /* TJGoodCatesMainListModel.m */; };
 		C78E83F0210EB48800B04E19 /* TJClassicFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C78E83EE210EB48800B04E19 /* TJClassicFirstCell.m */; };
 		C78E83F1210EB48800B04E19 /* TJClassicFirstCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C78E83EF210EB48800B04E19 /* TJClassicFirstCell.xib */; };
+		C7904F3E2123B58600E20E4D /* TJAddAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F3C2123B58600E20E4D /* TJAddAddressController.m */; };
+		C7904F3F2123B58600E20E4D /* TJAddAddressController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7904F3D2123B58600E20E4D /* TJAddAddressController.xib */; };
+		C7904F472123C76000E20E4D /* TJMyAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F442123C76000E20E4D /* TJMyAddressCell.m */; };
+		C7904F512123C92500E20E4D /* TJChooseAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F4F2123C92500E20E4D /* TJChooseAreaCell.m */; };
+		C7904F522123C92500E20E4D /* TJChooseAreaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7904F502123C92500E20E4D /* TJChooseAreaCell.xib */; };
+		C7904F562123DA4500E20E4D /* TJKdQuAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F552123DA4500E20E4D /* TJKdQuAddressController.m */; };
+		C7904F5C2123DACC00E20E4D /* TJKdQuAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F5A2123DACC00E20E4D /* TJKdQuAddressCell.m */; };
+		C7904F5D2123DACC00E20E4D /* TJKdQuAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7904F5B2123DACC00E20E4D /* TJKdQuAddressCell.xib */; };
+		C7904F612123E2C200E20E4D /* TJKdMyQuanController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F602123E2C200E20E4D /* TJKdMyQuanController.m */; };
+		C7904F662123E34100E20E4D /* TJKdMyQuanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F642123E34100E20E4D /* TJKdMyQuanCell.m */; };
+		C7904F672123E34100E20E4D /* TJKdMyQuanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7904F652123E34100E20E4D /* TJKdMyQuanCell.xib */; };
+		C7904F6B2124001000E20E4D /* TJKdMyTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F6A2124001000E20E4D /* TJKdMyTeamListModel.m */; };
+		C7904F6E2124108B00E20E4D /* TJKdQuAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F6D2124108B00E20E4D /* TJKdQuAddressModel.m */; };
+		C7904F72212431C500E20E4D /* TJKdChooseTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F70212431C500E20E4D /* TJKdChooseTimeCell.m */; };
+		C7904F73212431C500E20E4D /* TJKdChooseTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7904F71212431C500E20E4D /* TJKdChooseTimeCell.xib */; };
 		C79400022119734100FB580F /* TJPostageMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C79400002119734100FB580F /* TJPostageMoneyCell.m */; };
 		C79400032119734100FB580F /* TJPostageMoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C79400012119734100FB580F /* TJPostageMoneyCell.xib */; };
 		C794FFDE2119296700FB580F /* TJCourierTakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C794FFDC2119296700FB580F /* TJCourierTakeCell.m */; };
@@ -551,6 +558,8 @@
 		C7C72F5B2101CD0F0087A8CB /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F502101CD0F0087A8CB /* NSString+MJExtension.m */; };
 		C7C72F602101EFD20087A8CB /* TJOredrInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F5E2101EFD20087A8CB /* TJOredrInfoController.m */; };
 		C7C72F612101EFD20087A8CB /* TJOredrInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C72F5F2101EFD20087A8CB /* TJOredrInfoController.xib */; };
+		C7D6880921243D6700555234 /* TJKdApplyAgrentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D6880721243D6700555234 /* TJKdApplyAgrentController.m */; };
+		C7D6880A21243D6700555234 /* TJKdApplyAgrentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7D6880821243D6700555234 /* TJKdApplyAgrentController.xib */; };
 		C7D9CEFF211BD87B00E70DD0 /* TJKdUserCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D9CEFE211BD87B00E70DD0 /* TJKdUserCenterController.m */; };
 		C7D9CF02211BD8DA00E70DD0 /* TJKdHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D9CF01211BD8DA00E70DD0 /* TJKdHomePageController.m */; };
 		C7D9CF05211BD9C100E70DD0 /* TJKdHomePaContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D9CF04211BD9C100E70DD0 /* TJKdHomePaContentController.m */; };
@@ -579,10 +588,6 @@
 		C7E6D48B20A9B02E0019C827 /* TJJFBExchangeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6D48A20A9B02E0019C827 /* TJJFBExchangeController.m */; };
 		C7FEE0AF2122815B008BDBA4 /* TJKdMyOrderContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0AE2122815B008BDBA4 /* TJKdMyOrderContentController.m */; };
 		C7FEE0B22122D872008BDBA4 /* TJMySchoolListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0B12122D872008BDBA4 /* TJMySchoolListModel.m */; };
-		C7FEE0B72122F455008BDBA4 /* TJAddAddressDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0B52122F455008BDBA4 /* TJAddAddressDefaultCell.m */; };
-		C7FEE0B82122F455008BDBA4 /* TJAddAddressDefaultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FEE0B62122F455008BDBA4 /* TJAddAddressDefaultCell.xib */; };
-		C7FEE0BC2122F523008BDBA4 /* TJAddAddressContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0BA2122F523008BDBA4 /* TJAddAddressContentCell.m */; };
-		C7FEE0BD2122F523008BDBA4 /* TJAddAddressContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FEE0BB2122F523008BDBA4 /* TJAddAddressContentCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -661,15 +666,10 @@
 		C71D204021215F4300580DA5 /* TJWaitingOrderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJWaitingOrderController.m; sourceTree = "<group>"; };
 		C71D204321216A4300580DA5 /* TJKdMeOrderInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdMeOrderInfoController.h; sourceTree = "<group>"; };
 		C71D204421216A4300580DA5 /* TJKdMeOrderInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMeOrderInfoController.m; sourceTree = "<group>"; };
-		C71D2047212173A300580DA5 /* TJAddEditAddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJAddEditAddressController.h; sourceTree = "<group>"; };
-		C71D2048212173A300580DA5 /* TJAddEditAddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJAddEditAddressController.m; sourceTree = "<group>"; };
 		C71D2049212173A300580DA5 /* TJMyAddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJMyAddressController.h; sourceTree = "<group>"; };
 		C71D204A212173A300580DA5 /* TJMyAddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJMyAddressController.m; sourceTree = "<group>"; };
 		C71D204D212173B800580DA5 /* TJKdChooseSchoolController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdChooseSchoolController.h; sourceTree = "<group>"; };
 		C71D204E212173B800580DA5 /* TJKdChooseSchoolController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdChooseSchoolController.m; sourceTree = "<group>"; };
-		C71D2050212177F100580DA5 /* TJChooseAreaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJChooseAreaCell.h; sourceTree = "<group>"; };
-		C71D2051212177F100580DA5 /* TJChooseAreaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJChooseAreaCell.m; sourceTree = "<group>"; };
-		C71D2052212177F100580DA5 /* TJChooseAreaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJChooseAreaCell.xib; sourceTree = "<group>"; };
 		C71D205721217BF200580DA5 /* HCSortString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSortString.h; sourceTree = "<group>"; };
 		C71D205821217BF200580DA5 /* HCSortString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSortString.m; sourceTree = "<group>"; };
 		C71D205921217BF200580DA5 /* UIAlertController+HCAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+HCAdd.h"; sourceTree = "<group>"; };
@@ -774,14 +774,6 @@
 		C7249B3120A19EAA00BB385E /* TJCleanCacheCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJCleanCacheCell.m; sourceTree = "<group>"; };
 		C7266E0120A521A5005FD81A /* TJButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJButton.h; sourceTree = "<group>"; };
 		C7266E0220A521A6005FD81A /* TJButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJButton.m; sourceTree = "<group>"; };
-		C728574B2121A0F5004C9492 /* PGPickerColumnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerColumnCell.h; sourceTree = "<group>"; };
-		C728574C2121A0F5004C9492 /* PGPickerColumnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerColumnCell.m; sourceTree = "<group>"; };
-		C728574D2121A0F5004C9492 /* PGPickerColumnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerColumnView.h; sourceTree = "<group>"; };
-		C728574E2121A0F5004C9492 /* PGPickerColumnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerColumnView.m; sourceTree = "<group>"; };
-		C728574F2121A0F5004C9492 /* PGPickerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerTableView.h; sourceTree = "<group>"; };
-		C72857502121A0F5004C9492 /* PGPickerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerTableView.m; sourceTree = "<group>"; };
-		C72857512121A0F5004C9492 /* PGPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPickerView.h; sourceTree = "<group>"; };
-		C72857522121A0F5004C9492 /* PGPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPickerView.m; sourceTree = "<group>"; };
 		C7292A252095556C00073099 /* TJGoodsCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJGoodsCategory.h; sourceTree = "<group>"; };
 		C7292A262095556C00073099 /* TJGoodsCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsCategory.m; sourceTree = "<group>"; };
 		C7292A292095566700073099 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
@@ -1111,8 +1103,6 @@
 		C758CBF420A27B63000F1903 /* TJAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAlertController.m; sourceTree = "<group>"; };
 		C758CBF920A2C717000F1903 /* TJMyAddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMyAddressModel.h; sourceTree = "<group>"; };
 		C758CBFA20A2C717000F1903 /* TJMyAddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMyAddressModel.m; sourceTree = "<group>"; };
-		C758CBFC20A2C7D2000F1903 /* TJMyAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMyAddressCell.h; sourceTree = "<group>"; };
-		C758CBFD20A2C7D2000F1903 /* TJMyAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMyAddressCell.m; sourceTree = "<group>"; };
 		C758CC0320A2FCD0000F1903 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		C758CC0420A2FCD0000F1903 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		C758CC0520A2FCD0000F1903 /* MOFSAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSAddressPickerView.h; sourceTree = "<group>"; };
@@ -1491,6 +1481,31 @@
 		C78E83ED210EB48800B04E19 /* TJClassicFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJClassicFirstCell.h; sourceTree = "<group>"; };
 		C78E83EE210EB48800B04E19 /* TJClassicFirstCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJClassicFirstCell.m; sourceTree = "<group>"; };
 		C78E83EF210EB48800B04E19 /* TJClassicFirstCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJClassicFirstCell.xib; sourceTree = "<group>"; };
+		C7904F3B2123B58600E20E4D /* TJAddAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAddAddressController.h; sourceTree = "<group>"; };
+		C7904F3C2123B58600E20E4D /* TJAddAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAddAddressController.m; sourceTree = "<group>"; };
+		C7904F3D2123B58600E20E4D /* TJAddAddressController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJAddAddressController.xib; sourceTree = "<group>"; };
+		C7904F422123C76000E20E4D /* TJMyAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJMyAddressCell.h; sourceTree = "<group>"; };
+		C7904F442123C76000E20E4D /* TJMyAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJMyAddressCell.m; sourceTree = "<group>"; };
+		C7904F4E2123C92500E20E4D /* TJChooseAreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJChooseAreaCell.h; sourceTree = "<group>"; };
+		C7904F4F2123C92500E20E4D /* TJChooseAreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJChooseAreaCell.m; sourceTree = "<group>"; };
+		C7904F502123C92500E20E4D /* TJChooseAreaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TJChooseAreaCell.xib; sourceTree = "<group>"; };
+		C7904F542123DA4500E20E4D /* TJKdQuAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdQuAddressController.h; sourceTree = "<group>"; };
+		C7904F552123DA4500E20E4D /* TJKdQuAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdQuAddressController.m; sourceTree = "<group>"; };
+		C7904F592123DACC00E20E4D /* TJKdQuAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdQuAddressCell.h; sourceTree = "<group>"; };
+		C7904F5A2123DACC00E20E4D /* TJKdQuAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdQuAddressCell.m; sourceTree = "<group>"; };
+		C7904F5B2123DACC00E20E4D /* TJKdQuAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJKdQuAddressCell.xib; sourceTree = "<group>"; };
+		C7904F5F2123E2C200E20E4D /* TJKdMyQuanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdMyQuanController.h; sourceTree = "<group>"; };
+		C7904F602123E2C200E20E4D /* TJKdMyQuanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMyQuanController.m; sourceTree = "<group>"; };
+		C7904F632123E34100E20E4D /* TJKdMyQuanCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdMyQuanCell.h; sourceTree = "<group>"; };
+		C7904F642123E34100E20E4D /* TJKdMyQuanCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMyQuanCell.m; sourceTree = "<group>"; };
+		C7904F652123E34100E20E4D /* TJKdMyQuanCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJKdMyQuanCell.xib; sourceTree = "<group>"; };
+		C7904F692124001000E20E4D /* TJKdMyTeamListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdMyTeamListModel.h; sourceTree = "<group>"; };
+		C7904F6A2124001000E20E4D /* TJKdMyTeamListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMyTeamListModel.m; sourceTree = "<group>"; };
+		C7904F6C2124108B00E20E4D /* TJKdQuAddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdQuAddressModel.h; sourceTree = "<group>"; };
+		C7904F6D2124108B00E20E4D /* TJKdQuAddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdQuAddressModel.m; sourceTree = "<group>"; };
+		C7904F6F212431C500E20E4D /* TJKdChooseTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdChooseTimeCell.h; sourceTree = "<group>"; };
+		C7904F70212431C500E20E4D /* TJKdChooseTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdChooseTimeCell.m; sourceTree = "<group>"; };
+		C7904F71212431C500E20E4D /* TJKdChooseTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJKdChooseTimeCell.xib; sourceTree = "<group>"; };
 		C79400002119734100FB580F /* TJPostageMoneyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPostageMoneyCell.m; sourceTree = "<group>"; };
 		C79400012119734100FB580F /* TJPostageMoneyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJPostageMoneyCell.xib; sourceTree = "<group>"; };
 		C794FFDB2119296700FB580F /* TJCourierTakeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJCourierTakeCell.h; sourceTree = "<group>"; };
@@ -1655,6 +1670,9 @@
 		C7C72F5D2101EFD20087A8CB /* TJOredrInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJOredrInfoController.h; sourceTree = "<group>"; };
 		C7C72F5E2101EFD20087A8CB /* TJOredrInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJOredrInfoController.m; sourceTree = "<group>"; };
 		C7C72F5F2101EFD20087A8CB /* TJOredrInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJOredrInfoController.xib; sourceTree = "<group>"; };
+		C7D6880621243D6700555234 /* TJKdApplyAgrentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdApplyAgrentController.h; sourceTree = "<group>"; };
+		C7D6880721243D6700555234 /* TJKdApplyAgrentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdApplyAgrentController.m; sourceTree = "<group>"; };
+		C7D6880821243D6700555234 /* TJKdApplyAgrentController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJKdApplyAgrentController.xib; sourceTree = "<group>"; };
 		C7D9CEFD211BD87B00E70DD0 /* TJKdUserCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdUserCenterController.h; sourceTree = "<group>"; };
 		C7D9CEFE211BD87B00E70DD0 /* TJKdUserCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdUserCenterController.m; sourceTree = "<group>"; };
 		C7D9CF00211BD8DA00E70DD0 /* TJKdHomePageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdHomePageController.h; sourceTree = "<group>"; };
@@ -1705,12 +1723,6 @@
 		C7FEE0AE2122815B008BDBA4 /* TJKdMyOrderContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMyOrderContentController.m; sourceTree = "<group>"; };
 		C7FEE0B02122D872008BDBA4 /* TJMySchoolListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMySchoolListModel.h; sourceTree = "<group>"; };
 		C7FEE0B12122D872008BDBA4 /* TJMySchoolListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMySchoolListModel.m; sourceTree = "<group>"; };
-		C7FEE0B42122F455008BDBA4 /* TJAddAddressDefaultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAddAddressDefaultCell.h; sourceTree = "<group>"; };
-		C7FEE0B52122F455008BDBA4 /* TJAddAddressDefaultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAddAddressDefaultCell.m; sourceTree = "<group>"; };
-		C7FEE0B62122F455008BDBA4 /* TJAddAddressDefaultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJAddAddressDefaultCell.xib; sourceTree = "<group>"; };
-		C7FEE0B92122F523008BDBA4 /* TJAddAddressContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAddAddressContentCell.h; sourceTree = "<group>"; };
-		C7FEE0BA2122F523008BDBA4 /* TJAddAddressContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAddAddressContentCell.m; sourceTree = "<group>"; };
-		C7FEE0BB2122F523008BDBA4 /* TJAddAddressContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJAddAddressContentCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1807,12 +1819,13 @@
 		C71D2046212173A300580DA5 /* 我的地址 */ = {
 			isa = PBXGroup;
 			children = (
-				C71D2047212173A300580DA5 /* TJAddEditAddressController.h */,
-				C71D2048212173A300580DA5 /* TJAddEditAddressController.m */,
 				C71D2049212173A300580DA5 /* TJMyAddressController.h */,
 				C71D204A212173A300580DA5 /* TJMyAddressController.m */,
 				C71D204D212173B800580DA5 /* TJKdChooseSchoolController.h */,
 				C71D204E212173B800580DA5 /* TJKdChooseSchoolController.m */,
+				C7904F3B2123B58600E20E4D /* TJAddAddressController.h */,
+				C7904F3C2123B58600E20E4D /* TJAddAddressController.m */,
+				C7904F3D2123B58600E20E4D /* TJAddAddressController.xib */,
 			);
 			path = "我的地址";
 			sourceTree = "<group>";
@@ -2055,14 +2068,11 @@
 		C722E63220A12A9800EE9D61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C7FEE0B32122F436008BDBA4 /* 添加地址 */,
+				C7904F4D2123C92500E20E4D /* 选择学校 */,
+				C7904F422123C76000E20E4D /* TJMyAddressCell.h */,
+				C7904F442123C76000E20E4D /* TJMyAddressCell.m */,
 				C7249B3020A19EAA00BB385E /* TJCleanCacheCell.h */,
 				C7249B3120A19EAA00BB385E /* TJCleanCacheCell.m */,
-				C758CBFC20A2C7D2000F1903 /* TJMyAddressCell.h */,
-				C758CBFD20A2C7D2000F1903 /* TJMyAddressCell.m */,
-				C71D2050212177F100580DA5 /* TJChooseAreaCell.h */,
-				C71D2051212177F100580DA5 /* TJChooseAreaCell.m */,
-				C71D2052212177F100580DA5 /* TJChooseAreaCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2088,21 +2098,6 @@
 				C7249B2820A1740600BB385E /* UITableView+FDTemplateLayoutCellDebug.m */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		C728574A2121A0F5004C9492 /* PGPickerView */ = {
-			isa = PBXGroup;
-			children = (
-				C728574B2121A0F5004C9492 /* PGPickerColumnCell.h */,
-				C728574C2121A0F5004C9492 /* PGPickerColumnCell.m */,
-				C728574D2121A0F5004C9492 /* PGPickerColumnView.h */,
-				C728574E2121A0F5004C9492 /* PGPickerColumnView.m */,
-				C728574F2121A0F5004C9492 /* PGPickerTableView.h */,
-				C72857502121A0F5004C9492 /* PGPickerTableView.m */,
-				C72857512121A0F5004C9492 /* PGPickerView.h */,
-				C72857522121A0F5004C9492 /* PGPickerView.m */,
-			);
-			path = PGPickerView;
 			sourceTree = "<group>";
 		};
 		C7292A282095566700073099 /* YYModel */ = {
@@ -2512,6 +2507,7 @@
 			children = (
 				C7679C6920EB75E80053A6A8 /* TJPersonalController.h */,
 				C7679C6A20EB75E80053A6A8 /* TJPersonalController.m */,
+				C7D6880521243D0000555234 /* 申请代理 */,
 				C73C5293211ADBD400458587 /* 商户端 */,
 				C77B44622118653600332147 /* 快递代取 */,
 				C77B4460211864BF00332147 /* 个人信息 */,
@@ -2533,6 +2529,8 @@
 		C73FC79B20901BC700732F2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C7904F682123FFFC00E20E4D /* 我的团队 */,
+				C7904F572123DAA300E20E4D /* 取件地址 */,
 				C77BACAA2122705F00C599DB /* 我的粉丝 */,
 				C77BACA221226A2300C599DB /* 排行榜 */,
 				C77FF1F3211C515A00D07AFE /* 快递代取 */,
@@ -2550,6 +2548,8 @@
 		C73FC79C20901BC700732F2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C7904F622123E32000E20E4D /* 我的抵用券 */,
+				C7904F582123DAAC00E20E4D /* 取件地址 */,
 				C77BACA62122704E00C599DB /* 我的粉丝 */,
 				C77BAC962122680F00C599DB /* 排行榜 */,
 				C73C5296211ADCDD00458587 /* 商户端 */,
@@ -2681,7 +2681,6 @@
 		C73FC7A520901BC700732F2D /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
-				C728574A2121A0F5004C9492 /* PGPickerView */,
 				C71D205521217BF200580DA5 /* HCSortAndSearch */,
 				C73C529F211AEC2700458587 /* HYBStarEvaluationView */,
 				C7ADB49D211A9EF100AD4D95 /* PopoverView */,
@@ -3561,6 +3560,8 @@
 		C77B44622118653600332147 /* 快递代取 */ = {
 			isa = PBXGroup;
 			children = (
+				C7904F5E2123E2A800E20E4D /* 我的抵用券 */,
+				C7904F532123DA1900E20E4D /* 地址 */,
 				C73C5299211AE77800458587 /* 评价 */,
 				C7ADB4A7211AA77A00AD4D95 /* 全部订单  */,
 				C7ADB484211A8F9000AD4D95 /* 订单详情 */,
@@ -4121,6 +4122,72 @@
 			path = "内容收藏";
 			sourceTree = "<group>";
 		};
+		C7904F4D2123C92500E20E4D /* 选择学校 */ = {
+			isa = PBXGroup;
+			children = (
+				C7904F4E2123C92500E20E4D /* TJChooseAreaCell.h */,
+				C7904F4F2123C92500E20E4D /* TJChooseAreaCell.m */,
+				C7904F502123C92500E20E4D /* TJChooseAreaCell.xib */,
+			);
+			path = "选择学校";
+			sourceTree = "<group>";
+		};
+		C7904F532123DA1900E20E4D /* 地址 */ = {
+			isa = PBXGroup;
+			children = (
+				C7904F542123DA4500E20E4D /* TJKdQuAddressController.h */,
+				C7904F552123DA4500E20E4D /* TJKdQuAddressController.m */,
+			);
+			path = "地址";
+			sourceTree = "<group>";
+		};
+		C7904F572123DAA300E20E4D /* 取件地址 */ = {
+			isa = PBXGroup;
+			children = (
+				C7904F6C2124108B00E20E4D /* TJKdQuAddressModel.h */,
+				C7904F6D2124108B00E20E4D /* TJKdQuAddressModel.m */,
+			);
+			path = "取件地址";
+			sourceTree = "<group>";
+		};
+		C7904F582123DAAC00E20E4D /* 取件地址 */ = {
+			isa = PBXGroup;
+			children = (
+				C7904F592123DACC00E20E4D /* TJKdQuAddressCell.h */,
+				C7904F5A2123DACC00E20E4D /* TJKdQuAddressCell.m */,
+				C7904F5B2123DACC00E20E4D /* TJKdQuAddressCell.xib */,
+			);
+			path = "取件地址";
+			sourceTree = "<group>";
+		};
+		C7904F5E2123E2A800E20E4D /* 我的抵用券 */ = {
+			isa = PBXGroup;
+			children = (
+				C7904F5F2123E2C200E20E4D /* TJKdMyQuanController.h */,
+				C7904F602123E2C200E20E4D /* TJKdMyQuanController.m */,
+			);
+			path = "我的抵用券";
+			sourceTree = "<group>";
+		};
+		C7904F622123E32000E20E4D /* 我的抵用券 */ = {
+			isa = PBXGroup;
+			children = (
+				C7904F632123E34100E20E4D /* TJKdMyQuanCell.h */,
+				C7904F642123E34100E20E4D /* TJKdMyQuanCell.m */,
+				C7904F652123E34100E20E4D /* TJKdMyQuanCell.xib */,
+			);
+			path = "我的抵用券";
+			sourceTree = "<group>";
+		};
+		C7904F682123FFFC00E20E4D /* 我的团队 */ = {
+			isa = PBXGroup;
+			children = (
+				C7904F692124001000E20E4D /* TJKdMyTeamListModel.h */,
+				C7904F6A2124001000E20E4D /* TJKdMyTeamListModel.m */,
+			);
+			path = "我的团队";
+			sourceTree = "<group>";
+		};
 		C794FFE621194EEC00FB580F /* 待评价 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4169,6 +4236,9 @@
 				C794FFFF2119734100FB580F /* TJPostageMoneyCell.h */,
 				C79400002119734100FB580F /* TJPostageMoneyCell.m */,
 				C79400012119734100FB580F /* TJPostageMoneyCell.xib */,
+				C7904F6F212431C500E20E4D /* TJKdChooseTimeCell.h */,
+				C7904F70212431C500E20E4D /* TJKdChooseTimeCell.m */,
+				C7904F71212431C500E20E4D /* TJKdChooseTimeCell.xib */,
 			);
 			path = "发布";
 			sourceTree = "<group>";
@@ -4451,6 +4521,16 @@
 			path = "订单信息";
 			sourceTree = "<group>";
 		};
+		C7D6880521243D0000555234 /* 申请代理 */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6880621243D6700555234 /* TJKdApplyAgrentController.h */,
+				C7D6880721243D6700555234 /* TJKdApplyAgrentController.m */,
+				C7D6880821243D6700555234 /* TJKdApplyAgrentController.xib */,
+			);
+			path = "申请代理";
+			sourceTree = "<group>";
+		};
 		C7DE68A3209985DC00160435 /* NewPagedFlowView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4471,19 +4551,6 @@
 				C7E69B2D2114605E0007C5F3 /* GYRollingNoticeView.m */,
 			);
 			path = GYRollingNoticeView;
-			sourceTree = "<group>";
-		};
-		C7FEE0B32122F436008BDBA4 /* 添加地址 */ = {
-			isa = PBXGroup;
-			children = (
-				C7FEE0B42122F455008BDBA4 /* TJAddAddressDefaultCell.h */,
-				C7FEE0B52122F455008BDBA4 /* TJAddAddressDefaultCell.m */,
-				C7FEE0B62122F455008BDBA4 /* TJAddAddressDefaultCell.xib */,
-				C7FEE0B92122F523008BDBA4 /* TJAddAddressContentCell.h */,
-				C7FEE0BA2122F523008BDBA4 /* TJAddAddressContentCell.m */,
-				C7FEE0BB2122F523008BDBA4 /* TJAddAddressContentCell.xib */,
-			);
-			path = "添加地址";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4591,17 +4658,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C71787812105BD42009A2034 /* TJMyAssetsController.xib in Resources */,
+				C7904F73212431C500E20E4D /* TJKdChooseTimeCell.xib in Resources */,
 				C76BA5F620FD95DD006C749B /* TJHeadLineThreeCell.xib in Resources */,
 				C75F64B920EF1DE600B55B8B /* TJJHSuanCell.xib in Resources */,
 				C74D894C2100769A0098754C /* TJCommentsReplyCell.xib in Resources */,
 				C77BACA12122684200C599DB /* TJRankingHeaderCell.xib in Resources */,
-				C7FEE0BD2122F523008BDBA4 /* TJAddAddressContentCell.xib in Resources */,
 				C76BA60120FDA16B006C749B /* TJHeadDetailController.xib in Resources */,
 				C73C527E211AC48900458587 /* TJPayMoneyCell.xib in Resources */,
 				C786473520F3410A00995A8F /* TJClassTwoCell.xib in Resources */,
 				C77B44692118667800332147 /* TJCourierTakeController.xib in Resources */,
 				C73FC7682090180000732F2D /* LaunchScreen.storyboard in Resources */,
 				C77B443621181F9000332147 /* SVProgressHUD.bundle in Resources */,
+				C7904F5D2123DACC00E20E4D /* TJKdQuAddressCell.xib in Resources */,
 				C779C686211E991700B94533 /* back_left.png in Resources */,
 				C79FAE4E2112DDC600E5065E /* TJHeadLineDefaultCell.xib in Resources */,
 				C73C52A6211AEC2700458587 /* star_yellow.png in Resources */,
@@ -4611,13 +4679,14 @@
 				C7ADB48D211A903600AD4D95 /* TJOrderInfoOneCell.xib in Resources */,
 				C7E69B342114610B0007C5F3 /* TJHeadLineCustomCell.xib in Resources */,
 				C73FC7652090180000732F2D /* Assets.xcassets in Resources */,
+				C7D6880A21243D6700555234 /* TJKdApplyAgrentController.xib in Resources */,
 				C7ADB497211A922100AD4D95 /* TJOrderInfoCell.xib in Resources */,
 				C71D207621217BF200580DA5 /* unicode_to_hanyu_pinyin.txt in Resources */,
-				C7FEE0B82122F455008BDBA4 /* TJAddAddressDefaultCell.xib in Resources */,
 				C7D9CF24211BE50700E70DD0 /* TJKdMineDefaultCell.xib in Resources */,
 				C7861DA020FC70EC0056574A /* TJMyFootPrintCell.xib in Resources */,
 				C76BA5EC20FD8E17006C749B /* TJHeadLineOneCell.xib in Resources */,
 				C73C5288211ACAA800458587 /* TJPayQuanCell.xib in Resources */,
+				C7904F3F2123B58600E20E4D /* TJAddAddressController.xib in Resources */,
 				C74D892D210023520098754C /* TJShareOneCell.xib in Resources */,
 				C786473D20F3625C00995A8F /* TJNoticeCell.xib in Resources */,
 				C794FFF42119534100FB580F /* TJAdressCell.xib in Resources */,
@@ -4633,6 +4702,7 @@
 				C77B4448211830E000332147 /* TJBigImageCell.xib in Resources */,
 				C7ADB4BC211AC32500AD4D95 /* TJPayDefaultCell.xib in Resources */,
 				C73C5292211AD77E00458587 /* TJPayFailController.xib in Resources */,
+				C7904F672123E34100E20E4D /* TJKdMyQuanCell.xib in Resources */,
 				C772AA46210880800029C515 /* Info.plist in Resources */,
 				C7A3FC4121211D5200072A57 /* TJBargainHeadCell.xib in Resources */,
 				C74D894721003C790098754C /* TJMoreCommentsCell.xib in Resources */,
@@ -4651,7 +4721,6 @@
 				C794FFDF2119296700FB580F /* TJCourierTakeCell.xib in Resources */,
 				C73FC763209017FD00732F2D /* Main.storyboard in Resources */,
 				C7D9CF1F211BE4F300E70DD0 /* TJKdMineMiddleCell.xib in Resources */,
-				C71D2054212177F100580DA5 /* TJChooseAreaCell.xib in Resources */,
 				C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */,
 				C79646822111C7A100F1AB26 /* TJHeadLineContentCell.xib in Resources */,
 				C76260F120FEDDA0006889DF /* TJCollectionClassicCell.xib in Resources */,
@@ -4661,6 +4730,7 @@
 				C77FF1E2211C272C00D07AFE /* TJKdMyTeamCell.xib in Resources */,
 				C78E5CD520ABB5E700C9C1BF /* MJRefresh.bundle in Resources */,
 				C7ADB49C211A95C900AD4D95 /* TJOrderHeadViewCell.xib in Resources */,
+				C7904F522123C92500E20E4D /* TJChooseAreaCell.xib in Resources */,
 				C717878D2105D2A4009A2034 /* TJDetailListCell.xib in Resources */,
 				C79400032119734100FB580F /* TJPostageMoneyCell.xib in Resources */,
 				C77B4443211830CE00332147 /* TJThreeImageCell.xib in Resources */,
@@ -4706,17 +4776,19 @@
 				C77D0EAB20A3ED5B000F794A /* YYTextView.m in Sources */,
 				C77D0EA220A3ED5B000F794A /* NSAttributedString+YYText.m in Sources */,
 				C7266E0320A521A6005FD81A /* TJButton.m in Sources */,
+				C7904F612123E2C200E20E4D /* TJKdMyQuanController.m in Sources */,
 				C781BEDF210B198E00B7BD57 /* UIImage+WebP.m in Sources */,
 				C78E5CCC20ABB5E700C9C1BF /* MJRefreshAutoGifFooter.m in Sources */,
 				C73D394120E38E8E0004D5B4 /* TJTaoBaoOrderController.m in Sources */,
 				C781BEE1210B198E00B7BD57 /* UIImageView+WebCache.m in Sources */,
 				C79400022119734100FB580F /* TJPostageMoneyCell.m in Sources */,
+				C7D6880921243D6700555234 /* TJKdApplyAgrentController.m in Sources */,
 				C77D0EA420A3ED5B000F794A /* UIPasteboard+YYText.m in Sources */,
 				C742A3212099DA260026311A /* MyTableLayout.m in Sources */,
+				C7904F3E2123B58600E20E4D /* TJAddAddressController.m in Sources */,
 				C7C72F592101CD0F0087A8CB /* NSObject+MJKeyValue.m in Sources */,
 				C722E63A20A138F300EE9D61 /* UINavigationController+Cloudox.m in Sources */,
 				C77B445B2118430B00332147 /* TADotView.m in Sources */,
-				C7FEE0BC2122F523008BDBA4 /* TJAddAddressContentCell.m in Sources */,
 				C781BEC7210B198E00B7BD57 /* MKAnnotationView+WebCache.m in Sources */,
 				C73FC81D209025CE00732F2D /* UIProgressView+AFNetworking.m in Sources */,
 				C77FF1E1211C272C00D07AFE /* TJKdMyTeamCell.m in Sources */,
@@ -4730,14 +4802,12 @@
 				C763617B20B5553B002F239F /* TJVipFansContentController.m in Sources */,
 				C79FAE812112F0FF00E5065E /* TJNoticeListModel.m in Sources */,
 				C7C72F552101CD0F0087A8CB /* MJPropertyKey.m in Sources */,
-				C71D2053212177F100580DA5 /* TJChooseAreaCell.m in Sources */,
 				C7ADB491211A913300AD4D95 /* TJOrderTypeCell.m in Sources */,
 				C742A31B2099DA260026311A /* MyLayoutSize.m in Sources */,
 				C7C72F2F210181570087A8CB /* XMEngine.m in Sources */,
 				C7C72F34210184460087A8CB /* TJInvitationView.m in Sources */,
 				C746005221070C1F00302DB8 /* TJOredrInfoCell.m in Sources */,
 				C77D0E9A20A3ED5B000F794A /* YYTextLine.m in Sources */,
-				C72857532121A0F5004C9492 /* PGPickerColumnCell.m in Sources */,
 				C7206BFE20A0031A00957A4A /* XHLaunchAdConst.m in Sources */,
 				C71787802105BD42009A2034 /* TJMyAssetsController.m in Sources */,
 				C78E5CD220ABB5E700C9C1BF /* MJRefreshGifHeader.m in Sources */,
@@ -4755,10 +4825,10 @@
 				C77B445C2118430B00332147 /* TAPageControl.m in Sources */,
 				C71D207321217BF200580DA5 /* PinyinFormatter.m in Sources */,
 				C758CC1520A2FCD1000F1903 /* MOFSToolView.m in Sources */,
-				C72857552121A0F5004C9492 /* PGPickerTableView.m in Sources */,
 				C75891442092B85D00AC085E /* MASConstraintMaker.m in Sources */,
 				C78E5CD920ABB5E700C9C1BF /* UIScrollView+MJRefresh.m in Sources */,
 				C74DFF9C20F73F0200D83ACF /* TJDafultGoodsTitlesCell.m in Sources */,
+				C7904F6E2124108B00E20E4D /* TJKdQuAddressModel.m in Sources */,
 				C704044C20AE6A60001D720A /* XHWebImageAutoSizeCache.m in Sources */,
 				C7D9CF1A211BE4E000E70DD0 /* TJKdMineClassicCell.m in Sources */,
 				C77D0EAA20A3ED5B000F794A /* YYLabel.m in Sources */,
@@ -4771,6 +4841,7 @@
 				C77D0EBA20A43C0B000F794A /* TJOCDContentCell.m in Sources */,
 				C758CBFB20A2C717000F1903 /* TJMyAddressModel.m in Sources */,
 				C7249B0B20A1418500BB385E /* UIImage+TJCircleImage.m in Sources */,
+				C7904F512123C92500E20E4D /* TJChooseAreaCell.m in Sources */,
 				C7206BFB20A0031A00957A4A /* XHLaunchAdButton.m in Sources */,
 				C742A31A2099DA260026311A /* MyLayoutPos.m in Sources */,
 				C781BED9210B198E00B7BD57 /* SDWebImageTransition.m in Sources */,
@@ -4808,7 +4879,6 @@
 				C781BEDD210B198E00B7BD57 /* UIImage+GIF.m in Sources */,
 				C74099F92091CF3600DFCC94 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C76BA60020FDA16B006C749B /* TJHeadDetailController.m in Sources */,
-				C71D204B212173A300580DA5 /* TJAddEditAddressController.m in Sources */,
 				C7E69B2E2114605E0007C5F3 /* GYNoticeViewCell.m in Sources */,
 				C781BEC3210B198E00B7BD57 /* FLAnimatedImage.m in Sources */,
 				C7C72F522101CD0F0087A8CB /* MJExtensionConst.m in Sources */,
@@ -4866,7 +4936,6 @@
 				C786472F20F33FCD00995A8F /* TJClassOneCell.m in Sources */,
 				C7B9949520F884B000DFFC98 /* ZJContentView.m in Sources */,
 				C720EDBC20907268007AA53C /* TJNavigationController.m in Sources */,
-				C72857562121A0F5004C9492 /* PGPickerView.m in Sources */,
 				C742A3142099DA260026311A /* MyFlowLayout.m in Sources */,
 				C781BECE210B198E00B7BD57 /* SDWebImageCoder.m in Sources */,
 				C7206C1220A0323A00957A4A /* TJWebController.m in Sources */,
@@ -4874,6 +4943,7 @@
 				C704044A20AE6A60001D720A /* UITableView+XHWebImageAutoSize.m in Sources */,
 				C781BED7210B198E00B7BD57 /* SDWebImageManager.m in Sources */,
 				C742A3162099DA260026311A /* MyGridLayout.m in Sources */,
+				C7904F662123E34100E20E4D /* TJKdMyQuanCell.m in Sources */,
 				C7588E6620F5A5D800CA5574 /* TJSignRuleController.m in Sources */,
 				C7292A3C2095760000073099 /* TJFirstAllController.m in Sources */,
 				C74DFFA020F7484D00D83ACF /* TJDefaultGoodsDetailController.m in Sources */,
@@ -4929,7 +4999,6 @@
 				C7B9947B20F84BBD00DFFC98 /* UIImage+JKColor.m in Sources */,
 				C77B7AA220F4B003005DD2BD /* TJMineHeaderCell.m in Sources */,
 				C7249B2F20A1843900BB385E /* TJSettingController.m in Sources */,
-				C72857542121A0F5004C9492 /* PGPickerColumnView.m in Sources */,
 				C7206BFA20A0031A00957A4A /* XHLaunchAd.m in Sources */,
 				C758CC1320A2FCD1000F1903 /* MOFSPickerManager.m in Sources */,
 				C75891452092B85D00AC085E /* MASLayoutConstraint.m in Sources */,
@@ -4961,13 +5030,13 @@
 				C77D0EA820A3ED5B000F794A /* YYTextUtilities.m in Sources */,
 				C72A72BD209D54B3001CAC75 /* PYSearchConst.m in Sources */,
 				C75F64B820EF1DE600B55B8B /* TJJHSuanCell.m in Sources */,
+				C7904F562123DA4500E20E4D /* TJKdQuAddressController.m in Sources */,
 				C758CC1220A2FCD1000F1903 /* MOFSDatePicker.m in Sources */,
 				C73D392F20E341C00004D5B4 /* TJRankingListController.m in Sources */,
 				C781BECA210B198E00B7BD57 /* NSImage+WebCache.m in Sources */,
 				C73D394720E38F8C0004D5B4 /* TJTBOrderContentCell.m in Sources */,
 				C7861DA820FC8C4F0056574A /* TJSignSuccessController.m in Sources */,
 				C7D9CEFF211BD87B00E70DD0 /* TJKdUserCenterController.m in Sources */,
-				C758CBFE20A2C7D2000F1903 /* TJMyAddressCell.m in Sources */,
 				C75891482092B85D00AC085E /* NSArray+MASAdditions.m in Sources */,
 				C7B3E1A120AEAE85006CEE0A /* TJBottomPopupView.m in Sources */,
 				C7C72F572101CD0F0087A8CB /* NSObject+MJClass.m in Sources */,
@@ -4997,6 +5066,7 @@
 				C781BED0210B198E00B7BD57 /* SDWebImageCodersManager.m in Sources */,
 				C758915B2092D01300AC085E /* TJTQGouController.m in Sources */,
 				C7C35077211D9AB5000AFC6C /* TJMineJFBModel.m in Sources */,
+				C7904F5C2123DACC00E20E4D /* TJKdQuAddressCell.m in Sources */,
 				C704044820AE6A60001D720A /* NSString+XHWebImageAutoSize.m in Sources */,
 				C781BED4210B198E00B7BD57 /* SDWebImageFrame.m in Sources */,
 				C772AA13210810960029C515 /* TJTqgGoodsModel.m in Sources */,
@@ -5014,6 +5084,7 @@
 				C7B9949720F884B000DFFC98 /* ZJScrollSegmentView.m in Sources */,
 				C74D894B2100769A0098754C /* TJCommentsReplyCell.m in Sources */,
 				C78E5CCB20ABB5E700C9C1BF /* MJRefreshHeader.m in Sources */,
+				C7904F72212431C500E20E4D /* TJKdChooseTimeCell.m in Sources */,
 				C75891432092B85D00AC085E /* MASConstraint.m in Sources */,
 				C781BECF210B198E00B7BD57 /* SDWebImageCoderHelper.m in Sources */,
 				C79FAE7F2112F0E000E5065E /* TJAssetsDetailListModel.m in Sources */,
@@ -5034,7 +5105,6 @@
 				C7E6D48520A97CEA0019C827 /* TJMineAssetDetailsController.m in Sources */,
 				C742A31C2099DA260026311A /* MyLayoutSizeClass.m in Sources */,
 				C756A27A20A91F4000EC5FEB /* TJAccountSafeController.m in Sources */,
-				C7FEE0B72122F455008BDBA4 /* TJAddAddressDefaultCell.m in Sources */,
 				C7249B1220A1458A00BB385E /* TJBalanceDetailsCell.m in Sources */,
 				C76260EC20FEDCCF006889DF /* TJClassicSecondCell.m in Sources */,
 				C772AA38210880800029C515 /* FSCalendarAppearance.m in Sources */,
@@ -5079,6 +5149,7 @@
 				C7D9CF09211BDA5C00E70DD0 /* TJKdHomeOrderCell.m in Sources */,
 				C742A3172099DA260026311A /* MyGridNode.m in Sources */,
 				C77FF1F1211C450900D07AFE /* UITextView+XMExtension.m in Sources */,
+				C7904F6B2124001000E20E4D /* TJKdMyTeamListModel.m in Sources */,
 				C71D206F21217BF200580DA5 /* ChineseInclude.m in Sources */,
 				C7206C0120A0031A00957A4A /* XHLaunchAdImageManager.m in Sources */,
 				C73D393820E363BB0004D5B4 /* TJRankingListContentController.m in Sources */,
@@ -5131,6 +5202,7 @@
 				C772AA3B210880800029C515 /* FSCalendarCollectionView.m in Sources */,
 				C7D9CF0D211BE04800E70DD0 /* TJKdHomePageContentTwoController.m in Sources */,
 				C74099F22091CF3600DFCC94 /* IQNSArray+Sort.m in Sources */,
+				C7904F472123C76000E20E4D /* TJMyAddressCell.m in Sources */,
 				C7206BFC20A0031A00957A4A /* XHLaunchAdCache.m in Sources */,
 				C77FF1F2211C450900D07AFE /* XMTextView.m in Sources */,
 				C7808FEA20E60E4600938A26 /* KSortingAndMD5.m in Sources */,

@@ -128,6 +128,10 @@ static NSString * const UserPhone = @"UserPhone";
 //修改地址
 #define EditAddress        [BASEURL stringByAppendingString:@"/v1/addresses/eaddress"]
 
+//删除地址
+#define DeleteAddress        [BASEURL stringByAppendingString:@"/v1/addresses/daddress"]
+
+
 //设置地址
 #define SettingAddress        [BASEURL stringByAppendingString:@"/v1/addresses/default"]
 
@@ -148,9 +152,14 @@ static NSString * const UserPhone = @"UserPhone";
 
 //用户/商户-快递-订单列表
 #define OrderList        [BASEURL stringByAppendingString:@"/v1/kuaidis"]
+//用户/商户-快递-取件地址
+#define KdQuAddress        [BASEURL stringByAppendingString:@"/v1/addresses/qujian"]
 
 
-
+//用户/商户-快递-意见反馈
+#define FeedBack        [BASEURL stringByAppendingString:@"/v1/feedbacks/feedback"]
+//商户-快递-我的团队
+#define KdMyTeam        [BASEURL stringByAppendingString:@"/v1/agents/agent"]
 
 
 //

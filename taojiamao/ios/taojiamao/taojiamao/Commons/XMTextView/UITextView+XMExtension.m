@@ -20,10 +20,8 @@ static char *changeLocation = "location";
 }
 
 - (void)swizzledDealloc {
-    
-    NSLog(@"swizzledDealloc");
-    // 移除观察
-    [self removeObserver:self forKeyPath:@"font"];
+        // 移除观察
+//    [self removeObserver:self forKeyPath:@"font"];
     //移除监听
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

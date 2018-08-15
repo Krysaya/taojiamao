@@ -90,6 +90,7 @@
         return cell;
     }else{
         TJKdMineDefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMineDefaultCell"];
+        cell.type = [NSString stringWithFormat:@"%ld",indexPath.row];
         return cell;
     }
 }

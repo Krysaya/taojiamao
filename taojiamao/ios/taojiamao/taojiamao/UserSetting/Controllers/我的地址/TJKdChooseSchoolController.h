@@ -7,11 +7,11 @@
 //
 
 #import "TJBaseViewController.h"
-
+@class TJMySchoolListModel;
 @protocol ChooseSchoolControllerDelegate <NSObject>
--(void)getSchoolInfoValue:(NSString *)schoolID;
+-(void)getSchoolInfoValue:(TJMySchoolListModel *)schoolModel;
 
 @end
 @interface TJKdChooseSchoolController : TJBaseViewController
-@property (nonatomic,unsafe_unretained)id<ChooseSchoolControllerDelegate> delegate;
+@property (nonatomic,assign)id<ChooseSchoolControllerDelegate> delegate;
 @end

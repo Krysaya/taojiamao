@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJKdMyTeamListModel;
 @interface TJKdMyTeamCell : UITableViewCell
-
+@property (nonatomic, strong) TJKdMyTeamListModel  *model;
 @end

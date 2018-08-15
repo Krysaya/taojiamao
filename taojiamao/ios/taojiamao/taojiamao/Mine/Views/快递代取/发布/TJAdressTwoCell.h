@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class TJKdOrderInfoModel;
+@class TJKdQuAddressModel;
 
 @interface TJAdressTwoCell : UITableViewCell
+@property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) TJKdOrderInfoModel *model;
+@property (nonatomic, strong) TJKdQuAddressModel *m_qu;
+
 @end

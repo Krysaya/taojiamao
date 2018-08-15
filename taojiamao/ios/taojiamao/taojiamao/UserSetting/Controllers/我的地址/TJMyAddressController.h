@@ -8,9 +8,14 @@
 
 #import "TJBaseViewController.h"
 
+@class TJMyAddressModel;
+@protocol AddressControllerDelegate <NSObject>
+-(void)getSongAddressInfoValue:(TJMyAddressModel *)addressModel;
 
+@end
 @interface TJMyAddressController : TJBaseViewController
 
+@property (nonatomic,assign)id<AddressControllerDelegate> delegate;
 
-
+@property (nonatomic, strong) NSString *type;
 @end
