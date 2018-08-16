@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TJFaBuController : TJBaseViewController
+@class TJKdOrderInfoModel;
 
+@interface TJFaBuController : TJBaseViewController
+@property (nonatomic, strong) TJKdOrderInfoModel *model;
 @end

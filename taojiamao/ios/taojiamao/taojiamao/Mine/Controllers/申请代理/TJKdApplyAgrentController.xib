@@ -11,6 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TJKdApplyAgrentController">
             <connections>
+                <outlet property="tf_name" destination="ifp-NQ-8Qn" id="38M-oG-RgA"/>
+                <outlet property="tf_phone" destination="Fds-YS-vkM" id="wAS-VG-gz3"/>
+                <outlet property="tf_photo" destination="OUh-Sy-lLL" id="qIz-hn-cPo"/>
+                <outlet property="tf_school" destination="hlc-Sp-0FT" id="KdV-gZ-P3s"/>
+                <outlet property="tf_sex" destination="Obv-go-Wa7" id="AMc-Gg-dkr"/>
+                <outlet property="tf_xj" destination="8o3-VL-M3W" id="Ptd-X7-8qb"/>
+                <outlet property="tf_yqm" destination="lJJ-SV-BLw" id="b2p-G8-bQZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,7 +39,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-NQ-8Qn">
-                            <rect key="frame" x="132" y="20.5" width="203" height="17"/>
+                            <rect key="frame" x="122" y="20.5" width="213" height="17"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -53,7 +60,7 @@
                             <color key="textColor" red="0.288507297" green="0.288507297" blue="0.288507297" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择性别" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Obv-go-Wa7">
+                        <textField opaque="NO" tag="894" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择性别" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Obv-go-Wa7">
                             <rect key="frame" x="122" y="64" width="213" height="17"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -150,7 +157,7 @@
                             <color key="textColor" red="0.288507297" green="0.288507297" blue="0.288507297" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择学校" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlc-Sp-0FT">
+                        <textField opaque="NO" tag="895" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择学校" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlc-Sp-0FT">
                             <rect key="frame" x="122" y="258" width="213" height="17"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -163,13 +170,16 @@
                                 <constraint firstAttribute="height" constant="1" id="K9E-Et-yNX"/>
                             </constraints>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUh-Sy-lLL">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUh-Sy-lLL">
                             <rect key="frame" x="122" y="306" width="155" height="90"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="90" id="HbP-6F-VXR"/>
                                 <constraint firstAttribute="width" constant="155" id="uLa-Wp-TuV"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
+                            <state key="normal" title="Button" image="kd_sq_photo"/>
+                            <connections>
+                                <action selector="choosePhoto:" destination="-1" eventType="touchUpInside" id="xDQ-OT-rtq"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -217,7 +227,7 @@
                         <constraint firstItem="8o3-VL-M3W" firstAttribute="centerY" secondItem="z4T-eK-JMf" secondAttribute="centerY" id="n7f-zQ-gev"/>
                         <constraint firstItem="lJJ-SV-BLw" firstAttribute="centerY" secondItem="DrT-rR-WjU" secondAttribute="centerY" id="nh6-dW-15P"/>
                         <constraint firstItem="f6M-rO-ScZ" firstAttribute="leading" secondItem="kF6-rh-YNL" secondAttribute="leading" constant="20" id="o03-Ax-fH2"/>
-                        <constraint firstItem="ifp-NQ-8Qn" firstAttribute="leading" secondItem="lic-XD-KgZ" secondAttribute="trailing" constant="20" id="pFU-ib-xgB"/>
+                        <constraint firstItem="ifp-NQ-8Qn" firstAttribute="leading" secondItem="lic-XD-KgZ" secondAttribute="trailing" constant="10" id="pFU-ib-xgB"/>
                         <constraint firstAttribute="trailing" secondItem="gHn-bw-y46" secondAttribute="trailing" constant="20" id="q48-21-qsx"/>
                         <constraint firstAttribute="trailing" secondItem="BZI-ZS-OsZ" secondAttribute="trailing" constant="20" id="s0N-mu-V18"/>
                         <constraint firstItem="hlc-Sp-0FT" firstAttribute="leading" secondItem="pjg-aE-bEk" secondAttribute="trailing" constant="10" id="snd-bH-5Wu"/>
@@ -244,6 +254,9 @@
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="applyAgrentClick:" destination="-1" eventType="touchUpInside" id="fig-Tu-zex"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -258,4 +271,7 @@
             <point key="canvasLocation" x="-58.5" y="66.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="kd_sq_photo" width="155" height="90"/>
+    </resources>
 </document>

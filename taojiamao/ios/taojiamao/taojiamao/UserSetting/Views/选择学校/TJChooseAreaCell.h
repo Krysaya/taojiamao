@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TJChooseAreaCell : UITableViewCell
+@interface TJChooseAreaCell : TJBaseTableCell
 @property (weak, nonatomic) IBOutlet UITextField *tf;
 
 @end

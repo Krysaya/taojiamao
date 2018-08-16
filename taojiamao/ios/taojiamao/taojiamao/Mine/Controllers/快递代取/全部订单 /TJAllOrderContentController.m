@@ -72,7 +72,7 @@
         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
 //        DSLog(@"--%@--sign",md5Str);
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-            request.url = OrderList;
+            request.url = KdOrderList;
             request.headers = @{@"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"sign":md5Str,
@@ -81,7 +81,6 @@
             request.httpMethod = kXMHTTPMethodPOST;
             request.parameters = @{ @"type":@"2"};
         } onSuccess:^(id  _Nullable responseObject) {
-            DSLog(@"----kdorder=-success-===%@",responseObject);
             self.dataArr = [TJKdUserOrderList mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -109,7 +108,7 @@
                 DSLog(@"--%@--sign",md5Str);
 
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-            request.url = OrderList;
+            request.url = KdOrderList;
             request.headers = @{@"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"sign":md5Str,

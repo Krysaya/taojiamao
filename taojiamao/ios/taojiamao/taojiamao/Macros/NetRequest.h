@@ -141,17 +141,23 @@ static NSString * const UserPhone = @"UserPhone";
 //学校列表
 #define SchoolList        [BASEURL stringByAppendingString:@"/v1/schools"]
 
+//添加学校
+#define KdAddSchool        [BASEURL stringByAppendingString:@"/v1/schools/school"]
+
 //用户-快递-订单详情
-#define UserOrderDetail        [BASEURL stringByAppendingString:@"/v1/kuaidis/detail"]
+#define KdUserOrderDetail        [BASEURL stringByAppendingString:@"/v1/kuaidis/detail"]
+
+//用户-快递-取消订单
+#define KdUserOrderCancel       [BASEURL stringByAppendingString:@"/v1/kuaidis/ckuaidi"]
 
 //用户-快递-修改订单
-#define UserEditOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/ekuaidi"]
+#define KdUserEditOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/ekuaidi"]
 
 //用户-快递-发布订单
-#define UserReleaseOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/kuaidi"]
+#define KdUserReleaseOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/kuaidi"]
 
 //用户/商户-快递-订单列表
-#define OrderList        [BASEURL stringByAppendingString:@"/v1/kuaidis"]
+#define KdOrderList        [BASEURL stringByAppendingString:@"/v1/kuaidis"]
 //用户/商户-快递-取件地址
 #define KdQuAddress        [BASEURL stringByAppendingString:@"/v1/addresses/qujian"]
 
@@ -159,7 +165,8 @@ static NSString * const UserPhone = @"UserPhone";
 //用户/商户-快递-意见反馈
 #define FeedBack        [BASEURL stringByAppendingString:@"/v1/feedbacks/feedback"]
 //商户-快递-我的团队
-#define KdMyTeam        [BASEURL stringByAppendingString:@"/v1/agents/agent"]
+#define KdMyTeam        [BASEURL stringByAppendingString:@"/v1/agents/team"]
 
-
+//商户-快递-申请代理
+#define KdApplyAgent        [BASEURL stringByAppendingString:@"/v1/agents/agent"]
 //

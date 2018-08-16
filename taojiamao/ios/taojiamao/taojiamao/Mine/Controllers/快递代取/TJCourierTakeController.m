@@ -8,9 +8,11 @@
 //
 
 #import "TJCourierTakeController.h"
+#import "TJKdUserOrderList.h"
+
 #import "PopoverView.h"
 #import "TJCourierTakeCell.h"
-#import "TJFaBuController.h"//发布
+#import "TJKdFabuController.h"//发布
 #import "TJOrderInfoController.h"//订单详情
 #import "TJKdAllOrdersController.h"//全部订单
 #import "TJMyAddressController.h"//地址
@@ -23,17 +25,19 @@
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @end
 
 @implementation TJCourierTakeController
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [self resetSystemNavibar];
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = RGB(81, 162, 249);
 //    self.navigationController.navigationBar.translucent = NO;
+    [self loadReuqestNearByTimesOrderList];
 
 }
 - (void)viewDidLoad {
@@ -52,12 +56,51 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerNib:[UINib nibWithNibName:@"TJCourierTakeCell" bundle:nil] forCellReuseIdentifier:@"CourierTakeCell"];
     [self.view addSubview:tableView];
+    self.tableView = tableView;
     
 }
 
+- (void)loadReuqestNearByTimesOrderList{
+    self.dataArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"type":@"2",
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    //        DSLog(@"--%@--sign",md5Str);
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = KdOrderList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{ @"type":@"2"};
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"=--zuiji-=--%@",responseObject);
+        self.dataArr = [TJKdUserOrderList mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    } onFailure:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+        });
+        
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (void)buttonClick:(UIButton *)but{
 //    popview
@@ -94,7 +137,7 @@
             {
 //             发布
                 DSLog(@"fb");
-                TJFaBuController *vc = [[TJFaBuController alloc]init];
+                TJKdFabuController *vc = [[TJKdFabuController alloc]init];
                 [self.navigationController  pushViewController:vc animated:YES];
             }
             break;
@@ -140,7 +183,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return self.dataArr.count+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
@@ -161,6 +204,7 @@
     }else{
         TJCourierTakeCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CourierTakeCell"];
         [cell.btn_pl addTarget:self action:@selector(pinglunClick:) forControlEvents:UIControlEventTouchUpInside];
+        cell.model = self.dataArr[indexPath.row-1];
         return cell;
     }
 }
@@ -168,7 +212,10 @@
     if (indexPath.row==0) {
         
     }else{
+        TJKdUserOrderList *m = self.dataArr[indexPath.row-1];
         TJOrderInfoController *vc = [[TJOrderInfoController alloc]init];
+        vc.kdid = m.id;
+        vc.kdstatus = m.status;
         [self.navigationController pushViewController:vc animated:YES];
         
     }

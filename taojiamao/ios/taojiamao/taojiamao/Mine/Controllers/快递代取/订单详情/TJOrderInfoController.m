@@ -8,6 +8,9 @@
 //
 
 #import "TJOrderInfoController.h"
+#import "TJKdFabuController.h"
+
+
 #import "TJOrderHeadViewCell.h"//头
 #import "TJOrderInfoCell.h"//四个info
 #import "TJOrderTypeCell.h"//快递类型
@@ -30,15 +33,15 @@
     DSLog(@"---status--%@",self.kdstatus);
     [self loadrequestOrderInfoList];
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单详情";
 //    self.navigationController.navigationBar.barTintColor = RGB(81, 162, 249);
     
-    TJButton *button_right = [[TJButton alloc]initWith:@"取消订单" delegate:self font:15.0 titleColor:[UIColor whiteColor] backColor:nil tag:142];
-    
-    // 修改导航栏左边的item
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
+   
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-60) style:UITableViewStylePlain];
     tableView.backgroundColor = KBGRGB;
@@ -57,6 +60,9 @@
     self.tableView = tableView;
     
     if ([self.kdstatus intValue]==0) {
+        TJButton *button_right = [[TJButton alloc]initWith:@"取消订单" delegate:self font:15.0 titleColor:[UIColor whiteColor] backColor:nil tag:142];
+        // 修改导航栏左边的item
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
         [self setBottmButtonWithBtnTitle:@"修改订单"];
     }
     
@@ -74,10 +80,50 @@
 
 - (void)editOrderClick:(UIButton *)sender{
 //    修改订单
+   TJKdFabuController *vc  = [[TJKdFabuController alloc]init];
+    vc.model = self.model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - tjbuttonDelegate
 - (void)buttonClick:(UIButton *)but{
 //    取消订单
+    DSLog(@"cancel取消");
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"id":self.kdid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = KdUserOrderDetail;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{ @"id":self.kdid};
+    } onSuccess:^(id  _Nullable responseObject) {
+        ////            取消
+            [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        
+        
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
+
+
 }
 #pragma mark - request
 - (void)loadrequestOrderInfoList{
@@ -100,7 +146,7 @@
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     //        DSLog(@"--%@--sign",md5Str);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = UserOrderDetail;
+        request.url = KdUserOrderDetail;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,
@@ -109,19 +155,12 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{ @"id":self.kdid};
     } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"----kdorder=-success-===%@",responseObject);
-        TJKdOrderInfoModel *model = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
-        self.model = model;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-        
+            TJKdOrderInfoModel *model = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
+            self.model = model;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
     } onFailure:^(NSError * _Nullable error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-        });
-        
         
     }];
 }

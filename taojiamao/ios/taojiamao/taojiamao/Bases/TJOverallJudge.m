@@ -144,7 +144,14 @@
     }
     return NO;
 }
-
++(NSString *)timeStampConversionNSString:(NSString *)timeStamp
+{
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timeStamp longLongValue]/1000];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateStr = [formatter stringFromDate:date];
+    return dateStr;
+}
 
 
 

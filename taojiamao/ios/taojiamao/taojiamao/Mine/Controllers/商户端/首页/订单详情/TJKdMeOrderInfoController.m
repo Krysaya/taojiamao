@@ -92,7 +92,7 @@
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     //        DSLog(@"--%@--sign",md5Str);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = UserOrderDetail;
+        request.url = KdUserOrderDetail;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,

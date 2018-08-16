@@ -23,6 +23,7 @@
 #import "TJMineHeaderCell.h"
 
 #import "TJCourierTakeController.h"//快递
+#import "TJKdApplyAgrentController.h"//申请代理
 
 #import "TJUserInfoController.h"//个人信息
 #import "TJSettingController.h"//设置
@@ -599,13 +600,19 @@
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                 break;
-            case 2:
+            case 1:
             {
                 //                    快递sh==商户
                 TJKdTabbarController *tbc = [[TJKdTabbarController alloc]init];
                 tbc.delegate = self;
                 [UIApplication  sharedApplication].keyWindow.rootViewController = tbc;
-                
+            }
+                break;
+            case 2:
+            {
+                //                    快递sh==申请代理
+                TJKdApplyAgrentController *vc = [[TJKdApplyAgrentController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
             default:

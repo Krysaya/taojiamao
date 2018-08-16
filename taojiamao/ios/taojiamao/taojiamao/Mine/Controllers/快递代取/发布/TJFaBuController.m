@@ -19,32 +19,33 @@
 #import "TJAdressCell.h"
 #import "TJAdressTwoCell.h"
 #import "TJTextFiledCell.h"
-#import "TJKdChooseTimeCell.h"
 
 #import "TJPostageMoneyCell.h"//加急
 
 #import "TJMyAddressModel.h"
 #import "TJKdQuAddressModel.h"
+#import "TJKdOrderInfoModel.h"
 @interface TJFaBuController ()<UITableViewDelegate,UITableViewDataSource,AddressControllerDelegate,QuAddressControllerDelegate,UITextFieldDelegate>
+@property(nonatomic,assign)BOOL edit;
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *view_bg;
 
 @property (nonatomic, strong) TJMyAddressModel *m_song;
 @property (nonatomic, strong) TJKdQuAddressModel *m_qu;
 
-
-@property (nonatomic, strong) NSArray *monthArr;
-@property (nonatomic, strong) NSArray *dayArr;
-@property (nonatomic, strong) NSArray *hourArr;
-@property (nonatomic, strong) NSArray *minArr;
 @end
 
 @implementation TJFaBuController
-
+-(void)setModel:(TJKdOrderInfoModel *)model{
+    _model = model;
+    self.edit = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"发布";
+    self.title = self.edit?@"修改订单":@"发布订单";
+
     self.view.backgroundColor = KBGRGB;
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-120) style:UITableViewStylePlain];
     tableView.delegate =self;
@@ -75,10 +76,7 @@
 }
 -(void)btnClick:(UIButton *)sender
 {
-    
-    
-    
-    
+
 //    支付
     TJOrderPayController *vc = [[TJOrderPayController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -119,11 +117,6 @@
         TJTextFiledCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFiledCell"];
         cell.type = [NSString stringWithFormat:@"%ld",indexPath.row];
         
-        return cell;
-    }else if (indexPath.row==4){
-        TJKdChooseTimeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdChooseTimeCell"];
-        cell.tf_start.delegate = self;
-        cell.tf_end.delegate = self;
         return cell;
     }
     else {

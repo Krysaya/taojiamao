@@ -33,6 +33,7 @@
     tableView.tableFooterView = [UIView new];
     [tableView registerNib:[UINib nibWithNibName:@"TJKdHomeOrderCell" bundle:nil] forCellReuseIdentifier:@"KdHomeOrderCell"];
     [self.view addSubview:tableView];
+    self.tableView = tableView;
     [self loadRequestMemenbersOrderList:@"2"];
 }
 
@@ -54,23 +55,24 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"type":@"1",
+//                                @"type":@"1",
                                 @"jie_status":status,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = OrderList;
+        request.url = KdOrderList;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{ @"type":@"1",
+        request.parameters = @{
+//                               @"type":@"1",
                                 @"jie_status":status,};
     } onSuccess:^(id  _Nullable responseObject) {
         self.dataArr = [TJKdUserOrderList mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-//        DSLog(@"sh----djd---%@",responseObject);
+        DSLog(@"sh----djd---%@",responseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });

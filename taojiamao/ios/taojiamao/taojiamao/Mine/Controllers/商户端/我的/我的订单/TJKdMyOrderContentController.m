@@ -70,7 +70,7 @@
                                     }.mutableCopy;
         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-            request.url = OrderList;
+            request.url = KdOrderList;
             request.headers = @{@"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"sign":md5Str,
@@ -104,7 +104,7 @@
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = OrderList;
+        request.url = KdOrderList;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,

@@ -9,6 +9,7 @@
 //
 
 #import "TJWaitingOrderController.h"
+
 #import "TJCourierTakeCell.h"
 
 #import "TJOrderInfoController.h"//订单详情
@@ -35,6 +36,7 @@
     [tableView registerNib:[UINib nibWithNibName:@"TJCourierTakeCell" bundle:nil] forCellReuseIdentifier:@"CourierTakeCell"];
     [self.view addSubview:tableView];
     self.tableView =tableView;
+    [self loadNormalOrderList:@"0"];
 
 }
 
@@ -58,21 +60,23 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"type":@"0",
+                                @"type":@"2",
                                 @"status":status,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = OrderList;
+        request.url = KdOrderList;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{ @"type":@"0",
+        request.parameters = @{ @"type":@"2",
                                 @"status":status,};
     } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"----daijieddan=-success-===%@",responseObject);
+
         self.dataArr = [TJKdUserOrderList mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -84,8 +88,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
         });
-        
-        
     }];
 }
 #pragma mark - tableViewDelegate
