@@ -9,10 +9,13 @@
 #import "TJContentController.h"
 #import "TJContentCollectionCell.h"
 #import "TJHomeFootShowCell.h"
+#import "TJGoodsListCell.h"
+
 #import "TJHomeFootShowModel.h"
 #import "TJMiddleClickController.h"
 #import "TJClassicSecondController.h"
-
+#import "TJGoodCatesMainListModel.h"
+#import "TJGoodsCollectModel.h"
 static NSString * const ContentMiddleCollectionCell = @"ContentMiddleCollectionCell";
 static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 
@@ -23,64 +26,25 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 @property(nonatomic,strong)UICollectionView * collectView;
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * tableData;
+@property (nonatomic, strong) NSMutableArray *dataArr_top;
+@property (nonatomic, strong) NSMutableArray *dataArr_bottom;
+
 
 @end
 
 @implementation TJContentController
 
 #pragma mark -requestFootShowModels
--(void)requestFootShowModelsWithPage:(NSInteger)page{
-    
-//    if (self.tableData.count>0) {
-//        [self.tableData removeAllObjects];
-//    }
-    self.tableData = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSString *str = [self.testName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"keyword":str,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SuperSearchGoodsList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"keyword":self.testName,};
-    } onSuccess:^(id  _Nullable responseObject) {
-        
-        NSDictionary *dict = responseObject[@"data"];
-//        self.tableData = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-           
-        });
-        
-    } onFailure:^(NSError * _Nullable error) {
-      
-    }];
-}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    [self requestFootShowModelsWithPage:1];
+    [self loadGoodsCatesList];
+    [self requestHomePageGoodsJingXuan];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"精选";
+
     [self setUIViews];
 }
 -(void)setUIViews{
@@ -90,7 +54,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     self.tableView.delegate = self;
     self.tableView.dataSource =self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[TJHomeFootShowCell class] forCellReuseIdentifier:ContentHomeFootShowCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:self.tableView];
     
     self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
@@ -100,6 +64,94 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     
 }
 
+- (void)loadGoodsCatesList{
+    self.dataArr_top = [NSMutableArray array];
+    NSMutableArray *arr = @[].mutableCopy;
+
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    DSLog(@"--sign==%@",md5Str);
+    
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = GoodsClassicList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+        
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSDictionary *dict = responseObject[@"data"];
+        for (int i=1; i<dict.count+1; i++) {
+            NSString *str = [NSString stringWithFormat:@"%d",i];
+            TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
+            [arr addObject:model];
+            
+        }
+        
+        TJGoodCatesMainListModel *m = [arr objectAtIndex:self.index];
+        [self.dataArr_top addObjectsFromArray:m.managedSons];
+        DSLog(@"---%ld===%ld",self.dataArr_top.count,m.managedSons.count);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+      
+    }];
+}
+
+- (void)requestHomePageGoodsJingXuan{
+    //    精选
+    self.dataArr_bottom = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = HomePageGoods;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        self.dataArr_bottom = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        
+    } onFailure:^(NSError * _Nullable error) {
+       
+    }];
+}
 #pragma mark - sdc deleagte
 
 /** 点击图片回调 */
@@ -109,11 +161,11 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 }
 #pragma mark -UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.tableData.count;
+    return self.dataArr_bottom.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TJHomeFootShowCell * cell = [tableView dequeueReusableCellWithIdentifier:ContentHomeFootShowCell forIndexPath:indexPath];
-    cell.model = self.tableData[indexPath.row];
+    TJGoodsListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
+    [cell cellWithArr:self.dataArr_bottom forIndexPath:indexPath isEditing:NO withType:@"1"];
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -122,7 +174,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
     self.headView = [[UIView alloc]init];
-    self.headView.backgroundColor =RandomColor;
+    self.headView.backgroundColor = KBGRGB;
     [self.headView addSubview:self.collectView];
     
     WeakSelf
@@ -130,7 +182,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     [self.headView addSubview:titleV];
     [titleV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(weakSelf.headView);
-        make.height.mas_equalTo(68*H_Scale);
+        make.height.mas_equalTo(58*H_Scale);
     }];
     
     return self.headView;
@@ -176,12 +228,15 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     return 1;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 10;
+
+    return self.dataArr_top.count;
+    
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJContentCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:ContentMiddleCollectionCell forIndexPath:indexPath];
-    
-    return cell;
+
+        cell.model = self.dataArr_top[indexPath.row];
+       return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     TJClassicSecondController *vc = [[TJClassicSecondController alloc]init];
@@ -196,8 +251,8 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
         layout.minimumLineSpacing= 10;
         layout.minimumInteritemSpacing = 0;
         
-        _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 13, S_W, 95) collectionViewLayout:layout];
-        _collectView.backgroundColor = RandomColor;
+        _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 15, S_W, 110) collectionViewLayout:layout];
+        _collectView.backgroundColor = [UIColor whiteColor];
         _collectView.showsHorizontalScrollIndicator = NO;
         _collectView.delegate=self;
         _collectView.dataSource=self;

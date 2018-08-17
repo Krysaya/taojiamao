@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lab_time;
 @property (weak, nonatomic) IBOutlet UILabel *lab_jiaji;
 @property (weak, nonatomic) IBOutlet UILabel *lab_jj;
-@property (weak, nonatomic) IBOutlet UIButton *btn_qiang;
 
 @end
 

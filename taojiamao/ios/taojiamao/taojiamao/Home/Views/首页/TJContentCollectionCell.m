@@ -7,7 +7,7 @@
 //
 
 #import "TJContentCollectionCell.h"
-
+#import "TJGoodCatesMainListModel.h"
 @interface TJContentCollectionCell()
 
 @property(nonatomic,strong)UIImageView * imageV;
@@ -19,10 +19,10 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentView.backgroundColor = RandomColor;
+//        self.contentView.backgroundColor = RandomColor;
         
         WeakSelf
-        self.imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+        self.imageV = [[UIImageView alloc]init];
         [self.contentView addSubview:self.imageV];
         
         self.labelV = [TJLabel setLabelWith:@"羽绒服" font:11 color:RGB(51, 51, 51)];
@@ -43,7 +43,11 @@
 }
 
 
-
+- (void)setModel:(TJGoodCatesMainListModel *)model{
+    _model = model;
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl] placeholderImage: [UIImage imageNamed:@"morentouxiang"]];
+    self.labelV.text = model.catname;
+}
 
 
 

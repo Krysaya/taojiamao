@@ -156,13 +156,14 @@ static NSString * const UserPhone = @"UserPhone";
 //用户-快递-发布订单
 #define KdUserReleaseOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/kuaidi"]
 
+
 //用户/商户-快递-订单列表
 #define KdOrderList        [BASEURL stringByAppendingString:@"/v1/kuaidis"]
 //用户/商户-快递-取件地址
 #define KdQuAddress        [BASEURL stringByAppendingString:@"/v1/addresses/qujian"]
 
 
-//用户/商户-快递-意见反馈
+//商户-快递-意见反馈
 #define FeedBack        [BASEURL stringByAppendingString:@"/v1/feedbacks/feedback"]
 //商户-快递-我的团队
 #define KdMyTeam        [BASEURL stringByAppendingString:@"/v1/agents/team"]
@@ -170,3 +171,5 @@ static NSString * const UserPhone = @"UserPhone";
 //商户-快递-申请代理
 #define KdApplyAgent        [BASEURL stringByAppendingString:@"/v1/agents/agent"]
 //
+//商户-快递-抢单
+#define KdQiangOrder        [BASEURL stringByAppendingString:@"/v1/agents/qiang"]

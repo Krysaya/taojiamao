@@ -32,7 +32,8 @@
 }
 - (void)setModel:(TJKdOrderInfoModel *)model{
     _model = model;
-    self.lab_name.text = [NSString stringWithFormat:@"接单人：%@",model.daili_name];
-//    self.b.text
+    self.lab_name.text = [NSString stringWithFormat:@"%@",model.daili_name];
+    [self.img_head  sd_setImageWithURL:[NSURL URLWithString:model.card_image] placeholderImage: [UIImage imageNamed:@"morentouxiang"]];
+    
 }
 @end

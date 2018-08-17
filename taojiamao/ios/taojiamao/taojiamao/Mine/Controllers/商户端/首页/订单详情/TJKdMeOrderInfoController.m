@@ -52,7 +52,7 @@
     [self loadrequestOrderInfoList];
     if ([self.kdstatus intValue]==0) {
 //        绿
-        [self setBottmButtonWithBtnTitle:@"抢单" withBtnBackGroundColor:[UIColor greenColor]];
+        [self setBottmButtonWithBtnTitle:@"抢单" withBtnBackGroundColor:RGB(66, 204, 65)];
     }else if([self.kdstatus intValue]==4){
 //----完成
     }else if([self.kdstatus intValue]==1){

@@ -25,7 +25,13 @@
 @end
 
 @implementation TJRegisterController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -119,7 +125,7 @@
         if (self.mobile.text==nil || self.mobile.text.length==0) {
             DSLog(@"手机号不能为空");
         }else{
-
+            if ([TJOverallJudge judgeMobile:self.mobile.text]) {
                 [[TJGetVerifyCode sharedInstance] getVerityWithURL:GETVerfityCode withParams:@{@"telephone":self.mobile.text} withButton:self.getVerifiCode withBlock:^(BOOL isGood) {
                     if (isGood) {
                         DSLog(@"收到短信了 ");
@@ -127,7 +133,10 @@
                         DSLog(@"服务器或者手机格式错误等造成发送失败");
                     }
                 }];
-            
+                
+            }else{
+                [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号！"];
+            }
            
         }
     }else if(but.tag==CloseTag){
@@ -139,79 +148,87 @@
         if (self.mobile.text==nil || self.mobile.text.length==0 ||self.verify.text==nil || self.verify.text.length==0 ||self.password.text==nil || self.password.text.length==0 ) {
             DSLog(@"有选项为空");
         }else{
-            KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-            NSString *timeStr = [MD5 timeStr];
             
-            NSDictionary * dict =@{
-                                   @"telephone":self.mobile.text,
-                                   @"code":self.verify.text,
-                                   @"password":self.password.text
-                                   };
-         
-            NSMutableDictionary *mdstr = @{
-                                          @"timestamp": timeStr,
-                                          @"app": @"ios",
-                                          @"telephone":self.mobile.text,
-                                          @"code":self.verify.text,
-                                          @"password":self.password.text
-                                          }.mutableCopy;
-            
-            NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
-//            NSLog(@"-time=%@--md-%@--",timeStr,md5Str);
-
-            if (self.isRegister) {
-                [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-                    request.url = RegisterApp;
-                    request.httpMethod = kXMHTTPMethodPOST;
-                    request.parameters = dict;
-                    request.headers = @{ @"timestamp": timeStr,
-                                         @"app": @"ios",
-                                         @"sign":md5Str,
-                                         };
-                } onSuccess:^(id  _Nullable responseObject) {
-                    DSLog(@"注册成功===%@",responseObject[@"id"]);
-//                    写入
-                                        SetUserDefaults(responseObject[@"id"], UID);
-//                                        SetUserDefaults(data[@"ptoken"], TOKEN);
-                                        SetUserDefaults(HADLOGIN, HADLOGIN);
-                                        SetUserDefaults(self.mobile.text, UserPhone);
-                                        //控制器跳转
-                                        [self dismissViewControllerAnimated:YES completion:nil];
-                } onFailure:^(NSError * _Nullable error) {
-                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+            if ([TJOverallJudge judgeMobile:self.mobile.text]) {
+                KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+                NSString *timeStr = [MD5 timeStr];
+                
+                NSDictionary * dict =@{
+                                       @"telephone":self.mobile.text,
+                                       @"code":self.verify.text,
+                                       @"password":self.password.text
+                                       };
+                
+                NSMutableDictionary *mdstr = @{
+                                               @"timestamp": timeStr,
+                                               @"app": @"ios",
+                                               @"telephone":self.mobile.text,
+                                               @"code":self.verify.text,
+                                               @"password":self.password.text
+                                               }.mutableCopy;
+                
+                NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+                //            NSLog(@"-time=%@--md-%@--",timeStr,md5Str);
+                
+                if (self.isRegister) {
+                    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                        request.url = RegisterApp;
+                        request.httpMethod = kXMHTTPMethodPOST;
+                        request.parameters = dict;
+                        request.headers = @{ @"timestamp": timeStr,
+                                             @"app": @"ios",
+                                             @"sign":md5Str,
+                                             };
+                    } onSuccess:^(id  _Nullable responseObject) {
+                        DSLog(@"注册成功===%@",responseObject[@"id"]);
+                        //                    写入
+                        SetUserDefaults(responseObject[@"id"], UID);
+                        //                                        SetUserDefaults(data[@"ptoken"], TOKEN);
+                        SetUserDefaults(HADLOGIN, HADLOGIN);
+                        SetUserDefaults(self.mobile.text, UserPhone);
+                        //控制器跳转
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    } onFailure:^(NSError * _Nullable error) {
+                        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                        
+                        
+                        DSLog(@"----注册-≈≈error-%@",dic_err[@"msg"]);
+                        
+                        
+                        
+                    }];
                     
+                }else{
+                    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                        request.url = SubmitNewPass;
+                        request.httpMethod = kXMHTTPMethodPOST;
+                        request.parameters = dict;
+                        request.headers = @{ @"timestamp": timeStr,
+                                             @"app": @"ios",
+                                             @"sign":md5Str,
+                                             };
+                    } onSuccess:^(id  _Nullable responseObject) {
+                        DSLog(@"修改mm成功===%@",responseObject);
+                        //控制器跳转
+                        //                    [self.navigationController popToRootViewControllerAnimated:YES];
+                        //                    //这里是否要自动登录？
+                    } onFailure:^(NSError * _Nullable error) {
+                        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                        
+                        
+                        DSLog(@"----修改mm-≈≈error-%@",dic_err[@"msg"]);
+                        
+                    }];
                     
-                    DSLog(@"----注册-≈≈error-%@",dic_err[@"msg"]);
-
-                    
-
-                }];
-              
+                }
             }else{
-                [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-                    request.url = SubmitNewPass;
-                    request.httpMethod = kXMHTTPMethodPOST;
-                    request.parameters = dict;
-                    request.headers = @{ @"timestamp": timeStr,
-                                         @"app": @"ios",
-                                         @"sign":md5Str,
-                                         };
-                } onSuccess:^(id  _Nullable responseObject) {
-                    DSLog(@"修改mm成功===%@",responseObject);
-                    //控制器跳转
-                    //                    [self.navigationController popToRootViewControllerAnimated:YES];
-                    //                    //这里是否要自动登录？
-                } onFailure:^(NSError * _Nullable error) {
-                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-                    
-                    
-                    DSLog(@"----修改mm-≈≈error-%@",dic_err[@"msg"]);
-
-                }];
+                [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号！"];
+                [SVProgressHUD dismissWithDelay:0.5];
 
             }
+           
         }
     }
 }

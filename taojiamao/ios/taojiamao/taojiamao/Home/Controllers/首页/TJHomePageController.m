@@ -629,8 +629,8 @@
 //                    女装
                 {
                     TJHomeController *homev = [[TJHomeController alloc]init];
-                    homev.index = 0;
-                    homev.title_class = @"女装";
+//                    homev.index = 0;
+//                    homev.title_class = @"女装";
                     [self.navigationController pushViewController:homev animated:YES];
                 }
                     
@@ -638,43 +638,43 @@
 //                美妆
                 {
                     TJHomeController *homev = [[TJHomeController alloc]init];
-                    homev.index = 4;
-                    homev.title_class = @"美妆";
+//                    homev.index = 4;
+//                    homev.title_class = @"美妆";
                     [self.navigationController pushViewController:homev animated:YES];
                 }
                     break;case 4://母婴
                     {
                         TJHomeController *homev = [[TJHomeController alloc]init];
-                        homev.index = 3;
-                        homev.title_class = @"母婴";
+//                        homev.index = 3;
+//                        homev.title_class = @"母婴";
                         [self.navigationController pushViewController:homev animated:YES];
                     }
                     break;case 5://男装
                     {
                         TJHomeController *homev = [[TJHomeController alloc]init];
-                        homev.index = 2;
-                        homev.title_class = @"男装";
+//                        homev.index = 2;
+//                        homev.title_class = @"男装";
                         [self.navigationController pushViewController:homev animated:YES];
                     }
                     break;case 6://数码
                     {
                         TJHomeController *homev = [[TJHomeController alloc]init];
-                        homev.index = 9;
-                        homev.title_class = @"数码";
+//                        homev.index = 9;
+//                        homev.title_class = @"数码";
                         [self.navigationController pushViewController:homev animated:YES];
                     }
                     break;case 7://美食
                     {
                         TJHomeController *homev = [[TJHomeController alloc]init];
-                        homev.index = 7;
-                        homev.title_class = @"美食";
+//                        homev.index = 7;
+//                        homev.title_class = @"美食";
                         [self.navigationController pushViewController:homev animated:YES];
                     }
                     break;  case 8://鞋包
                 {
                     TJHomeController *homev = [[TJHomeController alloc]init];
-                    homev.index = 6;
-                    homev.title_class = @"鞋包";
+//                    homev.index = 6;
+//                    homev.title_class = @"鞋包";
                     [self.navigationController pushViewController:homev animated:YES];
                 }
                     break;

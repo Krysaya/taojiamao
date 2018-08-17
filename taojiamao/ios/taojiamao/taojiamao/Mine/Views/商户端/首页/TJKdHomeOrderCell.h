@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @class TJKdUserOrderList;
 @interface TJKdHomeOrderCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *btn_qiang;
 
 @property (nonatomic, strong) TJKdUserOrderList *model;
 @end

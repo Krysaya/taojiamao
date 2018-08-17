@@ -14,6 +14,8 @@
 #import "TJNoticeController.h"
 #import "TJHomePageController.h"
 
+#import "TJGoodCatesMainListModel.h"
+
 #define AllId @"5558888"
 #define RightMargin 44*W_Scale
 #define TopHeight 34*H_Scale
@@ -24,22 +26,29 @@
 @property(nonatomic,strong)NSMutableArray<TJGoodsCategory*>*category;
 @property(nonatomic,strong)UIButton * triangleBut;
 @property(nonatomic,strong)UIView * coverView;
+@property (nonatomic, strong) NSArray *hotSearchArr;
+@property (nonatomic, strong) NSArray *goodsArr;
 
+@property (nonatomic, strong) NSMutableArray *dataArr_left;
+//@property (nonatomic, strong) NSMutableArray *dataArr_right;
 @end
 
 @implementation TJHomeController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self loadGoodsCatesList];
+    [self requestSearchGoodsList];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titles = @[@"女装",@"男装",@"内衣",@"母婴",@"化妆品",@"居家",@"鞋包配饰",@"美食",@"文体车品",@"数码家电"];
+    self.title = self.dataArr_left[self.index];
+//    self.titles = @[@"女装",@"男装",@"内衣",@"母婴",@"化妆品",@"居家",@"鞋包配饰",@"美食",@"文体车品",@"数码家电"];
 
     self.title = self.title_class;
     //
     self.menuViewStyle = WMMenuViewStyleLine;
     
-    self.selectIndex = self.index;
+    self.selectIndex = 0;
     self.titleSizeNormal = 13;
     self.titleSizeSelected = 14;
     self.titleColorSelected = RGB(255, 71, 119);
@@ -52,24 +61,98 @@
 
 #pragma mark -设置nav
 -(void)setNavTitleItems{
-//
-//    UIImageView * title = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
-//    title.frame = CGRectMake(0, 0, 124, 42);
-//    title.center = CGPointMake(self.view.center.x, 0);
-//    self.navigationItem.titleView = title;
-    
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action: @selector(searchClick)];
-//    UIBarButtonItem *notifiItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(notification)];
-//    NSArray *itemsArr = @[notifiItem,searchItem];
+
     self.navigationItem.rightBarButtonItem = searchItem;
     
 }
+#pragma mark - search
+- (void)requestSearchGoodsList{
+    self.hotSearchArr = [NSArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = SearchGoods;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    } onSuccess:^(id  _Nullable responseObject) {
+        self.hotSearchArr = responseObject[@"data"][@"hot"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
+}
 
+#pragma mark - classic
+- (void)loadGoodsCatesList{
+    self.dataArr_left = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = GoodsClassicList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+        
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSDictionary *dict = responseObject[@"data"];
+        for (int i=1; i<dict.count+1; i++) {
+            NSString *str = [NSString stringWithFormat:@"%d",i];
+            TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
+            [self.dataArr_left addObject:model.catname];
+
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+      
+    }];
+}
 -(void)searchClick{
     // 1. Create an Array of popular search
-    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
+//    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
     // 2. Create a search view controller
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches searchBarPlaceholder:NSLocalizedString(@"PYExampleSearchPlaceholderText", @"怪味少女装") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:self.hotSearchArr searchBarPlaceholder:NSLocalizedString(@"PYExampleSearchPlaceholderText", @"怪味少女装") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         TJSearchController * result = [[TJSearchController alloc] init];
         result.searchText = searchText;
         [searchViewController.navigationController pushViewController:result animated:YES];
@@ -84,50 +167,26 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:nav animated:NO completion:nil];
 }
--(void)notification{
-    DSLog(@"通知哦");
-}
-
 #pragma mark - tap
 -(void)tapAction:(UITapGestureRecognizer*)tap{
     self.coverView.hidden = YES;
     self.triangleBut.selected = NO;
 }
 #pragma mark - PYSearchViewControllerDelegate
-//- (void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText
-//{
-//    if (searchText.length) {
-//        // Simulate a send request to get a search suggestions
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            NSMutableArray *searchSuggestionsM = [NSMutableArray array];
-//            for (int i = 0; i < arc4random_uniform(5) + 10; i++) {
-//                NSString *searchSuggestion = [NSString stringWithFormat:@"Search suggestion %d", i];
-//                [searchSuggestionsM addObject:searchSuggestion];
-//            }
-//            // Refresh and display the search suggustions
-//            searchViewController.searchSuggestions = searchSuggestionsM;
-//        });
-//    }
-//}
+
 #pragma mark -WMPageControllerSetting
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    return self.titles.count;
+    return self.dataArr_left.count;
 }
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     
-    return self.titles[index];
+    return self.dataArr_left[index];
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    
-//    if(index==0) return [[TJFirstAllController alloc]init];
-//    if (index==0) {
-//        return nil;
-////         return [self.navigationController popViewControllerAnimated:NO];
-//    }else{
             TJContentController * ccvc = [[TJContentController alloc] init];
-            ccvc.testName = self.titles[index];
+            ccvc.testName = self.dataArr_left[index];
+            ccvc.index = index;
             return ccvc;
-//}
 }
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
     CGFloat width = [super menuView:menu widthForItemAtIndex:index];

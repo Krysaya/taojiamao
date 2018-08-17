@@ -8,12 +8,22 @@
 //
 
 #import "TJKdMineMiddleCell.h"
+@interface TJKdMineMiddleCell()
+@property (weak, nonatomic) IBOutlet UIImageView *img_line;
+@property (weak, nonatomic) IBOutlet UIImageView *img_lineteo;
+@property (weak, nonatomic) IBOutlet UILabel *lab_dan;
+@property (weak, nonatomic) IBOutlet UILabel *lab_money;
+@property (weak, nonatomic) IBOutlet UIImageView *img_one;
+
+
+@end
 
 @implementation TJKdMineMiddleCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.img_lineteo.hidden = YES;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

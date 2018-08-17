@@ -56,7 +56,6 @@
     if ([type intValue]==0) {
 
         TJJHSGoodsListModel *model = [arr objectAtIndex:indexPath.row];
-        DSLog(@"--bian----%@",model.itemtitle);
 
 //        _selectBtn.selected = model.isChecked;
         [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];

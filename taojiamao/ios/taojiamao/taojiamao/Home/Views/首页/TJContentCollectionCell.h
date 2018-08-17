@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJGoodCatesMainListModel;
 @interface TJContentCollectionCell : UICollectionViewCell
-
+@property (nonatomic, strong) TJGoodCatesMainListModel *model;
 @end

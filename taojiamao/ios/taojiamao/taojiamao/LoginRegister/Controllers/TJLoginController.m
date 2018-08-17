@@ -445,9 +445,10 @@
             if (self.phoneNumF.text==nil || self.phoneNumF.text.length==0||self.verifyF.text==nil||self.verifyF.text.length==0) {
                 [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
             }else{
-//                if ([self.phoneNumF.text jud]) {
-//                    <#statements#>
-//                }
+                if (![TJOverallJudge judgeMobile:self.phoneNumF.text]) {
+                    [SVProgressHUD showInfoWithStatus:@"手机号格式不正确！"];
+                }else{
+              
                 NSDictionary * dict = @{
                                         @"telephone":self.phoneNumF.text,
                                         @"password":self.verifyF.text,
@@ -487,6 +488,7 @@
                     NSLog(@"---快登-≈≈error-%@",dic_err[@"msg"]);
 
                 }];
+              }
             }
         }
 
