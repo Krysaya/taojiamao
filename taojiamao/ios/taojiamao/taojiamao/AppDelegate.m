@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <AlibcTradeSDK/AlibcTradeSDK.h>
+#import <AlibabaAuthSDK/ALBBSDK.h>
 
 @interface AppDelegate ()
 
@@ -16,6 +18,15 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // 百川平台基础SDK初始化，加载并初始化各个业务能力插件
+    [[AlibcTradeSDK sharedInstance] asyncInitWithSuccess:^{
+        
+    } failure:^(NSError *error) {
+        NSLog(@"Init failed: %@", error.description);
+    }];
+    [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
+    
+    
     //设置全局状态栏字体颜色为黑色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     //设置全局状态栏字体颜色为白色

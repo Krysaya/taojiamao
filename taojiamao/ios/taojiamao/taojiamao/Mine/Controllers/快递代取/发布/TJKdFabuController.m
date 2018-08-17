@@ -108,8 +108,51 @@
 }
 -(void)showModel{
     if (self.edit) {
-        self.lab_name.text = self.model.name;
-        self.lab_phone.text = self.model.daili_telephone;
+        DSLog(@"---jjjj--%@",self.model.is_ji);
+        self.lab_name.text = self.model.daili_name;
+        self.lab_phone.text = self.model.shou_telephone;
+        self.tf_qjm.text = self.model.qu_code;
+        
+        self.lab_address.text = [NSString stringWithFormat:@"[送件地址]%@",self.model.song_address];
+        self.lab_quAddress.text = [NSString stringWithFormat:@"[取件地址]%@",self.model.qu_address];
+        self.btnjj_select = self.btn_jj;
+        self.btnjjf_select = self.btn_one;
+        if ([self.model.is_ji integerValue]==0) {
+            self.btnjj_select = self.btn_bjj;
+            
+        }else{
+            self.btnjj_select = self.btn_jj;
+            switch ([self.model.is_ji integerValue]) {
+                case 1:
+                {
+                    self.btnjjf_select = self.btn_one;
+                }
+                    break;
+                case 2:
+                {
+                    self.btnjjf_select = self.btn_two;
+                }
+                    break;                case 3:
+                {
+                    self.btnjjf_select = self.btn_three;
+                }
+                    break;                case 4:
+                {
+                    self.btnjjf_select = self.btn_four;
+                }
+                    break;                case 5:
+                {
+                    self.btnjjf_select = self.btn_five;
+                }
+                    break;                case 6:
+                {
+                    self.btnjjf_select = self.btn_six;
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
 //        self.lab_address.text = self.model
         //        self.details.text = self.model.address;
     }else{
@@ -274,19 +317,8 @@
                     NSString *timeStr = [MD5 timeStr];
                     NSString *kd = [@"圆通快递" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                     
-                    
-//
-//                    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-//                    [formatter setLocale:[NSLocale currentLocale]];
-//                    [formatter setDateFormat:@"yyyyMdHHmm"];
-                    
                     NSString *star = [NSString stringWithFormat:@"%@%@%@%@%@",self.year,self.month,self.day,self.start_hour,self.start_min];
-//                    NSDate *date_star = [formatter dateFromString:star];
-
                     NSString *starttime = [self  timeAppendNSString:star];
-                   
-                    
-                    
                     NSString *end = [NSString stringWithFormat:@"%@%@%@%@%@",self.year,self.month,self.day,self.end_hour,self.end_min];
                     NSString *endtime = [self timeAppendNSString:end];
                     DSLog(@"--start--%@===%@==end==%@==%@",starttime,star,endtime,end);
@@ -294,12 +326,47 @@
                     NSString *jiaji;
                     if (self.btnjj_select.tag==JiaJiButton) {
                         jiaji = [NSString stringWithFormat:@"%ld",self.btnjj_select.tag-100];
-                        DSLog(@"---%ld--%@",self.btnjj_select.tag-100,jiaji);
+//                        DSLog(@"---%ld--%@",self.btnjj_select.tag-100,jiaji);
                     }else{
                         jiaji = @"0";
                     }
                     if (self.edit) {
                         //                        修改订单
+                        NSMutableDictionary *md = @{
+                                                    @"timestamp": timeStr,
+                                                    @"app": @"ios",
+                                                    @"uid":userid,
+                                                    @"shou_id":self.m_song.id,
+                                                    @"qu_id":self.m_qu.id,
+                                                    @"danhao":self.tf_nums.text,
+                                                    @"qu_code":self.tf_qjm.text,
+                                                    @"song_start_time":starttime,
+                                                    @"song_end_time":endtime,
+                                                    @"is_ji":jiaji,
+                                                    @"dan_company":kd,
+                                                    }.mutableCopy;
+                        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+                        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+                            request.url = KdUserEditOrder;
+                            request.httpMethod = kXMHTTPMethodPOST;
+                            request.headers = @{@"timestamp": timeStr,
+                                                @"app": @"ios",
+                                                @"sign":md5Str,
+                                                @"uid":userid,
+                                                };
+                            request.parameters = @{@"shou_id":self.m_song.id,     @"qu_id":self.m_qu.id,      @"danhao":self.tf_nums.text,     @"qu_code":self.tf_qjm.text,  @"song_start_time":starttime,      @"song_end_time":endtime,@"is_ji":jiaji, @"dan_company":@"圆通快递",
+                                                   
+                                                   };
+                        } onSuccess:^(id  _Nullable responseObject) {
+                            DSLog(@"--xgggg-≈≈%@=======",responseObject);
+                            //    支付
+                            TJOrderPayController *vc = [[TJOrderPayController alloc]init];
+                            [self.navigationController pushViewController:vc animated:YES];
+                        } onFailure:^(NSError * _Nullable error) {
+//                            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//                            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                            DSLog(@"---≈≈error-msg%@=======dict%@",error);
+                        }];
                     }else{
                         //                        发布订单
                         NSMutableDictionary *md = @{

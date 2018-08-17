@@ -46,6 +46,23 @@
         DSLog(@"no??");
     }
     
+    double time = [model.song_start_time doubleValue];
+    double time_end = [model.song_end_time doubleValue];
+
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:time];
+    NSDate *myendDate = [NSDate dateWithTimeIntervalSince1970:time_end];
+
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"MM-dd HH:mm"];
+    NSDateFormatter *formatter1 = [NSDateFormatter new];
+    [formatter1 setDateFormat:@"HH:mm"];
+    //将时间转换为字符串
+    
+    NSString *timeS = [formatter stringFromDate:myDate];
+    NSString *timeEnd = [formatter1 stringFromDate:myendDate];
+
+    self.lab_time.text = [NSString stringWithFormat:@"%@-%@",timeS,timeEnd];
+    
 //    加急
     if ([model.is_ji intValue]==0) {
         self.lab_jiaji.hidden = YES;

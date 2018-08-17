@@ -30,18 +30,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self layoutSub];
 
-    // Initialization code
+   
 }
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self layoutSubviews];
-    }
-    return self;
-}
-- (void)layoutSubviews{
+- (void)layoutSub{
     self.bgview = [[UIView alloc]init];
     [self.contentView addSubview:self.bgview];
     WeakSelf
@@ -51,20 +44,20 @@
     }];
     
     self.img = [[UIImageView alloc]init];
-    self.img.backgroundColor = RandomColor;
+    //    self.img.backgroundColor = RandomColor;
     [self.bgview addSubview:self.img];
     [self.img mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.bgview.mas_top).offset(15*H_Scale);
         make.width.height.mas_equalTo(120);
         make.left.mas_equalTo(weakSelf.bgview.mas_left);
-//        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12*H_Scale);
+        //        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12*H_Scale);
     }];
     
     
     self.title_lab = [[UILabel alloc]init];
     
     self.title_lab.numberOfLines = 0;
-//    self.title_lab.backgroundColor = RandomColor;
+    //    self.title_lab.backgroundColor = RandomColor;
     self.title_lab.textColor =RGB(51, 51, 51);
     self.title_lab.font = [UIFont systemFontOfSize:14];
     [self.bgview addSubview:self.title_lab];
@@ -77,16 +70,16 @@
     
     self.lab_yiqiang = [[UILabel alloc]init];
     [self.bgview addSubview:self.lab_yiqiang];
-
-   
-
+    
+    
+    
     self.lab_yiqiang.font = [UIFont systemFontOfSize:10];
     [self.lab_yiqiang mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.title_lab.mas_bottom).offset(11*H_Scale);
         make.left.mas_equalTo(weakSelf.img.mas_right).offset(50*W_Scale);
-//        make.centerX.mas_equalTo(weakSelf.progress.mas_centerX);
+        //        make.centerX.mas_equalTo(weakSelf.progress.mas_centerX);
     }];
-
+    
     self.progress = [[UIProgressView alloc]init];
     self.progress.progressTintColor = KALLRGB;//254 218 228
     self.progress.trackTintColor = RGB(254, 228, 218);
@@ -101,7 +94,7 @@
     
     
     self.btn_quan = [[UIButton alloc]init];
-    self.btn_quan.backgroundColor = RandomColor;
+    //    self.btn_quan.backgroundColor = RandomColor;
     [self.btn_quan setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     [self.bgview addSubview:self.btn_quan];
     [self.btn_quan mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -109,7 +102,7 @@
         make.width.mas_equalTo(62*W_Scale);
         make.height.mas_equalTo(18*H_Scale);
         make.right.mas_equalTo(weakSelf.bgview.mas_right).offset(-12);
-//        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12);
+        //        make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12);
     }];
     
     self.lab_price = [[UILabel alloc]init];
@@ -118,10 +111,10 @@
     self.lab_price.font = [UIFont systemFontOfSize:19];
     [self.bgview addSubview:self.lab_price];
     [self.lab_price mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(weakSelf.progress.mas_bottom).offset(25*H_Scale);
+        //        make.top.mas_equalTo(weakSelf.progress.mas_bottom).offset(25*H_Scale);
         make.left.mas_equalTo(weakSelf.img.mas_right).offset(15*W_Scale);
         make.bottom.mas_equalTo(weakSelf.bgview.mas_bottom).offset(-12);
-
+        
     }];
     
     self.lab_yuanjia = [[UILabel alloc]init];

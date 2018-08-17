@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.selectArr = [NSMutableArray array];
     UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -92,6 +93,8 @@
         TJContetenCollectListModel *model = [_dataArr objectAtIndex:indexPath.row];
         model.isChecked = !model.isChecked;
         NSLog(@"=点了==%ld",indexPath.row);
+//        NSString *str = [NSString stringWithFormat:@"%ld",indexPath.row];
+        [self.selectArr addObject:model.id];
         [tableView reloadData];
         }
 }

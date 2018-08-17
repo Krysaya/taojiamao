@@ -14,4 +14,7 @@
 @property (nonatomic,assign) BOOL  contentEditStatus;
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) NSMutableArray *selectArr;
+
 @end

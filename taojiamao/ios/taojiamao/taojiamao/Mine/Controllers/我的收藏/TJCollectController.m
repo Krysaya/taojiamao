@@ -271,6 +271,54 @@
         DSLog(@"sp");
     }else{
 //         内容
+        DSLog(@"-cancel--%ld",self.vc2.selectArr.count);
+        
+        NSString *userid = GetUserDefaults(UID);
+        if (userid) {
+        }else{
+            userid = @"";
+        }
+        KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+        NSString *timeStr = [MD5 timeStr];
+        NSString *strGid = self.vc2.selectArr.mj_JSONString;
+        NSString *a = [strGid stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSMutableDictionary *md = @{
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid":userid,
+                                    @"type":@"2",
+                                    @"gid":a,
+                                    }.mutableCopy;
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+        DSLog(@"--%@==str=sign=%@=",strGid,md5Str);
+        
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = CancelGoodsCollect;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = kXMHTTPMethodPOST;
+            request.parameters = @{
+                                   @"gid":strGid,
+                                   @"type":@"2",};
+        } onSuccess:^(id  _Nullable responseObject) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [SVProgressHUD showSuccessWithStatus:@"取消成功！"];
+                [self.vc2.contentTabView reloadData];
+            });
+            
+        } onFailure:^(NSError * _Nullable error) {
+            DSLog(@"--error%@",error);
+            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+            DSLog(@"-delete-≈≈error-msg=======dict%@",dic_err);
+        }];
+        
     }
 }
 #pragma mark- ZJScrollPageViewDelegate

@@ -66,6 +66,9 @@
                     <constraint firstItem="rXM-n4-6Ha" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ffE-Nv-HN6"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="lab_quan" destination="yaT-33-hzp" id="JcV-jv-7Hd"/>
+            </connections>
             <point key="canvasLocation" x="25" y="54"/>
         </tableViewCell>
     </objects>

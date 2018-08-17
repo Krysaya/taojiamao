@@ -10,4 +10,5 @@
 
 @interface TJPayTypeCell : UITableViewCell
 
+@property (nonatomic, strong) NSString *select_status;
 @end

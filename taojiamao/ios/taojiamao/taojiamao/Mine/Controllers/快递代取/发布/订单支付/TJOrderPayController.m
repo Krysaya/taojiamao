@@ -96,7 +96,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    TJPayTypeCell *cell = (TJPayTypeCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    DSLog(@"cell---btn--%@",cell.select_status);
+
 }
 
 @end

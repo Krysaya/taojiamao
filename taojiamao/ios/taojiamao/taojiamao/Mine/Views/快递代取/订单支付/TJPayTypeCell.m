@@ -8,12 +8,37 @@
 //
 
 #import "TJPayTypeCell.h"
+@interface TJPayTypeCell()
+@property (weak, nonatomic) IBOutlet UIButton *btn_zfb;
+@property (weak, nonatomic) IBOutlet UIButton *btn_wx;
+@property (weak, nonatomic) IBOutlet UIButton *btn_yue;
+
+@property (nonatomic, strong) UIButton *selectBtn;
+
+@end
+
 
 @implementation TJPayTypeCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectBtn = self.btn_zfb;
+}
+- (IBAction)btnClick:(UIButton *)sender {
+    if (!sender.selected) {
+        self.selectBtn.selected = !self.selectBtn.selected;
+        sender.selected = !sender.selected;
+        self.selectBtn = sender;
+    }
+    
+    if (self.selectBtn==_btn_zfb) {
+        self.select_status = @"1";
+    }else if(self.selectBtn==_btn_wx){
+        self.select_status = @"2";
+    }else{
+        self.select_status = @"3";
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

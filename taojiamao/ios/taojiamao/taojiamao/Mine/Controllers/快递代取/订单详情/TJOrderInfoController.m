@@ -155,6 +155,7 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{ @"id":self.kdid};
     } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"----详情--%@",responseObject);
             TJKdOrderInfoModel *model = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
             self.model = model;
             dispatch_async(dispatch_get_main_queue(), ^{

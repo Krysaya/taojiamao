@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="227" id="KGk-i7-Jjw" customClass="TJPayTypeCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="227" id="KGk-i7-Jjw" customClass="TJPayTypeCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="227"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -83,7 +83,7 @@
                                     <color key="titleColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXK-WG-QiC">
+                            <button opaque="NO" tag="111" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXK-WG-QiC">
                                 <rect key="frame" x="265" y="61" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Cwg-S4-rCB"/>
@@ -91,22 +91,33 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="kd_zf_gray"/>
                                 <state key="selected" image="kd_zf_select"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xL1-5b-rMj"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4t-aA-d7k">
+                            <button opaque="NO" tag="112" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4t-aA-d7k">
                                 <rect key="frame" x="265" y="122" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="KvF-dX-nGp"/>
                                     <constraint firstAttribute="height" constant="15" id="SNI-Ud-OdF"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="kd_zf_gray"/>
+                                <state key="selected" image="kd_zf_select"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ekZ-vE-xk2"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8t-YF-y12">
+                            <button opaque="NO" tag="113" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8t-YF-y12">
                                 <rect key="frame" x="265" y="183" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="0KC-vx-i00"/>
                                     <constraint firstAttribute="width" constant="15" id="oqp-XV-TgF"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="kd_zf_gray"/>
+                                <state key="selected" image="kd_zf_select"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jnK-pV-gxG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -157,6 +168,11 @@
                     <constraint firstItem="tBK-jx-QUk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="t8k-Td-RVt"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="btn_wx" destination="A4t-aA-d7k" id="Mk8-Fa-wqv"/>
+                <outlet property="btn_yue" destination="V8t-YF-y12" id="Y9q-vm-XPJ"/>
+                <outlet property="btn_zfb" destination="nXK-WG-QiC" id="axE-td-Nov"/>
+            </connections>
             <point key="canvasLocation" x="19" y="55.5"/>
         </tableViewCell>
     </objects>

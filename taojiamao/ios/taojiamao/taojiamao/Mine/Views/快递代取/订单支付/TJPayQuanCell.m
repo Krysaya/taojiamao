@@ -7,6 +7,11 @@
 //
 
 #import "TJPayQuanCell.h"
+@interface TJPayQuanCell()
+@property (weak, nonatomic) IBOutlet UILabel *lab_quan;
+
+@end
+
 
 @implementation TJPayQuanCell
 
