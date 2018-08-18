@@ -275,6 +275,9 @@
 		C7679C6B20EB75E80053A6A8 /* TJPersonalController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7679C6A20EB75E80053A6A8 /* TJPersonalController.m */; };
 		C76A61C020EC621A000B747C /* TJMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C76A61BF20EC621A000B747C /* TJMiddleView.m */; };
 		C76A61C320EC6D0E000B747C /* TJPersonalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C76A61C220EC6D0E000B747C /* TJPersonalCell.m */; };
+		C76A6C642127B3BB000ACD4B /* TJKdMyQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C76A6C632127B3BA000ACD4B /* TJKdMyQuanModel.m */; };
+		C76A6C682127BE57000ACD4B /* TJKdOrderPayController.m in Sources */ = {isa = PBXBuildFile; fileRef = C76A6C662127BE57000ACD4B /* TJKdOrderPayController.m */; };
+		C76A6C692127BE57000ACD4B /* TJKdOrderPayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C76A6C672127BE57000ACD4B /* TJKdOrderPayController.xib */; };
 		C76BA5E420FD7FEF006C749B /* TJClassicController.m in Sources */ = {isa = PBXBuildFile; fileRef = C76BA5E320FD7FEF006C749B /* TJClassicController.m */; };
 		C76BA5EB20FD8E17006C749B /* TJHeadLineOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C76BA5E920FD8E17006C749B /* TJHeadLineOneCell.m */; };
 		C76BA5EC20FD8E17006C749B /* TJHeadLineOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C76BA5EA20FD8E17006C749B /* TJHeadLineOneCell.xib */; };
@@ -1214,6 +1217,11 @@
 		C76A61BF20EC621A000B747C /* TJMiddleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMiddleView.m; sourceTree = "<group>"; };
 		C76A61C120EC6D0E000B747C /* TJPersonalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPersonalCell.h; sourceTree = "<group>"; };
 		C76A61C220EC6D0E000B747C /* TJPersonalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPersonalCell.m; sourceTree = "<group>"; };
+		C76A6C622127B3BA000ACD4B /* TJKdMyQuanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdMyQuanModel.h; sourceTree = "<group>"; };
+		C76A6C632127B3BA000ACD4B /* TJKdMyQuanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMyQuanModel.m; sourceTree = "<group>"; };
+		C76A6C652127BE57000ACD4B /* TJKdOrderPayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdOrderPayController.h; sourceTree = "<group>"; };
+		C76A6C662127BE57000ACD4B /* TJKdOrderPayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdOrderPayController.m; sourceTree = "<group>"; };
+		C76A6C672127BE57000ACD4B /* TJKdOrderPayController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJKdOrderPayController.xib; sourceTree = "<group>"; };
 		C76BA5E220FD7FEF006C749B /* TJClassicController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJClassicController.h; sourceTree = "<group>"; };
 		C76BA5E320FD7FEF006C749B /* TJClassicController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJClassicController.m; sourceTree = "<group>"; };
 		C76BA5E820FD8E17006C749B /* TJHeadLineOneCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJHeadLineOneCell.h; sourceTree = "<group>"; };
@@ -3556,6 +3564,15 @@
 			path = "分类";
 			sourceTree = "<group>";
 		};
+		C76A6C612127B2FD000ACD4B /* 我的抵用券 */ = {
+			isa = PBXGroup;
+			children = (
+				C76A6C622127B3BA000ACD4B /* TJKdMyQuanModel.h */,
+				C76A6C632127B3BA000ACD4B /* TJKdMyQuanModel.m */,
+			);
+			path = "我的抵用券";
+			sourceTree = "<group>";
+		};
 		C76BA5E120FD7FC4006C749B /* 分类 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4105,6 +4122,7 @@
 		C77FF1F5211C515A00D07AFE /* 用户端 */ = {
 			isa = PBXGroup;
 			children = (
+				C76A6C612127B2FD000ACD4B /* 我的抵用券 */,
 				C77FF1F6211C515A00D07AFE /* 全部订单 */,
 				C77FF1F7211C515A00D07AFE /* 订单详情 */,
 				C77FF1F8211C515A00D07AFE /* 评价 */,
@@ -4693,6 +4711,9 @@
 				C73C528E211AD77E00458587 /* TJPayFailController.h */,
 				C73C528F211AD77E00458587 /* TJPayFailController.m */,
 				C73C5290211AD77E00458587 /* TJPayFailController.xib */,
+				C76A6C652127BE57000ACD4B /* TJKdOrderPayController.h */,
+				C76A6C662127BE57000ACD4B /* TJKdOrderPayController.m */,
+				C76A6C672127BE57000ACD4B /* TJKdOrderPayController.xib */,
 			);
 			path = "订单支付";
 			sourceTree = "<group>";
@@ -5022,6 +5043,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C71787812105BD42009A2034 /* TJMyAssetsController.xib in Resources */,
+				C76A6C692127BE57000ACD4B /* TJKdOrderPayController.xib in Resources */,
 				C7904F73212431C500E20E4D /* TJKdChooseTimeCell.xib in Resources */,
 				C76BA5F620FD95DD006C749B /* TJHeadLineThreeCell.xib in Resources */,
 				C75F64B920EF1DE600B55B8B /* TJJHSuanCell.xib in Resources */,
@@ -5361,6 +5383,7 @@
 				C772AA3D210880800029C515 /* FSCalendarConstants.m in Sources */,
 				C77CD41E20F60579003A55FC /* TJSignCalendarCell.m in Sources */,
 				C74099FD2091CF3600DFCC94 /* IQTitleBarButtonItem.m in Sources */,
+				C76A6C682127BE57000ACD4B /* TJKdOrderPayController.m in Sources */,
 				C77BACAD2122707000C599DB /* TJVipFensListModel.m in Sources */,
 				C77B4442211830CE00332147 /* TJThreeImageCell.m in Sources */,
 				C742A31E2099DA260026311A /* MyMaker.m in Sources */,
@@ -5632,6 +5655,7 @@
 				C77D0E9720A3ED5B000F794A /* YYTextInput.m in Sources */,
 				C71D206E21217BF200580DA5 /* UIAlertController+HCAdd.m in Sources */,
 				C73C529D211AEBD400458587 /* TJEvaluationController.m in Sources */,
+				C76A6C642127B3BB000ACD4B /* TJKdMyQuanModel.m in Sources */,
 				C73FC81E209025CE00732F2D /* UIRefreshControl+AFNetworking.m in Sources */,
 				C781BED1210B198E00B7BD57 /* SDWebImageCompat.m in Sources */,
 				C742DA3620BBB4310041F1C6 /* TJSearchView.m in Sources */,
@@ -5836,6 +5860,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6TW7Q4NSX;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/taojiamao/Others/Frameworks",
@@ -5865,6 +5890,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6TW7Q4NSX;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/taojiamao/Others/Frameworks",
