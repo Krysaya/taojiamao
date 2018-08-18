@@ -20,6 +20,7 @@
 #import "TJKdAllOrdersController.h"//待评价
 #import "TJNoticeController.h"//通知
 #import "TJWaitingOrderController.h"//待接单
+#import "TJKdMyQuanController.h"
 #define RIGHTBTN  4783
 @interface TJCourierTakeController ()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -106,20 +107,18 @@
 //    popview
     // 不带图片
     PopoverAction *action1 = [PopoverAction actionWithTitle:@"我的资产" handler:^(PopoverAction *action) {
-        DSLog(@"-%@---dian=",action.title);
     }];
     PopoverAction *action2 = [PopoverAction actionWithTitle:@"我的地址" handler:^(PopoverAction *action) {
-        DSLog(@"-%@---dian=",action.title);
         TJMyAddressController * mavc = [[TJMyAddressController alloc]init];
         [self.navigationController pushViewController:mavc animated:YES];
 
     }];
     PopoverAction *action3 = [PopoverAction actionWithTitle:@"我的券" handler:^(PopoverAction *action) {
-        DSLog(@"-%@---dian=",action.title);
+        TJKdMyQuanController *vc = [[TJKdMyQuanController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
 
     }];
     PopoverAction *action4 = [PopoverAction actionWithTitle:@"全部订单" handler:^(PopoverAction *action) {
-        DSLog(@"-%@---dian=",action.title);
         TJKdAllOrdersController *vc= [[TJKdAllOrdersController alloc ]init];
         [self.navigationController pushViewController:vc animated:YES];
 

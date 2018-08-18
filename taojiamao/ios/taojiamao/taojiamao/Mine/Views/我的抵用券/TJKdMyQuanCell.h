@@ -8,6 +8,8 @@
 
 #import "TJBaseTableCell.h"
 
+@class TJKdMyQuanModel;
 @interface TJKdMyQuanCell : TJBaseTableCell
 
+@property (nonatomic, strong) TJKdMyQuanModel *model;
 @end

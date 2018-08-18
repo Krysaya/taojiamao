@@ -46,15 +46,15 @@
     //网络
     [TJOverallJudge judgeNet];
     
-    //是否第一次打开
-    if ([[TJOverallJudge sharedJudge]judgeFirstOpen]) {
-        DSLog(@"第一次打开");
-        NSString * str = GetUserDefaults(ISFIRST);
-        DSLog(@"%@",str);
-    }else{
-        DSLog(@"不是第一次");
+//    //是否第一次打开
+//    if ([[TJOverallJudge sharedJudge]judgeFirstOpen]) {
+//        DSLog(@"第一次打开");
+//        NSString * str = GetUserDefaults(ISFIRST);
+//        DSLog(@"%@",str);
+//    }else{
+//        DSLog(@"不是第一次");
         [self chooseControllersNoGuide];
-    }
+//    }
     
     //md5加密Authcode
 //    [[TJOverallJudge sharedJudge] judgeAuthcode];

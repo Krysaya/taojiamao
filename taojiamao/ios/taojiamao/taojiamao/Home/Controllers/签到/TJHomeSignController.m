@@ -29,13 +29,20 @@
 @property (nonatomic, strong) iCarousel *icaroursel;
 @property (nonatomic, strong) FSCalendar *calendar;
 
+@property (nonatomic, strong) UIButton *signBtn;
+
 @property (nonatomic, strong) UILabel *lab;
 @property (nonatomic, strong) UILabel *lab_total;//签到总人数
+
+
+@property (nonatomic, strong) NSString *signStatus;
 @end
 
 @implementation TJHomeSignController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //设置全局状态栏字体颜色为黑色
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     [self RequestSignInfoWithType:kXMHTTPMethodGET];
 }
 - (void)viewDidLoad {
@@ -98,7 +105,8 @@
             
             [self presentViewController:successVc animated:NO completion:^{
                 [self RequestSignInfoWithType:kXMHTTPMethodGET];
-
+                self.signBtn.backgroundColor = KBGRGB;
+                self.signBtn.userInteractionEnabled = NO;
             }];
         }else{
             self.bannerArr = [NSArray array];
@@ -226,13 +234,13 @@
     signBtn.frame =CGRectMake(0, 30+18+50+SafeAreaTopHeight+300, 220, 40);
     signBtn.center = CGPointMake(self.view.center.x, 30+18+50+SafeAreaTopHeight+300);
     [signBtn setBackgroundColor:KALLRGB];
-    signBtn.layer.cornerRadius = 15;
+    signBtn.layer.cornerRadius = 20;
     signBtn.layer.masksToBounds = YES;
     [signBtn addTarget:self action:@selector(signBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     signBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [signBtn setTitle:@"签到" forState:UIControlStateNormal];
     [self.view addSubview:signBtn];
-    
+    self.signBtn = signBtn;
     UILabel *allLab = [[UILabel alloc]initWithFrame:CGRectMake(signBtn.frame.origin.x+10, signBtn.frame.origin.y+40+6, 100, 25)];
     allLab.text = @"今日签到总人数：";
     allLab.textAlignment = NSTextAlignmentRight;

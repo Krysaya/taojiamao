@@ -10,4 +10,5 @@
 
 @interface TJBargainContentController : TJBaseViewController<ZJScrollPageViewChildVcDelegate>
 
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @end

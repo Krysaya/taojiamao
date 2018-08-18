@@ -14,7 +14,7 @@
 #import "TJPayMoneyCell.h"
 #import "TJPayTypeCell.h"
 #import "TJPayQuanCell.h"
-@interface TJOrderPayController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TJOrderPayController ()<UITableViewDelegate,UITableViewDataSource,TJPayTypeCellDelegate>
 
 @end
 
@@ -88,6 +88,7 @@
         return cell;
     }else if (indexPath.row==2){
         TJPayTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayTypeCell"];
+        cell.deletage = self;
         return cell;
     }else{
         TJPayQuanCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayQuanCell"];
@@ -95,10 +96,19 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    TJPayTypeCell *cell = (TJPayTypeCell *)[tableView cellForRowAtIndexPath:indexPath];
-//    DSLog(@"cell---btn--%@",cell.select_status);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{//    DSLog(@"cell---btn--%@",cell.select_status);
 
 }
-
+#pragma mark - celldelegte
+- (void)selectClickWithBtnStatus:(NSString *)status{
+   DSLog(@"cell---btn--%@",status);
+    if ([status intValue]==1) {
+        
+    }else if ([status intValue]==2){
+        
+    }else{
+//        余额支付
+        
+    }
+}
 @end

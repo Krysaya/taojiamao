@@ -32,7 +32,8 @@
     [super viewWillAppear:animated];
     [self loadGoodsCatesList];
     self.select_index = @"0";
-    
+    //设置全局状态栏字体颜色为黑色
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -146,7 +147,7 @@
         TJGoodCatesMainListModel *model = self.dataArr_left[indexPath.section];
         NSArray * childsArray = [model._childs componentsSeparatedByString:@","];
         NSInteger i = ceilf(childsArray.count/3.0);
-
+        DSLog(@"0-arr-%ld===%ld",childsArray.count,i);
         if (i==0||i==1) {
             
             return 140;

@@ -7,7 +7,11 @@
 //
 
 #import "TJBaseViewController.h"
+@class TJKdMyQuanModel;
+@protocol MyQuanControllerDelegate <NSObject>
+-(void)getQuanInfoValue:(TJKdMyQuanModel *)quanModel;
 
-@interface TJKdMyQuanController : TJBaseViewController
+@end@interface TJKdMyQuanController : TJBaseViewController
+@property (nonatomic,assign)id<MyQuanControllerDelegate> delegate;
 
 @end

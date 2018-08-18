@@ -115,6 +115,9 @@ static NSString * const UserPhone = @"UserPhone";
 //商品分类
 #define GoodsClassicList        [BASEURL stringByAppendingString:@"/v1/cates/goods"]
 
+//商9.9
+#define GoodsJiuJiuList        [BASEURL stringByAppendingString:@"/v1/goods/jiu"]
+
 //添加收藏
 #define AddCollect        [BASEURL stringByAppendingString:@"/v1/collections/coll"]
 
@@ -173,3 +176,6 @@ static NSString * const UserPhone = @"UserPhone";
 //
 //商户-快递-抢单
 #define KdQiangOrder        [BASEURL stringByAppendingString:@"/v1/agents/qiang"]
+
+//kd--我的券
+#define KdMyQuan        [BASEURL stringByAppendingString:@"/v1/coupons"]

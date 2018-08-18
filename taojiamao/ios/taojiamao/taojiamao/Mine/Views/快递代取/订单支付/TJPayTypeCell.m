@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn_yue;
 
 @property (nonatomic, strong) UIButton *selectBtn;
+@property (nonatomic, strong) NSString *select_status;
 
 @end
 
@@ -31,13 +32,19 @@
         sender.selected = !sender.selected;
         self.selectBtn = sender;
     }
-    
+
     if (self.selectBtn==_btn_zfb) {
         self.select_status = @"1";
     }else if(self.selectBtn==_btn_wx){
         self.select_status = @"2";
     }else{
         self.select_status = @"3";
+    }
+    
+    
+    if (self.deletage && [self.deletage respondsToSelector:@selector(selectClickWithBtnStatus:)]) {
+        
+        [self.deletage selectClickWithBtnStatus:self.select_status];
     }
 }
 

@@ -10,10 +10,11 @@
 #import "TJBargainContentController.h"
 #import "TJBargainHeadCell.h"
 #import "TJGoodsListCell.h"
-
+#import "TJGoodsCollectModel.h"
+#import "TJGoodCatesMainListModel.h"
 @interface TJBargainContentController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableView;
-
+@property (nonatomic, strong) NSMutableArray *dataGoodsArr;
 @end
 
 @implementation TJBargainContentController
@@ -23,25 +24,152 @@
 }
 
 - (void)zj_viewDidLoadForIndex:(NSInteger)index{
+    if (index==0||index==1||index==2) {
+        
+    }else{
+        TJGoodCatesMainListModel *model = self.dataArr[index-3];
+        DSLog(@"---cid--%@",model.cid);
+    }
     UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
     tableView.delegate =self;
     tableView.dataSource =self;
     [tableView registerNib:[UINib nibWithNibName:@"TJBargainHeadCell" bundle:nil] forCellReuseIdentifier:@"BargainHeadCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:tableView];
+    
+    NSString *indexx = [NSString stringWithFormat:@"%ld",index];
+    [self loadReuqestNormalDataWithType:indexx  withcateType:@"5"];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)loadReuqestNormalDataWithType:(NSString *)type  withcateType:(NSString *)cid{
+    self.dataGoodsArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    
+    if ([type intValue]==0) {//精选
+        NSMutableDictionary *md = @{
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid":userid,
+                                    @"is_jing":@"1",
+                                    }.mutableCopy;
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = GoodsJiuJiuList;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = kXMHTTPMethodPOST;
+            request.parameters = @{      @"is_jing":@"1",};
+        } onSuccess:^(id  _Nullable responseObject) {
+            DSLog(@"--jingx99==%@",responseObject);
+            NSDictionary *dict = responseObject[@"data"];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.tableView reloadData];
+//
+//            });
+        } onFailure:^(NSError * _Nullable error) {
+        }];
+    }else if([type intValue]==1){
+//        9.9
+        NSMutableDictionary *md = @{
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid":userid,
+//                                    @"is_jiu":@"",
+                                    }.mutableCopy;
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = GoodsJiuJiuList;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = kXMHTTPMethodPOST;
+//            request.parameters = @{      @"is_jiu":jjtype,};
+        } onSuccess:^(id  _Nullable responseObject) {
+            DSLog(@"--909==%@",responseObject);
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //                [self.tableView reloadData];
+            //
+            //            });
+        } onFailure:^(NSError * _Nullable error) {
+        }];
+    }else if([type intValue]==2){
+        NSMutableDictionary *md = @{
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid":userid,
+                                    @"is_jiu":@"1",
+                                    }.mutableCopy;
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = GoodsJiuJiuList;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = kXMHTTPMethodPOST;
+            request.parameters = @{      @"is_jiu":@"1",};
+        } onSuccess:^(id  _Nullable responseObject) {
+            DSLog(@"--1909==%@",responseObject);
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //                [self.tableView reloadData];
+            //
+            //            });
+        } onFailure:^(NSError * _Nullable error) {
+        }];
+    }else{
+        NSMutableDictionary *md = @{
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid":userid,
+                                    @"cid":cid,
+                                    }.mutableCopy;
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = GoodsJiuJiuList;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = kXMHTTPMethodPOST;
+            request.parameters = @{      @"cid":cid,};
+        } onSuccess:^(id  _Nullable responseObject) {
+                        DSLog(@"--ccc==%@",responseObject);
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //                [self.tableView reloadData];
+            //
+            //            });
+        } onFailure:^(NSError * _Nullable error) {
+        }];
+    }
+    
 
+  
+    
+}
 #pragma mark - tableViewDelgate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.dataGoodsArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
@@ -49,7 +177,7 @@
         return cell;
     }
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
-    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO withType:@"0"];
+    [cell cellWithArr:self.dataGoodsArr forIndexPath:indexPath isEditing:NO withType:@"1"];
     return cell;
    
 }

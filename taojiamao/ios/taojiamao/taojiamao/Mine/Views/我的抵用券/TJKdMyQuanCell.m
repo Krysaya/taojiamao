@@ -8,6 +8,13 @@
 //
 
 #import "TJKdMyQuanCell.h"
+#import "TJKdMyQuanModel.h"
+@interface TJKdMyQuanCell()
+@property (weak, nonatomic) IBOutlet UILabel *lab_money;
+@property (weak, nonatomic) IBOutlet UILabel *lab_status;
+
+
+@end
 
 @implementation TJKdMyQuanCell
 
@@ -22,4 +29,9 @@
     // Configure the view for the selected state
 }
 
+- (void)setModel:(TJKdMyQuanModel *)model{
+    _model = model;
+    self.lab_money.text = model.coupon;
+    
+}
 @end

@@ -9,10 +9,15 @@
 #import "TJBargainController.h"
 #import "TJBargainContentController.h"
 #import "TJSearchController.h"
+#import "TJGoodCatesMainListModel.h"
 @interface TJBargainController () <UISearchBarDelegate,ZJScrollPageViewDelegate>
 @property(strong, nonatomic)NSArray<NSString *> *titles;
 @property (nonatomic, strong) NSArray *hotSearchArr;
+@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSMutableArray *cateArr;
+
 @property(weak, nonatomic)ZJContentView *contentView;
+@property (nonatomic, strong) ZJScrollSegmentView *segV;
 
 @end
 
@@ -24,6 +29,7 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     //去掉导航栏底部的黑线
     self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [self loadGoodsCatesList];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -86,20 +92,22 @@
     style.imagePosition = TitleImagePositionTop;
     // 当标题(和图片)宽度总和小于ZJScrollPageView的宽度的时候, 标题会自适应宽度
     style.autoAdjustTitlesWidth = YES;
-    self.titles = @[@"精选",
-                    @"9.9",
-                    @"19.9",
-                    @"女装",
-                    @"美妆",
-                    @"男装",
-                    ];
+//    self.titles = @[@"精选",
+//                    @"9.9",
+//                    @"19.9",
+//                    @"女装",
+//                    @"美妆",
+//                    @"男装",
+//                    ];
     
     // 注意: 一定要避免循环引用!!
     __weak typeof(self) weakSelf = self;
-    ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc]initWithFrame:CGRectMake(0, 0, S_W, 75.0) segmentStyle:style delegate:self titles:_titles titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
+    ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc]initWithFrame:CGRectMake(0, 0, S_W, 75.0) segmentStyle:style delegate:self titles:self.cateArr titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
         [weakSelf.contentView setContentOffSet:CGPointMake(weakSelf.contentView.bounds.size.width * index, 0.0) animated:YES];
 
     }];
+    
+    self.segV = segment;
     // 自定义标题的样式
     segment.layer.cornerRadius = 14.0;
 //    segment.backgroundColor = [UIColor redColor];
@@ -154,10 +162,62 @@
         
     }];
 }
-
+- (void)loadGoodsCatesList{
+    self.dataArr = [NSMutableArray array];
+    self.cateArr = [NSMutableArray array];
+    [self.cateArr insertObject:@"精选" atIndex:0];
+    [self.cateArr insertObject:@"9.9" atIndex:1];
+    [self.cateArr insertObject:@"19.9" atIndex:2];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    DSLog(@"--sign==%@",md5Str);
+    
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = GoodsClassicList;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+        
+    } onSuccess:^(id  _Nullable responseObject) {
+        NSDictionary *dict = responseObject[@"data"];
+        for (int i=1; i<dict.count+1; i++) {
+            NSString *str = [NSString stringWithFormat:@"%d",i];
+            TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
+            //            DSLog(@"---fl=%@",dict[str]);
+            [self.dataArr addObject:model];
+            [self.cateArr addObject:model.catname];
+            
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.contentView reload];
+            [self.segV reloadTitlesWithNewTitles:self.cateArr];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
+    
+}
 #pragma mark - zj-delegate
 - (NSInteger)numberOfChildViewControllers {
-    return self.titles.count;
+    return self.cateArr.count;
+  
 }
 
 /// 设置图片
@@ -173,7 +233,7 @@
     // 注意ZJScrollPageView不会保证viewWillAppear等生命周期方法一定会调用
     // 所以建议使用ZJScrollPageViewChildVcDelegate中的方法来加载不同的数据
     TJBargainContentController<ZJScrollPageViewChildVcDelegate> *childVc = (TJBargainContentController *)reuseViewController;
-    
+    childVc.dataArr = self.dataArr;
     if (!childVc) {
         childVc = [[TJBargainContentController alloc]init];
     }

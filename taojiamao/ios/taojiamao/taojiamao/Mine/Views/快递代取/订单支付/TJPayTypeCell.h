@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TJPayTypeCellDelegate<NSObject>
+
+-(void)selectClickWithBtnStatus:(NSString *)status;
+
+@end
+
 @interface TJPayTypeCell : UITableViewCell
 
-@property (nonatomic, strong) NSString *select_status;
+@property(nonatomic,assign)id<TJPayTypeCellDelegate> deletage;
+
 @end

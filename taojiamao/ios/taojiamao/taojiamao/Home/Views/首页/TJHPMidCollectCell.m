@@ -51,7 +51,7 @@
 
 - (void)setModel:(TJHomePageModel *)model{
     _model = model;
-    self.titleLab.text = model.text;
+    self.titleLab.text = model.name;
     [self.imgView sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
     
 }

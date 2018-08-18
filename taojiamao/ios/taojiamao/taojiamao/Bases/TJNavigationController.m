@@ -37,8 +37,8 @@
     [super pushViewController:viewController animated:animated];
 }
 -(void)setBackButtonWithVC:(UIViewController*)vc{
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [backButton setTitle:@" " forState:UIControlStateNormal];
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton setImage:[UIImage imageNamed:@"back_left"] forState:UIControlStateNormal];
 //    [backButton setBackgroundImage:[UIImage imageNamed:@"bake_left"] forState:UIControlStateNormal];
 //    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

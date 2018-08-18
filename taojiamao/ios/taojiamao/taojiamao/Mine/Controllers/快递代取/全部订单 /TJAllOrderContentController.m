@@ -37,7 +37,7 @@
     [super viewDidLoad];
     
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-50-SafeAreaTopHeight) style:UITableViewStylePlain];
     tableView.backgroundColor = KBGRGB;
     tableView.delegate = self;
     tableView.dataSource = self;

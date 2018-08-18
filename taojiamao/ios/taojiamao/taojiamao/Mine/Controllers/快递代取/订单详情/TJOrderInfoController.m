@@ -43,7 +43,7 @@
     
    
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-60) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H) style:UITableViewStylePlain];
     tableView.backgroundColor = KBGRGB;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -60,6 +60,7 @@
     self.tableView = tableView;
     
     if ([self.kdstatus intValue]==0) {
+        self.tableView.frame = CGRectMake(0, 0, S_W, S_H-60);
         TJButton *button_right = [[TJButton alloc]initWith:@"取消订单" delegate:self font:15.0 titleColor:[UIColor whiteColor] backColor:nil tag:142];
         // 修改导航栏左边的item
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];

@@ -17,6 +17,8 @@
 #import "TJKdQuAddressModel.h"
 
 #import "TJOrderPayController.h"//支付
+#import "TJKdOrderPayController.h"
+
 #import "TJKdQuAddressController.h"//取件
 #import "TJMyAddressController.h"//送件
 
@@ -301,6 +303,12 @@
 
 #pragma mark - 提交
 - (IBAction)takeInfoBtnClick:(UIButton *)sender {
+    
+    
+//    、
+    TJKdOrderPayController *vc = [[TJKdOrderPayController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
     if (self.tf_nums.text.length<=0 || self.tf_qjm.text.length<=0 || self.tf_day.text.length<=0 || self.tf_starttime.text.length<=0 ||self.tf_endtime.text.length<=0) {
                 [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
             }else{
@@ -360,9 +368,11 @@
                         } onSuccess:^(id  _Nullable responseObject) {
                             DSLog(@"--xgggg-≈≈%@=======",responseObject);
                             //    支付
-                            TJOrderPayController *vc = [[TJOrderPayController alloc]init];
+                            TJKdOrderPayController *vc = [[TJKdOrderPayController alloc]init];
+                            vc.model = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
                             [self.navigationController pushViewController:vc animated:YES];
                         } onFailure:^(NSError * _Nullable error) {
+                          
 //                            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
 //                            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
                             DSLog(@"---≈≈error-msg%@=======dict%@",error);

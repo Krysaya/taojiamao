@@ -10,4 +10,5 @@
 
 @interface TJOrderPayController : UIViewController
 
+@property (nonatomic, strong) NSString *kid;
 @end

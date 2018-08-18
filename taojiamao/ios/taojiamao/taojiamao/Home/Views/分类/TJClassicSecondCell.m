@@ -94,7 +94,7 @@
     TJCollectionClassicCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectClassiCell" forIndexPath: indexPath];
     //    cell.imgView.backgroundColor = RandomColor;
     TJGoodCatesMainListModel *model = self.model.managedSons[indexPath.row];
-//    DSLog(@"ewyiry34iruh--%ld-%@",indexPath.row,model.imgurl);
+    DSLog(@"ewyiry34iruh--%ld-%ld",indexPath.row,self.model.managedSons.count);
     [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl]];
     
     cell.lab_titel.text = model.catname;
@@ -103,7 +103,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(90, 90);
+    return CGSizeMake((S_W-150)/3, 90);
 }
 
 //两个cell之间的间距（同一行的cell的间距）
@@ -111,6 +111,7 @@
     return 0.1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    DSLog(@"count===%ld",self.model.managedSons.count);
     return self.model.managedSons.count;
     
 }
@@ -127,7 +128,7 @@
     _model = model;
     self.titleLab.text = model.catname;
     [self.collect reloadData];
-    DSLog(@"--model=====%@",model.cid);
+    DSLog(@"--model===%@==%@",model.cid,model._childs);
 }
 
 @end

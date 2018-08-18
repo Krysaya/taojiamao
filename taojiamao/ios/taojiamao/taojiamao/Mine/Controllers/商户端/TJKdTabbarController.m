@@ -30,19 +30,19 @@
  */
 - (void)setUpChildViewController{
     
-    [self addOneChildViewController:[[UINavigationController alloc]initWithRootViewController:[[TJKdHomePageController alloc]init]]
+    [self addOneChildViewController:[[TJNavigationController alloc]initWithRootViewController:[[TJKdHomePageController alloc]init]]
                           WithTitle:@"首页"
                           imageName:@"kd_homep_gray"
                   selectedImageName:@"kd_homep_select"];
   
     
     
-    [self addOneChildViewController:[[UINavigationController alloc]initWithRootViewController:[[UIViewController alloc]init]]
+    [self addOneChildViewController:[[TJNavigationController alloc]initWithRootViewController:[[UIViewController alloc]init]]
                           WithTitle:nil
                           imageName:@"kd_refrensh"
                   selectedImageName:@"kd_refrensh"];
     
-    [self addOneChildViewController:[[UINavigationController alloc]initWithRootViewController:[[TJKdUserCenterController alloc] init]]
+    [self addOneChildViewController:[[TJNavigationController alloc]initWithRootViewController:[[TJKdUserCenterController alloc] init]]
                           WithTitle:@"我的"
                           imageName:@"kd_my_gray"
                   selectedImageName:@"mycity_highlight"];
