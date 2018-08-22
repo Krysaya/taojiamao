@@ -34,10 +34,11 @@
 - (UIImageView *)imgView{
     if (nil==_imgView) {
         _imgView = [[UIImageView alloc]init];
-        _imgView.backgroundColor = RandomColor;
+//        _imgView.backgroundColor = RandomColor;
         [self.contentView addSubview:_imgView];
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.height.mas_equalTo(24);
+            make.width.mas_equalTo(25);
+            make.height.mas_equalTo(22);
             make.top.mas_equalTo(self.contentView.mas_top);
             make.centerX.mas_equalTo(self.contentView.mas_centerX);
         }];

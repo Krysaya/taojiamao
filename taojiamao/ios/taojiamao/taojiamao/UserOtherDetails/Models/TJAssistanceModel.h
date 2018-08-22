@@ -21,5 +21,8 @@
  */
 @property(nonatomic,copy)NSString * id;
 @property(nonatomic,copy)NSString * title;
-
+@property (nonatomic, strong) NSString *keywords;
+@property (nonatomic, strong) NSString *descriptions;
+@property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSString *sort;
 @end

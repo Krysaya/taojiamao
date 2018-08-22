@@ -26,7 +26,6 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="soK-Qz-kBS">
                         <rect key="frame" x="12" y="46.5" width="311" height="175"/>
-                        <color key="backgroundColor" red="1" green="0.52120530610000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="175" id="aZa-Dl-sFk"/>
                         </constraints>
@@ -49,14 +48,6 @@
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sax-SH-OLi">
-                        <rect key="frame" x="313" y="232.5" width="10" height="10"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="10" id="Quo-mB-tex"/>
-                            <constraint firstAttribute="width" constant="10" id="yif-TU-RQ7"/>
-                        </constraints>
-                        <state key="normal" title="Button" image="headline_close"/>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="AaD-8Q-k4I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="3JB-zz-jeI"/>
@@ -65,18 +56,15 @@
                     <constraint firstItem="Mrr-xv-HEw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="HrD-fe-QBZ"/>
                     <constraint firstItem="5gz-Je-EfS" firstAttribute="top" secondItem="Mrr-xv-HEw" secondAttribute="top" id="HsA-IP-lBl"/>
                     <constraint firstItem="5gz-Je-EfS" firstAttribute="leading" secondItem="fGD-K1-iYu" secondAttribute="trailing" constant="11" id="JHZ-Rk-ubw"/>
-                    <constraint firstItem="Sax-SH-OLi" firstAttribute="top" secondItem="Mrr-xv-HEw" secondAttribute="top" id="OhX-wF-mMn"/>
                     <constraint firstItem="fGD-K1-iYu" firstAttribute="leading" secondItem="Mrr-xv-HEw" secondAttribute="trailing" constant="16" id="bvg-cl-TBi"/>
                     <constraint firstItem="fGD-K1-iYu" firstAttribute="top" secondItem="Mrr-xv-HEw" secondAttribute="top" id="daV-iU-Qdb"/>
                     <constraint firstItem="soK-Qz-kBS" firstAttribute="top" secondItem="AaD-8Q-k4I" secondAttribute="bottom" constant="12" id="hKW-OC-EFl"/>
                     <constraint firstAttribute="trailing" secondItem="AaD-8Q-k4I" secondAttribute="trailing" constant="15" id="j9R-Aw-0Uh"/>
                     <constraint firstItem="soK-Qz-kBS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="kjs-4A-fmH"/>
-                    <constraint firstAttribute="trailing" secondItem="Sax-SH-OLi" secondAttribute="trailing" constant="12" id="qdU-Ln-tDX"/>
                     <constraint firstItem="Mrr-xv-HEw" firstAttribute="top" secondItem="soK-Qz-kBS" secondAttribute="bottom" constant="11" id="tXz-Fz-bSY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="btn_close" destination="Sax-SH-OLi" id="wpY-gU-MCk"/>
                 <outlet property="img" destination="soK-Qz-kBS" id="CcT-bA-NNh"/>
                 <outlet property="lab_from" destination="Mrr-xv-HEw" id="fN9-bP-wTb"/>
                 <outlet property="lab_pinglun" destination="fGD-K1-iYu" id="BEs-YM-1xq"/>
@@ -86,7 +74,4 @@
             <point key="canvasLocation" x="32.5" y="161.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="headline_close" width="10" height="10"/>
-    </resources>
 </document>

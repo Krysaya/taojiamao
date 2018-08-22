@@ -9,7 +9,7 @@
 #import "TJBaseViewController.h"
 
 @interface TJSuperSearchController : TJBaseViewController
-@property (nonatomic, strong) NSMutableArray *dataArr;
-@property(nonatomic,strong)UICollectionView * collectionView;
+
+@property (nonatomic, strong) NSString *strsearch;
 
 @end

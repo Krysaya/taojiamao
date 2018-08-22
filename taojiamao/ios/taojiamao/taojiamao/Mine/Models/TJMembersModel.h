@@ -13,5 +13,5 @@
 @property (nonatomic, strong)  NSString *icon;
 @property (nonatomic, strong)  NSString *text;
 @property (nonatomic, strong)  NSString *flag;
-
+@property (nonatomic, strong) NSString *param;
 @end

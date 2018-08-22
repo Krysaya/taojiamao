@@ -15,7 +15,7 @@
 
 @property(nonatomic,copy)NSString * text;
 
-//-(instancetype)initWithPlaceholder:(NSString*)plac image:(NSString*)image highlightImage:(NSString*)himage  with:(textFieldText)block;
--(instancetype)initWithPlaceholder:(NSString*)plac image:(NSString*)image highlightImage:(NSString*)himage;
+//-(instancetype)initWithPlaceholder:(NSString*)plac image:(NSString*)image highlightImage:(NSString*)himage  with:(BOOL)securet;
+-(instancetype)initWithPlaceholder:(NSString*)plac image:(NSString*)image highlightImage:(NSString*)himage with:(BOOL)securet;
 
 @end

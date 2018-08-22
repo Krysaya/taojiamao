@@ -143,14 +143,14 @@
     } onSuccess:^(id  _Nullable responseObject) {
                 DSLog(@"---抢单---%@",responseObject);
         [SVProgressHUD showSuccessWithStatus:@"抢单成功！"];
+        [SVProgressHUD dismissWithDelay:0.5];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"-≈error-msg=======dict%@",error);
+        [SVProgressHUD showInfoWithStatus:@"抢单失败！"];
+        [SVProgressHUD dismissWithDelay:0.5];
 
     }];
     

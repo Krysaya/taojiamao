@@ -106,6 +106,12 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="lab_danhao" destination="2ve-5Q-EHr" id="rXa-z4-4DC"/>
+                <outlet property="lab_ji" destination="knv-ih-bj4" id="Hbz-eV-9Pc"/>
+                <outlet property="lab_payType" destination="SRn-PW-IwY" id="H8K-F4-V1Z"/>
+                <outlet property="lab_time" destination="WPf-DT-70G" id="kVV-ck-Dc9"/>
+            </connections>
             <point key="canvasLocation" x="11" y="-89"/>
         </tableViewCell>
     </objects>

@@ -11,5 +11,5 @@
 
 @interface TJTQGCell : TJBaseTableCell
 @property (nonatomic, strong) TJTqgGoodsModel *model;
-
+@property (nonatomic, strong) NSString *type;
 @end

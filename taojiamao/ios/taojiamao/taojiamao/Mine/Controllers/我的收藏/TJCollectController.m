@@ -33,13 +33,11 @@
 {
     [super viewWillAppear:animated];
     [self requestGoodsCollcetion:@"1"];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    
+
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 - (void)viewDidLoad {
 

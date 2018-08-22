@@ -165,9 +165,14 @@
            
         }else{
             DSLog(@"数量超出了");
+            [SVProgressHUD showInfoWithStatus:@"集分不足！"];
+            [SVProgressHUD dismissWithDelay:0.5];
         }
     }else{
         DSLog(@"含有非数字");
+        [SVProgressHUD showInfoWithStatus:@"非法输入！"];
+        [SVProgressHUD dismissWithDelay:0.5];
+
     }
 }
 

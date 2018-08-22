@@ -9,5 +9,7 @@
 #import "TJAssistanceModel.h"
 
 @implementation TJAssistanceModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{@"descriptions":@"description"};
+}
 @end

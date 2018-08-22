@@ -18,28 +18,31 @@
 @end
 
 @implementation TJBargainContentController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.zj_currentIndex==0||self.zj_currentIndex==1||self.zj_currentIndex==2) {
+        NSString *indexx = [NSString stringWithFormat:@"%ld",self.zj_currentIndex];
+        [self loadReuqestNormalDataWithType:indexx  withcateType:nil];
+    }else{
+        TJGoodCatesMainListModel *model = self.dataArr[self.zj_currentIndex-3];
+        NSString *indexx = [NSString stringWithFormat:@"%ld",self.zj_currentIndex];
+        [self loadReuqestNormalDataWithType:indexx  withcateType:model.cid];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)zj_viewDidLoadForIndex:(NSInteger)index{
-    if (index==0||index==1||index==2) {
-        
-    }else{
-        TJGoodCatesMainListModel *model = self.dataArr[index-3];
-        DSLog(@"---cid--%@",model.cid);
-    }
+   
     UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
     tableView.delegate =self;
     tableView.dataSource =self;
+    tableView.tableFooterView = [UIView new];
     [tableView registerNib:[UINib nibWithNibName:@"TJBargainHeadCell" bundle:nil] forCellReuseIdentifier:@"BargainHeadCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:tableView];
-    
-    NSString *indexx = [NSString stringWithFormat:@"%ld",index];
-    [self loadReuqestNormalDataWithType:indexx  withcateType:@"5"];
+    self.tableView = tableView;
+   
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -74,11 +77,11 @@
             request.parameters = @{      @"is_jing":@"1",};
         } onSuccess:^(id  _Nullable responseObject) {
             DSLog(@"--jingx99==%@",responseObject);
-            NSDictionary *dict = responseObject[@"data"];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.tableView reloadData];
-//
-//            });
+            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+
+            });
         } onFailure:^(NSError * _Nullable error) {
         }];
     }else if([type intValue]==1){
@@ -101,10 +104,11 @@
 //            request.parameters = @{      @"is_jiu":jjtype,};
         } onSuccess:^(id  _Nullable responseObject) {
             DSLog(@"--909==%@",responseObject);
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //                [self.tableView reloadData];
-            //
-            //            });
+            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+            
+                        });
         } onFailure:^(NSError * _Nullable error) {
         }];
     }else if([type intValue]==2){
@@ -126,10 +130,11 @@
             request.parameters = @{      @"is_jiu":@"1",};
         } onSuccess:^(id  _Nullable responseObject) {
             DSLog(@"--1909==%@",responseObject);
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //                [self.tableView reloadData];
-            //
-            //            });
+             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+            
+                        });
         } onFailure:^(NSError * _Nullable error) {
         }];
     }else{
@@ -151,11 +156,13 @@
             request.parameters = @{      @"cid":cid,};
         } onSuccess:^(id  _Nullable responseObject) {
                         DSLog(@"--ccc==%@",responseObject);
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //                [self.tableView reloadData];
-            //
-            //            });
-        } onFailure:^(NSError * _Nullable error) {
+             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+            
+                        });
+        } onFailure:^(NSError * _Nullable error) {            DSLog(@"--111==%@",error);
+
         }];
     }
     
@@ -172,31 +179,27 @@
     return self.dataGoodsArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row==0) {
-        TJBargainHeadCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BargainHeadCell"];
-        return cell;
-    }
+//    if (self.zj_currentIndex==0) {
+//        if (indexPath.row==0) {
+//            TJBargainHeadCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BargainHeadCell"];
+//            return cell;
+//        }
+//    }
+  
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
     [cell cellWithArr:self.dataGoodsArr forIndexPath:indexPath isEditing:NO withType:@"1"];
     return cell;
    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row==0) {
-        return 134;
-    }
+//    if (indexPath.row==0) {
+//        return 134;
+//    }
     return 150;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
-
-
-
-
-
-
-
 
 
 

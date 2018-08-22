@@ -26,9 +26,11 @@ static NSString * const VipFansContentCell = @"VipFansContentCell";
         [self loadRequestVipFansListWithLeavel:@"1"];
     }else if ([self.index intValue]==1){
         DSLog(@"2du");
+        [self loadRequestVipFansListWithLeavel:@"2"];
 
     }else{
         DSLog(@"3du");
+        [self loadRequestVipFansListWithLeavel:@"3"];
 
     }
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight-76-44) style:UITableViewStyleGrouped];

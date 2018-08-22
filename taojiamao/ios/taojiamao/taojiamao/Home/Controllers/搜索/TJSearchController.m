@@ -9,20 +9,14 @@
 #import "TJSearchController.h"
 #import "TJSearchContentController.h"
 #import "TJFiltrateView.h"
-#import "TJMultipleChoiceView.h"
 #import "TJJHSGoodsListModel.h"
-#import "TJSearchScreenView.h"
 #import "TJSuperSearchController.h"
 
-@interface TJSearchController ()<UITextFieldDelegate,TJFiltrateViewDelegate,TJSearchScreenViewDelegate,ZJScrollPageViewDelegate>
+@interface TJSearchController ()<UITextFieldDelegate,ZJScrollPageViewDelegate>
 
 @property(nonatomic,strong)UIView * naview;
 @property(nonatomic,strong)TJTextField * search;
 @property (nonatomic, strong) ZJContentView *contentView;
-
-@property(nonatomic,strong)TJFiltrateView * filtrateView;
-@property(nonatomic,strong)TJSearchScreenView * superView;
-
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *dataArr_super;
 @property (nonatomic, strong) NSArray *childVCs;
@@ -35,7 +29,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestSearchGoodsListWithOrderType:@"0"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,132 +60,15 @@
     [self.view addSubview:segment];
     
     
-    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, SafeAreaTopHeight+55+30, S_W, S_H - SafeAreaTopHeight -85) segmentView:segment parentViewController:self delegate:self];
+    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, SafeAreaTopHeight+30+20, S_W, S_H - SafeAreaTopHeight -50) segmentView:segment parentViewController:self delegate:self];
     self.contentView = content;
     [self.view addSubview:content];
-    [self setFiltrateViewWithStr:@"1"];
 
     
 }
 
-- (void)setFiltrateViewWithStr:(NSString *)type{
-    
-    if ([type intValue]==1) {
-        
-        self.superView.hidden = YES;
-        self.filtrateView = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+40, S_W, 45) withMargin:22];
-        self.filtrateView.backgroundColor = [UIColor whiteColor];
-        self.filtrateView.deletage = self;
-        [self.view addSubview:self.filtrateView];
-    }else if([type intValue]==2){
-        
-        self.filtrateView.hidden = YES;
 
-        self.superView = [[TJSearchScreenView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+40, S_W, 45) withMargin:25];
-        self.superView.backgroundColor  = [UIColor whiteColor];
-        self.superView.deletage = self;
-        [self.view addSubview:self.superView];
-    }
-    
-    
-}
-- (void)requestSearchGoodsListWithOrderType:(NSString *)type{
-    self.dataArr = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSString *str = [self.searchText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"keyword":str,
-                                @"order":type,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SearchGoodsList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"keyword":self.searchText,@"order":type};
-    } onSuccess:^(id  _Nullable responseObject) {
-//        NSLog(@"----search-success-===%@",responseObject);
-        
-        NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        DSLog(@"-%lu--arr==",(unsigned long)self.dataArr.count);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setFiltrateViewWithStr:@"1"];
 
-            self.vc1.dataArr = self.dataArr;
-            [self.vc1.collectionView reloadData];
-        });
-        
-    } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--搜索-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
-    }];
-}
-
-- (void)requestSuperSearchListWithSuperSort:(NSString *)sort{
-    self.dataArr_super = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSString *str = [self.searchText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"keyword":str,
-                                @"sort":sort,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SuperSearchGoodsList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"keyword":self.searchText,                                @"sort":sort};
-    } onSuccess:^(id  _Nullable responseObject) {
-//        NSLog(@"---super-search-success-===%@",responseObject);
-        
-        NSDictionary *dict = responseObject[@"data"];
-        self.dataArr_super = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        DSLog(@"-%lu--arr==",(unsigned long)self.dataArr.count);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setFiltrateViewWithStr:@"2"];
-
-            self.vc2.dataArr = self.dataArr_super;
-            [self.vc2.collectionView reloadData];
-        });
-        
-    } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--super搜索-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
-    }];
-}
 
 
 
@@ -229,53 +105,6 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
 }
-//#pragma mark - deletage DataSource
-//- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-//    return self.titles.count;
-//}
-//- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-//
-//    return self.titles[index];
-//}
-//- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-//    if (index==0) {
-//        TJSearchContentController *vc = [[TJSearchContentController alloc]init];
-//        vc.dataArr = self.dataArr;
-//        return vc;
-//    }else{
-//        TJSuperSearchController *vc = [[TJSuperSearchController alloc]init];
-//        vc.dataArr = self.dataArr;
-//        return vc;
-//    }
-//
-//}
-//- (void)menuView:(WMMenuView *)menu didSelectedIndex:(NSInteger)index currentIndex:(NSInteger)currentIndex{
-//
-//    self.currentIndex = [NSString stringWithFormat:@"%ld",currentIndex];
-//    if (index==1) {
-//        DSLog(@"super");
-//        [self setFiltrateViewWithStr:@"2"];
-//        [self requestSuperSearchListWithSuperSort:@"0"];
-//    }else{
-//        [self setFiltrateViewWithStr:@"1"];
-//        [self requestSearchGoodsListWithOrderType:@"0"];
-//
-//    }
-//}
-//
-//- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
-//        CGFloat width = [super menuView:menu widthForItemAtIndex:index];
-//    return width+30;
-//}
-//- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-//    CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
-//    CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
-//    return CGRectMake(leftMargin, originY, S_W - 2*leftMargin, 40*H_Scale);
-//}
-//- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-//    CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);
-//    return CGRectMake(0, originY+45, self.view.frame.size.width, self.view.frame.size.height - originY-45);
-//}
 
 #pragma mark- ZJScrollPageViewDelegate
 - (NSInteger)numberOfChildViewControllers {
@@ -287,12 +116,12 @@
   
     if (index==0) {
     
-
-        [self requestSearchGoodsListWithOrderType:@"0"];
+        TJSearchContentController *vc = _childVCs[index];
+        vc.strsearch = self.searchText;
 
     }else{
-
-        [self requestSuperSearchListWithSuperSort:@"0"];
+        TJSuperSearchController *vc = _childVCs[index];
+        vc.strsearch = self.searchText;
 
     }
     return _childVCs[index];
@@ -305,71 +134,6 @@
     return NO;
 }
 
-#pragma mark - FiltrateViewdelegte
-
--(void)popupFiltrateView{
-    DSLog(@"呼出筛选框");
-    TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:self.view.bounds];
-    
-    UIWindow * window = [UIApplication sharedApplication].delegate.window;
-    
-    [window addSubview:mcv];
-}
--(void)requestWithKind:(NSString *)kind{
-    if ([kind isEqualToString:@"综合"]) {
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"0"];
-
-    }else if ([kind isEqualToString:@"销量"]){
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"6"];
-    }else if ([kind isEqualToString:@"价格"]){
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"2"];//高--低
-        
-
-    }else if ([kind isEqualToString:@"优惠券"]){
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"4"];
-
-    }else{
-        DSLog(@"%@",kind);
-
-    }
-}
-
--(void)superPopupFiltrateView{
-    DSLog(@"呼出筛选框");
-    TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:self.view.bounds];
-    
-    UIWindow * window = [UIApplication sharedApplication].delegate.window;
-    
-    [window addSubview:mcv];
-}
--(void)superRequestWithKind:(NSString *)kind{
-    if ([kind isEqualToString:@"综合"]) {
-        DSLog(@"%@",kind);
-        [self requestSuperSearchListWithSuperSort:@"0"];
-        
-    }else if ([kind isEqualToString:@"销量"]){
-        DSLog(@"%@",kind);
-        [self requestSuperSearchListWithSuperSort:@"2"];
-
-    }else if ([kind isEqualToString:@"价格"]){
-        DSLog(@"%@",kind);
-        [self requestSuperSearchListWithSuperSort:@"5"];
-
-        
-        
-    }else if ([kind isEqualToString:@"有券"]){
-        DSLog(@"%@",kind);
-        
-        
-    }else{
-        DSLog(@"%@",kind);
-        
-    }
-}
 
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

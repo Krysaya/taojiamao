@@ -42,13 +42,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.dataArr_left[self.index];
-//    self.titles = @[@"女装",@"男装",@"内衣",@"母婴",@"化妆品",@"居家",@"鞋包配饰",@"美食",@"文体车品",@"数码家电"];
-
     self.title = self.title_class;
     //
     self.menuViewStyle = WMMenuViewStyleLine;
     
-    self.selectIndex = 0;
+    self.selectIndex = self.index;
     self.titleSizeNormal = 13;
     self.titleSizeSelected = 14;
     self.titleColorSelected = RGB(255, 71, 119);

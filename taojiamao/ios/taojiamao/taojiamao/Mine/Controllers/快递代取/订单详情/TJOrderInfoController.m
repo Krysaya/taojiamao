@@ -194,7 +194,7 @@
         }else if (indexPath.row==1){
             //        订单信息
             TJOrderInfoOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoOneCell"];
-            cell.model = model;
+            cell.model = model;cell.shoryh = @"yh";
             return cell;
         }else if (indexPath.row==2){
             //        快递类型
@@ -226,7 +226,7 @@
         }else if (indexPath.row==1){
             //        订单信息
             TJOrderInfoOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoOneCell"];
-            cell.model = model;
+            cell.model = model;cell.shoryh = @"yh";
             return cell;
         }else if (indexPath.row==2){
             //        快递类型

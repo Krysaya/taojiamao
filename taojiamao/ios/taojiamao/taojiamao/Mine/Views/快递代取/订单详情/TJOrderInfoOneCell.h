@@ -11,4 +11,6 @@
 
 @interface TJOrderInfoOneCell : UITableViewCell
 @property (nonatomic, strong) TJKdOrderInfoModel *model;
+@property (nonatomic, strong) NSString *type_hp;
+@property (nonatomic, strong) NSString *shoryh;
 @end

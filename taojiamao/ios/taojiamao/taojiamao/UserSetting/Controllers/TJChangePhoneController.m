@@ -130,7 +130,7 @@
     }];
     
     self.verifyLine = [[UIView alloc]init];
-//    self.verifyLine.backgroundColor = RGB(51, 51, 51);
+    self.verifyLine.backgroundColor = RGB(251, 251, 251);
     self.verifyLine.hidden = self.vcID==1?YES:NO;
     [self.headView addSubview:self.verifyLine];
     [self.verifyLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -173,10 +173,10 @@
         
         if (self.vcID==2) {
             self.passLine = [[UIView alloc]init];
-            self.passLine.backgroundColor = RGB(51, 51, 51);
+            self.passLine.backgroundColor = RGB(251, 251, 251);
             [self.headView addSubview:self.passLine];
             [self.passLine mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(weakSelf.passLabel.mas_bottom).offset(17*H_Scale);
+                make.top.mas_equalTo(weakSelf.passLabel.mas_bottom).offset(17);
                 make.centerX.mas_equalTo(weakSelf.headView);
                 make.width.mas_equalTo(335*W_Scale);
                 make.height.mas_equalTo(1);
@@ -190,7 +190,6 @@
             }];
             
             self.sureField = [[UITextField alloc]init];
-            self.sureField.backgroundColor = [UIColor grayColor];
             self.sureField.placeholder = @"确认新密码";
             self.sureField.font = [UIFont systemFontOfSize:15*W_Scale];
             [self.headView addSubview:self.sureField];

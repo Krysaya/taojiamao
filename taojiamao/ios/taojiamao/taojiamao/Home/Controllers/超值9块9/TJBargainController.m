@@ -10,7 +10,7 @@
 #import "TJBargainContentController.h"
 #import "TJSearchController.h"
 #import "TJGoodCatesMainListModel.h"
-@interface TJBargainController () <UISearchBarDelegate,ZJScrollPageViewDelegate>
+@interface TJBargainController () <UISearchBarDelegate,ZJScrollPageViewDelegate,ZJScrollPageViewChildVcDelegate>
 @property(strong, nonatomic)NSArray<NSString *> *titles;
 @property (nonatomic, strong) NSArray *hotSearchArr;
 @property (nonatomic, strong) NSMutableArray *dataArr;
@@ -36,7 +36,7 @@
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
    
 }
@@ -92,14 +92,7 @@
     style.imagePosition = TitleImagePositionTop;
     // 当标题(和图片)宽度总和小于ZJScrollPageView的宽度的时候, 标题会自适应宽度
     style.autoAdjustTitlesWidth = YES;
-//    self.titles = @[@"精选",
-//                    @"9.9",
-//                    @"19.9",
-//                    @"女装",
-//                    @"美妆",
-//                    @"男装",
-//                    ];
-    
+
     // 注意: 一定要避免循环引用!!
     __weak typeof(self) weakSelf = self;
     ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc]initWithFrame:CGRectMake(0, 0, S_W, 75.0) segmentStyle:style delegate:self titles:self.cateArr titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
@@ -204,9 +197,10 @@
             [self.cateArr addObject:model.catname];
             
         }
+        [self.segV reloadTitlesWithNewTitles:self.cateArr];
+
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.contentView reload];
-            [self.segV reloadTitlesWithNewTitles:self.cateArr];
+            [self.contentView reload];
         });
         
     } onFailure:^(NSError * _Nullable error) {
@@ -232,15 +226,20 @@
     // 并且可以通过实现协议中的方法来加载不同的数据
     // 注意ZJScrollPageView不会保证viewWillAppear等生命周期方法一定会调用
     // 所以建议使用ZJScrollPageViewChildVcDelegate中的方法来加载不同的数据
-    TJBargainContentController<ZJScrollPageViewChildVcDelegate> *childVc = (TJBargainContentController *)reuseViewController;
-    childVc.dataArr = self.dataArr;
-    if (!childVc) {
-        childVc = [[TJBargainContentController alloc]init];
-    }
-    
-    return childVc;
+//    TJBargainContentController *childVc = (TJBargainContentController *)reuseViewController;
+//    if (!childVc) {
+//
+//        childVc = [[TJBargainContentController alloc]init];     childVc.dataArr = self.dataArr;
+//
+//    }
+    TJBargainContentController *vc = [[TJBargainContentController alloc]init];
+    vc.dataArr = self.dataArr;
+    return vc;
 }
 
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods{
+    return NO;
+}
 #pragma mark - searchDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     DSLog(@"点了--");[self searchClick];

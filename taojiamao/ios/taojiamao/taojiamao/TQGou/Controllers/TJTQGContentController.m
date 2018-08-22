@@ -14,6 +14,8 @@
 static NSString * const TQGContentCell = @"GContentCell";
 
 @interface TJTQGContentController ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) NSArray *dataArr;
+@property(nonatomic,strong)UITableView *tableView;
 
 @end
 
@@ -24,19 +26,16 @@ static NSString * const TQGContentCell = @"GContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    if (self.tableView) {
-//        DSLog(@"有了");
-//    }else{
+
         UITableView *tabelV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight-50) style:UITableViewStylePlain];
         tabelV.delegate = self;
         tabelV.dataSource = self;
         tabelV.rowHeight = 157;
         tabelV.tableFooterView = [UIView new];
-//        [tabelV registerClass:[TJTQGContentCell class] forCellReuseIdentifier:TQGContentCell];
         [tabelV registerNib:[UINib nibWithNibName:@"TJTQGCell" bundle:nil] forCellReuseIdentifier:TQGContentCell];
         [self.view addSubview:tabelV];
         self.tableView = tabelV;
-//    }
+
 }
 
 
@@ -66,7 +65,7 @@ static NSString * const TQGContentCell = @"GContentCell";
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id responseObject) {
-//        NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
+        NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
         
         self.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
     
@@ -97,7 +96,7 @@ static NSString * const TQGContentCell = @"GContentCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     TJTQGCell *cell = [tableView dequeueReusableCellWithIdentifier:TQGContentCell];
-    
+    cell.type = self.indexx;
     cell.model = self.dataArr[indexPath.row];
     return cell;
 }

@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"morentouxiang" withSelectImage:nil];
+    self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
     [self.view addSubview:self.btn_close];
     [self.btn_close mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(35*H_Scale);
@@ -68,7 +68,7 @@
 #pragma mark -setTextFiless
 -(void)setTextFields{
     WeakSelf
-    self.mobile = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum_gray" highlightImage:@"phonenum_light"];
+    self.mobile = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum_gray" highlightImage:@"phonenum_light" with:NO];
     [self.view addSubview:self.mobile];
     
     [self.mobile mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,16 +78,16 @@
         make.centerX.mas_equalTo(weakSelf.view);
     }];
     
-    self.verify = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum_gray" highlightImage:@"checknum_light"];
+    self.verify = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum_gray" highlightImage:@"checknum_light" with:NO];
     [self.view addSubview:self.verify];
     [self.verify mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.mobile.mas_bottom).offset(13*H_Scale);
         make.centerX.width.height.mas_equalTo(weakSelf.mobile);
     }];
     if (self.isRegister) {
-        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw_gray" highlightImage:@"psw_light"];
+        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw_gray" highlightImage:@"psw_light" with:YES] ;
     }else{
-        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请设置新密码(长度不超过16位)" image:@"psw_gray" highlightImage:@"psw_light"];
+        self.password = [[TJTextFieldView alloc]initWithPlaceholder:@"请设置新密码(长度不超过16位)" image:@"psw_gray" highlightImage:@"psw_light" with:YES];
     }
     
     [self.view addSubview:self.password];;
@@ -136,6 +136,7 @@
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号！"];
+                [SVProgressHUD dismissWithDelay:0.5];
             }
            
         }

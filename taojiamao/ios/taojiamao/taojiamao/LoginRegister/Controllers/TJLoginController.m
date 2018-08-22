@@ -11,7 +11,7 @@
 #import "TJTextFieldView.h"
 
 #import "XMNetworking.h"
-
+#import <AlibabaAuthSDK/ALBBSDK.h>
 
 #define LoLoginTag          123321
 #define RegisterTag         654123
@@ -67,7 +67,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"morentouxiang" withSelectImage:nil];
+    self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
     [self.view addSubview:self.btn_close];
     [self.btn_close mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(35*H_Scale);
@@ -246,8 +246,9 @@
 #pragma mark -setTextFilesAndUnderline
 -(void)setTextFilesAndUnderline{
     WeakSelf
-    self.userNameF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入账号" image:@"account_gray" highlightImage:@"account_light"];
-    self.passwordF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw_gray" highlightImage:@"psw_light"];
+    self.userNameF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入账号" image:@"account_gray" highlightImage:@"account_light" with:NO];
+    self.passwordF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入密码" image:@"psw_gray" highlightImage:@"psw_light" with:YES];
+
     
     [self.userNameLogin addSubview:self.userNameF];
     [self.userNameLogin addSubview:self.passwordF];
@@ -263,8 +264,8 @@
         make.top.mas_equalTo(weakSelf.userNameF.mas_bottom).offset(13*H_Scale);
     }];
     
-    self.phoneNumF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum_gray" highlightImage:@"phonenum_light"];
-    self.verifyF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum_gray" highlightImage:@"checknum_light"];
+    self.phoneNumF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入手机号" image:@"phonenum_gray" highlightImage:@"phonenum_light" with:NO];
+    self.verifyF = [[TJTextFieldView alloc]initWithPlaceholder:@"请输入验证码" image:@"checknum_gray" highlightImage:@"checknum_light" with:NO];
     [self.phoneNumLogin addSubview:self.phoneNumF];
     [self.phoneNumLogin addSubview:self.verifyF];
     [self.phoneNumF mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -444,9 +445,11 @@
              DSLog(@"---user%@----vcode%@",self.phoneNumF.text,self.verifyF.text);
             if (self.phoneNumF.text==nil || self.phoneNumF.text.length==0||self.verifyF.text==nil||self.verifyF.text.length==0) {
                 [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
+                [SVProgressHUD dismissWithDelay:0.5];
             }else{
                 if (![TJOverallJudge judgeMobile:self.phoneNumF.text]) {
                     [SVProgressHUD showInfoWithStatus:@"手机号格式不正确！"];
+                    [SVProgressHUD dismissWithDelay:0.5];
                 }else{
               
                 NSDictionary * dict = @{
@@ -502,6 +505,22 @@
     switch (sender.tag) {
         case 0:
 //            tb
+        {
+            ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
+            [albbSDK setAppkey:@"25038195"];
+            [albbSDK setAuthOption:NormalAuth];
+            
+            [albbSDK auth:self successCallback:^(ALBBSession *session){
+                
+                ALBBUser *user = [session getUser];
+                DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
+                
+                [self requestTaoBaoLoginWithTaoToken:user.topAccessToken withImage:user.avatarUrl withNickName:user.nick];
+                
+            } failureCallback:^(ALBBSession *session,NSError *error){
+                        DSLog(@"-======++++++++++++++session == %@,error == %@",session,error);
+            }];
+        }
             break;
             
         case 1:
@@ -509,11 +528,59 @@
             break;
             
         case 2:
-            
+        {
+            [SVProgressHUD showInfoWithStatus:@"暂不支持！"];
+        }
             break;
         default:
             break;
     }
+    
+}
+
+- (void)requestTaoBaoLoginWithTaoToken:(NSString *)token withImage:(NSString *)img withNickName:(NSString *)nick{
+    
+     NSString *bimg = [img stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+     NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF16StringEncoding];
+    NSString *a = [@"支付尾款" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"tao_token":token,
+                                @"tao_image":bimg,
+                                @"tao_nick":bnick,
+                                }.mutableCopy;
+    DSLog(@"--%@--%@p--%@",img,bimg,a);
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = TaoBaoLogin;
+        request.parameters = @{ @"tao_token":token,
+                                @"tao_image":img,
+                                @"tao_nick":nick,};
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,};
+        request.httpMethod = kXMHTTPMethodPOST;
+    }onSuccess:^(id  _Nullable responseObject) {
+        
+        
+        //写入
+        NSDictionary * data = responseObject[@"data"];
+        SetUserDefaults(data[@"id"], UID);
+        SetUserDefaults(HADLOGIN, HADLOGIN);
+        NSLog(@"----淘宝login-success-%@===ID%@",responseObject,data[@"id"]);
+        //控制器跳转
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        
+        
+        NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
+        [SVProgressHUD showErrorWithStatus:@"登录失败！"];
+    }];
     
 }
 #pragma mark -lazyloading

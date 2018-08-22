@@ -29,6 +29,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.btn_fen.layer.borderColor = KALLRGB.CGColor;
+    self.btn_fen.layer.borderWidth = 0.5;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -74,6 +77,16 @@
 //  CGFloat  pg = (float)(model.sold_num)/(float)(model.total_amount);
     
 }
-
+- (void)setType:(NSString *)type{
+    _type = type;
+    if ([type intValue]==0) {
+//        [self.btn_fen setTitle:@"" forState:UIControlStateNormal];
+        [self.btn_qiang setBackgroundColor:KALLRGB];
+        [self.btn_qiang setTitle:@"立即抢" forState:UIControlStateNormal];
+    }else{
+        [self.btn_qiang setTitle:@"稍后抢" forState:UIControlStateNormal];
+        [self.btn_qiang setBackgroundColor:RGB(88, 213, 45)];
+    }
+}
 
 @end

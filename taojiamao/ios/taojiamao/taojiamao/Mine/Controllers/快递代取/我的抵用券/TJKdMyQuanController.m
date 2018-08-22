@@ -92,8 +92,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TJKdMyQuanModel *model = self.dataArr[indexPath.row];
-    if (self.delegate&&[self.delegate respondsToSelector:@selector(getQuanInfoValue:)]) {
+//    if (self.delegate&&[self.delegate respondsToSelector:@selector(getQuanInfoValue:)]) {
         [self.delegate getQuanInfoValue:model];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 @end

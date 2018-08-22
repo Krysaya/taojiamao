@@ -79,7 +79,7 @@
 #pragma mark - collectiondelegte
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJPersonalCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"123" forIndexPath: indexPath];
-    cell.imgView.backgroundColor = RandomColor;
+//    cell.imgView.backgroundColor = RandomColor;
 
     NSMutableArray *arr = [NSMutableArray array];
     [arr addObjectsFromArray:self.model.menu];

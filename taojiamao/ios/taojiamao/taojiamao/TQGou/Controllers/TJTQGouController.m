@@ -107,10 +107,6 @@
         NSArray *arr = dict[@"times"];
         self.timesArr = [TJTqgTimesListModel mj_objectArrayWithKeyValuesArray:arr];
         
-//        TJTqgTimesListModel *model = self.timesArr[0];
-//        NSLog(@"-----mmdoel---arg===%@",model.arg);
-//        [self requestGoodsListWithModel:model];
-        
         self.childVCs = @[].mutableCopy;
         for (int i = 0; i < self.timesArr.count; i ++) {
             TJTQGContentController * ccvc = [[TJTQGContentController alloc] init];
@@ -143,6 +139,7 @@
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
     TJTQGContentController * ccvc = [self.childVCs objectAtIndex:index];
+    ccvc.indexx = [NSString stringWithFormat:@"%ld",index];
     if (ccvc) {
         return ccvc;
     }
@@ -155,11 +152,8 @@
     if (self.timesArr==nil) {
         
     }else{
-//        if (indexxx==0) {
-//
-//        }else{
+
         TJTqgTimesListModel *model = self.timesArr[indexxx];
-        NSLog(@"-----mmdoel---arg===%@",model.arg);
         TJTQGContentController * ccvc = self.childVCs[indexxx];
         [ccvc requestGoodsListWithModel:model];
         

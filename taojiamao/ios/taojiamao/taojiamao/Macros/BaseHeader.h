@@ -31,3 +31,5 @@
 #import "TJLabel.h"
 
 #import "TJTextField.h"
+
+#import "TJPublicURL.h"

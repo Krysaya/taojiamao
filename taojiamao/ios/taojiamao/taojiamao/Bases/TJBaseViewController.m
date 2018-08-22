@@ -26,15 +26,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = KBGRGB;
-    
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+
 }
 -(void)setIsblack:(BOOL)isblack{
     _isblack = isblack;
-    if (isblack) {
-        [UIApplication sharedApplication].statusBarStyle =UIStatusBarStyleDefault;
-    }else{
-        [UIApplication sharedApplication].statusBarStyle =UIStatusBarStyleLightContent;
-    }
+//    if (isblack) {
+//        [UIApplication sharedApplication].statusBarStyle =UIStatusBarStyleDefault;
+//    }else{
+//        [UIApplication sharedApplication].statusBarStyle =UIStatusBarStyleLightContent;
+//    }
 }
 //-(void)setOpaque:(BOOL)opaque{
 //    _opaque = opaque;

@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TJTqgTimesListModel.h"
 
-@interface TJTQGContentController : UIViewController
+@interface TJTQGContentController : TJBaseViewController
 
-@property (nonatomic, strong) NSArray *dataArr;
-@property(nonatomic,strong)UITableView *tableView;
+//@property (nonatomic, strong) NSArray *dataArr;
 @property (nonatomic, strong) NSString *indexx;
 
 - (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model;

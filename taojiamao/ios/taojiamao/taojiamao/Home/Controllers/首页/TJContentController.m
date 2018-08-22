@@ -57,7 +57,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:self.tableView];
     
-    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"ad_img"]];
     
     self.tableView.tableHeaderView = self.bannerView;
     

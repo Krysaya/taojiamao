@@ -30,9 +30,11 @@
 @property(nonatomic,copy)NSString * id;
 @property(nonatomic,copy)NSString * telephone;
 @property(nonatomic,copy)NSString * nickname;
-//@property(nonatomic,copy)NSString * share_money;
-//@property(nonatomic,copy)NSString * invite_friend_count;
-//@property(nonatomic,copy)NSString * pay_total;
+@property(nonatomic,copy)NSString * balance;
+@property(nonatomic,copy)NSString * is_ti;
+@property(nonatomic,copy)NSString * tao_nick;
+@property (nonatomic, strong) NSString *level;
+@property (nonatomic, strong) NSString *tao_image;
 @property(nonatomic,copy)NSString * name;
 @property(nonatomic,copy)NSString * image;
 @property (nonatomic, strong) NSString *tao_account;

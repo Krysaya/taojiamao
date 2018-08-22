@@ -16,7 +16,7 @@
 #import "TJMyAddressModel.h"
 #import "TJKdQuAddressModel.h"
 
-#import "TJOrderPayController.h"//支付
+//#import "TJOrderPayController.h"//支付
 #import "TJKdOrderPayController.h"
 
 #import "TJKdQuAddressController.h"//取件
@@ -369,7 +369,8 @@
                             DSLog(@"--xgggg-≈≈%@=======",responseObject);
                             //    支付
                             TJKdOrderPayController *vc = [[TJKdOrderPayController alloc]init];
-                            vc.model = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
+                            TJKdOrderInfoModel *m = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
+                            vc.model = m;
                             [self.navigationController pushViewController:vc animated:YES];
                         } onFailure:^(NSError * _Nullable error) {
                           
@@ -407,7 +408,9 @@
                         } onSuccess:^(id  _Nullable responseObject) {
                             DSLog(@"--fbffff-≈≈%@=======",responseObject);
                             //    支付
-                            TJOrderPayController *vc = [[TJOrderPayController alloc]init];
+                            TJKdOrderPayController *vc = [[TJKdOrderPayController alloc]init];
+                            TJKdOrderInfoModel *m = [TJKdOrderInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
+                            vc.model = m;
                             [self.navigationController pushViewController:vc animated:YES];
                         } onFailure:^(NSError * _Nullable error) {
                                     NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];

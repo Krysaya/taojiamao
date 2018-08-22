@@ -55,6 +55,24 @@
     self.lab_phone.text = model.shou_telephone;
     self.lab_qu.text = [NSString stringWithFormat:@"[取件地址]%@",model.qu_address];
     self.lab_song.text = [NSString stringWithFormat:@"[送件地址]%@",model.song_address];
-    self.lab_time.text = model.song_start_time;
+//    时间;
+    double time = [model.song_start_time doubleValue];
+    double time_end = [model.song_end_time doubleValue];
+    
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:time];
+    NSDate *myendDate = [NSDate dateWithTimeIntervalSince1970:time_end];
+    
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"MM-dd HH:mm"];
+    NSDateFormatter *formatter1 = [NSDateFormatter new];
+    [formatter1 setDateFormat:@"HH:mm"];
+    //将时间转换为字符串
+    
+    NSString *timeS = [formatter stringFromDate:myDate];
+    NSString *timeEnd = [formatter1 stringFromDate:myendDate];
+    
+    self.lab_time.text = [NSString stringWithFormat:@"%@-%@",timeS,timeEnd];
+    
+
 }
 @end

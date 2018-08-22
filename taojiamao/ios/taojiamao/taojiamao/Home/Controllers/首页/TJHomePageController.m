@@ -8,6 +8,7 @@
 //
 
 #import "TJHomePageController.h"
+#import "TJPublicURL.h"
 
 #import "TJHPMidCollectCell.h"
 #import "TJClassOneCell.h"
@@ -25,7 +26,7 @@
 #import "TJClassicController.h"
 #import "TJHeadLineController.h"
 #import "TJBargainController.h"//9.9
-
+#import "TJPopViewController.h"
 
 #import "UIViewController+Extension.h"
 
@@ -52,6 +53,7 @@
 
 {
     CGFloat _currentAlpha;
+    TJPopViewController *_vc;
 }
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -73,7 +75,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSArray *hotSearchArr;
-//@property (nonatomic, strong) UIView *newsView;
+@property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) TJHomePageModel *ad_m;
 @end
 
 @implementation TJHomePageController
@@ -82,8 +85,6 @@
     [super viewWillAppear:animated];
     [self setNaviBarAlpha:_currentAlpha];
     [self requestSearchGoodsList];
-    [self requestHomePage];
-    [self requestHomePageGoodsJingXuan];
 
 }
 
@@ -95,7 +96,77 @@
     [self.news_scrollView stopRoll];
 
 }
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self requestHomePage];
+    [self requestHomePageGoodsJingXuan];
 
+    self.view.backgroundColor = RGB(245, 245, 245);
+    UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaBottomHeight)];
+    big_ScrollVie.frame = S_F;
+    big_ScrollVie.delegate = self;
+    big_ScrollVie.showsVerticalScrollIndicator = NO;
+    big_ScrollVie.showsHorizontalScrollIndicator = NO;
+    big_ScrollVie.tag = Big_Scroll;
+    [self.view addSubview:big_ScrollVie];
+    self.big_ScrollView = big_ScrollVie;
+    
+    if (@available(iOS 11.0, *)) {
+        self.big_ScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
+    [self setNavgation];
+//    [self layoutAllView];
+    
+//    [self setPopView];
+
+}
+- (void)layoutAllView{
+    
+                [self setADScrollView];
+                [self setNewsScroll];
+                [self setColumnsCollectView];
+                [self setClassCollectionView];
+                [self setBottomAdImg];
+}
+
+- (void)setPopView{
+    
+    
+    //showalert之前进行 一天一次判断
+    NSDate *now = [NSDate date];
+    NSDate *agoDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"nowDate"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *ageDateString = [dateFormatter stringFromDate:agoDate];
+    NSString *nowDateString = [dateFormatter stringFromDate:now];
+    NSLog(@"日期比较：之前：%@ 现在：%@",ageDateString,nowDateString);
+    if ([ageDateString isEqualToString:nowDateString]) {
+        NSLog(@"一天就显示一次");
+    }else{
+        //记录弹窗时间
+        NSDate *nowDate = [NSDate date];
+        NSUserDefaults *dataUser = [NSUserDefaults standardUserDefaults];
+        [dataUser setObject:nowDate forKey:@"nowDate"];
+        [dataUser synchronize];
+        
+        if ([self.status intValue]==1) {
+            DSLog(@"弹窗00");
+            TJPopViewController *vc = [[TJPopViewController alloc]init];
+            vc.view.backgroundColor = RGBA(1, 1, 1, 0.1);
+            vc.view.frame = S_F;[vc.btn_close addTarget:self action:@selector(hidden) forControlEvents:UIControlEventTouchUpInside];
+            vc.model = self.ad_m;
+            [self.view addSubview:vc.view];
+            _vc = vc;
+
+        }
+    }
+}
+- (void)hidden{
+    [_vc.view  removeFromSuperview];
+}
 - (void)requestSearchGoodsList{
     self.hotSearchArr = [NSArray array];
     NSString *userid = GetUserDefaults(UID);
@@ -163,40 +234,44 @@
                             };
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
-//        DSLog(@"---%@--hp",responseObject);
-        NSArray *imgArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
-        self.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
-        self.newsArr = [TJHeadLineScrollModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"toutiao"]];
-       
-        for (int i = 0; i < imgArr.count; i++) {
-                    TJHomePageModel *model = imgArr[i];
-            [self.imgADArr addObject:model.imgurl];
-        }
-        NSArray *arr = responseObject[@"data"][@"block"];
-        NSDictionary *dict = arr[0];
-        NSDictionary *dict2 = arr[1];
-        self.class_TopArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict[@"menu"]];
-        self.class_bottomArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict2[@"menu"]];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-         
-             TJHomePageModel *adModel = [TJHomePageModel mj_objectWithKeyValues:responseObject[@"data"][@"ad1"]];
-            [self.adSmallImgArr addObject:adModel];
-            [self setADScrollView];
-            [self setNewsScroll];
-            [self.news_scrollView reloadDataAndStartRoll];
-            [self setColumnsCollectView];
-            [self setClassCollectionView];
-            [self setBottomAdImg];
-
+        DSLog(@"---%@--hp",responseObject);
+        NSDictionary *dataDict = responseObject[@"data"];
+        if (dataDict.count>0) {
+            NSArray *imgArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
+            self.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
+            self.newsArr = [TJHeadLineScrollModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"toutiao"]];
             
-        });
+            for (int i = 0; i < imgArr.count; i++) {
+                TJHomePageModel *model = imgArr[i];
+                [self.imgADArr addObject:model.imgurl];
+            }
+            
+            self.status = responseObject[@"data"][@"pop"][@"status"];
+            self.ad_m  = [TJHomePageModel mj_objectWithKeyValues:responseObject[@"data"][@"pop"][@"info"]];
+          
+            NSArray *arr = responseObject[@"data"][@"block"];
+            NSDictionary *dict = arr[0];NSDictionary *dict2 = arr[1];
+            NSArray *menu1Arr = dict[@"menu"];NSArray *menu2Arr = dict2[@"menu"];
+            if (menu1Arr.count>0) {
+                self.class_TopArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict[@"menu"]];
+            }if (menu2Arr.count>0) {
+                self.class_bottomArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict2[@"menu"]];
+            }
+            self.adSmallImgArr  = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"ad_block_foot"]];
+            [self setPopView];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                [self layoutAllView];
+                [self.news_scrollView reloadDataAndStartRoll];
+                
+            });
+            
+        }
+       
         
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--首页-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
-        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
+
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];[SVProgressHUD dismissWithDelay:0.5];
     }];
 }
 - (void)requestHomePageGoodsJingXuan{
@@ -237,34 +312,10 @@
         });
         
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--jingxiuan-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
         DSLog(@"error--%@==",error);
     }];
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
 
-    self.view.backgroundColor = RGB(245, 245, 245);
-    UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaBottomHeight)];
-    big_ScrollVie.frame = S_F;
-    big_ScrollVie.delegate = self;
-    big_ScrollVie.showsVerticalScrollIndicator = NO;
-    big_ScrollVie.showsHorizontalScrollIndicator = NO;
-    big_ScrollVie.tag = Big_Scroll;
-    [self.view addSubview:big_ScrollVie];
-    self.big_ScrollView = big_ScrollVie;
-    
-    if (@available(iOS 11.0, *)) {
-        self.big_ScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    
-    [self setNavgation];
-
-}
 
 
 - (void)setNavgation{
@@ -295,7 +346,7 @@
 - (void)setADScrollView{
   
 //    广告滑动
-    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, AD_H) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, AD_H) delegate:self placeholderImage:[UIImage imageNamed:@"ad_img"]];
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.currentPageDotColor = KALLRGB; // 自定义分页控件小圆标颜色
     cycleScrollView2.pageDotColor = RGB(110, 110, 110);
@@ -378,7 +429,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
 
-    [cell cellWithArr:self.goodsArr forIndexPath:indexPath isEditing:NO withType:@"0"];
+    [cell cellWithArr:self.goodsArr forIndexPath:indexPath isEditing:NO withType:@"1"];
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -505,12 +556,9 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView.tag==AD_Scroll) {
         double page = scrollView.contentOffset.x / scrollView.bounds.size.width;
-        
         self.pageControl.currentPage = page;
     }else if (scrollView.tag == NEWS_Scroll){
-      
         double page = scrollView.contentOffset.y / scrollView.bounds.size.height;
-        
         self.pageC_NEWS.currentPage = page;
         
     }else{
@@ -589,6 +637,7 @@
               return cell;
           }
       }else{
+//          快递代取 ，女装，男装。。。。
           TJHPMidCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MidCell" forIndexPath:indexPath];
           cell.model = self.menuArr[indexPath.row];
           return cell;
@@ -599,103 +648,31 @@
     if (collectionView.tag==CLASSS_CollectionV) {
 //        今日
         if (indexPath.section==0) {
-            if (indexPath.row==0) {
-//                今日值得买
-                TJBargainController *vc= [[TJBargainController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }else{
-//                白菜党
-            }
+            TJHomePageModel *m = self.class_TopArr[indexPath.row];
+            [TJPublicURL goAnyViewController:self withidentif:m.flag];
+//            if (indexPath.row==0) {
+////                今日值得买
+//                TJHomePageModel *m = self.class_bottomArr[indexPath.row];
+//                [TJPublicURL goAnyViewController:self withidentif:m.flag];
+//
+//            }else{
+////                白菜党
+//            }
         }else{
-            
-            
+            TJHomePageModel *m = self.class_bottomArr[indexPath.row];
+            [TJPublicURL goAnyViewController:self withidentif:m.flag];
             
         }
     }else{
 //        导航模块
-        if (indexPath.section==0) {
-            switch (indexPath.row) {
-                case 0:
-                {
-//                    快递代取
-   
-                }
-                    break;case 1:
-//                    推荐好货
-                {
-                    TJProjectController *vc = [[TJProjectController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                    break;case 2:
-//                    女装
-                {
-                    TJHomeController *homev = [[TJHomeController alloc]init];
-//                    homev.index = 0;
-//                    homev.title_class = @"女装";
-                    [self.navigationController pushViewController:homev animated:YES];
-                }
-                    
-                    break;case 3:
-//                美妆
-                {
-                    TJHomeController *homev = [[TJHomeController alloc]init];
-//                    homev.index = 4;
-//                    homev.title_class = @"美妆";
-                    [self.navigationController pushViewController:homev animated:YES];
-                }
-                    break;case 4://母婴
-                    {
-                        TJHomeController *homev = [[TJHomeController alloc]init];
-//                        homev.index = 3;
-//                        homev.title_class = @"母婴";
-                        [self.navigationController pushViewController:homev animated:YES];
-                    }
-                    break;case 5://男装
-                    {
-                        TJHomeController *homev = [[TJHomeController alloc]init];
-//                        homev.index = 2;
-//                        homev.title_class = @"男装";
-                        [self.navigationController pushViewController:homev animated:YES];
-                    }
-                    break;case 6://数码
-                    {
-                        TJHomeController *homev = [[TJHomeController alloc]init];
-//                        homev.index = 9;
-//                        homev.title_class = @"数码";
-                        [self.navigationController pushViewController:homev animated:YES];
-                    }
-                    break;case 7://美食
-                    {
-                        TJHomeController *homev = [[TJHomeController alloc]init];
-//                        homev.index = 7;
-//                        homev.title_class = @"美食";
-                        [self.navigationController pushViewController:homev animated:YES];
-                    }
-                    break;  case 8://鞋包
-                {
-                    TJHomeController *homev = [[TJHomeController alloc]init];
-//                    homev.index = 6;
-//                    homev.title_class = @"鞋包";
-                    [self.navigationController pushViewController:homev animated:YES];
-                }
-                    break;
-                case 9:
-                    {
-                    DSLog(@"--更多--")
-                    TJClassicController *vc = [[TJClassicController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                    }
-                    break;
-              
-                default:
-                    break;
-            }
-        }
+        
+            TJHomePageModel *m = self.menuArr[indexPath.row];
+            [TJPublicURL goAnyViewController:self withidentif:m.flag];
+
     }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

@@ -44,27 +44,14 @@
                                 <color key="textColor" red="0.98431372549999996" green="0.0" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baf-zB-bsn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baf-zB-bsn">
                                 <rect key="frame" x="284" y="117" width="77" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="77" id="bpN-oo-zbg"/>
                                     <constraint firstAttribute="height" constant="33" id="vl7-x5-r7Q"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="quan_bg">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="领券减">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" size="12" name="PingFangSC-Medium"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="300">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <state key="normal" title="" backgroundImage="quan_bg">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-8k-Zdb">

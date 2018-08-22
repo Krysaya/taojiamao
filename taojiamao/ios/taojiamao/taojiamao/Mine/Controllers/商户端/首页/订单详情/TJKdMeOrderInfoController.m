@@ -150,6 +150,8 @@
             //        订单信息
             TJOrderInfoOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoOneCell"];
             cell.model = model;
+            cell.shoryh = @"sh"; cell.type_hp = @"daijiedan";
+
             return cell;
         }else if (indexPath.row==2){
             //        送
@@ -169,11 +171,14 @@
             //        订单状态
             TJOrderHeadViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderHeadViewCell"];
             cell.model = model;
+            
             return cell;
         }else if (indexPath.row==1){
             //        订单信息
             TJOrderInfoOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderInfoOneCell"];
             cell.model = model;
+            cell.shoryh = @"sh";
+            cell.type_hp = @"qita";
             return cell;
         }else if (indexPath.row==2){
             //        快递类型

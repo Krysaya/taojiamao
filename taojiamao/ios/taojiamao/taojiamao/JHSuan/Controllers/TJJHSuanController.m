@@ -13,6 +13,7 @@
 #import "TJDefaultGoodsDetailController.h"
 
 @interface TJJHSuanController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@property (nonatomic, assign) int  page;
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) UICollectionView *collectionV;
@@ -22,20 +23,24 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestJHSList];
+    self.page = 1;
+    [self requestLoadNormalJHSList];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.barTintColor = KALLRGB;
 
-    self.view.backgroundColor = RGB(245, 245, 245);
+    self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"jhs"]];
     self.navigationItem.titleView = headerImg;
     [self setCollectionVc];
+    
+   
 }
 
-- (void)requestJHSList{
+- (void)requestLoadNormalJHSList{
 //    商品列表页
+    self.page = 1;
     self.dataArr = [NSMutableArray array];
     
     NSString *userid = GetUserDefaults(UID);
@@ -46,35 +51,77 @@
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary * param = @{
-    //                              @"page":@"5",
+//                                    @"page":@(self.page),
+//                                    @"page_num":@"10",
                                     @"timestamp": timeStr,
                                     @"app": @"ios",
                                     @"uid": userid,
-                                    
                                     }.mutableCopy;
     
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = JHSGoodsList;
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
+//        request.parameters = @{ @"page":@(self.page),
+//                                @"page_num":@"10",};
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id responseObject) {
+        [self endRefresh];
+
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
     
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionV reloadData];
+            if (self.dataArr.count<[param[@"page_num"] integerValue]) {
+                self.collectionV.mj_footer.hidden = YES;
+            }else{
+                self.collectionV.mj_footer.hidden = NO;
+            }
+        });
+        self.page++;
+    } onFailure:^(NSError *error) {
+        [self endRefresh];
+    }];
+    
+}
+- (void)requestLoadDataJHSList{
 
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary * param = @{
+                                    @"page":@(self.page),
+                                    @"page_num":@"10",
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid": userid,
+                                    }.mutableCopy;
+    
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = JHSGoodsList;
+        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
+        request.parameters = @{ @"page":@(self.page),
+                                @"page_num":@"10",};
+        request.httpMethod = kXMHTTPMethodPOST;
+    }onSuccess:^(id responseObject) {
+        NSDictionary *dict = responseObject[@"data"];
+        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
             [self.collectionV reloadData];
         });
-        
+        self.page++;
         NSLog(@"jhsonSuccess:%@ =======",responseObject);
         
     } onFailure:^(NSError *error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        
-        NSLog(@"---onFailure--%@",dic_err);
-        
+        [self  endRefresh];
     }];
     
 }
@@ -89,7 +136,54 @@
 forCellWithReuseIdentifier:@"TJJHSuanCell"];
     [self.view addSubview:collectV];
     self.collectionV = collectV;
+    
+    [self addMjRefresh];
+////    上拉加载
+//    self.collectionV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestLoadDataJHSList:)];
+////    下啦刷新
+//    self.collectionV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestLoadNormalJHSList:)];
+//    self.collectionV.mj_footer.hidden = YES;
 }
+#pragma mark - refreshSetting
+-(void)addMjRefresh{
+    WeakSelf
+    MJRefreshGifHeader * header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
+        [weakSelf.dataArr removeAllObjects];
+        weakSelf.page = 1;
+        [self requestLoadNormalJHSList];
+    }];
+    
+    NSMutableArray * temp = [NSMutableArray array];
+    for (int i =0; i<13; i++) {
+        UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"loading%d",i+1]];
+        [temp addObject:image];
+    }
+    [header setImages:@[[UIImage imageNamed:@"loading1"]] forState:MJRefreshStateIdle];
+    [header setImages:temp forState:MJRefreshStatePulling];
+    [header setImages:temp duration:temp.count*0.06 forState:MJRefreshStateRefreshing];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    header.stateLabel.hidden = YES;
+    self.collectionV.mj_header =header;
+  
+    
+    MJRefreshAutoStateFooter * footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+//        DSLog(@"%@",self.total);
+//        if ([weakSelf.total integerValue]==weakSelf.page) {
+//            weakSelf.collectionV.mj_footer.state = MJRefreshStateNoMoreData;
+//            return ;
+//        }
+//        weakSelf.page++;
+        [self requestLoadDataJHSList];
+    }];
+    [footer setTitle:@"我们是有底线的" forState:MJRefreshStateNoMoreData];
+    self.collectionV.mj_footer = footer;
+    
+}
+-(void)endRefresh{
+    [self.collectionV.mj_header endRefreshing];
+    [self.collectionV.mj_footer endRefreshing];
+}
+
 #pragma mark ---- UICollectionViewDataSource
 
 //两个cell之间的间距（同一行的cell的间距）

@@ -22,14 +22,12 @@
 @implementation TJMyFootPrintController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     [self requestFootPrint];
 }
 -(void)viewWillDisappear:(BOOL)animated
 
 {
     [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)viewDidLoad {

@@ -23,14 +23,12 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    self.navigationController.navigationBar.barTintColor = KBGRGB;
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 
 }
 -(void)viewWillDisappear:(BOOL)animated
 
 {
     [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;    
 }
 
 - (void)viewDidLoad {

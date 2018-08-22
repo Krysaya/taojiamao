@@ -39,6 +39,9 @@ static NSString * const UserPhone = @"UserPhone";
 #define RegisterApp              [BASEURL stringByAppendingString:@"/v1/members/register"]
 //登录
 #define LoginWithUserName        [BASEURL stringByAppendingString:@"/v1/members/login"]
+//淘宝登录
+#define TaoBaoLogin        [BASEURL stringByAppendingString:@"/v1/members/taologin"]
+
 //登录成功后的用户数据==个人中心
 #define LoginedUserData          [BASEURL stringByAppendingString:@"/v1/members"]
 //会员中心
@@ -86,6 +89,8 @@ static NSString * const UserPhone = @"UserPhone";
 
 //足迹
 #define MineFootPrint        [BASEURL stringByAppendingString:@"/v1/foots"]
+//客服
+#define MineAssistanceHelp        [BASEURL stringByAppendingString:@"/v1/help"]
 
 //11修改密码
 #define EditPassWord             [BASEURL stringByAppendingString:@"/v1/members/epass"]
@@ -175,7 +180,10 @@ static NSString * const UserPhone = @"UserPhone";
 #define KdApplyAgent        [BASEURL stringByAppendingString:@"/v1/agents/agent"]
 //
 //商户-快递-抢单
-#define KdQiangOrder        [BASEURL stringByAppendingString:@"/v1/agents/qiang"]
+#define KdQiangOrder        [BASEURL stringByAppendingString:@"/v1/kuaidis/qiang"]
 
 //kd--我的券
 #define KdMyQuan        [BASEURL stringByAppendingString:@"/v1/coupons"]
+
+//kd--支付
+#define KdOrderYuePay        [BASEURL stringByAppendingString:@"/v1/kuaidis/pay"]

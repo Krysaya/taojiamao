@@ -120,10 +120,9 @@
 - (UILabel *)halo{
     if (!_halo) {
         _halo = [[UILabel alloc]init];
-        _halo.text = @"hi,等你好久了~";
-        _halo.font = [UIFont systemFontOfSize:15*W_Scale];
-        _halo.textColor =[UIColor whiteColor];
-
+        _halo.text = @"Hi，等你好久了~";
+        _halo.textColor = [UIColor whiteColor];
+//        _halo.image = [UIImage imageNamed:@"vip_p"];
     }
     return _halo;
 }
@@ -142,8 +141,6 @@
         _tableV.delegate = self;
         _tableV.dataSource =self;
         _tableV.sectionHeaderHeight = 0.00;
-        //        _listTable.estimatedRowHeight = 44.0f;//预估高度
-        //        _listTable.rowHeight =UITableViewAutomaticDimension;
         _tableV.tableFooterView = [[UIView alloc]init];
         _tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         
@@ -155,7 +152,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -191,16 +187,25 @@
                                 };
             request.httpMethod = kXMHTTPMethodGET;
         } onSuccess:^(id  _Nullable responseObject) {
-            NSLog(@"----user-success-===%@",responseObject);
-           
+//            NSLog(@"----user-success-===%@",responseObject);
+            self.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
                 self.userName.text = self.model.nickname;
+                if ([self.model.level intValue]==0) {
+                    self.userType.image =[UIImage imageNamed:@"vip_p"];
+                }else if ([self.model.level intValue]==1){
+                    self.userType.image =[UIImage imageNamed:@"vip_t"];
+
+                }else if ([self.model.level intValue]==2){
+                    self.userType.image =[UIImage imageNamed:@"vip_y"];
+
+                }else{ self.userType.image =[UIImage imageNamed:@"vip_j"];
+}
 //                [self.headIcon sd_setImageWithURL:[NSURL URLWithString:self.model.image]];
                 [self setHeadTView];// 加还是不加
 
                 self.tableV.tableHeaderView = self.headTView;
-                [self.tableV reloadData];
+//                [self.tableV reloadData];
             });
            
         } onFailure:^(NSError * _Nullable error) {
@@ -252,15 +257,16 @@
                             };
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
-
+//        DSLog(@"--个人中心--%@",responseObject);
         self.topArr = [TJMembersModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"top"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            for (NSDictionary *dict in responseObject[@"data"][@"main"]) {
-                [self.titleArr addObject:dict[@"name"]];
-                
-            }
+        for (NSDictionary *dict in responseObject[@"data"][@"main"]) {
+            [self.titleArr addObject:dict[@"name"]];
             
-            self.menuArr = [TJMemberMainModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"main"]];
+        }
+        
+        self.menuArr = [TJMemberMainModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"main"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
             [self.topCollectView reloadData];
             [self.tableV reloadData];
         });
@@ -270,6 +276,9 @@
     }];
 
 }
+/**
+ <#Description#>
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.delegate = self;
@@ -333,8 +342,10 @@
 
     if (self.hadLogin) {
         //    会员类型
+       
+        self.halo.hidden = YES;self.userType.hidden=NO;
         [self.headTView addSubview:self.userType];
-        
+
         [self.userType mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.userName.mas_bottom).offset(14*H_Scale);
             make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15*W_Scale);
@@ -343,6 +354,7 @@
         }];
     }else{
         //    halo
+        self.userType.hidden = YES;self.halo.hidden=NO;
         [self.headTView addSubview:self.halo];
         [self.halo mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.userName.mas_bottom).offset(14*H_Scale);
@@ -375,7 +387,7 @@
     [classView addSubview:collectV];
     self.topCollectView = collectV;
 //    设置。通知
-    self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"morentouxiang" withSelectImage:nil];
+    self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"setting" withSelectImage:nil];
     self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice" withSelectImage:nil];
     [self.headTView addSubview:self.btn_notice];
 
@@ -423,23 +435,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row==0) {
-//        我的资产
-        TJMyAssetsController *assetVC = [[TJMyAssetsController alloc]init];
-        [self.navigationController pushViewController:assetVC animated:YES];
-    }else if (indexPath.row==1){
-//    我的订单
-        TJMineOrderController *orderVC = [[TJMineOrderController alloc]init];
-        [self.navigationController pushViewController:orderVC animated:YES];
-    }else if (indexPath.row==2){
-//   我的收藏
-        TJCollectController *collectVc = [[TJCollectController alloc]init];
-        [self.navigationController pushViewController:collectVc animated:YES];
-    }else{
-//   我的足迹
-        TJMyFootPrintController *footVC = [[TJMyFootPrintController alloc]init];
-        [self.navigationController pushViewController:footVC animated:YES];
-    }
+    TJMembersModel *m = self.topArr[indexPath.row];
+    DSLog(@"---w-%@==%@",m.flag,m.param);
+    [TJPublicURL goAnyViewController:self withidentif:m.flag];
     
 }
 #pragma mark - TJButtonDelegate
@@ -519,7 +517,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return 30;
+        return 50;
     }else if (indexPath.section==3){
         TJMemberMainModel *model = self.menuArr[indexPath.section-1];
         NSArray *arr = model.menu;
@@ -555,121 +553,20 @@
 
 
 - (void)collectionCell:(TJMineListCell *)cell didSelectItemIndexPath:(NSIndexPath *)indexPath{
-    if (cell.indexSection==1) {
-        DSLog(@"==会员权益");
-        switch (indexPath.row) {
-            case 0:
-                {
-//                    累计奖金
-                    TJVipBalanceController *vc  = [[TJVipBalanceController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                break;
-            case 1:
-            {
-//                    我的粉丝
-                TJVipFansController *vc = [[TJVipFansController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 2:
-            {
-//                    推广业绩
-                TJVipPerformanceController *vc = [[TJVipPerformanceController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 3:
-            {
-//                    热推top
-                TJMiddleClickController *vc = [[TJMiddleClickController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            default:
-                break;
-        }
-    }else if(cell.indexSection==2){
-        switch (indexPath.row) {
-            case 0:
-                {
-//                    快递代取
-                    TJCourierTakeController *vc = [[TJCourierTakeController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                break;
-            case 1:
-            {
-                //                    快递sh==商户
-                TJKdTabbarController *tbc = [[TJKdTabbarController alloc]init];
-                tbc.delegate = self;
-                [UIApplication  sharedApplication].keyWindow.rootViewController = tbc;
-            }
-                break;
-            case 2:
-            {
-                //                    快递sh==申请代理
-                TJKdApplyAgrentController *vc = [[TJKdApplyAgrentController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            default:
-                break;
-        }
-    }else if (cell.indexSection==3){
-        DSLog(@"常用工具");
-        switch (indexPath.row) {
-            case 0:
-            {
-//                    签到红包
-                
-            }
-                break;
-            case 1:
-            {
- //                    订单认领
-                DSLog(@"==订单认领");
-
-                TJOrderClaimController *vc= [[TJOrderClaimController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 4:
-            {
-                DSLog(@"==排行榜");
-
- //                    排行榜
-                TJRankingListController *vc= [[TJRankingListController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 5:
-            {
-//                    客服帮助
-                TJAssistanceController *vc= [[TJAssistanceController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 7:
-            {
-  //                    分享赚钱
-                TJShareMoneyController *vc= [[TJShareMoneyController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-            case 8:
-            {
-//                    邀请有奖
-                TJInvitationView *iview = [TJInvitationView invitationView];
-                iview.frame = CGRectMake(0, 0, S_W, S_H);
-                [[UIApplication sharedApplication].keyWindow addSubview:iview];
-
-            }
-                break;
-            default:
-                break;
-        }
+    
+    if (cell.indexSection==0) {
+        
+    }else{
+        NSInteger i = cell.indexSection-1;
+        TJMemberMainModel *model = self.menuArr[i];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObjectsFromArray:model.menu];
+        NSArray *arrmodel = [TJMembersModel mj_objectArrayWithKeyValuesArray:arr];
+        TJMembersModel *model_m = arrmodel[indexPath.row];
+        DSLog(@"====%ld---%@",indexPath.row,model_m.flag);
+        [TJPublicURL goAnyViewController:self withidentif:model_m.flag];
     }
+//
 }
 
 #pragma mark - tabbarController delagte

@@ -9,24 +9,22 @@
 #import "TJVipFansController.h"
 #import "TJVipFansContentController.h"
 #import "TJSearchView.h"
-
+#import "TJVipFensListModel.h"
 @interface TJVipFansController ()<TJSearchViewDelegate>
 
 @property(nonatomic,strong)TJSearchView * searchView;
-
+@property (nonatomic, strong) NSMutableArray *searchData;
 @end
 
 @implementation TJVipFansController
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,7 +35,7 @@
 }
 -(void)setControllers{
 
-    self.titles = @[@"一度粉丝(2)",@"二度粉丝(1)",@"三度粉丝(4)"];
+    self.titles = @[@"一度粉丝()",@"二度粉丝()",@"三度粉丝()"];
     self.menuViewStyle = WMMenuViewStyleLine;
     self.selectIndex = 0;
     self.titleSizeNormal = 14;
@@ -85,9 +83,48 @@
 
 -(void)SearchButtonClick:(NSString *)text{
     DSLog(@"%@",text);
+    self.searchData = @{}.mutableCopy;
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"id":text,
+                                //                                @"fans_level":level,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = MemeberFans;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.parameters = @{
+                                @"id":text,
+                               //                               @"fans_level":level,
+                               };
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"fans--%@",responseObject);
+        self.searchData = [TJVipFensListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //            [self.tableView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 -(void)dealloc{
 //    DSLog(@"%s",__func__);
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

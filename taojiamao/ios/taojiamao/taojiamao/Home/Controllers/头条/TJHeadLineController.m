@@ -68,7 +68,7 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"page_size":@"2",
+                                @"page_size":@"10",
                                 @"page_no":pag,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
@@ -80,7 +80,7 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{  @"page_size":@"2",
+        request.parameters = @{  @"page_size":@"10",
                                  @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
         
@@ -122,7 +122,7 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"page_size":@"2",
+                                @"page_size":@"10",
                                 @"page_no":pag,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
@@ -134,7 +134,7 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{  @"page_size":@"2",
+        request.parameters = @{  @"page_size":@"10",
                                  @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
         

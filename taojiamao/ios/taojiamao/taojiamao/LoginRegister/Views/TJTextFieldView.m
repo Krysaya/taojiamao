@@ -22,18 +22,18 @@
 @end
 
 @implementation TJTextFieldView
--(instancetype)initWithPlaceholder:(NSString*)plac image:(NSString*)image highlightImage:(NSString*)himage{
+-(instancetype)initWithPlaceholder:(NSString*)plac image:(NSString*)image highlightImage:(NSString*)himage with:(BOOL)securet{
     self = [super init];
     if (self) {
         self.backgroundColor =[UIColor whiteColor];
         self.normalImage = image;
         self.highlightImage = himage;
-        [self setSubviewsWith:plac with:image];
+        [self setSubviewsWith:plac with:image with:securet];
 //        self.block = block;
     }
     return self;
 }
--(void)setSubviewsWith:(NSString*)plac with:(NSString*)image{
+-(void)setSubviewsWith:(NSString*)plac with:(NSString*)image with:(BOOL)securet{
     self.icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:image]];
     [self addSubview:self.icon];
     WeakSelf
@@ -47,6 +47,7 @@
     
     self.textfield = [[UITextField alloc]init];
     self.textfield.delegate =self;
+    self.textfield.secureTextEntry = securet;
     self.textfield.font = [UIFont systemFontOfSize:13*W_Scale];
     self.textfield.placeholder = plac;
     [self addSubview:self.textfield];

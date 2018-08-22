@@ -23,9 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.test = [[UIButton alloc]init];
-    self.test.backgroundColor = [UIColor orangeColor];
     self.test.titleLabel.textColor = [UIColor blackColor];
-    [self.test setTitle:@"woshikongde " forState:UIControlStateNormal];
+    [self.test setTitle:@"" forState:UIControlStateNormal];
     
     [self.view addSubview:self.test];
     [self.test mas_makeConstraints:^(MASConstraintMaker *make) {

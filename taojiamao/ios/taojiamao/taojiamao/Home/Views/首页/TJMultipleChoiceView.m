@@ -19,7 +19,7 @@
 
 @interface TJMultipleChoiceView()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate>
 
-@property(nonatomic,strong)UIButton * back;
+@property(nonatomic,strong)UIView * bg;
 
 @property(nonatomic,strong)UIView * tableback;
 
@@ -50,15 +50,20 @@
     return self;
 }
 -(void)setUI{
-    
-    self.back = [[UIButton alloc]initWithFrame:self.bounds];
-    self.back.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    [self addSubview:self.back];
-    [self.back addTarget:self action:@selector(tapClick) forControlEvents:UIControlEventTouchUpInside];
+    UIView *bg = [[UIView alloc]initWithFrame:S_F];
+    bg.backgroundColor = RGBA(255, 255, 255, 0.2);
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    [bg addGestureRecognizer:tap];
+    [self addSubview:bg];
+    self.bg = bg;
+//    self.back = [[UIButton alloc]initWithFrame:self.bounds];
+//    self.back.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+//    [self addSubview:self.back];
+//    [self.back addTarget:self action:@selector(tapClick) forControlEvents:UIControlEventTouchUpInside];
     
     self.tableback = [[UIView alloc]initWithFrame:CGRectMake(S_W-TableViewW, 0, TableViewW, S_H)];
     self.tableback.backgroundColor = [UIColor whiteColor];
-    [self addSubview:self.tableback];
+    [bg addSubview:self.tableback];
     
     
     CGFloat Y = IsX?35+24:35;
@@ -120,9 +125,9 @@
         dict[@"max"] = self.MAX.text;
         dict[@"type"] = self.TBTMStr;
         dict[@"class"] = self.recordStr;
-        if (self.deletage) {
+//        if (self.deletage) {
             [self.deletage buttonSureSelectString:dict];
-        }
+//        }
         DSLog(@"%@----%@---%@----%@",self.MIN.text,self.MAX.text,self.TBTMStr,self.recordStr);
     }else{
         if (!(but==self.record)) {

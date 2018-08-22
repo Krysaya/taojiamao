@@ -22,7 +22,7 @@
     [[AlibcTradeSDK sharedInstance] asyncInitWithSuccess:^{
         
     } failure:^(NSError *error) {
-        NSLog(@"Init failed: %@", error.description);
+//        NSLog(@"Init failed: %@", error.description);
     }];
     [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
     

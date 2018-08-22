@@ -105,8 +105,6 @@
             
             [self presentViewController:successVc animated:NO completion:^{
                 [self RequestSignInfoWithType:kXMHTTPMethodGET];
-                self.signBtn.backgroundColor = KBGRGB;
-                self.signBtn.userInteractionEnabled = NO;
             }];
         }else{
             self.bannerArr = [NSArray array];
@@ -129,7 +127,7 @@
                 NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
                     make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
                     make.append(day);
-                        make.rangeEdit(NSMakeRange(day.length-1, dayStr.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+                        make.rangeEdit(NSMakeRange(6, dayStr.length), ^(SJAttributesRangeOperator * _Nonnull make) {
                             make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
                         });
 

@@ -11,6 +11,5 @@
 
 @interface TJHeadLineOneCell : TJBaseTableCell
 @property (nonatomic, strong) TJArticlesListModel *model;
-@property (weak, nonatomic) IBOutlet UIButton *btn_close;
 
 @end

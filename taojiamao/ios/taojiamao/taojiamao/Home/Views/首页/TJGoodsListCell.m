@@ -54,7 +54,7 @@
 
     // 这里取出model， 根据model的是否选中属性，标记checkBtn的select状态，图标会自动转换
     if ([type intValue]==0) {
-
+//jhs
         TJJHSGoodsListModel *model = [arr objectAtIndex:indexPath.row];
 
 //        _selectBtn.selected = model.isChecked;
@@ -65,10 +65,10 @@
             make.insertText(model.itemtitle, 2);
         });
         self.titleLab.attributedText = str_tb;
-        self.lab_quanh.text = model.itemprice;
+        self.lab_quanh.text = model.itemendprice;
         //中划线
         NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-        NSMutableAttributedString *attribt_yuanj = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.itemendprice] attributes:attribtDic];
+        NSMutableAttributedString *attribt_yuanj = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.itemprice] attributes:attribtDic];
         
         self.lab_yuanjia.attributedText = attribt_yuanj;
         self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
@@ -92,22 +92,23 @@
             make.insertText(model.itemtitle, 2);
         });
         self.titleLab.attributedText = str_tb;
-        self.lab_quanh.text = model.itemprice;
+        self.lab_quanh.text = model.itemendprice;
         //中划线
         NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-        NSMutableAttributedString *attribt_yuanj = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.itemendprice] attributes:attribtDic];
+        NSMutableAttributedString *attribt_yuanj = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"¥ %@",model.itemprice] attributes:attribtDic];
         
         self.lab_yuanjia.attributedText = attribt_yuanj;
         self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
         NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
-        NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-            make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
-            make.append(str_coupon);
-            make.rangeEdit(NSMakeRange(3, model.itemprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
-                make.font([UIFont systemFontOfSize:19.f]).textColor([UIColor whiteColor]);
-            });
-        });
-        [self.btn_quan setAttributedTitle:attrStr forState:UIControlStateNormal];
+        [self.btn_quan setTitle:str_coupon forState:UIControlStateNormal];
+//        NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+//            make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
+//            make.append(str_coupon);
+//            make.rangeEdit(NSMakeRange(3, model.itemprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+//                make.font([UIFont systemFontOfSize:19.f]).textColor([UIColor whiteColor]);
+//            });
+//        });
+//        [self.btn_quan setAttributedTitle:attrStr forState:UIControlStateNormal];
     }
   
     
