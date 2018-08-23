@@ -44,6 +44,11 @@
     self.hidden = YES;
 }
 
+- (IBAction)shareBtnClick:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(shareButtonClick:) ]) {
+        [self.delegate shareButtonClick:sender.tag];
+    }
+}
 
 
 @end

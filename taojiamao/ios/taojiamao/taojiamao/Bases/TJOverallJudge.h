@@ -27,4 +27,6 @@
 
 //+(BOOL)judgeStringIsNull:(NSArray*)array;
 
++ (NSString *)encodeToPercentEscapeString:(NSString *)input;
+
 @end

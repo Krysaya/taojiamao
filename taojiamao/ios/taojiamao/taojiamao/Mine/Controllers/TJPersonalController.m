@@ -442,7 +442,8 @@
 -(void)buttonClick:(UIButton *)but{
     if (but.tag==Setting) {
         TJSettingController * setvc = [[TJSettingController alloc]init];
-        setvc.phone = self.model.telephone;
+        setvc.phone = self.model.telephone;setvc.nickname = self.model.nickname;
+        setvc.imgurl = self.model.image;
         [self.navigationController pushViewController:setvc animated:YES];
     }else{
         TJNoticeController *vc = [[TJNoticeController alloc]init];
@@ -515,7 +516,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return 50;
+        return 30;
     }else if (indexPath.section==3){
         TJMemberMainModel *model = self.menuArr[indexPath.section-1];
         NSArray *arr = model.menu;

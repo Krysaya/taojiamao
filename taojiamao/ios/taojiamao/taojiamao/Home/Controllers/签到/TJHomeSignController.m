@@ -15,6 +15,8 @@
 #import "SJAttributeWorker.h"
 #import "TJSignListModel.h"
 #import "TJSignNumsModel.h"
+
+#import "TJKallAdImgModel.h"
 #define RIGHTBT  568
 
 @interface TJHomeSignController ()<TJButtonDelegate,UIScrollViewDelegate,FSCalendarDelegate,FSCalendarDataSource,iCarouselDelegate,iCarouselDataSource>
@@ -24,7 +26,7 @@
 @property (strong, nonatomic) NSDateFormatter *dateFormatter2;
 
 @property(strong,nonatomic)NSMutableArray*dataArr;
-@property (nonatomic, strong) NSArray *bannerArr;
+@property (nonatomic, strong) NSMutableArray *bannerArr;
 @property (nonatomic, strong) UILabel *lab_page;//精选1/3
 @property (nonatomic, strong) iCarousel *icaroursel;
 @property (nonatomic, strong) FSCalendar *calendar;
@@ -41,16 +43,12 @@
 @implementation TJHomeSignController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    //设置全局状态栏字体颜色为黑色
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    [self RequestSignInfoWithType:kXMHTTPMethodGET];
+    [self RequestSignInfoWithType:kXMHTTPMethodGET];    [self requestAdImg];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"签到";
-    
     self.view.backgroundColor = [UIColor whiteColor];
-
     UIButton *btn = [[UIButton alloc]init];
     [btn setTitle:@"签到规则" forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -68,7 +66,42 @@
     [self setSignBtn];
     [self setSelectedTopicScroll];
 }
+- (void)requestAdImg{
+    self.bannerArr = [NSMutableArray array];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"posid":@"1",
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = [NSString stringWithFormat:@"%@1",KAllAdPosters];
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"---banner-%@",responseObject);
+        self.bannerArr = [TJKallAdImgModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        [self.icaroursel reloadData];
+        });
 
+    } onFailure:^(NSError * _Nullable error) {
+        DSLog(@"---banner-%@",error);
+
+    }];
+}
 - (void)RequestSignInfoWithType:(XMHTTPMethodType )methodtype
 {
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
@@ -94,52 +127,54 @@
                             };
         request.httpMethod = methodtype;
     } onSuccess:^(id  _Nullable responseObject) {
-   
-        NSLog(@"----sign-success-===%@",responseObject);
-        if (methodtype==kXMHTTPMethodPOST) {
-            
+        DSLog(@"----sign-success-===%@",responseObject);
 
+        if (methodtype==kXMHTTPMethodPOST) {
             TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
             successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-            
             [self presentViewController:successVc animated:NO completion:^{
                 [self RequestSignInfoWithType:kXMHTTPMethodGET];
             }];
         }else{
-            self.bannerArr = [NSArray array];
-            self.bannerArr = responseObject[@"data"][@"banner"];
-            
-            NSMutableArray *arr = [TJSignListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-            self.dataArr = [[NSMutableArray array]init];
-
-            for (TJSignListModel *model in arr) {
-                NSString *time = [self.dateFormatter2 stringFromDate:[NSDate dateWithTimeIntervalSince1970:[model.addtime doubleValue]]];
-                [self.dataArr addObject:time];
-            }
-            
-            TJSignNumsModel *m = [TJSignNumsModel mj_objectWithKeyValues:responseObject[@"data"]];
-//            DSLog(@"--%d--%d",m.num,m.nums);
-            NSString *dayStr = [NSString stringWithFormat:@"%d",m.num];
-            NSString *totalStr = [NSString stringWithFormat:@"%d",m.nums];
-            NSString *day = [NSString stringWithFormat:@"本月连续签到%@天",dayStr];
-            
+            NSDictionary *dict = responseObject[@"data"];
+            if (dict.count>0) {
+                NSMutableArray *arr = [TJSignListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                self.dataArr = [NSMutableArray array];
+                
+                for (TJSignListModel *model in arr) {
+                    NSString *time = [self.dateFormatter2 stringFromDate:[NSDate dateWithTimeIntervalSince1970:[model.addtime doubleValue]]];
+                    [self.dataArr addObject:time];
+                }
+                
+                TJSignNumsModel *m = [TJSignNumsModel mj_objectWithKeyValues:responseObject[@"data"]];
+                //            DSLog(@"--%d--%d",m.num,m.nums);
+                self.signStatus = m.status;
+                NSString *dayStr = [NSString stringWithFormat:@"%d",m.num];
+                NSString *totalStr = [NSString stringWithFormat:@"%d",m.nums];
+                NSString *day = [NSString stringWithFormat:@"本月连续签到%@天",dayStr];
+                
                 NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
                     make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
                     make.append(day);
-                        make.rangeEdit(NSMakeRange(6, dayStr.length), ^(SJAttributesRangeOperator * _Nonnull make) {
-                            make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
-                        });
-
+                    make.rangeEdit(NSMakeRange(6, dayStr.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+                        make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
+                    });
+                    
                     
                 });
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.lab_total.text = totalStr;//一赋值就崩溃
-
                     self.lab.attributedText = attrStr;
+                    if ([self.signStatus intValue]==1) {
+                        [self.signBtn setBackgroundColor:RGB(100, 100, 100)];
+                    }else{
+                        [self.signBtn setBackgroundColor:KALLRGB];
+                    }
                     [self.calendar reloadData];
-                    [self.icaroursel reloadData];
                     
                 });
+                
+            }
            
             
             
@@ -231,7 +266,7 @@
     UIButton *signBtn = [[UIButton alloc]init];
     signBtn.frame =CGRectMake(0, 30+18+50+SafeAreaTopHeight+300, 220, 40);
     signBtn.center = CGPointMake(self.view.center.x, 30+18+50+SafeAreaTopHeight+300);
-    [signBtn setBackgroundColor:KALLRGB];
+    signBtn.backgroundColor = KALLRGB;
     signBtn.layer.cornerRadius = 20;
     signBtn.layer.masksToBounds = YES;
     [signBtn addTarget:self action:@selector(signBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -239,7 +274,7 @@
     [signBtn setTitle:@"签到" forState:UIControlStateNormal];
     [self.view addSubview:signBtn];
     self.signBtn = signBtn;
-    UILabel *allLab = [[UILabel alloc]initWithFrame:CGRectMake(signBtn.frame.origin.x+10, signBtn.frame.origin.y+40+6, 100, 25)];
+    UILabel *allLab = [[UILabel alloc]initWithFrame:CGRectMake(signBtn.frame.origin.x+50, signBtn.frame.origin.y+40+6, 100, 25)];
     allLab.text = @"今日签到总人数：";
     allLab.textAlignment = NSTextAlignmentRight;
     allLab.textColor = RGB(153, 153, 153);
@@ -247,7 +282,7 @@
     [self.view addSubview:allLab];
     
     UILabel *numLab = [[UILabel alloc]initWithFrame:CGRectMake(allLab.frame.origin.x+100, signBtn.frame.origin.y+40+6, 70, 25)];
-    numLab.text = @"74,546,545";
+    numLab.text = @"0";
     numLab.textAlignment = NSTextAlignmentLeft;
     numLab.textColor = KALLRGB;
     numLab.font = [UIFont systemFontOfSize:12];
@@ -291,13 +326,16 @@
 }
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
+    
+
     if (view==nil) {
         view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W-50, 100)];
 //        view.backgroundColor = RandomColor;
         view.layer.masksToBounds = YES;
         view.layer.cornerRadius = 8;
+        TJKallAdImgModel *model = self.bannerArr[index];
         UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, S_W-50, 100)];
-        [img sd_setImageWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,self.bannerArr[index]]]];
+        [img sd_setImageWithURL: [NSURL URLWithString:model.imgurl]];
         [view addSubview:img];
         
     }
@@ -322,8 +360,11 @@
 - (void)signBtnClick:(UIButton *)sender
 {
     NSLog(@"签到了");
-    [self RequestSignInfoWithType:kXMHTTPMethodPOST];
-    
+    if ([self.signStatus intValue]==1) {
+        [SVProgressHUD showInfoWithStatus:@"今天已经签到啦~"];
+    }else{
+        [self RequestSignInfoWithType:kXMHTTPMethodPOST];
+    }
 }
 
 #pragma mark - FSCalendardeleagte

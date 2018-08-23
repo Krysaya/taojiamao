@@ -60,15 +60,18 @@
                                   @"aid":self.aid,
 };
     } onSuccess:^(id  _Nullable responseObject) {
-//                DSLog(@"----reply-success-===%@",responseObject);
-        
+                DSLog(@"----reply-success-===%@",responseObject);
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-          
-            [self.tableView reloadData];
-        });
+
+        if (dict.count>0) {
+            self.dataArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+            });
+        }
+       
         
     } onFailure:^(NSError * _Nullable error) {
         

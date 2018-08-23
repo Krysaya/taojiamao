@@ -43,7 +43,7 @@
         });
     });
     self.quanhou_lab.attributedText = attrStr;
-    [self.btn_quan setTitle:[NSString stringWithFormat:@"领券减%@",model.couponmoney] forState:UIControlStateNormal];
+    [self.btn_quan setTitle:[NSString stringWithFormat:@"%@元券",model.couponmoney] forState:UIControlStateNormal];
 
     [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
 }

@@ -93,11 +93,18 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJCollectionClassicCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectClassiCell" forIndexPath: indexPath];
     //    cell.imgView.backgroundColor = RandomColor;
-    TJGoodCatesMainListModel *model = self.model.managedSons[indexPath.row];
-    DSLog(@"ewyiry34iruh--%ld-%ld",indexPath.row,self.model.managedSons.count);
-    [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl]];
+    if (self.model._childs.length==0) {
+        DSLog(@"COLLECTTT--%ld-%ld",indexPath.row,self.model.managedSons.count);
+        cell.imageV.image = [UIImage imageNamed:@""];
+        cell.lab_titel.text = @"";
+    }else{
+        TJGoodCatesMainListModel *model = self.model.managedSons[indexPath.row];
+        DSLog(@"COLLECTTT--%ld-%ld",indexPath.row,self.model.managedSons.count);
+        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl]];
+        cell.lab_titel.text = model.catname;
+    }
+   
     
-    cell.lab_titel.text = model.catname;
 
     return cell;
 }
@@ -111,9 +118,12 @@
     return 0.1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    DSLog(@"count===%ld",self.model.managedSons.count);
-    return self.model.managedSons.count;
-    
+    DSLog(@"count=child==%ld",self.model._childs.length);
+    if (self.model._childs.length==0) {
+        return 1;
+    }else{
+        return self.model.managedSons.count;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

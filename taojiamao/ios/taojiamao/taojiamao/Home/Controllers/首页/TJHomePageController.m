@@ -33,6 +33,7 @@
 #import "TJHomePageModel.h"
 #import "TJHeadLineScrollModel.h"
 #import "TJGoodsCollectModel.h"
+#import "TJAdWebController.h"
 
 
 #define AD_H  200
@@ -61,7 +62,7 @@
 @property (nonatomic,assign) NSInteger currentIndex;/* 当前滑动到了哪个位置**/
 
 @property (nonatomic, strong) NSMutableArray *imgADArr;
-@property (nonatomic, strong) NSArray *imgDataArr;
+@property (nonatomic, strong) NSMutableArray *imgDataArr;
 @property (nonatomic, strong) NSArray *menuArr;
 @property (nonatomic, strong) NSArray *class_TopArr;
 @property (nonatomic, strong) NSArray *class_bottomArr;
@@ -111,7 +112,6 @@
 
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-49)];
-    big_ScrollVie.frame = S_F;
     big_ScrollVie.delegate = self;
     big_ScrollVie.showsVerticalScrollIndicator = NO;
     big_ScrollVie.showsHorizontalScrollIndicator = NO;
@@ -211,7 +211,7 @@
 
 - (void)requestHomePage{
     //首页
-    self.imgADArr = [NSMutableArray array];
+    self.imgADArr = [NSMutableArray array];self.imgDataArr = [NSMutableArray array];
     self.menuArr = [NSArray array];
     self.adSmallImgArr = [NSMutableArray array];
     self.newsArr = [NSMutableArray array];
@@ -249,6 +249,7 @@
             for (int i = 0; i < imgArr.count; i++) {
                 TJHomePageModel *model = imgArr[i];
                 [self.imgADArr addObject:model.imgurl];
+                [self.imgDataArr addObject:model];
             }
             
             self.status = responseObject[@"data"][@"pop"][@"status"];
@@ -448,8 +449,9 @@
 }
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    NSLog(@"---点击了第%ld张图片", (long)index);
-
+    TJHomePageModel *m = self.imgDataArr[index];
+    TJAdWebController *vc = [[TJAdWebController alloc]init];vc.url = m.flag;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 #pragma mark - tableViewDelagte
@@ -466,47 +468,13 @@
     [cell cellWithArr:self.goodsArr forIndexPath:indexPath isEditing:NO withType:@"1"];
     return cell;
 }
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    return  [self setViewForHeaderInSectionWith:@"精选好物" withFrame:CGRectMake(0, 5, S_W, 68*H_Scale)];
-//}
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 68;
-//}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJGoodsCollectModel *model = self.goodsArr[indexPath.row];
-    goodVC.gid = model.itemid;
+    goodVC.gid = model.itemid;goodVC.price = model.itemprice;goodVC.priceQuan = model.itemendprice;
     [self.navigationController pushViewController:goodVC animated:YES];
 }
-#pragma mark - setViewForHeaderInSection
-//-(UIView*)setViewForHeaderInSectionWith:(NSString*)title withFrame:(CGRect)frame{
-//    UIView * view = [[UIView alloc]initWithFrame:frame];
-//    view.backgroundColor = [UIColor whiteColor];
-//    TJLabel * titleL = [TJLabel setLabelWith:title font:15 color:RGB(255, 71, 119)];
-//    [view addSubview:titleL];
-//    [titleL mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.center.mas_equalTo(view);
-//    }];
-//
-//    UIView * left = [[UIView alloc]init];
-//    left.backgroundColor =RGB(255, 71, 119);
-//    [view addSubview:left];
-//    [left mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.mas_equalTo(titleL);
-//        make.right.mas_equalTo(titleL.mas_left).offset(-10);
-//        make.width.mas_equalTo(20);
-//        make.height.mas_equalTo(1);
-//    }];
-//
-//    UIView * right = [[UIView alloc]init];
-//    right.backgroundColor =RGB(255, 71, 119);
-//    [view addSubview:right];
-//    [right mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.height.width.centerY.mas_equalTo(left);
-//        make.left.mas_equalTo(titleL.mas_right).offset(10);
-//    }];
-//    return view;
-//}
 #pragma mark - search
 
 -(void)searchClick{

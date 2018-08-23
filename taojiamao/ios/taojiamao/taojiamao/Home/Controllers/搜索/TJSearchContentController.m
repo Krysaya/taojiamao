@@ -78,11 +78,17 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.dataArr = self.dataArr;
             [self.tableView reloadData];
             [self.collectionView reloadData];
         });
+        
+        if (self.dataArr.count>0) {
+            
+        }else{
+            self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+        }
+        
         
     } onFailure:^(NSError * _Nullable error) {
     }];
@@ -92,10 +98,11 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 45, S_W, S_H-SafeAreaTopHeight-85) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = KBGRGB;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:TJSearchContentFootShowCell];
-    
     [self.view addSubview:self.tableView];
+   
 }
 -(void)setUICollectionView{
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
@@ -105,12 +112,13 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     layout.minimumInteritemSpacing = 0;
     
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 45, S_W, S_H-SafeAreaTopHeight-50) collectionViewLayout:layout];
-    self.collectionView.backgroundColor = RandomColor;
     self.collectionView.delegate=self;
     self.collectionView.dataSource=self;
+    self.collectionView.backgroundColor = KBGRGB;
     [self.collectionView registerNib:[UINib nibWithNibName:@"TJJHSuanCell" bundle:nil] forCellWithReuseIdentifier:TJSearchContentCollectionCell];
-    
     [self.view addSubview:self.collectionView];
+   
+
 }
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -258,4 +266,6 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     } onFailure:^(NSError * _Nullable error) {
     }];
 }
+
+
 @end

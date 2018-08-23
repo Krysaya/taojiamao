@@ -10,4 +10,6 @@
 
 @interface TJBindTBController : TJBaseViewController
 
+@property (nonatomic, strong) NSString *imgurl;
+@property (nonatomic, strong) NSString *nickname;
 @end

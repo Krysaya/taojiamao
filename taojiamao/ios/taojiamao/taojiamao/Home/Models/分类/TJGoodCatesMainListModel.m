@@ -16,15 +16,19 @@
 - (NSArray *)managedSons
 {
     if (nil == _managedSons) {
-        NSArray * childsArray = [self._childs componentsSeparatedByString:@","];//以“,”切割
-        
-        NSMutableArray *temp = @[].mutableCopy;
-        for (NSString *str in childsArray) {
-            TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:self.son[str]];
-            [temp addObject:childsModel];
+        if (self._childs.length>0) {
+            NSArray * childsArray = [self._childs componentsSeparatedByString:@","];//以“,”切割
+            
+            NSMutableArray *temp = @[].mutableCopy;
+            for (NSString *str in childsArray) {
+                TJGoodCatesMainListModel *childsModel = [TJGoodCatesMainListModel mj_objectWithKeyValues:self.son[str]];
+                [temp addObject:childsModel];
+            }
+            _managedSons = temp.copy;
+
         }
+       
         
-        _managedSons = temp.copy;
         
     }
     return _managedSons;

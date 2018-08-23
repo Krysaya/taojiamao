@@ -87,6 +87,7 @@
         [but setBackgroundColor:bc];
         [but setTitle:title forState:UIControlStateNormal];
         but.titleLabel.font = [UIFont systemFontOfSize:font];
+        but.titleLabel.lineBreakMode = 0;
         [but setTitleColor:color forState:UIControlStateNormal];
         [but setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         but.layer.borderWidth = bw;

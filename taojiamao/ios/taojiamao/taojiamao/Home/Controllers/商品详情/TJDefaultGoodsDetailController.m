@@ -32,6 +32,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 #define DetailShareButton   952
 #define DetailCollectButton   956
 
+#define DetailsQuanBuyButton    999
+
 #define DetailsBuyButton    953
 #define DetailsGoTopButton  954
 #define DetailsPopularize   955
@@ -50,6 +52,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @property(nonatomic,strong)TJButton * shareB;
 @property(nonatomic,strong)TJLabel * shareL;
 @property(nonatomic,strong)TJButton * buy;
+@property(nonatomic,strong)TJButton * quanbuy;
 
 @property(nonatomic,strong)TJButton * goTop;
 
@@ -115,14 +118,10 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         NSDictionary *dict = responseObject[@"data"];
         
         DSLog(@"onSuccess详情:%@ =======",responseObject);
-
         
         TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
         [self.dataArr addObject:model];
         self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
-        
-//        TJGoodsInfoListModel *model = self.dataArr[0];
-        DSLog(@"==%ld===%ld==%@",self.imageSSS.count,self.dataArr.count,model.itempic);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setUI];
@@ -131,10 +130,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         
         
     } onFailure:^(NSError *error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        
-//        NSLog(@"---onFailure--%@",dic_err);
         
     }];
     
@@ -168,18 +163,32 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.width.height.mas_equalTo(19*W_Scale);
     }];
     
+    
     self.shareL = [TJLabel setLabelWith:@"收藏" font:10 color:RGB(150, 150, 150)];
     [self.footView addSubview:self.shareL];
     [self.shareL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.shareB);
-        make.top.mas_equalTo(weakSelf.shareB.mas_bottom).offset(6*H_Scale);
+        make.top.mas_equalTo(weakSelf.shareB.mas_bottom).offset(6);
     }];
     
-    self.buy = [[TJButton alloc]initWith:@"立即购买" delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:KALLRGB tag:DetailsBuyButton cornerRadius:0];
+    NSString *quan = [NSString stringWithFormat:@"¥%@\n领券买",self.priceQuan];
+    self.quanbuy = [[TJButton alloc]initWith:quan delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:KALLRGB tag:DetailsQuanBuyButton cornerRadius:0];
+    
+    [self.footView addSubview:self.quanbuy];
+    [self.quanbuy mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.mas_equalTo(weakSelf.footView);
+        make.left.mas_equalTo(weakSelf.shareL.mas_right).offset(31);
+        make.width.mas_equalTo((S_W-81)/2);
+        make.bottom.mas_equalTo(weakSelf.footView);
+        make.top.mas_equalTo(weakSelf.footView);
+    }];
+    
+    NSString *buy = [NSString stringWithFormat:@"¥%@\n直接买",self.price];
+    self.buy = [[TJButton alloc]initWith:buy delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:[UIColor redColor] tag:DetailsBuyButton cornerRadius:0];
     [self.footView addSubview:self.buy];
     [self.buy mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.mas_equalTo(weakSelf.footView);
-        make.left.mas_equalTo(weakSelf.shareL.mas_right).offset(31*W_Scale);
+        //        make.centerY.mas_equalTo(weakSelf.footView);
+        make.left.mas_equalTo(weakSelf.quanbuy.mas_right);
         make.right.mas_equalTo(weakSelf.footView);
         make.bottom.mas_equalTo(weakSelf.footView);
         make.top.mas_equalTo(weakSelf.footView);
@@ -188,7 +197,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 -(void)setBackButton{
     CGFloat TOP = 20;
-    self.backButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsBackButton withBackImage:@"back_left" withSelectImage:nil];
+    self.backButton = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.25) tag:DetailsBackButton withBackImage:@"back_left" withSelectImage:nil];
+    self.backButton.layer.cornerRadius = 16;
+    self.backButton.layer.masksToBounds = YES;
     [self.view addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(9*W_Scale);
@@ -236,7 +247,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         TJDafultGoodsTitlesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsTitleCell forIndexPath:indexPath];
-//        [cell.btn_coupon addTarget:self action:@selector(getCouponClick:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.btn_coupon addTarget:self action:@selector(getCouponClick:) forControlEvents:UIControlEventTouchUpInside];
         cell.model_detail = self.dataArr[0];
         
         return cell;
@@ -244,7 +255,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         TJGoodsDetailsElectCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsElectCell forIndexPath:indexPath];
         TJJHSGoodsListModel *model = self.dataArr[0];
         if (model.guide_article==nil) {
-            NSLog(@"----%@0-efwiof",model.guide_article);
             cell.detailsIntro = model.itemdesc;
         }else{
             cell.detailsIntro = model.guide_article;
@@ -266,8 +276,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else{
         TJGoodsDetailsImagesCell * cell = [tableView dequeueReusableCellWithIdentifier:GoodsDetailsImagesCell forIndexPath:indexPath];
         cell.urlStr = self.imageSSS[indexPath.row];
-//        cell.model_detail = self.dataArr[0];
-
         return cell;
         
     }
@@ -282,7 +290,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
             cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
             TJJHSGoodsListModel *model = self.dataArr[0];
             if (model.guide_article==nil) {
-                NSLog(@"----%@0-efwiof",model.guide_article);
                 cell.detailsIntro = model.itemdesc;
             }else{
                 cell.detailsIntro = model.guide_article;
@@ -333,22 +340,35 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 #pragma mark - TJButtonDeletage
 -(void)buttonClick:(UIButton *)but{
     if (but.tag==DetailsBuyButton) {
-        DSLog(@"购买");
+        DSLog(@"详情页购买");
         //打开商品详情页
         id <AlibcTradePage >page = [AlibcTradePageFactory itemDetailPage:self.gid];
         AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
         showParam.openType = AlibcOpenTypeAuto;
-        //    showParam.openType = AlibcOpenTypeNative;
         AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
-        taoKeParam.pid = nil;
         
-        //    [[AlibcTradeService sharedInstantce] show:self web];
         [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
-            NSLog(@"success!===%@",result);
+//            NSLog(@"success!===%@",result);
         } tradeProcessFailedCallback:^(NSError * _Nullable error) {
-            NSLog(@"fail");
         }];
         
+    }else if (but.tag==DetailsQuanBuyButton){
+        DSLog(@"优惠券页面");
+        //打开优惠券详情页
+         TJJHSGoodsListModel *model = self.dataArr[0];
+        id <AlibcTradePage >page = [AlibcTradePageFactory page:model.couponurl];
+        AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+        showParam.openType = AlibcOpenTypeAuto;
+        AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+                DSLog(@"success!==quan=%@",result);
+            } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+                //            NSLog(@"fail");
+            }];
+        });
+        
+       
     }else if (but.tag==DetailShareButton){
         DSLog(@"分享");
     }else if (but.tag==DetailsGoTopButton){
@@ -361,6 +381,21 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (void)getCouponClick:(UIButton *)sender{
+    DSLog(@"优惠券");
+    //打开优惠券详情页
+    TJJHSGoodsListModel *model = self.dataArr[0];
+    id <AlibcTradePage >page = [AlibcTradePageFactory page:model.couponurl];
+    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+    showParam.openType = AlibcOpenTypeAuto;
+    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+        }];
+    });
 }
 #pragma mark - UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {

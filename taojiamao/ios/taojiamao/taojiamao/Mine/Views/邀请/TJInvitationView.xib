@@ -30,53 +30,71 @@
                             <color key="textColor" red="0.98823529409999999" green="0.27058823529999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-vx-of1">
+                        <button opaque="NO" tag="140" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-vx-of1">
                             <rect key="frame" x="28" y="86" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="1xh-e8-1Dz"/>
                                 <constraint firstAttribute="width" constant="60" id="edb-M3-baV"/>
                             </constraints>
                             <state key="normal" title="Button" image="share_PYQ"/>
+                            <connections>
+                                <action selector="shareBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="d9C-9p-n47"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qw-Mf-jcn">
+                        <button opaque="NO" tag="141" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qw-Mf-jcn">
                             <rect key="frame" x="116" y="86" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="Em3-zM-za7"/>
                                 <constraint firstAttribute="width" constant="60" id="H6A-Kb-H4P"/>
                             </constraints>
                             <state key="normal" image="share_WX"/>
+                            <connections>
+                                <action selector="shareBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="6y3-jA-ClA"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSJ-jR-M0J">
+                        <button opaque="NO" tag="142" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSJ-jR-M0J">
                             <rect key="frame" x="204" y="86" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="6Ba-fZ-EDB"/>
                                 <constraint firstAttribute="width" constant="60" id="d3y-rA-HWR"/>
                             </constraints>
                             <state key="normal" image="share_QQ"/>
+                            <connections>
+                                <action selector="shareBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="kUv-An-L7C"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4e-sh-sbD">
+                        <button opaque="NO" tag="143" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4e-sh-sbD">
                             <rect key="frame" x="292" y="86" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="lg4-vc-OnR"/>
                                 <constraint firstAttribute="width" constant="60" id="wW4-f6-fOr"/>
                             </constraints>
                             <state key="normal" image="share_QQaz"/>
+                            <connections>
+                                <action selector="shareBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="yAg-EG-u0s"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0a-8n-bCM">
+                        <button opaque="NO" tag="144" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0a-8n-bCM">
                             <rect key="frame" x="28.5" y="205" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="byr-7K-siM"/>
                                 <constraint firstAttribute="height" constant="60" id="tlg-92-OVh"/>
                             </constraints>
                             <state key="normal" image="save_img"/>
+                            <connections>
+                                <action selector="shareBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ly6-aZ-8ie"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-mn-hJq">
+                        <button opaque="NO" tag="145" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDg-mn-hJq">
                             <rect key="frame" x="116" y="205" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="O6n-fB-r8S"/>
                                 <constraint firstAttribute="height" constant="60" id="dQd-ul-3vn"/>
                             </constraints>
                             <state key="normal" image="copy_link"/>
+                            <connections>
+                                <action selector="shareBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="GeS-5c-6jg"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EWO-BW-smT">
                             <rect key="frame" x="8" y="189" width="359" height="1"/>
@@ -210,7 +228,7 @@
     <resources>
         <image name="copy_link" width="60" height="60"/>
         <image name="save_img" width="60" height="60"/>
-        <image name="share_PYQ" width="61" height="61"/>
+        <image name="share_PYQ" width="60" height="60"/>
         <image name="share_QQ" width="60" height="60"/>
         <image name="share_QQaz" width="60" height="60"/>
         <image name="share_WX" width="60" height="60"/>

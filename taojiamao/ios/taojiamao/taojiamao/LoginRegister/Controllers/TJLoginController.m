@@ -69,7 +69,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
+    self.btn_close = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.2) tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
+    self.btn_close.layer.cornerRadius = 10;
+    self.btn_close.layer.masksToBounds = YES;
     [self.view addSubview:self.btn_close];
     [self.btn_close mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(35*H_Scale);
@@ -517,10 +519,10 @@
                 ALBBUser *user = [session getUser];
 //                DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
                 self.imgUrl = user.avatarUrl;
-                [self requestTaoBaoLoginWithTaoToken:user.topAccessToken withImage:user.avatarUrl withNickName:user.nick];
+                [self requestTaoBaoLoginWithTaoToken:user.openId withImage:user.avatarUrl withNickName:user.nick];
                 
             } failureCallback:^(ALBBSession *session,NSError *error){
-//                        DSLog(@"-======++++++++++++++session == %@,error == %@",session,error);
+
             }];
         }
             break;
@@ -540,7 +542,7 @@
     
 }
 
-- (void)requestTaoBaoLoginWithTaoToken:(NSString *)token withImage:(NSString *)img withNickName:(NSString *)nick{
+- (void)requestTaoBaoLoginWithTaoToken:(NSString *)openid withImage:(NSString *)img withNickName:(NSString *)nick{
     
     
 //     NSString *bimg = [img stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -553,14 +555,14 @@
     NSMutableDictionary *md = @{
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
-                                @"tao_token":token,
+                                @"tao_openid":openid,
                                 @"tao_image":bimg,
                                 @"tao_nick":bnick,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = TaoBaoLogin;
-        request.parameters = @{ @"tao_token":token,
+        request.parameters = @{ @"tao_openid":openid,
                                 @"tao_image":self.imgUrl,
                                 @"tao_nick":nick,};
         request.headers = @{@"timestamp": timeStr,
@@ -572,7 +574,7 @@
         
         //写入
         NSDictionary * data = responseObject[@"data"];
-        SetUserDefaults(data[@"id"], UID);
+        SetUserDefaults(data[@"id"], UID); SetUserDefaults(data[@"bind_tao"], Bind_TB);
         SetUserDefaults(HADLOGIN, HADLOGIN);
         NSLog(@"----淘宝login-success-%@===",responseObject);
         //控制器跳转

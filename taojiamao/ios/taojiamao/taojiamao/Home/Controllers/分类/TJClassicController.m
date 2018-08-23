@@ -13,14 +13,17 @@
 #import "TJClassicSecondCell.h"
 #import "TJClassicFirstCell.h"
 #import "TJGoodCatesMainListModel.h"
-@interface TJClassicController ()<UITableViewDataSource,UITableViewDelegate,TabCollectCellDelegate>
+#import "TJKallAdImgModel.h"
+@interface TJClassicController ()<UITableViewDataSource,UITableViewDelegate,TabCollectCellDelegate,SDCycleScrollViewDelegate>
 
 @property(nonatomic,strong)UITableView *tableView_left;
 @property (nonatomic, strong) UITableView *tableView_right;
-@property (nonatomic, strong) NSDictionary *dict_son;
-
+@property (nonatomic, strong) SDCycleScrollView *scrollV;
 @property (nonatomic, strong) NSMutableArray *dataArr_left;
 @property (nonatomic, strong) NSMutableArray *dataArr_right;
+@property (nonatomic, strong) NSMutableArray *bannerArr;
+@property (nonatomic, strong) NSMutableArray *imgArr;
+
 
 @property (nonatomic, strong) NSString *select_index;
 @property (nonatomic, strong) NSString *index;
@@ -30,7 +33,7 @@
 @implementation TJClassicController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadGoodsCatesList];
+    [self loadGoodsCatesList];[self requestAdImg];
     self.select_index = @"0";
     //设置全局状态栏字体颜色为黑色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
@@ -50,13 +53,13 @@
    
     [self.view addSubview:tableV];
     self.tableView_left = tableV;
-
-    UIView *bgView = [[UIView alloc]init];
-    bgView.frame = CGRectMake(100, SafeAreaTopHeight, S_W-100, 110);
-//    bgView.backgroundColor = RGB(245, 245, 245);
-    [self.view addSubview:bgView];
     
-    
+    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(110, SafeAreaTopHeight+10, S_W-120, 100) delegate:self placeholderImage:[UIImage imageNamed:@"ad_img"]];
+    cycleScrollView2.showPageControl = NO;
+    cycleScrollView2.layer.cornerRadius = 10;cycleScrollView2.layer.masksToBounds = YES;
+    [self.view addSubview:cycleScrollView2];
+    self.scrollV = cycleScrollView2;
+   
     
     UITableView *tableV2 = [[UITableView alloc]initWithFrame:CGRectMake(100, 110+SafeAreaTopHeight, S_W-100, S_H-110-64) style:UITableViewStylePlain];
     tableV2.tag = 2000;
@@ -68,7 +71,46 @@
     [self.view addSubview:tableV2];
     self.tableView_right= tableV2;
 }
+- (void)requestAdImg{
+    self.bannerArr = [NSMutableArray array];self.imgArr = [NSMutableArray array];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"posid":@"1",
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = [NSString stringWithFormat:@"%@1",KAllAdPosters];
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"---banner-%@",responseObject);
+        self.bannerArr = [TJKallAdImgModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        for (TJKallAdImgModel *m in self.bannerArr) {
+            [self.imgArr addObject:m.imgurl];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.scrollV.imageURLStringsGroup = self.imgArr;
 
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+        DSLog(@"---banner-%@",error);
+        
+    }];
+}
 - (void)loadGoodsCatesList{
     self.dataArr_left = [NSMutableArray array];
     self.dataArr_right = [NSMutableArray array];
@@ -104,11 +146,9 @@
         for (int i=1; i<dict.count+1; i++) {
             NSString *str = [NSString stringWithFormat:@"%d",i];
             TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
-//            DSLog(@"---fl=%@",dict[str]);
             [self.dataArr_left addObject:model];
     
         }
-
             dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView_left reloadData];
             [self.tableView_right reloadData];
@@ -116,12 +156,19 @@
         });
         
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--分类-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+
     }];
 }
-#pragma mark  - delegate
+#pragma mark - icarouseldelegte
+#pragma mark - SDCycleScrollViewDelegate
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+//    TJHomePageModel *m = self.imgDataArr[index];
+//    TJAdWebController *vc = [[TJAdWebController alloc]init];vc.url = m.flag;
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+#pragma mark  - tableviewdelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView.tag==1000) {
         return 1;
@@ -194,8 +241,8 @@
     if (tableView.tag==1000) {
         self.select_index = [NSString stringWithFormat:@"%ld",indexPath.row];
 //        [self.tableView_right reloadData];
-        NSIndexPath * index = [NSIndexPath indexPathWithIndex:indexPath.row];
-//        [self.tableView_right scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
+        [self.tableView_right scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
         
     }else{
         

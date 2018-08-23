@@ -26,7 +26,6 @@
 @implementation TJBargainController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     //去掉导航栏底部的黑线
@@ -38,7 +37,6 @@
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
    
 }
 - (void)viewDidLoad {

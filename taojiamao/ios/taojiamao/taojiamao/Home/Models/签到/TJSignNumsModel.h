@@ -12,4 +12,6 @@
 
 @property (nonatomic, assign) int num;
 @property (nonatomic, assign) int nums;
+@property (nonatomic, strong) NSString * status;
+
 @end

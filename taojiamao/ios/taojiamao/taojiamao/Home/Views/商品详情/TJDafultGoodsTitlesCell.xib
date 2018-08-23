@@ -135,6 +135,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="btn_coupon" destination="ki1-sg-flU" id="g5s-Ig-6mB"/>
+                <outlet property="img_bs" destination="Kb7-0q-dku" id="qDu-74-7Eg"/>
                 <outlet property="lab_couponmoneny" destination="gE9-9P-mgP" id="iP0-DY-q5V"/>
                 <outlet property="lab_price" destination="QnM-Zz-Nzy" id="qAr-GE-IBg"/>
                 <outlet property="lab_prime" destination="Ocx-vW-QYy" id="hfL-Kh-WoL"/>

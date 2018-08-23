@@ -93,6 +93,10 @@ static NSString * const TJUserAssistanceCell = @"TJUserAssistanceCell";
         DSLog(@"打开qq");
     }else{
         DSLog(@"打电话");
+        NSMutableString * string = [[NSMutableString alloc] initWithFormat:@"tel:%@",@"0311-25545522"];
+        UIWebView * callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]];
+        [self.view addSubview:callWebview];
     }
 }
 #pragma mark -UITableViewDelegate,UITableViewDataSource

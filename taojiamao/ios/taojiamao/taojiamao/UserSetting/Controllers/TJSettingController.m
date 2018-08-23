@@ -14,6 +14,9 @@
 #import "TJAccountSafeController.h"
 #import "TJBindTBController.h"
 
+#import <AlibabaAuthSDK/ALBBSDK.h>
+
+//#import <ALBBLoginSDK/ALBBLoginService.h>
 #define LogOut 7878787878
 static NSString *const TJSettingCell = @"TJSettingCell";
 static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
@@ -140,6 +143,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
             [self.navigationController pushViewController:asvc animated:YES];
         }else{
             TJBindTBController * bvc = [[TJBindTBController alloc]init];
+            bvc.nickname = self.nickname;bvc.imgurl = self.imgurl;
             [self.navigationController pushViewController:bvc animated:YES];
         }
     }else if (indexPath.section==1){
@@ -171,8 +175,10 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
     WeakSelf
     TJAlertController * alert = [TJAlertController alertWithTitle:@"温馨提示" message:@"确定要退出此账号吗？" style:UIAlertControllerStyleAlert sureClick:^(UIAlertAction * _Nonnull action) {
         RemoveUserDefaults(UID);
-        RemoveUserDefaults(TOKEN);
+//        RemoveUserDefaults(TOKEN);
         RemoveUserDefaults(HADLOGIN);
+        ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
+        [albbSDK logout];
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } cancelClick:^(UIAlertAction * _Nonnull action) {
         DSLog(@"取消");

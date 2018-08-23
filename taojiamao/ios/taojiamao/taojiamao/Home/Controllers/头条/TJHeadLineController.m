@@ -25,12 +25,12 @@
 @implementation TJHeadLineController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.page = 1;
-    [self loadRequestNormalNewsList];
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.page = 1;
+    [self loadRequestNormalNewsList];
     //    you边按钮
     TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:5496 withBackImage:@"sgm" withSelectImage:nil];
     

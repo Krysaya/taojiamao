@@ -40,7 +40,9 @@
 //        NSLog(@"Init failed: %@", error.description);
     }];
     [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
-    
+    // 开发阶段打开日志开关，方便排查错误信息
+    //默认调试模式打开日志,release关闭,可以不调用下面的函数
+    [[AlibcTradeSDK sharedInstance] setDebugLogOpen:NO];
     
     // 配置全局的淘客参数
     //如果没有阿里妈妈的淘客账号,setTaokeParams函数需要调用

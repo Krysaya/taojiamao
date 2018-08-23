@@ -11,4 +11,7 @@
 @interface TJSettingController : TJBaseViewController
 
 @property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSString *imgurl;
+@property (nonatomic, strong) NSString *nickname;
+
 @end

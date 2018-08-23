@@ -33,9 +33,7 @@
 @implementation TJVipPerformanceController
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    
+    [super viewWillAppear:animated];    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

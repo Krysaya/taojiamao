@@ -25,7 +25,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = KALLRGB;
     
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 //    [self.navigationController.navigationBar setBackgroundImage:img forBarMetrics:UIBarMetricsDefault];
     //去掉导航栏底部的黑线
     self.navigationController.navigationBar.shadowImage = [UIImage new];
@@ -230,7 +229,7 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 //   
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
-    goodVC.gid = model.itemid;
+    goodVC.gid = model.itemid;goodVC.price = model.itemprice;goodVC.priceQuan = model.itemendprice;
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

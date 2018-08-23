@@ -60,6 +60,19 @@
     }
 
 }
+
+//http传输过程的数据转换
++ (NSString *)encodeToPercentEscapeString:(NSString *)input
+{
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
+}
+
 //-(void)judgeAuthcode{
 //    
 //    NSString * authcode = GetUserDefaults(Auth_code);

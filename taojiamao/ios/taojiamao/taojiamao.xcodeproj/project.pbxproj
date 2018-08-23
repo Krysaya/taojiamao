@@ -252,6 +252,9 @@
 		C758CC1520A2FCD1000F1903 /* MOFSToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CC0E20A2FCD0000F1903 /* MOFSToolView.m */; };
 		C758CC1620A2FCD1000F1903 /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = C758CC0F20A2FCD0000F1903 /* province_data.xml */; };
 		C75B3712210AA89E00FA5B0B /* TJJHSGoodsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C75B3711210AA89D00FA5B0B /* TJJHSGoodsListModel.m */; };
+		C75C7D22212E439700A83201 /* TJKallAdImgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C75C7D21212E439700A83201 /* TJKallAdImgModel.m */; };
+		C75C7D27212E57D000A83201 /* TJAdWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75C7D25212E57D000A83201 /* TJAdWebController.m */; };
+		C75C7D28212E57D000A83201 /* TJAdWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75C7D26212E57D000A83201 /* TJAdWebController.xib */; };
 		C75F64B820EF1DE600B55B8B /* TJJHSuanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C75F64B620EF1DE600B55B8B /* TJJHSuanCell.m */; };
 		C75F64B920EF1DE600B55B8B /* TJJHSuanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75F64B720EF1DE600B55B8B /* TJJHSuanCell.xib */; };
 		C75F64BC20EF46B100B55B8B /* TJHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75F64BB20EF46B100B55B8B /* TJHomePageController.m */; };
@@ -1172,6 +1175,11 @@
 		C758CC0F20A2FCD0000F1903 /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
 		C75B3710210AA89D00FA5B0B /* TJJHSGoodsListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJJHSGoodsListModel.h; sourceTree = "<group>"; };
 		C75B3711210AA89D00FA5B0B /* TJJHSGoodsListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJJHSGoodsListModel.m; sourceTree = "<group>"; };
+		C75C7D20212E439700A83201 /* TJKallAdImgModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKallAdImgModel.h; sourceTree = "<group>"; };
+		C75C7D21212E439700A83201 /* TJKallAdImgModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKallAdImgModel.m; sourceTree = "<group>"; };
+		C75C7D24212E57D000A83201 /* TJAdWebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAdWebController.h; sourceTree = "<group>"; };
+		C75C7D25212E57D000A83201 /* TJAdWebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAdWebController.m; sourceTree = "<group>"; };
+		C75C7D26212E57D000A83201 /* TJAdWebController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJAdWebController.xib; sourceTree = "<group>"; };
 		C75F64B520EF1DE600B55B8B /* TJJHSuanCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJJHSuanCell.h; sourceTree = "<group>"; };
 		C75F64B620EF1DE600B55B8B /* TJJHSuanCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJJHSuanCell.m; sourceTree = "<group>"; };
 		C75F64B720EF1DE600B55B8B /* TJJHSuanCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJJHSuanCell.xib; sourceTree = "<group>"; };
@@ -2578,6 +2586,7 @@
 		C73FC78F209019F300732F2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C75C7D1F212E436E00A83201 /* 广告 */,
 				C7B913D92113E8E000D8729C /* 首页 */,
 				C738FC2E2111A13D00104B69 /* 头条 */,
 				C78E83E9210EB27D00B04E19 /* 分类 */,
@@ -3267,6 +3276,7 @@
 		C7588E6220F5935500CA5574 /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				C75C7D23212E57AC00A83201 /* web */,
 				C75F64BA20EF46B100B55B8B /* TJHomePageController.h */,
 				C75F64BB20EF46B100B55B8B /* TJHomePageController.m */,
 				C75891562092CFF800AC085E /* TJHomeController.h */,
@@ -3396,6 +3406,25 @@
 				C758CC0F20A2FCD0000F1903 /* province_data.xml */,
 			);
 			path = MOFSPickerManager;
+			sourceTree = "<group>";
+		};
+		C75C7D1F212E436E00A83201 /* 广告 */ = {
+			isa = PBXGroup;
+			children = (
+				C75C7D20212E439700A83201 /* TJKallAdImgModel.h */,
+				C75C7D21212E439700A83201 /* TJKallAdImgModel.m */,
+			);
+			path = "广告";
+			sourceTree = "<group>";
+		};
+		C75C7D23212E57AC00A83201 /* web */ = {
+			isa = PBXGroup;
+			children = (
+				C75C7D24212E57D000A83201 /* TJAdWebController.h */,
+				C75C7D25212E57D000A83201 /* TJAdWebController.m */,
+				C75C7D26212E57D000A83201 /* TJAdWebController.xib */,
+			);
+			path = web;
 			sourceTree = "<group>";
 		};
 		C75F64BD20EF62E300B55B8B /* 商品详情 */ = {
@@ -5085,6 +5114,7 @@
 				C794FFDF2119296700FB580F /* TJCourierTakeCell.xib in Resources */,
 				C73FC763209017FD00732F2D /* Main.storyboard in Resources */,
 				C76E8616212599A600DD8AA5 /* TJKdFabuController.xib in Resources */,
+				C75C7D28212E57D000A83201 /* TJAdWebController.xib in Resources */,
 				C7D9CF1F211BE4F300E70DD0 /* TJKdMineMiddleCell.xib in Resources */,
 				C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */,
 				C79646822111C7A100F1AB26 /* TJHeadLineContentCell.xib in Resources */,
@@ -5263,6 +5293,7 @@
 				C74520CD20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.m in Sources */,
 				C73FC823209025CE00732F2D /* XDMemoryCache.m in Sources */,
 				C77D0EA920A3ED5B000F794A /* YYTextWeakProxy.m in Sources */,
+				C75C7D22212E439700A83201 /* TJKallAdImgModel.m in Sources */,
 				C786473C20F3625C00995A8F /* TJNoticeCell.m in Sources */,
 				C75891492092B85D00AC085E /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				C77FF1EB211C444900D07AFE /* TJKdMyOpintionMyController.m in Sources */,
@@ -5342,6 +5373,7 @@
 				C73D393520E363730004D5B4 /* TJInviteController.m in Sources */,
 				C74099FF2091CF3600DFCC94 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				C77FF1E6211C2B9F00D07AFE /* TJKdMyMoneyController.m in Sources */,
+				C75C7D27212E57D000A83201 /* TJAdWebController.m in Sources */,
 				C77DB9082129205600FA714D /* TJPublicURL.m in Sources */,
 				C73FC825209025CE00732F2D /* XDNetworking.m in Sources */,
 				C74D8931210027FF0098754C /* TJShareTwoCell.m in Sources */,

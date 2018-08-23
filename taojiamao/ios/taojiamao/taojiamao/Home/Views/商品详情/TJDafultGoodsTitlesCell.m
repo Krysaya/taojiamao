@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lab_prime;
 @property (weak, nonatomic) IBOutlet UILabel *lab_totalprenson;
 @property (weak, nonatomic) IBOutlet UILabel *lab_couponmoneny;
+@property (weak, nonatomic) IBOutlet UIImageView *img_bs;
 
 
 @end

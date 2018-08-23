@@ -67,11 +67,6 @@
     
 }
 
-
-
-
-
-
 -(void)setNavSerachBar{
 
     
@@ -138,6 +133,10 @@
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     DSLog(@"%@",textField.text);
+    TJSearchContentController *vc = _childVCs[0];
+    vc.strsearch = textField.text;
+    TJSuperSearchController *vc1 = _childVCs[1];
+    vc1.strsearch = textField.text;
     return YES;
 }
 -(void)dealloc{

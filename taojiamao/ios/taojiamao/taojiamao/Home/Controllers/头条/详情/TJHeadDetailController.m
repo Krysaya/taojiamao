@@ -37,9 +37,11 @@
     [super viewWillAppear:animated];
     [self requestNewsInfoList];
     [self requestReplyList];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     self.title = self.title_art;
     //    you边按钮
     TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:5496 withBackImage:@"share" withSelectImage:nil];
@@ -91,14 +93,18 @@
         DSLog(@"----newsinfo-success-===%@",responseObject);
         
         NSDictionary *dict = responseObject[@"data"];
-        TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
-        TJArticlesListModel *remodel = [TJArticlesListModel mj_objectWithKeyValues:dict[@"relate"]];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+        if (dict.count>0) {
+            TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
+            TJArticlesListModel *remodel = [TJArticlesListModel mj_objectWithKeyValues:dict[@"relate"]];
             self.model = model;
             self.remodel = remodel;
-            [self.tableView reloadData];
-        });
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+            });
+        }
+       
         
     } onFailure:^(NSError * _Nullable error) {
         
@@ -134,12 +140,17 @@
         request.parameters = @{ @"aid":self.aid,
                                 };
     } onSuccess:^(id  _Nullable responseObject) {
-        self.commentArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-
-            [self.tableView reloadData];
-        });
         DSLog(@"--pl%@==success==",responseObject);
+
+        NSDictionary *dict = responseObject[@"data"];
+        if (dict.count>0) {
+            self.commentArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+            });
+        }
+       
     } onFailure:^(NSError * _Nullable error) {
 
     }];
@@ -207,6 +218,7 @@
             //            分享
             TJHeadLineShareCell *cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell"];
             [cell.btn_zan addTarget:self action:@selector(dianzanClick:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.btn_zan setTitle:self.model.like_num forState:UIControlStateNormal];
             return cell;
         }
     }else if (indexPath.section==1){
@@ -302,10 +314,12 @@
     }];
 }
 - (IBAction)scrollAllContent:(UIButton *)sender {
+    if (self.commentArr.count>0) {
+        NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:2];
+        [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
     
-    
-    NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:2];
-    
+    NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:1];
     [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
@@ -340,8 +354,13 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"type":i,@"aid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
-        
+        [SVProgressHUD showInfoWithStatus:@"点赞了~"];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+        //2.将indexPath添加到数组
+        NSArray <NSIndexPath *> *indexPathArray = @[indexPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
         });
     }onFailure:^(NSError * _Nullable error) {
 
