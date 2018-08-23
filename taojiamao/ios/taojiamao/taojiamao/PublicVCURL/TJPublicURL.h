@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface TJPublicURL : NSObject
-+(void)goAnyViewController:(UIViewController *)weakSelf withidentif:(NSString *)identifier;
+//+(void)goAnyViewController:(UIViewController *)weakSelf withidentif:(NSString *)identifier;
 +(void)goAnyViewController:(UIViewController *)weakSelf withidentif:(NSString *)identifier withParam:(NSString *)param;
 
 @end

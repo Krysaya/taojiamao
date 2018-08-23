@@ -39,12 +39,12 @@
     [super pushViewController:viewController animated:animated];
 }
 -(void)setBackButtonWithVC:(UIViewController*)vc{
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton setImage:[UIImage imageNamed:@"back_left"] forState:UIControlStateNormal];
 //    [backButton setBackgroundImage:[UIImage imageNamed:@"bake_left"] forState:UIControlStateNormal];
-//    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [backButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateHighlighted];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [backButton sizeToFit];
     // 注意:一定要在按钮内容有尺寸的时候,设置才有效果

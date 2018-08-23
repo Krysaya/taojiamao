@@ -88,7 +88,7 @@
         request.httpMethod = kXMHTTPMethodGET;
 //                request.parameters = @{@"type":type};
     } onSuccess:^(id  _Nullable responseObject) {
-//        DSLog(@"----newsinfo-success-===%@",responseObject);
+        DSLog(@"----newsinfo-success-===%@",responseObject);
         
         NSDictionary *dict = responseObject[@"data"];
         TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
@@ -121,8 +121,6 @@
                                 @"app": @"ios",
                                 @"uid":userid,
                                 @"aid":self.aid,
-                                
-                                
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -342,6 +340,7 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"type":i,@"aid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
+        
         dispatch_async(dispatch_get_main_queue(), ^{
         });
     }onFailure:^(NSError * _Nullable error) {

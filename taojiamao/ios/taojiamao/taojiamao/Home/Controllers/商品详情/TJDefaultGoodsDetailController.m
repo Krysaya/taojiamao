@@ -18,6 +18,10 @@
 #import "TJJHSGoodsListModel.h"
 #import "UIViewController+Extension.h"
 
+#import <AlibabaAuthSDK/ALBBSDK.h>
+#import <AlibcTradeSDK/AlibcTradeSDK.h>
+#import <AlibcTradeSDK/AlibcTradePageFactory.h>
+#import <AlibcTradeSDK/AlibcTradeService.h>
 static NSString * const GoodsDetailsTitleCell = @"GoodsDetailsTitleCell";
 static NSString * const GoodsDetailsElectCell = @"GoodsDetailsElectCell";
 static NSString * const GoodsDetailsLFCCell = @"GoodsDetailsLFCCell";
@@ -171,7 +175,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.top.mas_equalTo(weakSelf.shareB.mas_bottom).offset(6*H_Scale);
     }];
     
-    self.buy = [[TJButton alloc]initWith:@"立即购买" delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:[UIColor redColor] tag:DetailsBuyButton cornerRadius:0];
+    self.buy = [[TJButton alloc]initWith:@"立即购买" delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:KALLRGB tag:DetailsBuyButton cornerRadius:0];
     [self.footView addSubview:self.buy];
     [self.buy mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerY.mas_equalTo(weakSelf.footView);
@@ -330,6 +334,21 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(void)buttonClick:(UIButton *)but{
     if (but.tag==DetailsBuyButton) {
         DSLog(@"购买");
+        //打开商品详情页
+        id <AlibcTradePage >page = [AlibcTradePageFactory itemDetailPage:self.gid];
+        AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+        showParam.openType = AlibcOpenTypeAuto;
+        //    showParam.openType = AlibcOpenTypeNative;
+        AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+        taoKeParam.pid = nil;
+        
+        //    [[AlibcTradeService sharedInstantce] show:self web];
+        [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+            NSLog(@"success!===%@",result);
+        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+            NSLog(@"fail");
+        }];
+        
     }else if (but.tag==DetailShareButton){
         DSLog(@"分享");
     }else if (but.tag==DetailsGoTopButton){

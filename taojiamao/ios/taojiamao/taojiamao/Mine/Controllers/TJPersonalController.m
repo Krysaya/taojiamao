@@ -349,8 +349,6 @@
         [self.userType mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(weakSelf.userName.mas_bottom).offset(14*H_Scale);
             make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15*W_Scale);
-            make.width.mas_equalTo(103*W_Scale);
-            make.height.mas_equalTo(20*H_Scale);
         }];
     }else{
         //    halo
@@ -437,7 +435,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     TJMembersModel *m = self.topArr[indexPath.row];
     DSLog(@"---w-%@==%@",m.flag,m.param);
-    [TJPublicURL goAnyViewController:self withidentif:m.flag];
+    [TJPublicURL goAnyViewController:self withidentif:m.flag withParam:m.param];
     
 }
 #pragma mark - TJButtonDelegate
@@ -564,7 +562,7 @@
         NSArray *arrmodel = [TJMembersModel mj_objectArrayWithKeyValuesArray:arr];
         TJMembersModel *model_m = arrmodel[indexPath.row];
         DSLog(@"====%ld---%@",indexPath.row,model_m.flag);
-        [TJPublicURL goAnyViewController:self withidentif:model_m.flag];
+        [TJPublicURL goAnyViewController:self withidentif:model_m.flag withParam:model_m.param];
     }
 //
 }

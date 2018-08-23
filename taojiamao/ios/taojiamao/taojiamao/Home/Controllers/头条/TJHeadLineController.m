@@ -68,7 +68,7 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"page_size":@"10",
+                                @"page_size":@"8",
                                 @"page_no":pag,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
@@ -80,10 +80,10 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{  @"page_size":@"10",
+        request.parameters = @{  @"page_size":@"8",
                                  @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
-        
+        DSLog(@"---%@--success",responseObject);
         NSDictionary *dict = responseObject[@"data"];
         NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         [self.dataArr addObjectsFromArray:array];
@@ -122,7 +122,7 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"page_size":@"10",
+                                @"page_size":@"8",
                                 @"page_no":pag,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
@@ -134,10 +134,11 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{  @"page_size":@"10",
+        request.parameters = @{  @"page_size":@"8",
                                  @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
-        
+        [self.tableView.mj_footer endRefreshing];
+
         NSDictionary *dict = responseObject[@"data"];
         NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         [self.dataArr addObjectsFromArray:array];

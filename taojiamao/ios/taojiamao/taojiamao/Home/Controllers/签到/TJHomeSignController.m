@@ -85,7 +85,6 @@
                                 @"uid":userid,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    DSLog(@"--%@==",md5Str);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = MembersSigns;
         request.headers = @{@"timestamp": timeStr,
@@ -147,7 +146,10 @@
         }
         
     } onFailure:^(NSError * _Nullable error) {
-        [SVProgressHUD showInfoWithStatus:@"签到失败！"];
+        if (methodtype==kXMHTTPMethodPOST) {
+            [SVProgressHUD showInfoWithStatus:@"签到失败！"];}else{
+                
+            }
     }];
     
 }
@@ -163,7 +165,6 @@
     switc.onTintColor = KALLRGB;
 //    [switc addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventValueChanged];
     
-    
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(25+switc.frame.size.width+6, 13+SafeAreaTopHeight, 100, 25)];
     label.text = @"签到通知开关";
     label.textColor = RGB(153, 153, 153);
@@ -175,7 +176,6 @@
 - (void)buttonClick:(UIButton *)but{
     TJSignRuleController *ruleVc = [[TJSignRuleController alloc]init];
     ruleVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-
     [self presentViewController:ruleVc animated:NO completion:nil];
 }
 
@@ -276,10 +276,7 @@
             make.font([UIFont systemFontOfSize:13.f]).textColor([UIColor orangeColor]);
         });
     });
-    
-    
     numLab.attributedText = attrStr;
-    
     iCarousel *icarou = [[iCarousel alloc]initWithFrame:CGRectMake(0, S_H-120, S_W, 120)];
     icarou.type = iCarouselTypeLinear;
     icarou.pagingEnabled = YES;

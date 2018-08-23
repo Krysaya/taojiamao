@@ -31,7 +31,7 @@
 //        _imgView.backgroundColor = RandomColor;
         [self.contentView addSubview:_imgView];
             [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.height.mas_equalTo(24);
+                make.width.height.mas_equalTo(self.height);
                 make.top.mas_equalTo(self.contentView.mas_top);
                 make.centerX.mas_equalTo(self.contentView.mas_centerX);
             }];

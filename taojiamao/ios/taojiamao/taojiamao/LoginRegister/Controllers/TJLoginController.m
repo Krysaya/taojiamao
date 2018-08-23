@@ -53,6 +53,8 @@
 
 @property(nonatomic,strong)UIView * shareView;
 
+
+@property (nonatomic, strong) NSString *imgUrl;
 @end
 
 @implementation TJLoginController{
@@ -513,12 +515,12 @@
             [albbSDK auth:self successCallback:^(ALBBSession *session){
                 
                 ALBBUser *user = [session getUser];
-                DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
-                
+//                DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
+                self.imgUrl = user.avatarUrl;
                 [self requestTaoBaoLoginWithTaoToken:user.topAccessToken withImage:user.avatarUrl withNickName:user.nick];
                 
             } failureCallback:^(ALBBSession *session,NSError *error){
-                        DSLog(@"-======++++++++++++++session == %@,error == %@",session,error);
+//                        DSLog(@"-======++++++++++++++session == %@,error == %@",session,error);
             }];
         }
             break;
@@ -540,9 +542,12 @@
 
 - (void)requestTaoBaoLoginWithTaoToken:(NSString *)token withImage:(NSString *)img withNickName:(NSString *)nick{
     
-     NSString *bimg = [img stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-     NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF16StringEncoding];
-    NSString *a = [@"支付尾款" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+//     NSString *bimg = [img stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSString *bimg = [self encodeToPercentEscapeString:self.imgUrl];
+
+     NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary *md = @{
@@ -552,12 +557,11 @@
                                 @"tao_image":bimg,
                                 @"tao_nick":bnick,
                                 }.mutableCopy;
-    DSLog(@"--%@--%@p--%@",img,bimg,a);
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = TaoBaoLogin;
         request.parameters = @{ @"tao_token":token,
-                                @"tao_image":img,
+                                @"tao_image":self.imgUrl,
                                 @"tao_nick":nick,};
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
@@ -570,7 +574,7 @@
         NSDictionary * data = responseObject[@"data"];
         SetUserDefaults(data[@"id"], UID);
         SetUserDefaults(HADLOGIN, HADLOGIN);
-        NSLog(@"----淘宝login-success-%@===ID%@",responseObject,data[@"id"]);
+        NSLog(@"----淘宝login-success-%@===",responseObject);
         //控制器跳转
         [self dismissViewControllerAnimated:YES completion:nil];
     } onFailure:^(NSError * _Nullable error) {
@@ -583,6 +587,19 @@
     }];
     
 }
+//http传输过程的数据转换
+- (NSString *)encodeToPercentEscapeString: (NSString *) input
+{
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
+}
+
+
 #pragma mark -lazyloading
 - (NSMutableArray *)titleBtns
 {

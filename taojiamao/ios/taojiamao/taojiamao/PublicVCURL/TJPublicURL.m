@@ -45,7 +45,7 @@
 @implementation TJPublicURL
 
 
-+(void)goAnyViewController:(UIViewController *)weakSelf withidentif:(NSString *)identifier{
++(void)goAnyViewController:(UIViewController *)weakSelf withidentif:(NSString *)identifier withParam:(NSString *)param{
     if ([identifier isEqualToString: @"sign"]) {
 //        签到
         TJHomeSignController *vc= [[TJHomeSignController alloc]init];
@@ -60,7 +60,7 @@
         [weakSelf.navigationController pushViewController:vc animated:YES];}
     if ([identifier isEqualToString: @"primaryNavigatorDetail"]) {
         //首页--女装
-        TJHomeController *vc= [[TJHomeController alloc]init];
+        TJHomeController *vc= [[TJHomeController alloc]init];vc.index = param;
         [weakSelf.navigationController pushViewController:vc animated:YES];}
   
     if ([identifier isEqualToString: @"navigator"]) {//分类
@@ -137,12 +137,16 @@
     
 }
 
-+(void)goAnyViewController:(UIViewController *)weakSelf withidentif:(NSString *)identifier withParam:(NSString *)param{
-    if ([identifier isEqualToString: @"asset"]) {//搜索
-        TJSearchController *vc= [[TJSearchController alloc]init];
-        vc.searchText = param;
-        [weakSelf.navigationController pushViewController:vc animated:YES];}
-    
-    
-}
+//+(void)goAnyViewController:(UIViewController *)weakSelf withidentif:(NSString *)identifier withParam:(NSString *)param{
+//    if ([identifier isEqualToString: @"asset"]) {//搜索
+//        TJSearchController *vc= [[TJSearchController alloc]init];
+//        vc.searchText = param;
+//        [weakSelf.navigationController pushViewController:vc animated:YES];}
+//    if ([identifier isEqualToString: @"primaryNavigatorDetail"]) {
+//        //首页--女装
+//        TJHomeController *vc= [[TJHomeController alloc]init];
+//        vc.index = param;
+//        [weakSelf.navigationController pushViewController:vc animated:YES];}
+//
+//}
 @end

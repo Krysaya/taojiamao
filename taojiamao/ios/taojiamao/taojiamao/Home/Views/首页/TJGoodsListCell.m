@@ -72,7 +72,7 @@
         
         self.lab_yuanjia.attributedText = attribt_yuanj;
         self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
-        NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
+        NSString *str_coupon = [NSString stringWithFormat:@"%@元券",model.couponmoney];
         [self.btn_quan setTitle:str_coupon forState:UIControlStateNormal];
 //        NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
 //            make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
@@ -99,7 +99,7 @@
         
         self.lab_yuanjia.attributedText = attribt_yuanj;
         self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
-        NSString *str_coupon = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
+        NSString *str_coupon = [NSString stringWithFormat:@"%@元券",model.couponmoney];
         [self.btn_quan setTitle:str_coupon forState:UIControlStateNormal];
 //        NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
 //            make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);

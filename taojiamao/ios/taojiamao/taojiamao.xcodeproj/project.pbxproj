@@ -67,7 +67,6 @@
 		C7206C1220A0323A00957A4A /* TJWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7206C1120A0323A00957A4A /* TJWebController.m */; };
 		C720DE05209414AF0027AD26 /* TJMineListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C720DE04209414AF0027AD26 /* TJMineListCell.m */; };
 		C720EDB620906D99007AA53C /* TJBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C720EDB520906D99007AA53C /* TJBaseViewController.m */; };
-		C720EDB920906E1F007AA53C /* TJtestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C720EDB820906E1F007AA53C /* TJtestViewController.m */; };
 		C720EDBC20907268007AA53C /* TJNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C720EDBB20907268007AA53C /* TJNavigationController.m */; };
 		C720EDBF20907293007AA53C /* TJTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C720EDBE20907293007AA53C /* TJTabBarController.m */; };
 		C720EDC3209074CA007AA53C /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = C720EDC2209074CA007AA53C /* NSString+Hash.m */; };
@@ -238,7 +237,6 @@
 		C75891522092CCFA00AC085E /* TJLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75891512092CCFA00AC085E /* TJLoginController.m */; };
 		C75891582092CFF800AC085E /* TJHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75891572092CFF800AC085E /* TJHomeController.m */; };
 		C758915B2092D01300AC085E /* TJTQGouController.m in Sources */ = {isa = PBXBuildFile; fileRef = C758915A2092D01300AC085E /* TJTQGouController.m */; };
-		C758915E2092D02E00AC085E /* TJCQuanController.m in Sources */ = {isa = PBXBuildFile; fileRef = C758915D2092D02E00AC085E /* TJCQuanController.m */; };
 		C75891612092D04700AC085E /* TJJHSuanController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75891602092D04700AC085E /* TJJHSuanController.m */; };
 		C758A05C2109B33000DDFDAD /* TJSignListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C758A05B2109B33000DDFDAD /* TJSignListModel.m */; };
 		C758A0622109BD1E00DDFDAD /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = C758A0602109BD1E00DDFDAD /* iCarousel.m */; };
@@ -552,6 +550,10 @@
 		C796467D2111C5A100F1AB26 /* TJArticlesInfoListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C796467C2111C5A100F1AB26 /* TJArticlesInfoListModel.m */; };
 		C79646812111C7A100F1AB26 /* TJHeadLineContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C796467F2111C7A100F1AB26 /* TJHeadLineContentCell.m */; };
 		C79646822111C7A100F1AB26 /* TJHeadLineContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C79646802111C7A100F1AB26 /* TJHeadLineContentCell.xib */; };
+		C7988CA9212D604100A88F0E /* DHGifImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C7988CA5212D604100A88F0E /* DHGifImageOperation.m */; };
+		C7988CAA212D604100A88F0E /* DHGuidePageHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C7988CA7212D604100A88F0E /* DHGuidePageHUD.m */; };
+		C7988CAB212D604100A88F0E /* GuideImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C7988CA8212D604100A88F0E /* GuideImage.bundle */; };
+		C7988CAD212D60DB00A88F0E /* qdt.png in Resources */ = {isa = PBXBuildFile; fileRef = C7988CAC212D60DB00A88F0E /* qdt.png */; };
 		C79B99D620FF0F430096E9C6 /* TJClassicSecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B99D520FF0F430096E9C6 /* TJClassicSecondController.m */; };
 		C79BBA3D20E9D17500506C66 /* TJMallOrdersController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79BBA3C20E9D17500506C66 /* TJMallOrdersController.m */; };
 		C79BBA4020E9D2C100506C66 /* TJMallOrdersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C79BBA3F20E9D2C100506C66 /* TJMallOrdersCell.m */; };
@@ -794,8 +796,6 @@
 		C720EDB320906120007AA53C /* NotificationString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationString.h; sourceTree = "<group>"; };
 		C720EDB420906D99007AA53C /* TJBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBaseViewController.h; sourceTree = "<group>"; };
 		C720EDB520906D99007AA53C /* TJBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBaseViewController.m; sourceTree = "<group>"; };
-		C720EDB720906E1F007AA53C /* TJtestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJtestViewController.h; sourceTree = "<group>"; };
-		C720EDB820906E1F007AA53C /* TJtestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJtestViewController.m; sourceTree = "<group>"; };
 		C720EDBA20907268007AA53C /* TJNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJNavigationController.h; sourceTree = "<group>"; };
 		C720EDBB20907268007AA53C /* TJNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJNavigationController.m; sourceTree = "<group>"; };
 		C720EDBD20907293007AA53C /* TJTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTabBarController.h; sourceTree = "<group>"; };
@@ -1144,8 +1144,6 @@
 		C75891572092CFF800AC085E /* TJHomeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJHomeController.m; sourceTree = "<group>"; };
 		C75891592092D01300AC085E /* TJTQGouController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTQGouController.h; sourceTree = "<group>"; };
 		C758915A2092D01300AC085E /* TJTQGouController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTQGouController.m; sourceTree = "<group>"; };
-		C758915C2092D02E00AC085E /* TJCQuanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJCQuanController.h; sourceTree = "<group>"; };
-		C758915D2092D02E00AC085E /* TJCQuanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJCQuanController.m; sourceTree = "<group>"; };
 		C758915F2092D04700AC085E /* TJJHSuanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJJHSuanController.h; sourceTree = "<group>"; };
 		C75891602092D04700AC085E /* TJJHSuanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJJHSuanController.m; sourceTree = "<group>"; };
 		C758A05A2109B33000DDFDAD /* TJSignListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSignListModel.h; sourceTree = "<group>"; };
@@ -1698,6 +1696,12 @@
 		C796467E2111C7A100F1AB26 /* TJHeadLineContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJHeadLineContentCell.h; sourceTree = "<group>"; };
 		C796467F2111C7A100F1AB26 /* TJHeadLineContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJHeadLineContentCell.m; sourceTree = "<group>"; };
 		C79646802111C7A100F1AB26 /* TJHeadLineContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJHeadLineContentCell.xib; sourceTree = "<group>"; };
+		C7988CA4212D604100A88F0E /* DHGifImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHGifImageOperation.h; sourceTree = "<group>"; };
+		C7988CA5212D604100A88F0E /* DHGifImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHGifImageOperation.m; sourceTree = "<group>"; };
+		C7988CA6212D604100A88F0E /* DHGuidePageHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHGuidePageHUD.h; sourceTree = "<group>"; };
+		C7988CA7212D604100A88F0E /* DHGuidePageHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHGuidePageHUD.m; sourceTree = "<group>"; };
+		C7988CA8212D604100A88F0E /* GuideImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GuideImage.bundle; sourceTree = "<group>"; };
+		C7988CAC212D60DB00A88F0E /* qdt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qdt.png; sourceTree = "<group>"; };
 		C79B99D420FF0F430096E9C6 /* TJClassicSecondController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJClassicSecondController.h; sourceTree = "<group>"; };
 		C79B99D520FF0F430096E9C6 /* TJClassicSecondController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJClassicSecondController.m; sourceTree = "<group>"; };
 		C79BBA3B20E9D17500506C66 /* TJMallOrdersController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMallOrdersController.h; sourceTree = "<group>"; };
@@ -2502,7 +2506,6 @@
 				C73FC79F20901BC700732F2D /* Bases */,
 				C73FC78D209019F300732F2D /* Home */,
 				C73FC79120901BC700732F2D /* TQGou */,
-				C73FC7A120901BC700732F2D /* CQuan */,
 				C73FC79520901BC700732F2D /* JHSuan */,
 				C73FC79920901BC700732F2D /* Mine */,
 				C73FC7A62090209D00732F2D /* Macros */,
@@ -2514,10 +2517,9 @@
 				C73FC75C209017FD00732F2D /* AppDelegate.m */,
 				C73FC75E209017FD00732F2D /* ViewController.h */,
 				C73FC75F209017FD00732F2D /* ViewController.m */,
-				C720EDB720906E1F007AA53C /* TJtestViewController.h */,
-				C720EDB820906E1F007AA53C /* TJtestViewController.m */,
 				C7FBE006212ABD45000DB8A4 /* Assets.xcassets */,
 				C78C3179212C2030007CB4E8 /* yw_1222.jpg */,
+				C7988CAC212D60DB00A88F0E /* qdt.png */,
 				C73FC761209017FD00732F2D /* Main.storyboard */,
 				C73FC7662090180000732F2D /* LaunchScreen.storyboard */,
 				C73FC7692090180000732F2D /* Info.plist */,
@@ -2847,42 +2849,10 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
-		C73FC7A120901BC700732F2D /* CQuan */ = {
-			isa = PBXGroup;
-			children = (
-				C73FC7A220901BC700732F2D /* Controllers */,
-				C73FC7A320901BC700732F2D /* Models */,
-				C73FC7A420901BC700732F2D /* Views */,
-			);
-			path = CQuan;
-			sourceTree = "<group>";
-		};
-		C73FC7A220901BC700732F2D /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				C758915C2092D02E00AC085E /* TJCQuanController.h */,
-				C758915D2092D02E00AC085E /* TJCQuanController.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		C73FC7A320901BC700732F2D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		C73FC7A420901BC700732F2D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		C73FC7A520901BC700732F2D /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
+				C7988CA3212D604100A88F0E /* DHGuidePageHUD */,
 				C76E861C21259A1400DD8AA5 /* PGDatePicker */,
 				C76E865021259A1400DD8AA5 /* PGPickerView */,
 				C71D205521217BF200580DA5 /* HCSortAndSearch */,
@@ -4631,6 +4601,18 @@
 			path = "发布";
 			sourceTree = "<group>";
 		};
+		C7988CA3212D604100A88F0E /* DHGuidePageHUD */ = {
+			isa = PBXGroup;
+			children = (
+				C7988CA4212D604100A88F0E /* DHGifImageOperation.h */,
+				C7988CA5212D604100A88F0E /* DHGifImageOperation.m */,
+				C7988CA6212D604100A88F0E /* DHGuidePageHUD.h */,
+				C7988CA7212D604100A88F0E /* DHGuidePageHUD.m */,
+				C7988CA8212D604100A88F0E /* GuideImage.bundle */,
+			);
+			path = DHGuidePageHUD;
+			sourceTree = "<group>";
+		};
 		C7A3FC382121123200072A57 /* 超值9块9 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5070,6 +5052,7 @@
 				C794FFF42119534100FB580F /* TJAdressCell.xib in Resources */,
 				C76E867F21259A8A00DD8AA5 /* TJKdAddSchoolCell.xib in Resources */,
 				C7588E6720F5A5D800CA5574 /* TJSignRuleController.xib in Resources */,
+				C7988CAD212D60DB00A88F0E /* qdt.png in Resources */,
 				C7861DA920FC8C4F0056574A /* TJSignSuccessController.xib in Resources */,
 				C794FFFE21196D3100FB580F /* TJTextFiledCell.xib in Resources */,
 				C7409A002091CF3600DFCC94 /* IQKeyboardManager.bundle in Resources */,
@@ -5124,6 +5107,7 @@
 				C794FFF9211954E100FB580F /* TJAdressTwoCell.xib in Resources */,
 				C74DFFAF20F75ABF00D83ACF /* TJGoodsListCell.xib in Resources */,
 				C73C529E211AEBD400458587 /* TJEvaluationController.xib in Resources */,
+				C7988CAB212D604100A88F0E /* GuideImage.bundle in Resources */,
 				C7D9CF12211BE09600E70DD0 /* TJKdHomePageTwoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5155,6 +5139,7 @@
 				C7C72F2E210181570087A8CB /* XMCenter.m in Sources */,
 				C74099FB2091CF3600DFCC94 /* IQBarButtonItem.m in Sources */,
 				C742A3122099DA260026311A /* MyDimeScale.m in Sources */,
+				C7988CAA212D604100A88F0E /* DHGuidePageHUD.m in Sources */,
 				C77D0EA020A3ED5B000F794A /* YYTextRubyAnnotation.m in Sources */,
 				C7679C6820EB13AB0053A6A8 /* TJShareView.m in Sources */,
 				C7D9CF05211BD9C100E70DD0 /* TJKdHomePaContentController.m in Sources */,
@@ -5531,14 +5516,12 @@
 				C77D0EA120A3ED5B000F794A /* YYTextRunDelegate.m in Sources */,
 				C77B44592118430B00332147 /* TAAbstractDotView.m in Sources */,
 				C7B913DF2113E97300D8729C /* TJHeadLineScrollModel.m in Sources */,
-				C758915E2092D02E00AC085E /* TJCQuanController.m in Sources */,
 				C756A27D20A92BE700EC5FEB /* TJBaseTableCell.m in Sources */,
 				C77B44682118667800332147 /* TJCourierTakeController.m in Sources */,
 				C781BEE0210B198E00B7BD57 /* UIImageView+HighlightedWebCache.m in Sources */,
 				C7ADB4A6211A9EF100AD4D95 /* PopoverViewCell.m in Sources */,
 				C76E867321259A1400DD8AA5 /* PGPickerColumnView.m in Sources */,
 				C791B5642126CD5E00835897 /* TJTQGCell.m in Sources */,
-				C720EDB920906E1F007AA53C /* TJtestViewController.m in Sources */,
 				C732067E20EDF43700E480A8 /* TJTQGContentCell.m in Sources */,
 				C772AA3E210880800029C515 /* FSCalendarDelegationFactory.m in Sources */,
 				C78E5CC720ABB5E700C9C1BF /* MJRefreshAutoFooter.m in Sources */,
@@ -5597,6 +5580,7 @@
 				C77B443421181F9000332147 /* SVIndefiniteAnimatedView.m in Sources */,
 				C772AA41210880800029C515 /* FSCalendarHeaderView.m in Sources */,
 				C73FC81A209025CE00732F2D /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				C7988CA9212D604100A88F0E /* DHGifImageOperation.m in Sources */,
 				C76E865921259A1400DD8AA5 /* NSBundle+PGDatePicker.m in Sources */,
 				C7B994A120F88FC400DFFC98 /* TJContentCollectController.m in Sources */,
 				C7181E0C20AABC1B00AEC7D5 /* TJHomeFootShowCell.m in Sources */,
@@ -5846,6 +5830,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6TW7Q4NSX;
 				ENABLE_BITCODE = NO;
@@ -5876,6 +5861,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6TW7Q4NSX;
 				ENABLE_BITCODE = NO;

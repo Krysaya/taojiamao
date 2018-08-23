@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSArray *hotSearchArr;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *cateArr;
+@property (nonatomic, strong) NSArray *imgArr;
+@property (nonatomic, strong) NSArray *imgSelectArr;
 
 @property(weak, nonatomic)ZJContentView *contentView;
 @property (nonatomic, strong) ZJScrollSegmentView *segV;
@@ -37,15 +39,13 @@
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
 //    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-
    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
-    self.title = @"超值9.9";
-    
-//    search
+
+    UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"hp_jkj_nav"]];
+    self.navigationItem.titleView = headerImg;
     UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 116)];
 //    topView.backgroundColor = KALLRGB;
     [self.view addSubview:topView];
@@ -85,7 +85,8 @@
     ZJSegmentStyle *style = [[ZJSegmentStyle alloc] init];
     //显示遮盖
     style.showCover = YES;
-    style.segmentViewBounces = NO;
+    style.titleMargin = 30.f;style.normalTitleColor = [UIColor whiteColor];
+    style.segmentViewBounces = NO;style.selectedTitleColor = [UIColor whiteColor];
     /// 显示图片 (在显示图片的时候只有下划线的效果可以开启, 其他的'遮盖','渐变',效果会被内部关闭)
     style.showImage = YES;
     /// 图片位置
@@ -111,7 +112,6 @@
     CGRect scrollPageViewFrame = CGRectMake(0, 116+75, S_W, S_H-116-75);
     ZJContentView *contentV = [[ZJContentView alloc] initWithFrame:scrollPageViewFrame segmentView:segment parentViewController:self delegate:self];
     self.contentView = contentV;
-   
     [self.view addSubview:self.contentView];
     
     [self requestSearchHotsList];
@@ -216,8 +216,8 @@
 
 /// 设置图片
 - (void)setUpTitleView:(ZJTitleView *)titleView forIndex:(NSInteger)index {
-//    titleView.normalImage = [UIImage imageNamed:[NSString stringWithFormat:@"normal_%ld", index+1]];
-//    titleView.selectedImage = [UIImage imageNamed:@"selected"];
+    titleView.normalImage = [UIImage imageNamed:@"hp_sjkj_default"];
+    titleView.selectedImage = [UIImage imageNamed:@"hp_sjkj_select"];
 }
 
 - (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index {

@@ -43,14 +43,11 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"精选";
-
     [self setUIViews];
 }
 -(void)setUIViews{
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight) style:UITableViewStyleGrouped];
-//    self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource =self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -58,7 +55,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     [self.view addSubview:self.tableView];
     
     self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"ad_img"]];
-    
+    self.bannerView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = self.bannerView;
     
     

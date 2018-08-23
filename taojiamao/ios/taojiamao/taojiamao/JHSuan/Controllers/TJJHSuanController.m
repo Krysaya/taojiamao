@@ -23,12 +23,23 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = KALLRGB;
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+//    [self.navigationController.navigationBar setBackgroundImage:img forBarMetrics:UIBarMetricsDefault];
+    //去掉导航栏底部的黑线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    
     self.page = 1;
     [self requestLoadNormalJHSList];
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.barTintColor = KALLRGB;
 
     self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *headerImg = [[UIImageView alloc]initWithImage: [UIImage imageNamed:@"jhs"]];
@@ -154,13 +165,13 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     }];
     
     NSMutableArray * temp = [NSMutableArray array];
-    for (int i =0; i<13; i++) {
-        UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"loading%d",i+1]];
+    for (int i =1; i<20; i++) {
+        UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",i]];
         [temp addObject:image];
     }
-    [header setImages:@[[UIImage imageNamed:@"loading1"]] forState:MJRefreshStateIdle];
+    [header setImages:@[[UIImage imageNamed:@"1"]] forState:MJRefreshStateIdle];
     [header setImages:temp forState:MJRefreshStatePulling];
-    [header setImages:temp duration:temp.count*0.06 forState:MJRefreshStateRefreshing];
+    [header setImages:temp duration:temp.count*0.2 forState:MJRefreshStateRefreshing];
     header.lastUpdatedTimeLabel.hidden = YES;
     header.stateLabel.hidden = YES;
     self.collectionV.mj_header =header;

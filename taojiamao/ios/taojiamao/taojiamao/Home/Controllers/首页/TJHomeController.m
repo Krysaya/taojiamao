@@ -36,31 +36,25 @@
 @implementation TJHomeController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadGoodsCatesList];
-    [self requestSearchGoodsList];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.dataArr_left[self.index];
-    self.title = self.title_class;
-    //
+    int indexpath = [self.index intValue]-100;DSLog(@"--%d--22222",indexpath);
+
     self.menuViewStyle = WMMenuViewStyleLine;
-    
-    self.selectIndex = self.index;
+    self.selectIndex = indexpath;
     self.titleSizeNormal = 13;
     self.titleSizeSelected = 14;
     self.titleColorSelected = RGB(255, 71, 119);
     self.titleColorNormal = RGB(102, 102, 102);
     self.progressColor = RGB(255, 71, 119);
-    [self reloadData];
-    [self setNavTitleItems];
-    
+    [self setNavTitleItems];    [self loadGoodsCatesList];
+    [self requestSearchGoodsList];
 }
 
 #pragma mark -设置nav
 -(void)setNavTitleItems{
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action: @selector(searchClick)];
-
     self.navigationItem.rightBarButtonItem = searchItem;
     
 }
@@ -135,11 +129,13 @@
             NSString *str = [NSString stringWithFormat:@"%d",i];
             TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
             [self.dataArr_left addObject:model.catname];
-
         }
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reloadData];
+            int indexpath = [self.index intValue]-100;
+            if (self.dataArr_left.count>0) {
+                self.title = self.dataArr_left[indexpath];
+            }
         });
         
     } onFailure:^(NSError * _Nullable error) {
@@ -147,21 +143,15 @@
     }];
 }
 -(void)searchClick{
-    // 1. Create an Array of popular search
-//    NSArray *hotSeaches = @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-    // 2. Create a search view controller
-    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:self.hotSearchArr searchBarPlaceholder:NSLocalizedString(@"PYExampleSearchPlaceholderText", @"怪味少女装") didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:self.hotSearchArr searchBarPlaceholder:@"秋季新款女装外套" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         TJSearchController * result = [[TJSearchController alloc] init];
         result.searchText = searchText;
         [searchViewController.navigationController pushViewController:result animated:YES];
     }];
-    // 3. Set style for popular search and search history
     searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
     searchViewController.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
-    
-    // 4. Set delegate
     searchViewController.delegate = self;
-    // 5. Present a navigation controller
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:nav animated:NO completion:nil];
 }
@@ -212,16 +202,7 @@
     }
     return _category;
 }
-//-(UIView *)coverView{
-//    if (_coverView == nil) {
-//        _coverView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+TopHeight, S_W, S_H-SafeAreaTopHeight-TopHeight)];
-//        _coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//        //test
-//        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-//        [_coverView addGestureRecognizer:tap];
-//    }
-//    return _coverView;
-//}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

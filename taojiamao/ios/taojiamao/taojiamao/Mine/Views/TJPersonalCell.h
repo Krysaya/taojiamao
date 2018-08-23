@@ -11,4 +11,6 @@
 @interface TJPersonalCell : UICollectionViewCell
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UILabel *titleLab;
+
+@property (nonatomic, assign) CGFloat height;
 @end

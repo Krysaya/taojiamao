@@ -79,8 +79,12 @@
 #pragma mark - collectiondelegte
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TJPersonalCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"123" forIndexPath: indexPath];
+    if (self.indexSection==0||self.indexSection==1||self.indexSection==2) {
+        cell.height = 24;
+    }else{
+        cell.height = 31;
+    }
 //    cell.imgView.backgroundColor = RandomColor;
-
     NSMutableArray *arr = [NSMutableArray array];
     [arr addObjectsFromArray:self.model.menu];
     NSArray *arrmodel = [TJMembersModel mj_objectArrayWithKeyValuesArray:arr];

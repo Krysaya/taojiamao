@@ -30,16 +30,6 @@
  */
 - (void)setUpChildViewController{
     
-//    TJKdHomePageController  *vc = [[TJKdHomePageController alloc]init];
-//    TJNavigationController *home = [[TJNavigationController alloc]initWithRootViewController:vc];
-//    TJKdUserCenterController *vvc = [[TJKdUserCenterController alloc]init];
-//    TJNavigationController *user = [[TJNavigationController alloc]initWithRootViewController:vvc];
-//
-//    vc.title = @"首页";vc.tabBarItem.image = [UIImage imageNamed:@"kd_homep_gray"];
-//    vc.tabBarItem.selectedImage = [UIImage imageNamed:@"kd_homep_select"];
-//    vvc.title = @"首页";vvc.tabBarItem.image = [UIImage imageNamed:@"kd_my_gray"];
-//    vvc.tabBarItem.selectedImage = [UIImage imageNamed:@"mycity_highlight"];
-//
     [self addOneChildViewController:[[TJNavigationController alloc]initWithRootViewController:[[TJKdHomePageController alloc]init]]
                           WithTitle:@"首页"
                           imageName:@"kd_homep_gray"
