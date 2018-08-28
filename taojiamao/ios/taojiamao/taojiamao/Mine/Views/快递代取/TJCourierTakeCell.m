@@ -56,11 +56,11 @@
     [formatter setDateFormat:@"MM-dd HH:mm"];
     NSDateFormatter *formatter1 = [NSDateFormatter new];
     [formatter1 setDateFormat:@"HH:mm"];
-    //将时间转换为字符串
-    
+    //将时间转换为字符串 yyyy-MM-dd HH:mm:ss
     NSString *timeS = [formatter stringFromDate:myDate];
     NSString *timeEnd = [formatter1 stringFromDate:myendDate];
 
+    
     self.lab_time.text = [NSString stringWithFormat:@"%@-%@",timeS,timeEnd];
     
 //    加急

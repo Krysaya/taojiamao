@@ -11,6 +11,5 @@
 @interface TJDefaultGoodsDetailController : TJBaseViewController
 
 @property (nonatomic, strong) NSString *gid;
-@property (nonatomic, strong) NSString *price;
-@property (nonatomic, strong) NSString *priceQuan;
+
 @end

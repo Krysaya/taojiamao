@@ -236,8 +236,8 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
        return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    TJClassicSecondController *vc = [[TJClassicSecondController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    TJClassicSecondController *vc = [[TJClassicSecondController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 -(UICollectionView *)collectView{
     if (_collectView==nil) {

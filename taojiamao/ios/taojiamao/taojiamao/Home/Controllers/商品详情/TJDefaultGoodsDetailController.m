@@ -49,7 +49,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @property(nonatomic,strong)SDCycleScrollView * bannerView;
 
 @property(nonatomic,strong)UIView * footView;
-@property(nonatomic,strong)TJButton * shareB;
+@property(nonatomic,strong)UIButton * shareB;
 @property(nonatomic,strong)TJLabel * shareL;
 @property(nonatomic,strong)TJButton * buy;
 @property(nonatomic,strong)TJButton * quanbuy;
@@ -57,6 +57,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @property(nonatomic,strong)TJButton * goTop;
 
 @property(nonatomic,strong)TJBottomPopupView * popupView;
+
+@property (nonatomic, strong) NSString *price;
+@property (nonatomic, strong) NSString *priceQuan;
 
 //会员不隐藏推广
 @property(nonatomic,strong)TJButton *popularize;
@@ -69,7 +72,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self requestGoodsInfo];
 }
 
@@ -79,15 +82,13 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [super viewWillDisappear:animated];
     //视图将要消失时取消隐藏
     self.navigationController.navigationBarHidden = NO;
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self setUIbanner];
-    [self setUIfootView];
-//    [self setUIgoTop];
+
 }
 
 - (void)requestGoodsInfo{
@@ -122,9 +123,14 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
         [self.dataArr addObject:model];
         self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
-        
+        self.priceQuan = model.itemendprice;self.price = model.itemprice;
+        if ([model.is_collect intValue]==1) {
+            self.shareB.selected = YES;
+        }else{
+            self.shareB.selected = NO;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setUI];
+            [self setUI];[self setUIfootView];
             
         });
         
@@ -155,7 +161,10 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.height.mas_equalTo(54);
     }];
     
-    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailCollectButton withBackImage:@"collection_default" withSelectImage:@"collection_light"];
+    self.shareB = [[UIButton alloc]init];self.shareB.tag = DetailCollectButton;
+    [self.shareB setImage:[UIImage imageNamed:@"collection_default"] forState:UIControlStateNormal];
+    [self.shareB setImage:[UIImage imageNamed:@"collection_light"] forState:UIControlStateSelected];
+    [self.shareB addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -217,8 +226,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 }
 
 -(void)setUI{
-    
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, S_W, S_H-54) style:UITableViewStyleGrouped];
+    CGFloat fushu = SafeAreaTopHeight==88?-44:-20;
+
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,fushu, S_W, S_H-34) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell123"];
@@ -376,7 +386,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }else if (but.tag==DetailCollectButton){
         DSLog(@"收藏");
-        [self requestCollectGoods];        
+        [self requestCollectGoods];
         
     }else{
         [self.navigationController popViewControllerAnimated:YES];
@@ -439,10 +449,21 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
          request.parameters = @{@"type":@"1",@"rid":self.gid};
      }onSuccess:^(id  _Nullable responseObject) {
          DSLog(@"-collect-success--%@==",responseObject);
+         [SVProgressHUD showSuccessWithStatus:@"收藏成功！"];[SVProgressHUD dismissWithDelay:0.8];
+         self.shareB.selected = YES;
      }onFailure:^(NSError * _Nullable error) {
-         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-         DSLog(@"--收藏-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+         if (error.userInfo.count>0) {
+             NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+             NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+             
+            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];[SVProgressHUD dismissWithDelay:0.8];
+            
+             DSLog(@"--收藏-≈≈error-msg%@=======code%@",dic_err[@"msg"],dic_err);
+         }else{
+             DSLog(@"--收藏-≈≈error-%@===",error);
+
+         }
+        
      }];
 }
 #pragma mark - TJBottomViewDeletage

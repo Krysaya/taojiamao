@@ -81,7 +81,7 @@
 @property (nonatomic, strong) NSString *tkrates;//比例佣金
 @property (nonatomic, strong) NSString *userid;//店主
 @property (nonatomic, strong) NSString *sellernick;//dian名
-
+@property (nonatomic, strong) NSString *is_collect;//收藏
 @property (nonatomic, strong) NSString *couponmoney;//优惠券金额
 @property (nonatomic, strong) NSString *couponurl;//优惠券连接
 

@@ -81,7 +81,6 @@
     
     self.naview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 290, 32)];
 //    self.naview.backgroundColor = RandomColor;
-    
     self.search = [TJTextField setTextFieldWith:@"请输入搜索内容" font:15 textColor:RGB(51, 51, 51) backColor:RGB(222, 222, 222)];
     self.search.text = self.searchText;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 21, 21)];
@@ -122,14 +121,10 @@
     return _childVCs[index];
     
 }
-
-
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods
 {
     return NO;
 }
-
-
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     DSLog(@"%@",textField.text);
@@ -142,6 +137,4 @@
 -(void)dealloc{
 //    DSLog(@"%s",__func__);
 }
-
-
 @end

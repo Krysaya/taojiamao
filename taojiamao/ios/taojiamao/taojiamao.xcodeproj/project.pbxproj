@@ -609,6 +609,9 @@
 		C7B994A120F88FC400DFFC98 /* TJContentCollectController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B994A020F88FC400DFFC98 /* TJContentCollectController.m */; };
 		C7B994A920F89B1200DFFC98 /* TJContentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B994A720F89B1200DFFC98 /* TJContentListCell.m */; };
 		C7B994AA20F89B1200DFFC98 /* TJContentListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7B994A820F89B1200DFFC98 /* TJContentListCell.xib */; };
+		C7BFBC672133E95300D21075 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7BFBC662133E95300D21075 /* QuartzCore.framework */; };
+		C7BFBC692133E95D00D21075 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7BFBC682133E95D00D21075 /* CoreText.framework */; };
+		C7BFBC6C2133EBE000D21075 /* TJAliPayOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BFBC6B2133EBE000D21075 /* TJAliPayOrderInfo.m */; };
 		C7C35077211D9AB5000AFC6C /* TJMineJFBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C35073211D9AB4000AFC6C /* TJMineJFBModel.m */; };
 		C7C35078211D9AB5000AFC6C /* TJUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C35076211D9AB5000AFC6C /* TJUserDataModel.m */; };
 		C7C72F2E210181570087A8CB /* XMCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F27210181570087A8CB /* XMCenter.m */; };
@@ -1807,6 +1810,10 @@
 		C7B994A620F89B1200DFFC98 /* TJContentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJContentListCell.h; sourceTree = "<group>"; };
 		C7B994A720F89B1200DFFC98 /* TJContentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJContentListCell.m; sourceTree = "<group>"; };
 		C7B994A820F89B1200DFFC98 /* TJContentListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJContentListCell.xib; sourceTree = "<group>"; };
+		C7BFBC662133E95300D21075 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C7BFBC682133E95D00D21075 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		C7BFBC6A2133EBE000D21075 /* TJAliPayOrderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAliPayOrderInfo.h; sourceTree = "<group>"; };
+		C7BFBC6B2133EBE000D21075 /* TJAliPayOrderInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAliPayOrderInfo.m; sourceTree = "<group>"; };
 		C7C35073211D9AB4000AFC6C /* TJMineJFBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TJMineJFBModel.m; path = taojiamao/Mine/Models/TJMineJFBModel.m; sourceTree = SOURCE_ROOT; };
 		C7C35074211D9AB4000AFC6C /* TJMineJFBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TJMineJFBModel.h; path = taojiamao/Mine/Models/TJMineJFBModel.h; sourceTree = SOURCE_ROOT; };
 		C7C35075211D9AB5000AFC6C /* TJUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TJUserDataModel.h; path = taojiamao/Mine/Models/TJUserDataModel.h; sourceTree = SOURCE_ROOT; };
@@ -1910,6 +1917,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C791B54421269F3100835897 /* CoreMotion.framework in Frameworks */,
+				C7BFBC692133E95D00D21075 /* CoreText.framework in Frameworks */,
+				C7BFBC672133E95300D21075 /* QuartzCore.framework in Frameworks */,
 				C791B55C21269FA300835897 /* UIKit.framework in Frameworks */,
 				C791B55A21269F9600835897 /* MobileCoreServices.framework in Frameworks */,
 				C791B55821269F8F00835897 /* AssetsLibrary.framework in Frameworks */,
@@ -1922,7 +1932,6 @@
 				C791B54A21269F5800835897 /* CFNetwork.framework in Frameworks */,
 				C791B54821269F4400835897 /* Foundation.framework in Frameworks */,
 				C791B54621269F3B00835897 /* CoreGraphics.framework in Frameworks */,
-				C791B54421269F3100835897 /* CoreMotion.framework in Frameworks */,
 				C791B54221269F2500835897 /* libstdc++.6.0.9.tbd in Frameworks */,
 				C791B54021269F1C00835897 /* libz.tbd in Frameworks */,
 				C791B53E21269F1600835897 /* libsqlite3.0.tbd in Frameworks */,
@@ -2816,6 +2825,8 @@
 			children = (
 				C791B51221269D4100835897 /* Frameworks */,
 				C791B52221269D4200835897 /* Resources */,
+				C7BFBC632133E81700D21075 /* 分享 */,
+				C7BFBC612133E81700D21075 /* 支付 */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -4553,6 +4564,8 @@
 		C791B53A21269F0A00835897 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7BFBC682133E95D00D21075 /* CoreText.framework */,
+				C7BFBC662133E95300D21075 /* QuartzCore.framework */,
 				C791B55B21269FA200835897 /* UIKit.framework */,
 				C791B55921269F9600835897 /* MobileCoreServices.framework */,
 				C791B55721269F8F00835897 /* AssetsLibrary.framework */,
@@ -4836,6 +4849,22 @@
 				C717878B2105D2A4009A2034 /* TJDetailListCell.xib */,
 			);
 			path = "我的资产";
+			sourceTree = "<group>";
+		};
+		C7BFBC612133E81700D21075 /* 支付 */ = {
+			isa = PBXGroup;
+			children = (
+				C7BFBC6A2133EBE000D21075 /* TJAliPayOrderInfo.h */,
+				C7BFBC6B2133EBE000D21075 /* TJAliPayOrderInfo.m */,
+			);
+			path = "支付";
+			sourceTree = "<group>";
+		};
+		C7BFBC632133E81700D21075 /* 分享 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "分享";
 			sourceTree = "<group>";
 		};
 		C7C72F25210181570087A8CB /* XMNetworking */ = {
@@ -5319,6 +5348,7 @@
 				C7292A272095556C00073099 /* TJGoodsCategory.m in Sources */,
 				C713C832209AE8D6000A125B /* TJMiddleModelsCell.m in Sources */,
 				C75F64C820EF63F900B55B8B /* TJHPMidCollectCell.m in Sources */,
+				C7BFBC6C2133EBE000D21075 /* TJAliPayOrderInfo.m in Sources */,
 				C74DFFA720F756B500D83ACF /* TJCollectController.m in Sources */,
 				C742A3182099DA260026311A /* MyLayoutDelegate.m in Sources */,
 				C7249B0C20A1418500BB385E /* UIView+Frame.m in Sources */,
@@ -5869,6 +5899,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/taojiamao/Others/Frameworks",
+					"$(PROJECT_DIR)/taojiamao/Others/支付",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";
@@ -5900,6 +5931,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/taojiamao/Others/Frameworks",
+					"$(PROJECT_DIR)/taojiamao/Others/支付",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";

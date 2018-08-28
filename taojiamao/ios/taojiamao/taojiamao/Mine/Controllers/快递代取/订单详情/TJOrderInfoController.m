@@ -35,6 +35,7 @@
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -106,7 +107,7 @@
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = KdUserOrderDetail;
+        request.url = KdUserOrderCancel;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,
@@ -116,10 +117,10 @@
         request.parameters = @{ @"id":self.kdid};
     } onSuccess:^(id  _Nullable responseObject) {
         ////            取消
-            [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+        [SVProgressHUD showSuccessWithStatus:@"取消成功"];[SVProgressHUD dismissWithDelay:1];
             [self.navigationController popViewControllerAnimated:YES];
         
-        
+        DSLog(@"---%@-%@-",responseObject,self.kdid);
     } onFailure:^(NSError * _Nullable error) {
         
     }];

@@ -64,7 +64,7 @@
 
 @property(nonatomic,strong)UIImageView * userType;
 @property(nonatomic,strong)UIView * headTView;
-
+@property (nonatomic, strong) UIView *classView;
 @property (nonatomic, strong) TJButton *btn_setting;
 @property (nonatomic, strong) TJButton *btn_notice;
 @property(nonatomic,strong)TJMiddleView * midView;
@@ -84,7 +84,7 @@
 #pragma mark -lazy loading
 -(UIView *)headTView{
     if (!_headTView) {
-        _headTView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 182*H_Scale)];
+        _headTView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 182)];
         _headTView.backgroundColor = KALLRGB;
     }
     return _headTView;
@@ -136,7 +136,7 @@
 - (UITableView *)tableV{
     if (_tableV==nil) {
         CGFloat fushu = SafeAreaTopHeight==88?-44:-20;
-        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, fushu, S_W, S_H) style:UITableViewStyleGrouped];
+        _tableV = [[UITableView alloc]initWithFrame:CGRectMake(0,fushu, S_W, S_H) style:UITableViewStyleGrouped];
         _tableV.backgroundColor =RGB(245, 245, 245);
         _tableV.delegate = self;
         _tableV.dataSource =self;
@@ -295,9 +295,9 @@
 //    头像
     [self.headTView addSubview:self.headIcon];
     [weakSelf.headIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(75*W_Scale);
-        make.left.mas_equalTo(18*W_Scale);
-        make.top.mas_equalTo(53*H_Scale);
+        make.width.height.mas_equalTo(75);
+        make.left.mas_equalTo(18);
+        make.top.mas_equalTo(53);
     }];
     if (self.hadLogin) {
         [self.headIcon sd_setImageWithURL:[NSURL URLWithString:self.model.image] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
@@ -325,8 +325,8 @@
 //    昵称
     [self.headTView addSubview:self.userName];
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15*W_Scale);
-        make.top.mas_equalTo(weakSelf.headIcon.mas_top).offset(13*H_Scale);
+        make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15);
+        make.top.mas_equalTo(weakSelf.headIcon.mas_top).offset(13);
         
     }];
 //    NSLog(@"----nickname--%@",self.model.nickname);
@@ -347,29 +347,35 @@
         [self.headTView addSubview:self.userType];
 
         [self.userType mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.userName.mas_bottom).offset(14*H_Scale);
-            make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15*W_Scale);
+            make.top.mas_equalTo(weakSelf.userName.mas_bottom).offset(14);
+            make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15);
         }];
     }else{
         //    halo
         self.userType.hidden = YES;self.halo.hidden=NO;
         [self.headTView addSubview:self.halo];
         [self.halo mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.userName.mas_bottom).offset(14*H_Scale);
-            make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15*W_Scale);
+            make.top.mas_equalTo(weakSelf.userName.mas_bottom).offset(14);
+            make.left.mas_equalTo(weakSelf.headIcon.mas_right).offset(15);
         }];
     }
-    self.userName.font = [UIFont systemFontOfSize:19*W_Scale];
+    self.userName.font = [UIFont systemFontOfSize:19];
     self.userName.textColor  = [UIColor whiteColor];
     
     
 // 芬兰
     
     UIView *classView = [[UIView alloc]init];
-    classView.frame = CGRectMake(15, 160, S_W-30, 72);
+    classView.frame = CGRectMake(15, 145, S_W-30, 72);
     classView.layer.cornerRadius = 8;
     classView.layer.masksToBounds = YES;
     classView.backgroundColor = [UIColor whiteColor];
+//    [classView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(weakSelf.headIcon.mas_bottom).offset(25);
+//        make.width.mas_equalTo(S_W-30);
+//        make.height.mas_equalTo(72);
+//        make.centerX.mas_equalTo(weakSelf.view.mas_centerX);
+//    }];
     [self.headTView addSubview:classView];
     
     UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
@@ -516,7 +522,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return 30;
+        
+        
+        return 35;
     }else if (indexPath.section==3){
         TJMemberMainModel *model = self.menuArr[indexPath.section-1];
         NSArray *arr = model.menu;

@@ -43,7 +43,7 @@
 #define TabAd_H  110
 
 
-#define LEFTBTN  546146
+#define LEFTBTN  451561
 #define RIGHTBTN  556148
 #define Big_Scroll  7368
 #define AD_Scroll  6554
@@ -61,6 +61,7 @@
 @property (nonatomic, strong) NSTimer *timer_news;
 @property (nonatomic,assign) NSInteger currentIndex;/* 当前滑动到了哪个位置**/
 
+@property (nonatomic, strong) NSDictionary *homePageData;
 @property (nonatomic, strong) NSMutableArray *imgADArr;
 @property (nonatomic, strong) NSMutableArray *imgDataArr;
 @property (nonatomic, strong) NSArray *menuArr;
@@ -85,12 +86,24 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setNaviBarAlpha:_currentAlpha];
-    [self requestSearchGoodsList];
-
+    [self setNaviBarAlpha:0];
+    if (self.homePageData.count>0) {
+        
+    }else{
+        [self requestSearchGoodsList];
+        [self requestHomePage];
+        [self requestHomePageGoodsJingXuan];
+    }    
     if (self.menuArr.count>0) {
         [self.news_scrollView reloadDataAndStartRoll];
     }
+    
+    if (@available(iOS 11.0, *)) {
+        self.big_ScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    [self.big_ScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 //视图将要消失时取消隐藏
@@ -107,34 +120,25 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestHomePage];
-    [self requestHomePageGoodsJingXuan];
-
+ 
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-49)];
     big_ScrollVie.delegate = self;
+//    big_ScrollVie.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     big_ScrollVie.showsVerticalScrollIndicator = NO;
     big_ScrollVie.showsHorizontalScrollIndicator = NO;
     big_ScrollVie.tag = Big_Scroll;
     [self.view addSubview:big_ScrollVie];
     self.big_ScrollView = big_ScrollVie;
-    
-    if (@available(iOS 11.0, *)) {
-        self.big_ScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    
+   
     [self setNavgation];
-//    [self layoutAllView];
-    
-//    [self setPopView];
+    DSLog(@"--did-frame--%@",NSStringFromCGRect(self.big_ScrollView.frame));
 
 }
 - (void)layoutAllView{
                 [self setADScrollView];[self setNewsScroll];
                 [self setColumnsCollectView];[self setClassCollectionView];
-                [self setBottomAdImg]; [self setBottomTableView];
+                [self setBottomAdImg];
 }
 
 - (void)setPopView{
@@ -199,10 +203,6 @@
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
         self.hotSearchArr = responseObject[@"data"][@"hot"];
-     
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-        });
 
     } onFailure:^(NSError * _Nullable error) {
         
@@ -239,8 +239,8 @@
                             };
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"---%@--hp",responseObject);
-        NSDictionary *dataDict = responseObject[@"data"];
+//        DSLog(@"---%@--hp",responseObject);
+        NSDictionary *dataDict = responseObject[@"data"];self.homePageData = dataDict;
         if (dataDict.count>0) {
             NSArray *imgArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
             self.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
@@ -309,9 +309,11 @@
     } onSuccess:^(id  _Nullable responseObject) {
         self.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-//        DSLog(@"--success---%@",responseObject);
+        DSLog(@"--success---%@",responseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
+//            [self.big_ScrollView addSubview:self.tableView];
+            [self setBottomTableView];
+    
             self.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+self.goodsArr.count*150);
 
         });
@@ -472,7 +474,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJGoodsCollectModel *model = self.goodsArr[indexPath.row];
-    goodVC.gid = model.itemid;goodVC.price = model.itemprice;goodVC.priceQuan = model.itemendprice;
+    goodVC.gid = model.itemid;
+//    goodVC.price = model.itemprice;goodVC.priceQuan = model.itemendprice;
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 #pragma mark - search

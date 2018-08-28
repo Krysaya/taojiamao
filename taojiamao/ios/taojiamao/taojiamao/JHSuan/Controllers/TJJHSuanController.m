@@ -229,7 +229,8 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 //   
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
     TJJHSGoodsListModel *model = self.dataArr[indexPath.row];
-    goodVC.gid = model.itemid;goodVC.price = model.itemprice;goodVC.priceQuan = model.itemendprice;
+    goodVC.gid = model.itemid;
+//    goodVC.price = model.itemprice;goodVC.priceQuan = model.itemendprice;
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

@@ -43,6 +43,7 @@
 - (void)setModel:(TJTqgGoodsModel *)model{
     _model = model;
     
+    self.pg_yq.progress = [model.sold_num floatValue]/[model.total_amount floatValue];
     self.lab_xprice.text = model.zk_final_price;
     //中划线
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};

@@ -198,3 +198,11 @@ static NSString * const UserPhone = @"UserPhone";
 
 //kd--支付
 #define KdOrderYuePay        [BASEURL stringByAppendingString:@"/v1/kuaidis/pay"]
+//kd--支付宝支付加签
+#define KdOrderAliPaySign        [BASEURL stringByAppendingString:@"/v1/alipays/signstring"]
+
+
+
+
+
+

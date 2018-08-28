@@ -28,12 +28,12 @@
 #define End_time  31
 #define JiaJiButton 40
 #define BuJiaJiButton 41
-#define OneButton  101
-#define TwoButton  102
-#define ThreeButton 103
-#define FourButton 104
-#define FiveButton 105
-#define SixButton 110
+#define OneButton  51
+#define TwoButton  52
+#define ThreeButton 53
+#define FourButton 54
+#define FiveButton 55
+#define SixButton 56
 
 
 @interface TJKdFabuController ()<UITextFieldDelegate,AddressControllerDelegate,QuAddressControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource,PGDatePickerDelegate>
@@ -304,10 +304,8 @@
 #pragma mark - 提交
 - (IBAction)takeInfoBtnClick:(UIButton *)sender {
     
-    
-//    、
-    TJKdOrderPayController *vc = [[TJKdOrderPayController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    TJKdOrderPayController *vc = [[TJKdOrderPayController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
     
     if (self.tf_nums.text.length<=0 || self.tf_qjm.text.length<=0 || self.tf_day.text.length<=0 || self.tf_starttime.text.length<=0 ||self.tf_endtime.text.length<=0) {
                 [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
@@ -333,8 +331,8 @@
 
                     NSString *jiaji;
                     if (self.btnjj_select.tag==JiaJiButton) {
-                        jiaji = [NSString stringWithFormat:@"%ld",self.btnjj_select.tag-100];
-//                        DSLog(@"---%ld--%@",self.btnjj_select.tag-100,jiaji);
+                        jiaji = [NSString stringWithFormat:@"%ld",self.btnjjf_select.tag-50];
+                        DSLog(@"-jjf--%ld--%@",self.btnjjf_select.tag-50,jiaji);
                     }else{
                         jiaji = @"0";
                     }
@@ -479,7 +477,7 @@
     NSDate *date = [formatter dateFromString:timeStr];
     DSLog(@"---date--%@",date);
 //    NSString *dateStr = [formatter stringFromDate:date];
-    NSString *time = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]*1000];
+    NSString *time = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
     return time;
 }
 @end
