@@ -51,6 +51,7 @@
                             <constraint firstItem="q2D-vT-TWI" firstAttribute="centerY" secondItem="k5g-EN-b0N" secondAttribute="centerY" id="WrN-5U-fHM"/>
                             <constraint firstAttribute="trailing" secondItem="B8p-vz-S2e" secondAttribute="trailing" constant="10" id="nJh-Dh-l7w"/>
                             <constraint firstItem="8BO-3d-eOv" firstAttribute="leading" secondItem="q2D-vT-TWI" secondAttribute="trailing" constant="20" id="nzZ-Ew-kyb"/>
+                            <constraint firstItem="8BO-3d-eOv" firstAttribute="top" secondItem="k5g-EN-b0N" secondAttribute="top" constant="10.5" id="q7w-Rc-hUt"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>

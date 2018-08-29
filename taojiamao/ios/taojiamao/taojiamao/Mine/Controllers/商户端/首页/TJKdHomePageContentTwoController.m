@@ -72,18 +72,15 @@
                                 @"jie_status":status,};
     } onSuccess:^(id  _Nullable responseObject) {
         self.dataArr = [TJKdUserOrderList mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-//        DSLog(@"sh----yjd---%@",responseObject);
+//        if (self.dataArr.count==0) {
+//            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"noorder.jpg"]];
+//        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-        });
-        
-        
+
     }];
 }
 

@@ -175,39 +175,21 @@
         [self.navigationController pushViewController:vc animated:YES];
         
     } onFailure:^(NSError * _Nullable error) {
-        
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
 }
 
 - (void)doAliPay
 {
-//    NSString *appID = @"2018081861059806";
-//    NSString *rsa2PrivateKey = @"MIIEpAIBAAKCAQEAxhfAyxUf7DFFGRrBiO7GCeAyWvbaSXZ+7kcciWLQU7ztEgTZlsrpHoiVn+sD5L19y9HFfaf8By+Zf5DUz00v4qyfGx9myqLdvEms95fmBBEsCfGh2bx1PdZ4MDjat7oDHJA2rgeUOGjSISzlufuMU9VgSfzEmz9Y/LSjNxKECmGh/uiJ8xo1PXG3b1EgDUvMHBpMb9RK6LE/rMnQkJIUtSOvR3uK/wF6NQeUX3m3EH/szTTWNgAtKxZpZ2zn8TctZUBw9t7Z9WSU8qSQmsIIYdvEb9zYzraHMKAyft3XZHggXkLpuWXpje+dVQJIbW/koxYJE3BjafX68NnpwlT4AQIDAQABAoIBAH3BdJY4SfTC7o/aaYTJuJVqa+1NixRaEoioQliBj6mpZYMr6wqMtGO65+oG44jiNysed9amvxu8vyC5zC/yW3T2i2dHjxUTQdsXlqP0HYT1ddS2Pj6hInjoX5KVdVxvzSvj7aKbkyAgg02mWAyywcoyypcNza6VD6QV9QuwSHzhkFrgrhn5M8sX5uxCgvVq8nUrYuW8EcAo7/TdYrNrJBGljpuUTOJdYSKZphY3l+pNimo4NqIpB1x5c/pumPZGX4mjiQio3etLLfxt5PzVIIbVr/Ab1j7sIO5vQhupyWYoqtMwMQLHWkITci3goyYOY5v1b/cUbwLZ/eUPMdl0OhUCgYEA/gSb+z4p7pfuSw6iYJJb3XlSyNEKnINeU9RiqGuPoT22/Prx/LOZCewnQ4JEZsvJnGIoqH6gnKK4WXxbvk3/qUw8gIfr3TIZ3GUQXtIboy97vk35UkatWYlIlmH7R8yleamJdqeLGM9emeFx4wYsnx+qY1pqGXz/xAfO49uFhv8CgYEAx6NveGXTgvnWYSKLvdmfL4tUsMuuW8OqTpXfm0bMGP+przvgEmKnHG+43TR5PKQApTjERKP2WwWtNPEyubUKVCimZUFMxRnSiWXl8r80SjWg9xoCDheK3kZvj35Ifi4bHc5ulu4jzzpktaS1xRkuxX1cAbI6pR57Ya+4XN8sgP8CgYEA580S/kGrCDSS2uF+4fuNY1zcY68HLO5gfMU6RpDpH+3ud4sUmlLWHAzpg5xziQ78av3UNnZfYLDI47gtDEunOzn7mBrw7QhUOx/qwWygldi15mLHWwJuHF+/4qOFJ+8jLhO9Ao8/yqMpo+jsAYzX2VmPJl0SpzG/QIcTkDD598cCgYEAq8NAKvRhELVn71bLqGJOhZd5HEuCDk3Af7CPHIfDHlcJZU08slTStrKg+SEmljf8nirDItN3KEUwCvbiz8ilxFbdIw0Vwhc/fxt+xmYf1SFjBncIAZvbzPYJEgpy0K1Wg0SS/aSShr8U2vuFsLjD9wKuYH852crqGNgY5T7WiX0CgYB8ioz8Rye5e5HA1bsGNkjBvc3XLT25ydudmRoKSujS7uwFLTal47gUfQEiweSd6TEnf/qxHjVTrxidHQc6jptL2eVgWqHN0JS5LzfZj4mXFJyX+oeFzgrByY0eYuqNrh41y8jgdgAI9RNcpRKKWAhYae0VbW9UU1w7AdVvZbodmQ==";
+
     /*
      *生成订单信息及签名
      */
     //将商品信息赋予AlixPayOrder的成员变量
     TJAliPayOrderInfo* order = [TJAliPayOrderInfo new];
-    
-    // NOTE: app_id设置
-//    order.app_id = appID;
-//
-//    // NOTE: 支付接口名称
-//    order.method = @"alipay.trade.app.pay";
-//
-//    // NOTE: 参数编码格式
-//    order.charset = @"utf-8";
-//
-//    // NOTE: 当前时间点
-//    NSDateFormatter* formatter = [NSDateFormatter new];
-//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    order.timestamp = [formatter stringFromDate:[NSDate date]];
-//
-//    // NOTE: 支付版本
-//    order.version = @"1.0";
-//
-//    // NOTE: sign_type 根据商户设置的私钥来决定
-//    order.sign_type = (rsa2PrivateKey.length > 1)?@"RSA2":@"RSA";
+
     
     // NOTE: 商品数据
     order.biz_content = [APBizContent new];
@@ -235,7 +217,6 @@
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     
    
-    [SVProgressHUD show];
 
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = KdOrderAliPaySign;
@@ -262,11 +243,11 @@
             [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                 NSLog(@"reslut =啥啥啥s's's %@",resultDic);
                 if ([resultDic[@"resultStatus"] intValue]==9000) {
-                    [SVProgressHUD showSuccessWithStatus:@"支付成功"];[SVProgressHUD dismissWithDelay:1];
+                    [SVProgressHUD showSuccessWithStatus:@"支付成功"];
                     TJPaySuccessController *vc = [[TJPaySuccessController alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];
                 }else{
-                    [SVProgressHUD showSuccessWithStatus:@"支付失败"];[SVProgressHUD dismissWithDelay:1];
+                    [SVProgressHUD showSuccessWithStatus:@"支付失败"];
                     TJPayFailController *vc = [[TJPayFailController alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];
                 }
@@ -275,7 +256,7 @@
       
     }onFailure:^(NSError * _Nullable error) {
         DSLog(@"-error--%@---",error);[SVProgressHUD showErrorWithStatus:@"网络异常，请重试！"];
-        [SVProgressHUD dismissWithDelay:1];
+      
 
     }];
    

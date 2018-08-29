@@ -73,6 +73,7 @@
 {
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(15, S_H-50, S_W-30, 40)];
     btn.backgroundColor = KKDRGB;
+    btn.layer.cornerRadius = 6;btn.layer.masksToBounds = YES;
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:17];
@@ -117,7 +118,7 @@
         request.parameters = @{ @"id":self.kdid};
     } onSuccess:^(id  _Nullable responseObject) {
         ////            取消
-        [SVProgressHUD showSuccessWithStatus:@"取消成功"];[SVProgressHUD dismissWithDelay:1];
+        [SVProgressHUD showSuccessWithStatus:@"取消成功"];
             [self.navigationController popViewControllerAnimated:YES];
         
         DSLog(@"---%@-%@-",responseObject,self.kdid);
@@ -269,7 +270,7 @@
         }else if (indexPath.row==2){
             return 85;
         }else if (indexPath.row==3){
-            return 100;
+            return 105;
         }else if (indexPath.row==4){
             return 70;
         }else{
@@ -285,7 +286,7 @@
         }else if (indexPath.row==3){
             return 90;
         }else if (indexPath.row==4){
-            return 100;
+            return 105;
         }else if (indexPath.row==5){
             return 70;
         }else{

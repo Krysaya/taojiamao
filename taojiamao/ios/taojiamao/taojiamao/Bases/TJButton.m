@@ -56,14 +56,13 @@
             [but setTitleEdgeInsets:UIEdgeInsetsMake(0, -img.size.width-10, 0, img.size.width)];
             
             [but setImageEdgeInsets:UIEdgeInsetsMake(0, lab.bounds.size.width, 0, -lab.bounds.size.width-10)];
-        }else{
+        }else if([type isEqualToString:@"right"]){
 //            [but setTitleEdgeInsets:UIEdgeInsetsMake(0,-10,0,0)];
 //            文字在右--默认
             [but setImageEdgeInsets:UIEdgeInsetsMake(0,-10,0,0)];
-        }
+        }else{}
        
         self.button = but;
-
         [self addSubview:but];
         WeakSelf
         [self.button mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -115,12 +114,6 @@
     _title = title;
     [self.button setTitle:title forState:UIControlStateNormal];
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 @end

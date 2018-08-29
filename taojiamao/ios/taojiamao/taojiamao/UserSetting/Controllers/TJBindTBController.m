@@ -129,7 +129,7 @@
                                 @"tao_image":bimg,
                                 @"tao_nick":bnick,
                                 }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = BindTaoBao;
         request.parameters = @{ @"tao_openid":openid,
@@ -142,7 +142,8 @@
     }onSuccess:^(id  _Nullable responseObject) {
         [SVProgressHUD showSuccessWithStatus:@"绑定成功！"];
     } onFailure:^(NSError * _Nullable error) {
-       
+        [SVProgressHUD showSuccessWithStatus:@"绑定失败！"];
+
     }];
     
 }

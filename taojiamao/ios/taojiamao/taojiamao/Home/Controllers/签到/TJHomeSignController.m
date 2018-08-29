@@ -183,7 +183,6 @@
     } onFailure:^(NSError * _Nullable error) {
         if (methodtype==kXMHTTPMethodPOST) {
             [SVProgressHUD showInfoWithStatus:@"签到失败！"];
-            [SVProgressHUD dismissWithDelay:1];
         }else{
                 
             }

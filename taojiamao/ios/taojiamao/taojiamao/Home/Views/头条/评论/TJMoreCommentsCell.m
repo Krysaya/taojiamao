@@ -10,7 +10,7 @@
 #import "TJCommentsListModel.h"
 @interface TJMoreCommentsCell()
 
-@property (weak, nonatomic) IBOutlet UIButton *btn_comments;
+
 @property (weak, nonatomic) IBOutlet UIImageView *headimg;
 @property (weak, nonatomic) IBOutlet UILabel *lab_nick;
 @property (weak, nonatomic) IBOutlet UILabel *lab_time;
@@ -35,7 +35,7 @@
 }
 - (void)setModel:(TJCommentsListModel *)model{
     _model = model;
-    [self.headimg sd_setImageWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,model.image]]];
+    [self.headimg sd_setImageWithURL: [NSURL URLWithString:model.image]];
     self.lab_nick.text = model.username;
     self.lab_comments.text = model.content;
     if ([model.num intValue]==0) {
@@ -44,6 +44,16 @@
         self.view_bg.hidden = NO;
     }
     [self.btn_more setTitle:[NSString stringWithFormat:@"共计%@条评论",model.num] forState:UIControlStateNormal];
+    
+    double time = [model.addtime doubleValue];
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:time];
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *timeS = [formatter stringFromDate:myDate];
+    self.lab_time.text = timeS;
+
+    
+
 }
 
 @end

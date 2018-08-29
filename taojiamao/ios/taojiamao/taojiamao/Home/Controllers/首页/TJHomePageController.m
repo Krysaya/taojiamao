@@ -276,7 +276,7 @@
         
     } onFailure:^(NSError * _Nullable error) {
 
-        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];[SVProgressHUD dismissWithDelay:0.5];
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
     }];
 }
 - (void)requestHomePageGoodsJingXuan{

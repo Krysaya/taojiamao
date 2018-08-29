@@ -51,8 +51,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @property(nonatomic,strong)UIView * footView;
 @property(nonatomic,strong)UIButton * shareB;
 @property(nonatomic,strong)TJLabel * shareL;
-@property(nonatomic,strong)TJButton * buy;
-@property(nonatomic,strong)TJButton * quanbuy;
+@property(nonatomic,strong)UIButton * buy;
+@property(nonatomic,strong)UIButton * quanbuy;
 
 @property(nonatomic,strong)TJButton * goTop;
 
@@ -72,8 +72,10 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [self requestGoodsInfo];
+    if (self.dataArr>0) {
+    }else{
+        [self requestGoodsInfo];
+    }
 }
 
 //视图将要消失时取消隐藏
@@ -82,13 +84,12 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [super viewWillDisappear:animated];
     //视图将要消失时取消隐藏
     self.navigationController.navigationBarHidden = NO;
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+   
 }
 
 - (void)requestGoodsInfo{
@@ -110,7 +111,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
                                     }.mutableCopy;
     
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
-    DSLog(@"sign==%@,times==%@,uid==%@,gid==%@,url==%@",md5Str,timeStr,userid,self.gid,[NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid]);
+//    DSLog(@"sign==%@,times==%@,uid==%@,gid==%@,url==%@",md5Str,timeStr,userid,self.gid,[NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid]);
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = [NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid];
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid":userid};
@@ -124,16 +125,11 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         [self.dataArr addObject:model];
         self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
         self.priceQuan = model.itemendprice;self.price = model.itemprice;
-        if ([model.is_collect intValue]==1) {
-            self.shareB.selected = YES;
-        }else{
-            self.shareB.selected = NO;
-        }
+       
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setUI];[self setUIfootView];
-            
+            [self setUI];
+           
         });
-        
         
     } onFailure:^(NSError *error) {
         
@@ -165,6 +161,12 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [self.shareB setImage:[UIImage imageNamed:@"collection_default"] forState:UIControlStateNormal];
     [self.shareB setImage:[UIImage imageNamed:@"collection_light"] forState:UIControlStateSelected];
     [self.shareB addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    TJJHSGoodsListModel *m = [self.dataArr objectAtIndex:0];
+    if ([m.is_collect intValue]==0) {
+        self.shareB.selected = NO;
+    }else{
+        self.shareB.selected = YES;
+    }
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -181,11 +183,13 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }];
     
     NSString *quan = [NSString stringWithFormat:@"¥%@\n领券买",self.priceQuan];
-    self.quanbuy = [[TJButton alloc]initWith:quan delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:KALLRGB tag:DetailsQuanBuyButton cornerRadius:0];
-    
+    self.quanbuy =  [[UIButton alloc]init];[self.quanbuy addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.quanbuy.titleLabel.lineBreakMode = 0;
+    [self.quanbuy setTitle:quan forState:UIControlStateNormal];
+    [self.quanbuy setBackgroundImage:[UIImage imageNamed:@"left_btn_bg"] forState:UIControlStateNormal];
+    self.quanbuy.tag = DetailsQuanBuyButton;
     [self.footView addSubview:self.quanbuy];
     [self.quanbuy mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.mas_equalTo(weakSelf.footView);
         make.left.mas_equalTo(weakSelf.shareL.mas_right).offset(31);
         make.width.mas_equalTo((S_W-81)/2);
         make.bottom.mas_equalTo(weakSelf.footView);
@@ -193,10 +197,14 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }];
     
     NSString *buy = [NSString stringWithFormat:@"¥%@\n直接买",self.price];
-    self.buy = [[TJButton alloc]initWith:buy delegate:self font:17 titleColor:RGB(255, 255, 255) backColor:[UIColor redColor] tag:DetailsBuyButton cornerRadius:0];
+
+    self.buy =  [[UIButton alloc]init];[self.buy addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.buy.titleLabel.lineBreakMode = 0;
+    [self.buy setTitle:buy forState:UIControlStateNormal];
+    [self.buy setBackgroundImage:[UIImage imageNamed:@"right_btn_bg"] forState:UIControlStateNormal];
+    self.buy.tag = DetailsBuyButton;
     [self.footView addSubview:self.buy];
     [self.buy mas_makeConstraints:^(MASConstraintMaker *make) {
-        //        make.centerY.mas_equalTo(weakSelf.footView);
         make.left.mas_equalTo(weakSelf.quanbuy.mas_right);
         make.right.mas_equalTo(weakSelf.footView);
         make.bottom.mas_equalTo(weakSelf.footView);
@@ -233,7 +241,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,fushu, S_W, S_H-34) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
-    //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell123"];
     [self.tableView registerNib:[UINib nibWithNibName:@"TJDafultGoodsTitlesCell" bundle:nil] forCellReuseIdentifier:GoodsDetailsTitleCell];
     [self.tableView registerClass:[TJGoodsDetailsElectCell class] forCellReuseIdentifier:GoodsDetailsElectCell];
     [self.tableView registerClass:[TJGoodsDetailsLFCCell class] forCellReuseIdentifier:GoodsDetailsLFCCell];
@@ -242,8 +249,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
+    [self setUIfootView];
     [self setBackButton];
-
 }
 #pragma mark -UITableViewDelegate,UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -451,15 +458,14 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
          request.parameters = @{@"type":@"1",@"rid":self.gid};
      }onSuccess:^(id  _Nullable responseObject) {
          DSLog(@"-collect-success--%@==",responseObject);
-         [SVProgressHUD showSuccessWithStatus:@"收藏成功！"];[SVProgressHUD dismissWithDelay:0.8];
+         [SVProgressHUD showSuccessWithStatus:@"收藏成功！"];
          self.shareB.selected = YES;
      }onFailure:^(NSError * _Nullable error) {
          if (error.userInfo.count>0) {
              NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
              NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
              
-            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];[SVProgressHUD dismissWithDelay:0.8];
-            
+            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
              DSLog(@"--收藏-≈≈error-msg%@=======code%@",dic_err[@"msg"],dic_err);
          }else{
              DSLog(@"--收藏-≈≈error-%@===",error);

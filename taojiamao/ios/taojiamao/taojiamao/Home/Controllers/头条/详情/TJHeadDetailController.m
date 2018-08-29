@@ -17,7 +17,9 @@
 #import "TJArticlesListModel.h"
 #import "TJArticlesInfoListModel.h"
 #import "TJCommentsListModel.h"
-@interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+#import "TJCommentsSendView.h"
+
+@interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SendBtnDelegate>
 @property (weak, nonatomic) IBOutlet UIView *view_bottom;
 @property (weak, nonatomic) IBOutlet UIButton *btn_collect;
 
@@ -30,6 +32,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *commentArr;
 
+@property (nonatomic, strong) NSString *pid;
 @end
 
 @implementation TJHeadDetailController
@@ -256,6 +259,8 @@
             TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"moreCell"];
             cell.model = self.commentArr[indexPath.row-1];
             [cell.btn_more addTarget:self action:@selector(moreComments:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.btn_comments addTarget:self action:@selector(sendComments:) forControlEvents:UIControlEventTouchUpInside];
+
             return cell;
         }
         
@@ -399,9 +404,8 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"content":textField.text,@"aid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showSuccessWithStatus:@"发布成功"];
-        });
+        [SVProgressHUD showSuccessWithStatus:@"发布成功"];
+        
     }onFailure:^(NSError * _Nullable error) {
         
     }];
@@ -414,5 +418,53 @@
     TJReplyController *vc = [[TJReplyController alloc]init];
     vc.aid = self.aid;
     [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)sendComments:(UIButton *)sender
+{
+    TJMoreCommentsCell *cell = (TJMoreCommentsCell *)[[sender superview] superview];
+    NSIndexPath  *index = [self.tableView indexPathForCell:cell];
+    TJCommentsListModel *m = self.commentArr[index.row-1];
+    self.pid = m.id;
+    TJCommentsSendView *view = [TJCommentsSendView commentsSendView];
+    view.frame = CGRectMake(0, 0, S_W, S_H);view.delegate = self;
+    [self.view addSubview:view];
+  
+}
+- (void)sendButtonClick:(NSString *)text{
+    DSLog(@"pl----pl=评论send");
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    
+    NSString *content = [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"content":content,
+                                @"aid":self.aid,
+                                @"pid":self.pid,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = PulishComments;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+        request.parameters = @{ @"pid":self.pid,@"content":text,@"aid":self.aid};
+    }onSuccess:^(id  _Nullable responseObject) {
+        [SVProgressHUD showSuccessWithStatus:@"评论成功"];
+      
+    }onFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 @end

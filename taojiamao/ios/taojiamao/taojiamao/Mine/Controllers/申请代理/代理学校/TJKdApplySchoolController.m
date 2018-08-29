@@ -260,7 +260,7 @@
     lab.textAlignment = NSTextAlignmentCenter;
     [bg_view addSubview:lab];
     
-    TJButton *btn = [[TJButton alloc]initWith:@"确定" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:KKDRGB tag:8934 cornerRadius:2];
+    TJButton *btn = [[TJButton alloc]initWith:@"确定" delegate:self font:15 titleColor:[UIColor whiteColor] backColor:KKDRGB tag:999 cornerRadius:2];
     btn.frame = CGRectMake(S_W-60, 8, 50, 27);
     [bg_view addSubview:btn];
     
@@ -273,8 +273,10 @@
     pickerV.delegate = self;
     pickerV.dataSource = self;
     [self pickerView:pickerV didSelectRow:0 inComponent:0];
-    
     [bg_view addSubview:pickerV];
+    
+    [sender setTitle:[NSString stringWithFormat:@"%@-%@",self.province.name,self.city.name] forState:UIControlStateNormal];
+    [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 #pragma mark - pickerDelegate
@@ -313,9 +315,10 @@
 
 #pragma mark - button
 - (void)buttonClick:(UIButton *)but{
-    if (but.tag==8934) {
+    if (but.tag==999) {
         [self.senderBtn setTitle:[NSString stringWithFormat:@"%@-%@",self.province.name,self.city.name] forState:UIControlStateNormal];
         [self.senderBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.tableView reloadData];
         [self.pick_View removeFromSuperview];
 
     }else{
@@ -360,6 +363,8 @@
             [self loadKdSchoolListWithPic:nil];
 
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+
             });
             
         } onFailure:^(NSError * _Nullable error) {

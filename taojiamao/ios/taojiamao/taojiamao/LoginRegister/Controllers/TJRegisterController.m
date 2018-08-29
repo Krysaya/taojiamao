@@ -36,10 +36,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.btn_close = [[TJButton alloc]initDelegate:self backColor:nil tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
+    self.btn_close.layer.cornerRadius = 15;
+    self.btn_close.layer.masksToBounds = YES;
     [self.view addSubview:self.btn_close];
     [self.btn_close mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(35*H_Scale);
-        make.width.height.mas_equalTo(20);
+        make.width.height.mas_equalTo(30);
         make.left.mas_equalTo(20*W_Scale);
     }];
     
@@ -136,7 +138,6 @@
                 
             }else{
                 [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号！"];
-                [SVProgressHUD dismissWithDelay:0.5];
             }
            
         }
@@ -226,7 +227,6 @@
                 }
             }else{
                 [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号！"];
-                [SVProgressHUD dismissWithDelay:0.5];
 
             }
            

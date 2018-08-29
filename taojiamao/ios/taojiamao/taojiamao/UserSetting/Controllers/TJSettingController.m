@@ -54,7 +54,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-    self.logout = [[TJButton alloc]initWith:@"退出当前账户" delegate:self font:16*W_Scale titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:LogOut];
+    self.logout = [[TJButton alloc]initWith:@"退出当前账户" delegate:self font:16*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:LogOut];
     [self.view addSubview:self.logout];
     WeakSelf
     [self.logout mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -35,6 +35,7 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     [self loadRequestMemenbersOrderList:@"2"];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,7 +73,9 @@
                                 @"jie_status":status,};
     } onSuccess:^(id  _Nullable responseObject) {
         self.dataArr = [TJKdUserOrderList mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        DSLog(@"sh----djd---%@",responseObject);
+//        if (self.dataArr.count==0) {
+//            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"noorder.jpg"]];
+//        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -143,14 +146,13 @@
     } onSuccess:^(id  _Nullable responseObject) {
                 DSLog(@"---抢单---%@",responseObject);
         [SVProgressHUD showSuccessWithStatus:@"抢单成功！"];
-        [SVProgressHUD dismissWithDelay:0.5];
+       
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
         [SVProgressHUD showInfoWithStatus:@"抢单失败！"];
-        [SVProgressHUD dismissWithDelay:0.5];
 
     }];
     

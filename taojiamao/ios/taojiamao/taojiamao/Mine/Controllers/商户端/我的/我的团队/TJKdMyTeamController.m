@@ -62,8 +62,7 @@
             });
         }
         [SVProgressHUD showInfoWithStatus:@"没有数据啦~"];
-        [SVProgressHUD dismissWithDelay:1];
-        
+      
     } onFailure:^(NSError * _Nullable error) {
         
     }];

@@ -32,6 +32,12 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"TJNoticeCell" bundle:nil] forCellReuseIdentifier:@"noticeCell"];
+    
+    if (self.dataArr.count>0) {
+    }else{
+        UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"noinfo"]];
+        self.tableView.backgroundView = img;
+    }
    
 }
 

@@ -15,7 +15,7 @@
 
 #import "KSortingAndMD5.h"
 #import "MJExtension.h"
-//#import "XDNetworking.h"
+#import "AFNetworking.h"
 #import "XMNetworking.h"
 #import "ZJScrollPageView.h"
 #import "NSString+Hash.h"

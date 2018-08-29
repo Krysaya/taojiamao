@@ -121,7 +121,7 @@
     self.headView.backgroundColor = KALLRGB;
     [self.view addSubview:self.headView];
     
-    self.intro = [TJLabel setLabelWith:@"可用余额（元）" font:15 color:[UIColor whiteColor]];
+    self.intro = [TJLabel setLabelWith:@"可用余额 0（元）" font:15 color:[UIColor whiteColor]];
     [self.headView addSubview:self.intro];
     [self.intro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.headView);

@@ -115,7 +115,7 @@
                             <rect key="frame" x="101.5" y="16.5" width="233.5" height="17"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -365,22 +365,22 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wQ2-qm-F1c">
                     <rect key="frame" x="0.0" y="64" width="375" height="80"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8d-xL-yR6">
-                            <rect key="frame" x="65" y="10" width="0.0" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8d-xL-yR6">
+                            <rect key="frame" x="65" y="10" width="4" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.288507297" green="0.288507297" blue="0.288507297" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqA-1x-321">
-                            <rect key="frame" x="90" y="10" width="0.0" height="0.0"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqA-1x-321">
+                            <rect key="frame" x="90" y="10" width="8" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.288507297" green="0.288507297" blue="0.288507297" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择送件地址" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xby-Gh-eiM">
-                            <rect key="frame" x="65" y="40" width="270" height="30"/>
+                            <rect key="frame" x="65" y="38" width="270" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="zh8-ef-ASj"/>
+                                <constraint firstAttribute="height" constant="30" id="vrq-WL-Mvs"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.288507297" green="0.288507297" blue="0.288507297" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -403,9 +403,8 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="xby-Gh-eiM" secondAttribute="bottom" constant="10" id="029-4q-Z8H"/>
-                        <constraint firstItem="MqA-1x-321" firstAttribute="leading" secondItem="e8d-xL-yR6" secondAttribute="trailing" constant="25" id="1sB-r8-DJ2"/>
                         <constraint firstAttribute="trailing" secondItem="xby-Gh-eiM" secondAttribute="trailing" constant="40" id="2Af-qa-2jj"/>
+                        <constraint firstItem="MqA-1x-321" firstAttribute="leading" secondItem="e8d-xL-yR6" secondAttribute="trailing" constant="21" id="ULq-e8-vv6"/>
                         <constraint firstItem="e8d-xL-yR6" firstAttribute="top" secondItem="wQ2-qm-F1c" secondAttribute="top" constant="10" id="bH5-j4-ME9"/>
                         <constraint firstAttribute="height" constant="80" id="gsf-xY-ZoJ"/>
                         <constraint firstItem="MqA-1x-321" firstAttribute="top" secondItem="e8d-xL-yR6" secondAttribute="top" id="ha1-bE-1nr"/>

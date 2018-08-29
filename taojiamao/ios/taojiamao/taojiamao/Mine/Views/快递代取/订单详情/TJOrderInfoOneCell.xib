@@ -21,14 +21,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzU-G9-NgC">
                         <rect key="frame" x="10" y="5" width="300" height="70.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取件码：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7UE-nn-CXX">
-                                <rect key="frame" x="14" y="15" width="62" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取件码：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7UE-nn-CXX">
+                                <rect key="frame" x="14" y="15" width="77" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LeN-oS-oDo">
-                                <rect key="frame" x="86" y="24" width="0.0" height="0.0"/>
+                                <rect key="frame" x="101" y="24" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.29803921570000003" green="0.62745098040000002" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="5-30 15：30-16：30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfw-Rv-UDR">
                                 <rect key="frame" x="101" y="46" width="179" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.288507297" green="0.288507297" blue="0.288507297" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -53,6 +53,7 @@
                             <constraint firstItem="wfw-Rv-UDR" firstAttribute="leading" secondItem="TAq-fC-Yfa" secondAttribute="trailing" constant="10" id="LVg-5p-d9r"/>
                             <constraint firstAttribute="trailing" secondItem="wfw-Rv-UDR" secondAttribute="trailing" constant="20" id="OhA-JC-qIH"/>
                             <constraint firstItem="wfw-Rv-UDR" firstAttribute="centerY" secondItem="TAq-fC-Yfa" secondAttribute="centerY" id="OnE-CA-0wz"/>
+                            <constraint firstItem="TAq-fC-Yfa" firstAttribute="width" secondItem="7UE-nn-CXX" secondAttribute="width" id="TeR-kk-zWL"/>
                             <constraint firstItem="7UE-nn-CXX" firstAttribute="top" secondItem="yzU-G9-NgC" secondAttribute="top" constant="15" id="Yio-mf-nwr"/>
                             <constraint firstItem="LeN-oS-oDo" firstAttribute="centerY" secondItem="7UE-nn-CXX" secondAttribute="centerY" id="itr-3g-eFt"/>
                             <constraint firstItem="7UE-nn-CXX" firstAttribute="leading" secondItem="yzU-G9-NgC" secondAttribute="leading" constant="14" id="vTk-2u-qHg"/>

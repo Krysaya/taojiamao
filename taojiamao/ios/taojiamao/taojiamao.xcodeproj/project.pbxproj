@@ -540,6 +540,10 @@
 		C791B55C21269FA300835897 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B55B21269FA200835897 /* UIKit.framework */; };
 		C791B5642126CD5E00835897 /* TJTQGCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C791B5622126CD5E00835897 /* TJTQGCell.m */; };
 		C791B5652126CD5E00835897 /* TJTQGCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C791B5632126CD5E00835897 /* TJTQGCell.xib */; };
+		C793E39C213642100001ADA3 /* TJCommentsSendView.m in Sources */ = {isa = PBXBuildFile; fileRef = C793E39B213642100001ADA3 /* TJCommentsSendView.m */; };
+		C793E39E2136421C0001ADA3 /* TJCommentsSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C793E39D2136421C0001ADA3 /* TJCommentsSendView.xib */; };
+		C793E3A5213692E10001ADA3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C793E3A0213692E10001ADA3 /* libWeChatSDK.a */; };
+		C793E3A6213692E10001ADA3 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C793E3A1213692E10001ADA3 /* README.txt */; };
 		C79400022119734100FB580F /* TJPostageMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C79400002119734100FB580F /* TJPostageMoneyCell.m */; };
 		C79400032119734100FB580F /* TJPostageMoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C79400012119734100FB580F /* TJPostageMoneyCell.xib */; };
 		C794FFDE2119296700FB580F /* TJCourierTakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C794FFDC2119296700FB580F /* TJCourierTakeCell.m */; };
@@ -1691,6 +1695,14 @@
 		C791B5612126CD5E00835897 /* TJTQGCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTQGCell.h; sourceTree = "<group>"; };
 		C791B5622126CD5E00835897 /* TJTQGCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTQGCell.m; sourceTree = "<group>"; };
 		C791B5632126CD5E00835897 /* TJTQGCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJTQGCell.xib; sourceTree = "<group>"; };
+		C793E39A213642100001ADA3 /* TJCommentsSendView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJCommentsSendView.h; sourceTree = "<group>"; };
+		C793E39B213642100001ADA3 /* TJCommentsSendView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJCommentsSendView.m; sourceTree = "<group>"; };
+		C793E39D2136421C0001ADA3 /* TJCommentsSendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJCommentsSendView.xib; sourceTree = "<group>"; };
+		C793E3A0213692E10001ADA3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		C793E3A1213692E10001ADA3 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		C793E3A2213692E10001ADA3 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		C793E3A3213692E10001ADA3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		C793E3A4213692E10001ADA3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		C79400002119734100FB580F /* TJPostageMoneyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPostageMoneyCell.m; sourceTree = "<group>"; };
 		C79400012119734100FB580F /* TJPostageMoneyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJPostageMoneyCell.xib; sourceTree = "<group>"; };
 		C794FFDB2119296700FB580F /* TJCourierTakeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJCourierTakeCell.h; sourceTree = "<group>"; };
@@ -1942,6 +1954,7 @@
 				C791B54C21269F5F00835897 /* CoreTelephony.framework in Frameworks */,
 				C791B54A21269F5800835897 /* CFNetwork.framework in Frameworks */,
 				C791B54821269F4400835897 /* Foundation.framework in Frameworks */,
+				C793E3A5213692E10001ADA3 /* libWeChatSDK.a in Frameworks */,
 				C791B54621269F3B00835897 /* CoreGraphics.framework in Frameworks */,
 				C791B54221269F2500835897 /* libstdc++.6.0.9.tbd in Frameworks */,
 				C791B54021269F1C00835897 /* libz.tbd in Frameworks */,
@@ -2836,6 +2849,7 @@
 		C73FC79E20901BC700732F2D /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				C793E39F213692E10001ADA3 /* 微信 */,
 				C791B51221269D4100835897 /* Frameworks */,
 				C791B52221269D4200835897 /* Resources */,
 				C7BFBC632133E81700D21075 /* 分享 */,
@@ -3616,6 +3630,7 @@
 		C76BA5E620FD8DD0006C749B /* 评论 */ = {
 			isa = PBXGroup;
 			children = (
+				C793E399213641D00001ADA3 /* 发布评论 */,
 				C74D894321003C790098754C /* TJMoreCommentsCell.h */,
 				C74D894421003C790098754C /* TJMoreCommentsCell.m */,
 				C74D894521003C790098754C /* TJMoreCommentsCell.xib */,
@@ -4605,6 +4620,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C793E399213641D00001ADA3 /* 发布评论 */ = {
+			isa = PBXGroup;
+			children = (
+				C793E39A213642100001ADA3 /* TJCommentsSendView.h */,
+				C793E39B213642100001ADA3 /* TJCommentsSendView.m */,
+				C793E39D2136421C0001ADA3 /* TJCommentsSendView.xib */,
+			);
+			path = "发布评论";
+			sourceTree = "<group>";
+		};
+		C793E39F213692E10001ADA3 /* 微信 */ = {
+			isa = PBXGroup;
+			children = (
+				C793E3A0213692E10001ADA3 /* libWeChatSDK.a */,
+				C793E3A1213692E10001ADA3 /* README.txt */,
+				C793E3A2213692E10001ADA3 /* WechatAuthSDK.h */,
+				C793E3A3213692E10001ADA3 /* WXApi.h */,
+				C793E3A4213692E10001ADA3 /* WXApiObject.h */,
+			);
+			path = "微信";
+			sourceTree = "<group>";
+		};
 		C794FFE621194EEC00FB580F /* 待评价 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5131,6 +5168,7 @@
 				C7988CAD212D60DB00A88F0E /* qdt.png in Resources */,
 				C7861DA920FC8C4F0056574A /* TJSignSuccessController.xib in Resources */,
 				C794FFFE21196D3100FB580F /* TJTextFiledCell.xib in Resources */,
+				C793E3A6213692E10001ADA3 /* README.txt in Resources */,
 				C7409A002091CF3600DFCC94 /* IQKeyboardManager.bundle in Resources */,
 				C7C72F512101CD0F0087A8CB /* Info.plist in Resources */,
 				C7C72F362101845B0087A8CB /* TJInvitationView.xib in Resources */,
@@ -5166,6 +5204,7 @@
 				C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */,
 				C79646822111C7A100F1AB26 /* TJHeadLineContentCell.xib in Resources */,
 				C76260F120FEDDA0006889DF /* TJCollectionClassicCell.xib in Resources */,
+				C793E39E2136421C0001ADA3 /* TJCommentsSendView.xib in Resources */,
 				C7FBE02A212ABD46000DB8A4 /* Assets.xcassets in Resources */,
 				C7ADB4B2211ABDA200AD4D95 /* TJOrderPersonCell.xib in Resources */,
 				C758CC1620A2FCD1000F1903 /* province_data.xml in Resources */,
@@ -5313,6 +5352,7 @@
 				C73C5291211AD77E00458587 /* TJPayFailController.m in Sources */,
 				C7249B3220A19EAA00BB385E /* TJCleanCacheCell.m in Sources */,
 				C742A3112099DA260026311A /* MyBorderline.m in Sources */,
+				C793E39C213642100001ADA3 /* TJCommentsSendView.m in Sources */,
 				C77D0EA520A3ED5B000F794A /* UIView+YYText.m in Sources */,
 				C7B994A920F89B1200DFFC98 /* TJContentListCell.m in Sources */,
 				C79FAE7A2112F0C700E5065E /* TJContetenCollectListModel.m in Sources */,
@@ -5931,8 +5971,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/taojiamao/Others/微信",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
+					"-Objc",
+					"-all_load",
 					"-Istdc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.yueyu.com.taojiamao;
@@ -5963,8 +6009,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/taojiamao/Others/微信",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
+					"-Objc",
+					"-all_load",
 					"-Istdc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.yueyu.com.taojiamao;

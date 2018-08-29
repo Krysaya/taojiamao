@@ -10,8 +10,10 @@
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
+#import "WXApi.h"
 #import "ViewController.h"
 #import "TJLaunchAdManager.h"
+#import "TJLoginController.h"
 
 @interface AppDelegate ()
 
@@ -22,38 +24,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+//    注册微信
+    [WXApi registerApp:@"wxdd6702d275a50e3b"];
     //1.使用默认配置初始化
     [TJLaunchAdManager load];
-
-    //设置你工程的启动页使用的是:LaunchImage 还是 LaunchScreen.storyboard(不设置默认:LaunchImage)
-//    [XHLaunchAd setLaunchSourceType:SourceTypeLaunchImage];
-//    //配置广告数据
-//    XHLaunchImageAdConfiguration *imageAdconfiguration = [XHLaunchImageAdConfiguration defaultConfiguration];
-//    //广告图片URLString/或本地图片名(.jpg/.gif请带上后缀)
-//    imageAdconfiguration.imageNameOrURLString = @"qdt.png";
-//    //广告点击打开页面参数(openModel可为NSString,模型,字典等任意类型)
-////    imageAdconfiguration.openModel = @"http://www.it7090.com";
-//    //显示图片开屏广告
-//    [XHLaunchAd imageAdWithImageAdConfiguration:imageAdconfiguration delegate:self];
-    
-    
     // 百川平台基础SDK初始化，加载并初始化各个业务能力插件
     [[AlibcTradeSDK sharedInstance] asyncInitWithSuccess:^{
-        
     } failure:^(NSError *error) {
 //        NSLog(@"Init failed: %@", error.description);
     }];
     [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
+    [[ALBBSDK sharedInstance] setAppkey:@"25038195"];
     // 开发阶段打开日志开关，方便排查错误信息
     //默认调试模式打开日志,release关闭,可以不调用下面的函数
     [[AlibcTradeSDK sharedInstance] setDebugLogOpen:NO];
-    
     // 配置全局的淘客参数
     //如果没有阿里妈妈的淘客账号,setTaokeParams函数需要调用
     AlibcTradeTaokeParams *taokeParams = [[AlibcTradeTaokeParams alloc] init];
     taokeParams.pid = @"51786779_16868079_62182259"; //mm_XXXXX为你自己申请的阿里妈妈淘客pid
     [[AlibcTradeSDK sharedInstance] setTaokeParams:taokeParams];
-    
     
     //设置全局状态栏字体颜色为黑色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
@@ -65,8 +54,11 @@
     //IQKeyboard
     [self setIQKeyboard];
     
-//    配置请求类
-//HYBNetworking updateBaseUrl:<#(NSString *)#>
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeFlat];
+    [SVProgressHUD setMaximumDismissTimeInterval:1];
+
+
     return YES;
 }
 
@@ -142,6 +134,10 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    TJLoginController *vc = [[TJLoginController alloc]init];
+    return  [WXApi handleOpenURL:url delegate:vc];
+}
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -172,6 +168,8 @@
     
     if (![[AlibcTradeSDK sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
     }
+    TJLoginController *vc = [[TJLoginController alloc]init];
+    [WXApi handleOpenURL:url delegate:vc];
     return YES;
 }
 
@@ -202,6 +200,10 @@
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
     }
+    TJLoginController *vc = [[TJLoginController alloc]init];
+
+    [WXApi handleOpenURL:url delegate:vc];
+    
     return YES;
 }
 @end

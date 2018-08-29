@@ -214,8 +214,8 @@
 
 /// 设置图片
 - (void)setUpTitleView:(ZJTitleView *)titleView forIndex:(NSInteger)index {
-    titleView.normalImage = [UIImage imageNamed:@"hp_sjkj_default"];
-    titleView.selectedImage = [UIImage imageNamed:@"hp_sjkj_select"];
+    titleView.normalImage = [UIImage imageNamed:[NSString stringWithFormat:@"hp_jkj_%ld",index+1]];
+    titleView.selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"hp_jkj_select_%ld",index+1]];
 }
 
 - (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index {

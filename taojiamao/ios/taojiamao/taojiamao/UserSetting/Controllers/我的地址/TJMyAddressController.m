@@ -30,8 +30,11 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 @implementation TJMyAddressController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear: animated];
-    [self loadRequestMyAddressList];
-    
+    if (self.dataArray.count>0) {
+    }else{
+        [self loadRequestMyAddressList];
+    }
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,9 +52,7 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
     self.title = @"我的收货地址";
     
     [self setUI];
-    if ([self.type isEqualToString:@"fb"]) {
-        self.addNewAdd.hidden = YES;
-    }
+   
 }
 -(void)loadRequestMyAddressList{
 

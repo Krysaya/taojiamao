@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TJLoginController : TJBaseViewController
+#import "WXApi.h"
+@interface TJLoginController : TJBaseViewController<WXApiDelegate>
 
 @end

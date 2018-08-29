@@ -37,7 +37,6 @@
 - (IBAction)btnClick:(UIButton *)sender {
     if (self.tf_name.text.length<=0 || self.tf_phone.text.length<=0 || self.tf_sex.text.length<=0 || self.tv_content.text.length<=0 ||self.tf_school.text.length<=0) {
         [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
-        [SVProgressHUD dismissWithDelay:0.5];
 
     }else{
         if ([TJOverallJudge judgeMobile:self.tf_phone.text]) {
@@ -91,7 +90,6 @@
                 } onSuccess:^(id  _Nullable responseObject) {
 //                    NSLog(@"----edit+++address-success-===%@",responseObject);
                     [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-                    [SVProgressHUD dismissWithDelay:0.5];
 
                     [self.navigationController popViewControllerAnimated:YES];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -131,21 +129,18 @@
                                            };
                     request.httpMethod = kXMHTTPMethodPOST;
                 } onSuccess:^(id  _Nullable responseObject) {
-                    [SVProgressHUD showSuccessWithStatus:@"添加成功"];[SVProgressHUD dismissWithDelay:0.5];
+                    [SVProgressHUD showSuccessWithStatus:@"添加成功"];
 
                     [self.navigationController popViewControllerAnimated:YES];
                     dispatch_async(dispatch_get_main_queue(), ^{
                     });
                     
                 } onFailure:^(NSError * _Nullable error) {
-//                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//                    
-//                    DSLog(@"---onFailure--%@",dic_err);
+
                 }];
             }
         }else{
-            [SVProgressHUD showInfoWithStatus:@"手机号格式不正确!"];   [SVProgressHUD dismissWithDelay:0.5];
+            [SVProgressHUD showInfoWithStatus:@"手机号格式不正确!"];
 
         }
     }

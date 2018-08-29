@@ -12,7 +12,7 @@
 
 #import "XMNetworking.h"
 #import <AlibabaAuthSDK/ALBBSDK.h>
-
+#import "WXApi.h"
 #define LoLoginTag          123321
 #define RegisterTag         654123
 #define ForgetTag           987456
@@ -70,12 +70,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.btn_close = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.2) tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
-    self.btn_close.layer.cornerRadius = 10;
+    self.btn_close.layer.cornerRadius = 15;
     self.btn_close.layer.masksToBounds = YES;
     [self.view addSubview:self.btn_close];
     [self.btn_close mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(35*H_Scale);
-        make.width.height.mas_equalTo(20);
+        make.width.height.mas_equalTo(30);
         make.left.mas_equalTo(20*W_Scale);
     }];
     
@@ -309,14 +309,14 @@
     }];
     
     //分割线
-    self.cutOffRule = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@""]];
-    self.cutOffRule.backgroundColor = RandomColor;
+    self.cutOffRule = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_line"]];
+//    self.cutOffRule.backgroundColor = RandomColor;
     [self.view addSubview:self.cutOffRule];
     [self.cutOffRule mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.loginbut.mas_bottom).offset(50*H_Scale);
+        make.top.mas_equalTo(weakSelf.loginbut.mas_bottom).offset(50);
         make.centerX.mas_equalTo(weakSelf.view);
-        make.width.mas_equalTo(S_W-10);
-        make.height.mas_equalTo(21);
+        make.width.mas_equalTo(S_W);
+        make.height.mas_equalTo(8);
     }];
     
     //获取验证码
@@ -438,7 +438,6 @@
 
                     NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
                     [SVProgressHUD showErrorWithStatus:@"登录失败！"];
-                    [SVProgressHUD dismissWithDelay:0.5];
 
                 }];
                 
@@ -451,11 +450,9 @@
              DSLog(@"---user%@----vcode%@",self.phoneNumF.text,self.verifyF.text);
             if (self.phoneNumF.text==nil || self.phoneNumF.text.length==0||self.verifyF.text==nil||self.verifyF.text.length==0) {
                 [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
-                [SVProgressHUD dismissWithDelay:0.5];
             }else{
                 if (![TJOverallJudge judgeMobile:self.phoneNumF.text]) {
                     [SVProgressHUD showInfoWithStatus:@"手机号格式不正确！"];
-                    [SVProgressHUD dismissWithDelay:0.5];
                 }else{
               
                 NSDictionary * dict = @{
@@ -494,7 +491,7 @@
                     NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
                     
                     [self dismissViewControllerAnimated:YES completion:nil];
-                    [SVProgressHUD showInfoWithStatus:@"登录失败！"];[SVProgressHUD dismissWithDelay:1];
+                    [SVProgressHUD showInfoWithStatus:@"登录失败！"];
                     NSLog(@"---快登-≈≈error-%@",dic_err[@"msg"]);
 
                 }];
@@ -514,11 +511,9 @@
 //            tb
         {
             ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
-            [albbSDK setAppkey:@"25038195"];
+//            [albbSDK setAppkey:@"25038195"];
             [albbSDK setAuthOption:NormalAuth];
-
             [albbSDK auth:self successCallback:^(ALBBSession *session){
-
                 ALBBUser *user = [session getUser];
                 DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
                 [self requestTaoBaoLoginWithTaoToken:user.openId withImage:user.avatarUrl withNickName:user.nick];
@@ -530,13 +525,21 @@
         }
             break;
             
-        case 1:
-            
+        case 1:{
+             dispatch_async(dispatch_get_main_queue(), ^{
+            //构造SendAuthReq结构体
+            SendAuthReq* req = [[SendAuthReq alloc]init];
+            req.scope = @"snsapi_userinfo";
+            req.state = @"wechat_sdk_tjm";
+            //第三方向微信终端发送一个SendAuthReq消息结构
+            [WXApi sendReq:req];
+             });
+                            
+            }
             break;
-            
         case 2:
         {
-            [SVProgressHUD showInfoWithStatus:@"暂不支持！"];[SVProgressHUD dismissWithDelay:1];
+            [SVProgressHUD showInfoWithStatus:@"暂不支持！"];
         }
             break;
         default:
@@ -544,11 +547,110 @@
     }
     
 }
+- (void)onReq:(BaseReq *)req{
+    NSLog(@"req--%@",req);
+    
+}
+- (void)onResp:(BaseResp *)resp{
+    /*
+     ErrCode ERR_OK = 0(用户同意)
+     ERR_AUTH_DENIED = -4（用户拒绝授权）
+     ERR_USER_CANCEL = -2（用户取消）
+     code    用户换取access_token的code，仅在ErrCode为0时有效
+     state   第三方程序发送时用来标识其请求的唯一性的标志，由第三方程序调用sendReq时传入，由微信终端回传，state字符串长度不能超过1K
+     lang    微信客户端当前语言
+     country 微信用户当前国家信息
+     */
+    
+    
+    NSLog(@"reppspp--%d",resp.errCode);
+    if ([resp isKindOfClass:[SendAuthResp class]]) {
+        SendAuthResp *rep = (SendAuthResp *)resp;
+        if (rep.errCode==0) {
+            NSLog(@"授权成功！--code--%@",rep.code);
+            NSString *path = @"https://api.weixin.qq.com/sns/oauth2/access_token";
+            NSDictionary *params = @{
+                                     @"appid":@"wxdd6702d275a50e3b",
+                                     @"secret":@"b61472da8f8c33a18b4fb8e25daa4cf3",
+                                     @"code":rep.code,
+                                     @"grant_type":@"authorization_code",
+                                     };
+            
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript", @"text/plain", nil];
+            [manager GET:path parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
+                DSLog(@"responseObject -- %@", responseObject);
+                
+                NSString *openId = responseObject[@"openid"];
+                NSString *access_token = responseObject[@"access_token"];
+                NSString *url = @"https://api.weixin.qq.com/sns/userinfo";
+                NSDictionary *paraminfo = @{
+                                         @"access_token":access_token,
+                                         @"openid":openId,
+                                         };
+                
+                AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+                manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript", @"text/plain", nil];
+                [manager GET:url parameters:paraminfo progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
+                    DSLog(@"responseObject -info- %@", responseObject);
+                    
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                
+                }];
+
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"错误码：%ld", error.code]];
+            }];
+//           
+        }
+    }
+}
+
+#pragma mark - weixin
+- (void)requestWeiXinLoginWithTaoToken:(NSString *)openid withImage:(NSString *)img withNickName:(NSString *)nick{
+    NSString *bimg = [self encodeToPercentEscapeString:img];
+    NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"tao_openid":openid,
+                                @"tao_image":bimg,
+                                @"tao_nick":bnick,
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = TaoBaoLogin;
+        request.parameters = @{ @"tao_openid":openid,
+                                @"tao_image":img,
+                                @"tao_nick":nick,};
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,};
+        request.httpMethod = kXMHTTPMethodPOST;
+    }onSuccess:^(id  _Nullable responseObject) {
+        
+        
+        //写入
+        NSDictionary * data = responseObject[@"data"];
+        SetUserDefaults(data[@"id"], UID); SetUserDefaults(data[@"bind_tao"], Bind_TB);
+        SetUserDefaults(HADLOGIN, HADLOGIN);
+        NSLog(@"----微信login-success-%@===",responseObject);
+        //控制器跳转
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } onFailure:^(NSError * _Nullable error) {
+        //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        //        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        //        NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
+        [SVProgressHUD showErrorWithStatus:@"登录失败！"];
+    }];
+}
+#pragma mark - tb
 
 - (void)requestTaoBaoLoginWithTaoToken:(NSString *)openid withImage:(NSString *)img withNickName:(NSString *)nick{
     
     NSString *bimg = [self encodeToPercentEscapeString:img];
-
      NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
@@ -563,7 +665,7 @@
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = TaoBaoLogin;
         request.parameters = @{ @"tao_openid":openid,
-                                @"tao_image":self.imgUrl,
+                                @"tao_image":img,
                                 @"tao_nick":nick,};
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
@@ -580,10 +682,10 @@
         //控制器跳转
         [self dismissViewControllerAnimated:YES completion:nil];
     } onFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
-        [SVProgressHUD showErrorWithStatus:@"登录失败！"];[SVProgressHUD dismissWithDelay:1];
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
+        [SVProgressHUD showErrorWithStatus:@"登录失败！"];
     }];
     
 }

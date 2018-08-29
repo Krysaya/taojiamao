@@ -84,7 +84,11 @@
 @end
 
 @implementation TJKdFabuController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self showModel];
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hourArr = @[@"00",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23"];
@@ -95,8 +99,6 @@
     UITapGestureRecognizer *quTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(quAddress)];
     [self.view_qu addGestureRecognizer:quTap];
    
-    [self showModel];
-    
    
     self.tf_day.delegate  = self;
     self.tf_starttime.delegate = self;
@@ -114,13 +116,22 @@
         self.lab_name.text = self.model.daili_name;
         self.lab_phone.text = self.model.shou_telephone;
         self.tf_qjm.text = self.model.qu_code;
-        
+        self.tf_nums.text = self.model.danhao;
         self.lab_address.text = [NSString stringWithFormat:@"[送件地址]%@",self.model.song_address];
         self.lab_quAddress.text = [NSString stringWithFormat:@"[取件地址]%@",self.model.qu_address];
         self.btnjj_select = self.btn_jj;
         self.btnjjf_select = self.btn_one;
         if ([self.model.is_ji integerValue]==0) {
+            self.btn_bjj.selected = YES;self.btn_jj.selected = NO;
             self.btnjj_select = self.btn_bjj;
+            if (self.btnjj_select.tag==JiaJiButton) {
+                //
+                self.bottomViewHeight.constant = 200.f;
+                self.view_jj.hidden = NO;
+            }else{
+                self.view_jj.hidden = YES;
+                self.bottomViewHeight.constant = 60.f;
+            }
             
         }else{
             self.btnjj_select = self.btn_jj;
@@ -199,10 +210,13 @@
         [bgView addSubview:timePicker];
         [timePicker selectRow:0 inComponent:0 animated:NO];
         if (textField.tag==30) {
-            timePicker.tag = 111;
+            timePicker.tag = 111;self.hour = self.hourArr[0]; self.min = self.minArr[0];
+
+            self.tf_starttime.text = [NSString stringWithFormat:@"%@:%@",self.hour,self.min];
 
         }else{
             timePicker.tag = 112;
+            self.tf_endtime.text = [NSString stringWithFormat:@"%@:%@",self.hour,self.min];
 
         }
         
@@ -328,12 +342,12 @@
                     NSString *starttime = [self  timeAppendNSString:star];
                     NSString *end = [NSString stringWithFormat:@"%@%@%@%@%@",self.year,self.month,self.day,self.end_hour,self.end_min];
                     NSString *endtime = [self timeAppendNSString:end];
-                    DSLog(@"--start--%@===%@==end==%@==%@",starttime,star,endtime,end);
+//                    DSLog(@"--start--%@===%@==end==%@==%@",starttime,star,endtime,end);
 
                     NSString *jiaji;
                     if (self.btnjj_select.tag==JiaJiButton) {
                         jiaji = [NSString stringWithFormat:@"%ld",self.btnjjf_select.tag-50];
-                        DSLog(@"-jjf--%ld--%@",self.btnjjf_select.tag-50,jiaji);
+//                        DSLog(@"-jjf--%ld--%@",self.btnjjf_select.tag-50,jiaji);
                     }else{
                         jiaji = @"0";
                     }

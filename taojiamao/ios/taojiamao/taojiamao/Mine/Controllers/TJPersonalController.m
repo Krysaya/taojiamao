@@ -207,7 +207,7 @@
                 [self setHeadTView];// 加还是不加
                 
                 self.tableV.tableHeaderView = self.headTView;
-                //                [self.tableV reloadData];
+//                                [self.tableV reloadData];
             });
             
         } onFailure:^(NSError * _Nullable error) {
@@ -371,12 +371,6 @@
     classView.layer.cornerRadius = 8;
     classView.layer.masksToBounds = YES;
     classView.backgroundColor = [UIColor whiteColor];
-//    [classView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(weakSelf.headIcon.mas_bottom).offset(25);
-//        make.width.mas_equalTo(S_W-30);
-//        make.height.mas_equalTo(72);
-//        make.centerX.mas_equalTo(weakSelf.view.mas_centerX);
-//    }];
     [self.headTView addSubview:classView];
     
     UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
@@ -392,22 +386,25 @@
     [classView addSubview:collectV];
     self.topCollectView = collectV;
 //    设置。通知
-    self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"setting" withSelectImage:nil];
-    self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice" withSelectImage:nil];
-    [self.headTView addSubview:self.btn_notice];
-
-    [self.headTView addSubview:self.btn_setting];
-    
-    [self.btn_notice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(45);
-        make.right.mas_equalTo(-16*W_Scale);
-        make.width.height.mas_equalTo(21);
-    }];
-    
-    [self.btn_setting mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.width.height.mas_equalTo(weakSelf.btn_notice);
-        make.right.mas_equalTo(weakSelf.btn_notice.mas_left).offset(-16*W_Scale);
-    }];
+    if (!self.btn_notice) {
+        self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"setting" withSelectImage:nil];
+        self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice" withSelectImage:nil];
+        [self.headTView addSubview:self.btn_notice];
+        
+        [self.headTView addSubview:self.btn_setting];
+        
+        [self.btn_notice mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(45);
+            make.right.mas_equalTo(-16*W_Scale);
+            make.width.height.mas_equalTo(21);
+        }];
+        
+        [self.btn_setting mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.width.height.mas_equalTo(weakSelf.btn_notice);
+            make.right.mas_equalTo(weakSelf.btn_notice.mas_left).offset(-16*W_Scale);
+        }];
+    }
+   
     
     [self.view addSubview:self.headTView];
 }

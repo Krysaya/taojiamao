@@ -31,7 +31,8 @@
 }
 - (void)setModel:(TJKdOrderInfoModel *)model{
     _model = model;
-    self.lab_kdtype.text =  model.name;
+    self.lab_kdtype.text =  model.shou_username;
+    self.lab_kdnum.text = [NSString stringWithFormat:@"订单号：%@",model.danhao];
     
 }
 @end

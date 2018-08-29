@@ -10,7 +10,7 @@
 @class TJCommentsListModel;
 @interface TJMoreCommentsCell : TJBaseTableCell
 @property (weak, nonatomic) IBOutlet UIButton *btn_more;
-
+@property (weak, nonatomic) IBOutlet UIButton *btn_comments;
 @property (nonatomic, strong) TJCommentsListModel *model;
 
 
