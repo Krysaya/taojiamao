@@ -24,6 +24,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)aginPayClick:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)checkOrderInfo:(UIButton *)sender {
+}
 
 /*
 #pragma mark - Navigation

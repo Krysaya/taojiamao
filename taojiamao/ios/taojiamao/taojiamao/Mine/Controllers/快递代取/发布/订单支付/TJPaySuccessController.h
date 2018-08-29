@@ -10,4 +10,8 @@
 
 @interface TJPaySuccessController : UIViewController
 
+@property (nonatomic, strong) NSString *pay_type;
+@property (nonatomic, strong) NSString *sjf;
+@property (nonatomic, strong) NSString *jjf;
+@property (nonatomic, strong) NSString *total;
 @end

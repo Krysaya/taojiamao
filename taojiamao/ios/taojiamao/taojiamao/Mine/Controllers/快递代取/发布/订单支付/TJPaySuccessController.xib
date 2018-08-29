@@ -11,6 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TJPaySuccessController">
             <connections>
+                <outlet property="lab_jjf" destination="n3s-2c-o9S" id="u6P-9d-mUv"/>
+                <outlet property="lab_sjf" destination="r2z-US-CHD" id="6GX-ba-SKP"/>
+                <outlet property="lab_total" destination="kCX-5s-0B4" id="b4T-Uk-W4C"/>
+                <outlet property="lab_type" destination="HYt-ml-aTF" id="a9t-Uf-cYO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -134,6 +138,9 @@
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="finishBtnClick:" destination="-1" eventType="touchUpInside" id="YhJ-B9-U1D"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

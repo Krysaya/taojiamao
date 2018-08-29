@@ -111,7 +111,6 @@
 {
     [super viewWillDisappear:animated];
     [self resetSystemNavibar];
-//    [self.news_scrollView stopRoll];
 }
 
 - (void)dealloc{
@@ -164,7 +163,7 @@
         if ([self.status intValue]==1) {
             DSLog(@"弹窗00");
             TJPopViewController *vc = [[TJPopViewController alloc]init];
-            vc.view.backgroundColor = RGBA(1, 1, 1, 0.1);
+            vc.view.backgroundColor = RGBA(1, 1, 1, 0.2);
             vc.view.frame = S_F;[vc.btn_close addTarget:self action:@selector(hidden) forControlEvents:UIControlEventTouchUpInside];
             vc.model = self.ad_m;
             [self.view addSubview:vc.view];
@@ -367,9 +366,9 @@
     layou.sectionInset = UIEdgeInsetsMake(18, 10, 10, 10);
     layou.itemSize = CGSizeMake((S_W-100)/5, 50);
     UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, AD_H, S_W, Cloumns_H) collectionViewLayout:layou];
+    collectV.scrollEnabled = NO;
     collectV.backgroundColor = [UIColor whiteColor];
     collectV.tag = Columns_CollectionV;
-
     collectV.delegate = self;
     collectV.dataSource = self;
     [collectV registerClass:[TJHPMidCollectCell class] forCellWithReuseIdentifier:@"MidCell"];
@@ -547,50 +546,20 @@
         _currentAlpha = alpha;
         
         [self setNaviBarAlpha:_currentAlpha];
-        
-        //滑动scroll的时候关闭定时器
-//        [self.timer invalidate];
-//        [self.timer_news invalidate];
-
     }
-    
-    
 }
 
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if (scrollView.tag==AD_Scroll) {
-        double page = scrollView.contentOffset.x / scrollView.bounds.size.width;
-        self.pageControl.currentPage = page;
-    }else if (scrollView.tag == NEWS_Scroll){
-        double page = scrollView.contentOffset.y / scrollView.bounds.size.height;
-        self.pageC_NEWS.currentPage = page;
-        
-    }else{
-        
-    }
-    
-    
-}
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    if (scrollView.tag==AD_Scroll) {
-        [self.timer invalidate];}else if (scrollView.tag == NEWS_Scroll){
-            [self.timer_news invalidate];
-        }else{
-            
-        }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    if (scrollView.tag==AD_Scroll) {
-//        [self setupTimer];
-        
-    }else if (scrollView.tag == NEWS_Scroll){
-//            [self setNewsTimer];
-        }else{
-            
-        }
-}
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+//    if (scrollView==_big_ScrollView) {
+//        [self.news_scrollView stopRoll];
+//    }
+//}
+//
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//    if (scrollView==_big_ScrollView) {
+//        [self.news_scrollView reloadDataAndStartRoll];
+//    }
+//}
 
 //- (void)sc
 

@@ -65,7 +65,7 @@
     self.collect = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
     self.collect.backgroundColor = [UIColor whiteColor];
     self.collect.delegate = self;
-    self.collect.dataSource = self;
+    self.collect.dataSource = self;self.collect.scrollEnabled = NO;
     [self.collect registerClass:[TJPersonalCell class] forCellWithReuseIdentifier:@"123"];
     [self.bgView addSubview:self.collect];
     [self.collect mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,7 +95,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(60, 50);
+    return CGSizeMake(60, 60);
 }
 
 //两个cell之间的间距（同一行的cell的间距）

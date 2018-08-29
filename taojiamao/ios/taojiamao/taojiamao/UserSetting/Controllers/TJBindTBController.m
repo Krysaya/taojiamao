@@ -75,7 +75,7 @@
     [self.headView addSubview:self.noBind];
     self.noBind.hidden = YES;
     [self.noBind mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(weakSelf.jj.mas_left).offset(-16*W_Scale);
+        make.right.mas_equalTo(weakSelf.jj.mas_left).offset(-50*W_Scale);
         make.centerY.mas_equalTo(weakSelf.jj);
     }];
     

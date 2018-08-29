@@ -67,6 +67,9 @@
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="aginPayClick:" destination="-1" eventType="touchUpInside" id="26l-kk-bhi"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5y-1h-Rx9">
                     <rect key="frame" x="203" y="279" width="140" height="40"/>
@@ -87,6 +90,9 @@
                             <color key="value" red="0.10196078431372549" green="0.59607843137254901" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="checkOrderInfo:" destination="-1" eventType="touchUpInside" id="y5P-mx-doi"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

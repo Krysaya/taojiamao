@@ -207,7 +207,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(void)setBackButton{
     CGFloat TOP = 20;
     self.backButton = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.25) tag:DetailsBackButton withBackImage:@"back_left" withSelectImage:nil];
-    self.backButton.layer.cornerRadius = 16;
+    self.backButton.layer.cornerRadius = 17;
     self.backButton.layer.masksToBounds = YES;
     [self.view addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -216,7 +216,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.width.height.mas_equalTo(32*W_Scale);
     }];
 //    DetailShareButton
-     TJButton *shareButton = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"share" withSelectImage:nil];
+     TJButton *shareButton = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.2) tag:DetailShareButton withBackImage:@"share" withSelectImage:nil];
+    shareButton.layer.cornerRadius = 17;
+    shareButton.layer.masksToBounds = YES;
     [self.view addSubview:shareButton];
     [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-9);

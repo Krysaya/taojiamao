@@ -182,7 +182,9 @@
         
     } onFailure:^(NSError * _Nullable error) {
         if (methodtype==kXMHTTPMethodPOST) {
-            [SVProgressHUD showInfoWithStatus:@"签到失败！"];}else{
+            [SVProgressHUD showInfoWithStatus:@"签到失败！"];
+            [SVProgressHUD dismissWithDelay:1];
+        }else{
                 
             }
     }];
@@ -305,10 +307,10 @@
     self.lab_page = numLab;
     NSString *str = @"1 /3";
     NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.font([UIFont systemFontOfSize:18.f]).textColor([UIColor darkTextColor]);
+        make.font([UIFont systemFontOfSize:16.f]).textColor([UIColor orangeColor]);
         make.append(str);
-        make.rangeEdit(NSMakeRange(str.length - 1, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
-            make.font([UIFont systemFontOfSize:13.f]).textColor([UIColor orangeColor]);
+        make.rangeEdit(NSMakeRange(0, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
+            make.font([UIFont systemFontOfSize:13.f]).textColor([UIColor darkTextColor]);
         });
     });
     numLab.attributedText = attrStr;

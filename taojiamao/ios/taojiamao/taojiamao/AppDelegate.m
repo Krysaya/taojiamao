@@ -11,6 +11,8 @@
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
 #import "ViewController.h"
+#import "TJLaunchAdManager.h"
+
 @interface AppDelegate ()
 
 @end
@@ -21,7 +23,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //1.使用默认配置初始化
-    
+    [TJLaunchAdManager load];
+
     //设置你工程的启动页使用的是:LaunchImage 还是 LaunchScreen.storyboard(不设置默认:LaunchImage)
 //    [XHLaunchAd setLaunchSourceType:SourceTypeLaunchImage];
 //    //配置广告数据
@@ -165,6 +168,9 @@
             }
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
+    }
+    
+    if (![[AlibcTradeSDK sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
     }
     return YES;
 }

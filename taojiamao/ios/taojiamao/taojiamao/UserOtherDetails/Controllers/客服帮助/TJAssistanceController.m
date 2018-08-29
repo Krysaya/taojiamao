@@ -60,7 +60,7 @@ static NSString * const TJUserAssistanceCell = @"TJUserAssistanceCell";
     self.openQQ = [[TJButton alloc]initWith:@"QQ在线客服" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:OPENQQ cornerRadius:20];
     [self.QQAndPhone addSubview:self.openQQ];
     
-    self.openPhone = [[TJButton alloc]initWith:@"客服热线" delegate:self font:13*W_Scale titleColor:KALLRGB backColor:[UIColor whiteColor] tag:OPENPHONE];
+    self.openPhone = [[TJButton alloc]initWith:@"客服热线" delegate:self font:14*W_Scale titleColor:KALLRGB backColor:[UIColor whiteColor] tag:OPENPHONE];
     [self.QQAndPhone addSubview:self.openPhone];
     
     self.introlabel = [[UILabel alloc]init];
@@ -109,14 +109,14 @@ static NSString * const TJUserAssistanceCell = @"TJUserAssistanceCell";
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJAssistanceCell * cell = [tableView dequeueReusableCellWithIdentifier:TJUserAssistanceCell forIndexPath:indexPath];
     cell.model = self.dataArray[indexPath.section];
-//    cell.onlyString =@"testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest";
+
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [tableView fd_heightForCellWithIdentifier:TJUserAssistanceCell cacheByIndexPath:indexPath configuration:^(TJAssistanceCell *cell) {
         cell.fd_enforceFrameLayout = NO; // Enable to use "-sizeThatFits:"
         cell.model = self.dataArray[indexPath.section];
-//        cell.onlyString = @"testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest";
+
     }];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -136,7 +136,9 @@ static NSString * const TJUserAssistanceCell = @"TJUserAssistanceCell";
     return nil;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJAssistanceModel *m = self.dataArray[indexPath.row];
     TJAssistanceDetailsController * advc = [[TJAssistanceDetailsController alloc]init];
+    advc.detailsID = m.id;
     [self.navigationController pushViewController:advc animated:YES];
 }
 #pragma mark - net

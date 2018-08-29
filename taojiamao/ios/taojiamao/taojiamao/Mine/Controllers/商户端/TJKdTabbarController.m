@@ -37,7 +37,7 @@
 
 
 
-    [self addOneChildViewController:[[TJNavigationController alloc]initWithRootViewController:[[UIViewController alloc]init]]
+    [self addOneChildViewController:[[TJNavigationController alloc]initWithRootViewController:[[TJKdHomePageController alloc]init]]
                           WithTitle:nil
                           imageName:@"kd_refrensh"
                   selectedImageName:@"kd_refrensh"];

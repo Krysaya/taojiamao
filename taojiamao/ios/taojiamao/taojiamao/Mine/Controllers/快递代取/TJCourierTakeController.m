@@ -32,18 +32,18 @@
 @implementation TJCourierTakeController
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:15]}];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = RGB(81, 162, 249);
-//    self.navigationController.navigationBar.translucent = NO;
+    self.navBarBgAlpha = @"0.0";
     [self loadReuqestNearByTimesOrderList];
 
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"快递代取";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:15]}];
     //    you边按钮
     TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:RIGHTBTN withBackImage:@"kd_more" withSelectImage:nil];
     

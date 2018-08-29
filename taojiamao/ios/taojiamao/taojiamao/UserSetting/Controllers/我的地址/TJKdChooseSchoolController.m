@@ -174,7 +174,7 @@
   
     if (indexPath.section==0) {
         TJChooseAreaCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseAreaCell"];
-        cell.tf.delegate = self;
+        [cell.btn addTarget:self action:@selector(chooseArea:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }else{
     
@@ -207,7 +207,7 @@
     }
 }
 #pragma mark - textfiledDelegate
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+- (void)chooseArea:(UIButton *)sender{
     //写你要实现的：页面跳转的相关代码
     UIView *view = [[UIView alloc]initWithFrame:S_F];
     view.backgroundColor = RGBA(51, 51, 51, 0.2);
@@ -235,9 +235,7 @@
     pickerV.delegate = self;
     pickerV.dataSource = self;
     [self pickerView:pickerV didSelectRow:0 inComponent:0];
-
     [bg_view addSubview:pickerV];
-    return NO;
 }
 
 #pragma mark - pickerDelegate
@@ -263,12 +261,10 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-//    NSLog(@"row = %ld component = %ld", row, component)
     if (component == 0) {
         self.province = self.areaArr[row];
         self.city = self.province.son[0];
         [pickerView reloadComponent:1];
-//        [pickerView selectRow:0 inComponent:1 animated:YES];
     }else {
         self.city = self.province.son[row];
     }

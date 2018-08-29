@@ -36,7 +36,10 @@
     [super viewWillAppear:animated];
     self.navBarBgAlpha = @"0.0";
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:15]}];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"账户余额";

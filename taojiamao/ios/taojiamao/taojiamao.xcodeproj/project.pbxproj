@@ -569,6 +569,10 @@
 		C79FAE812112F0FF00E5065E /* TJNoticeListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C79FAE802112F0FF00E5065E /* TJNoticeListModel.m */; };
 		C79FAE852112F23C00E5065E /* TJMembersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C79FAE842112F23C00E5065E /* TJMembersModel.m */; };
 		C79FAE882113020B00E5065E /* TJMemberMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C79FAE872113020B00E5065E /* TJMemberMainModel.m */; };
+		C7A19D5B2134E47800B35FD8 /* TJAssistanceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A19D5A2134E47800B35FD8 /* TJAssistanceInfoModel.m */; };
+		C7A19D5F2135024100B35FD8 /* TJNoticeInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A19D5D2135024100B35FD8 /* TJNoticeInfoController.m */; };
+		C7A19D602135024100B35FD8 /* TJNoticeInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7A19D5E2135024100B35FD8 /* TJNoticeInfoController.xib */; };
+		C7A19D632135053D00B35FD8 /* TJNoticeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A19D622135053D00B35FD8 /* TJNoticeInfoModel.m */; };
 		C7A3FC3B2121132300072A57 /* TJBargainController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A3FC3A2121132300072A57 /* TJBargainController.m */; };
 		C7A3FC4021211D5200072A57 /* TJBargainHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A3FC3E21211D5200072A57 /* TJBargainHeadCell.m */; };
 		C7A3FC4121211D5200072A57 /* TJBargainHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7A3FC3F21211D5200072A57 /* TJBargainHeadCell.xib */; };
@@ -1736,6 +1740,13 @@
 		C79FAE842112F23C00E5065E /* TJMembersModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMembersModel.m; sourceTree = "<group>"; };
 		C79FAE862113020B00E5065E /* TJMemberMainModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMemberMainModel.h; sourceTree = "<group>"; };
 		C79FAE872113020B00E5065E /* TJMemberMainModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMemberMainModel.m; sourceTree = "<group>"; };
+		C7A19D592134E47800B35FD8 /* TJAssistanceInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAssistanceInfoModel.h; sourceTree = "<group>"; };
+		C7A19D5A2134E47800B35FD8 /* TJAssistanceInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAssistanceInfoModel.m; sourceTree = "<group>"; };
+		C7A19D5C2135024100B35FD8 /* TJNoticeInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJNoticeInfoController.h; sourceTree = "<group>"; };
+		C7A19D5D2135024100B35FD8 /* TJNoticeInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJNoticeInfoController.m; sourceTree = "<group>"; };
+		C7A19D5E2135024100B35FD8 /* TJNoticeInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJNoticeInfoController.xib; sourceTree = "<group>"; };
+		C7A19D612135053D00B35FD8 /* TJNoticeInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJNoticeInfoModel.h; sourceTree = "<group>"; };
+		C7A19D622135053D00B35FD8 /* TJNoticeInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJNoticeInfoModel.m; sourceTree = "<group>"; };
 		C7A3FC392121132300072A57 /* TJBargainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBargainController.h; sourceTree = "<group>"; };
 		C7A3FC3A2121132300072A57 /* TJBargainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBargainController.m; sourceTree = "<group>"; };
 		C7A3FC3D21211D5200072A57 /* TJBargainHeadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBargainHeadCell.h; sourceTree = "<group>"; };
@@ -2212,6 +2223,8 @@
 				C7249B0E20A1432400BB385E /* TJBalanceDetailsModel.m */,
 				C7249B1920A1536900BB385E /* TJAssistanceModel.h */,
 				C7249B1A20A1536900BB385E /* TJAssistanceModel.m */,
+				C7A19D592134E47800B35FD8 /* TJAssistanceInfoModel.h */,
+				C7A19D5A2134E47800B35FD8 /* TJAssistanceInfoModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3386,6 +3399,9 @@
 			children = (
 				C758A0652109D40A00DDFDAD /* TJNoticeController.h */,
 				C758A0662109D40A00DDFDAD /* TJNoticeController.m */,
+				C7A19D5C2135024100B35FD8 /* TJNoticeInfoController.h */,
+				C7A19D5D2135024100B35FD8 /* TJNoticeInfoController.m */,
+				C7A19D5E2135024100B35FD8 /* TJNoticeInfoController.xib */,
 			);
 			path = "消息通知";
 			sourceTree = "<group>";
@@ -3395,6 +3411,8 @@
 			children = (
 				C79FAE822112F10600E5065E /* TJNoticeListModel.h */,
 				C79FAE802112F0FF00E5065E /* TJNoticeListModel.m */,
+				C7A19D612135053D00B35FD8 /* TJNoticeInfoModel.h */,
+				C7A19D622135053D00B35FD8 /* TJNoticeInfoModel.m */,
 			);
 			path = "消息通知";
 			sourceTree = "<group>";
@@ -5168,6 +5186,7 @@
 				C73C529E211AEBD400458587 /* TJEvaluationController.xib in Resources */,
 				C7988CAB212D604100A88F0E /* GuideImage.bundle in Resources */,
 				C7D9CF12211BE09600E70DD0 /* TJKdHomePageTwoCell.xib in Resources */,
+				C7A19D602135024100B35FD8 /* TJNoticeInfoController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5355,6 +5374,7 @@
 				C7A3FC3B2121132300072A57 /* TJBargainController.m in Sources */,
 				C76A61C020EC621A000B747C /* TJMiddleView.m in Sources */,
 				C76BA60520FDC0E6006C749B /* TJHeadLineShareCell.m in Sources */,
+				C7A19D5F2135024100B35FD8 /* TJNoticeInfoController.m in Sources */,
 				C758A0622109BD1E00DDFDAD /* iCarousel.m in Sources */,
 				C73FC760209017FD00732F2D /* ViewController.m in Sources */,
 				C717877A2105844E009A2034 /* WMProgressView.m in Sources */,
@@ -5449,6 +5469,7 @@
 				C77B4447211830E000332147 /* TJBigImageCell.m in Sources */,
 				C7B80D9320A5769300C1333B /* TJUserInfoController.m in Sources */,
 				C7206C0320A0031A00957A4A /* XHLaunchAdView.m in Sources */,
+				C7A19D5B2134E47800B35FD8 /* TJAssistanceInfoModel.m in Sources */,
 				C742DA3920BBD67A0041F1C6 /* TJFiltrateView.m in Sources */,
 				C7FEE0B22122D872008BDBA4 /* TJMySchoolListModel.m in Sources */,
 				C78E5CCF20ABB5E700C9C1BF /* MJRefreshBackGifFooter.m in Sources */,
@@ -5541,6 +5562,7 @@
 				C7B913DC2113E90F00D8729C /* TJHomePageModel.m in Sources */,
 				C76E866421259A1400DD8AA5 /* PGDatePicker+MonthDay.m in Sources */,
 				C74DFFAA20F7590500D83ACF /* TJMyFootPrintController.m in Sources */,
+				C7A19D632135053D00B35FD8 /* TJNoticeInfoModel.m in Sources */,
 				C7ADB4A5211A9EF100AD4D95 /* PopoverView.m in Sources */,
 				C76E866721259A1400DD8AA5 /* PGDatePicker+MonthDayHourMinuteSecond.m in Sources */,
 				C79FAE852112F23C00E5065E /* TJMembersModel.m in Sources */,

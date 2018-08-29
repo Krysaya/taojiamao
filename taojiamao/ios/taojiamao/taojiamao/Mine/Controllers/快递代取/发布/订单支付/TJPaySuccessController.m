@@ -8,8 +8,12 @@
 //
 
 #import "TJPaySuccessController.h"
-
+#import "TJCourierTakeController.h"
 @interface TJPaySuccessController ()
+@property (weak, nonatomic) IBOutlet UILabel *lab_total;
+@property (weak, nonatomic) IBOutlet UILabel *lab_type;
+@property (weak, nonatomic) IBOutlet UILabel *lab_sjf;
+@property (weak, nonatomic) IBOutlet UILabel *lab_jjf;
 
 @end
 
@@ -22,6 +26,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+- (IBAction)finishBtnClick:(UIButton *)sender {
+    TJCourierTakeController *vc = [[TJCourierTakeController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /*

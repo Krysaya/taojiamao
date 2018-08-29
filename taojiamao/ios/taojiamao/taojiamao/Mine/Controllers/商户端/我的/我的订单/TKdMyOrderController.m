@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的订单";
-//    self.view.backgroundColor = KBGRGB;
+    self.view.backgroundColor = KBGRGB;
     ZJSegmentStyle *style = [[ZJSegmentStyle alloc]init];
     style.showLine= YES;
     style.scrollTitle = NO;

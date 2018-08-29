@@ -197,6 +197,7 @@
         timePicker.delegate = self;
         timePicker.dataSource = self;
         [bgView addSubview:timePicker];
+        [timePicker selectRow:0 inComponent:0 animated:NO];
         if (textField.tag==30) {
             timePicker.tag = 111;
 

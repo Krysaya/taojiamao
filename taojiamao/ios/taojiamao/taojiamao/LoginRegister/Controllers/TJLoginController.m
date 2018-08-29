@@ -438,6 +438,8 @@
 
                     NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
                     [SVProgressHUD showErrorWithStatus:@"登录失败！"];
+                    [SVProgressHUD dismissWithDelay:0.5];
+
                 }];
                 
             
@@ -491,7 +493,8 @@
                     NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
                     NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
                     
-                    
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [SVProgressHUD showInfoWithStatus:@"登录失败！"];[SVProgressHUD dismissWithDelay:1];
                     NSLog(@"---快登-≈≈error-%@",dic_err[@"msg"]);
 
                 }];
@@ -513,16 +516,16 @@
             ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
             [albbSDK setAppkey:@"25038195"];
             [albbSDK setAuthOption:NormalAuth];
-            
+
             [albbSDK auth:self successCallback:^(ALBBSession *session){
-                
+
                 ALBBUser *user = [session getUser];
                 DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
-                self.imgUrl = user.avatarUrl;
                 [self requestTaoBaoLoginWithTaoToken:user.openId withImage:user.avatarUrl withNickName:user.nick];
-                
-            } failureCallback:^(ALBBSession *session,NSError *error){
 
+            } failureCallback:^(ALBBSession *session,NSError *error){
+                DSLog(@"-------------------------------error =%@",error);
+                [SVProgressHUD showInfoWithStatus:@"授权失败！"];
             }];
         }
             break;
@@ -533,7 +536,7 @@
             
         case 2:
         {
-            [SVProgressHUD showInfoWithStatus:@"暂不支持！"];
+            [SVProgressHUD showInfoWithStatus:@"暂不支持！"];[SVProgressHUD dismissWithDelay:1];
         }
             break;
         default:
@@ -544,10 +547,7 @@
 
 - (void)requestTaoBaoLoginWithTaoToken:(NSString *)openid withImage:(NSString *)img withNickName:(NSString *)nick{
     
-    
-//     NSString *bimg = [img stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    
-    NSString *bimg = [self encodeToPercentEscapeString:self.imgUrl];
+    NSString *bimg = [self encodeToPercentEscapeString:img];
 
      NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
@@ -582,10 +582,8 @@
     } onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        
-        
         NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
-        [SVProgressHUD showErrorWithStatus:@"登录失败！"];
+        [SVProgressHUD showErrorWithStatus:@"登录失败！"];[SVProgressHUD dismissWithDelay:1];
     }];
     
 }

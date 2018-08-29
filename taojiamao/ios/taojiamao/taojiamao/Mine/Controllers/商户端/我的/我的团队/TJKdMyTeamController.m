@@ -54,10 +54,15 @@
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"我的团队===%@",responseObject);
-        self.dataArr = [TJKdMyTeamListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+        NSDictionary *dict = responseObject[@"data"];
+        if (dict.count>0) {
+            self.dataArr = [TJKdMyTeamListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+        [SVProgressHUD showInfoWithStatus:@"没有数据啦~"];
+        [SVProgressHUD dismissWithDelay:1];
         
     } onFailure:^(NSError * _Nullable error) {
         

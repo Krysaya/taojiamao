@@ -27,10 +27,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-//        self.selectionStyle = UITableViewCellSelectionStyleDefault;
-        _nameLabel = [self setLabelWith:@"胖虎哈哈" font:15*W_Scale color:[UIColor blackColor]];
-        _phoneLabel = [self setLabelWith:@"15889569997" font:15*W_Scale color:[UIColor blackColor]];
-        _addressLabel = [self setLabelWith:@"河北省石家庄市我ID加拿大开始的精髓我发你" font:13*W_Scale color:RGB(51, 51, 51)];
+        _nameLabel = [self setLabelWith:@"" font:15*W_Scale color:[UIColor blackColor]];
+        _phoneLabel = [self setLabelWith:@"" font:15*W_Scale color:[UIColor blackColor]];
+        _addressLabel = [self setLabelWith:@"" font:13*W_Scale color:RGB(51, 51, 51)];
         _addressLabel.numberOfLines = 0;
         
         [self.contentView addSubview:_nameLabel];
@@ -86,16 +85,16 @@
         
         
         
-        _line = [[UIView alloc]init];
-        _line.backgroundColor = RGB(230, 230, 230);
-        [self.contentView addSubview:_line];
-        [_line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(weakSelf.contentView);
-            make.bottom.mas_equalTo(weakSelf.contentView).offset(-1);
-            make.width.mas_equalTo(345*W_Scale);
-            make.height.mas_equalTo(1);
-        }];
-        
+//        _line = [[UIView alloc]init];
+//        _line.backgroundColor = RGB(230, 230, 230);
+//        [self.contentView addSubview:_line];
+//        [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerX.mas_equalTo(weakSelf.contentView);
+//            make.bottom.mas_equalTo(weakSelf.contentView).offset(-1);
+//            make.width.mas_equalTo(345*W_Scale);
+//            make.height.mas_equalTo(1);
+//        }];
+//
         
         
         

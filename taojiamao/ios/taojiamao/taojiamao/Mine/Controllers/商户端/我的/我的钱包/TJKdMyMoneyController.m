@@ -63,6 +63,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
         TJDrawMoneyController *vc = [[TJDrawMoneyController alloc]init];
+        vc.type_tx = @"1";
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         TJAssetsDetailController *vc = [[TJAssetsDetailController alloc]init];

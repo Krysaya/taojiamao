@@ -127,16 +127,16 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
     }];
 }
 -(void)setUI{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.view.yj_y, S_W, S_H-50) style:UITableViewStyleGrouped];
-    self.tableView.delegate =self;
-    self.tableView.dataSource = self;
-    self.tableView.allowsMultipleSelectionDuringEditing = YES;
-    self.tableView.backgroundColor = KBGRGB;
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.view.yj_y, S_W, S_H-50) style:UITableViewStyleGrouped];
+    tableView.delegate =self;
+    tableView.dataSource = self;
+    tableView.allowsMultipleSelectionDuringEditing = YES;
+    tableView.backgroundColor = KBGRGB;
     
-    [self.tableView registerClass:[TJMyAddressCell class] forCellReuseIdentifier:SettingMyAddressCell];
-    self.tableView.tableFooterView = [[UIView alloc]init];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:self.tableView];
+    [tableView registerClass:[TJMyAddressCell class] forCellReuseIdentifier:SettingMyAddressCell];
+    tableView.tableFooterView = [[UIView alloc]init];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:tableView];self.tableView = tableView;
     
     self.addNewAdd = [[TJButton alloc]initWith:@"添加新地址" delegate:self font:16*W_Scale titleColor:[UIColor whiteColor] backColor:KKDRGB tag:AddNewAddress];
     [self.view addSubview:self.addNewAdd];

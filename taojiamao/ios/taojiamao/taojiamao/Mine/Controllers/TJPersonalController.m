@@ -155,21 +155,23 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self requestMemebersInfo];
+    if (self.topArr.count>0) {
+    }else{
+        [self requestMemebersData];
+    }
     
+}
+
+-(void)requestMemebersInfo{
+
     self.navBarBgAlpha = @"1.0";
     self.isblack = NO;
-
-
     NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    NSLog(@"=====userif=====个人=%@",userid);
-    
+        if (userid) {}else{userid = @"";}
     if (userid) {
         self.hadLogin = YES;
-    
+        
         KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
         NSString *timeStr = [MD5 timeStr];
         NSMutableDictionary *md = @{
@@ -177,7 +179,7 @@
                                     @"app": @"ios",
                                     @"uid":userid,
                                     }.mutableCopy;
-         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
             request.url = LoginedUserData;
             request.headers = @{@"timestamp": timeStr,
@@ -187,7 +189,7 @@
                                 };
             request.httpMethod = kXMHTTPMethodGET;
         } onSuccess:^(id  _Nullable responseObject) {
-//            NSLog(@"----user-success-===%@",responseObject);
+            NSLog(@"----user-success-===%@",responseObject);
             self.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.userName.text = self.model.nickname;
@@ -195,19 +197,19 @@
                     self.userType.image =[UIImage imageNamed:@"vip_p"];
                 }else if ([self.model.level intValue]==1){
                     self.userType.image =[UIImage imageNamed:@"vip_t"];
-
+                    
                 }else if ([self.model.level intValue]==2){
                     self.userType.image =[UIImage imageNamed:@"vip_y"];
-
+                    
                 }else{ self.userType.image =[UIImage imageNamed:@"vip_j"];
-}
-//                [self.headIcon sd_setImageWithURL:[NSURL URLWithString:self.model.image]];
+                }
+                //                [self.headIcon sd_setImageWithURL:[NSURL URLWithString:self.model.image]];
                 [self setHeadTView];// 加还是不加
-
+                
                 self.tableV.tableHeaderView = self.headTView;
-//                [self.tableV reloadData];
+                //                [self.tableV reloadData];
             });
-           
+            
         } onFailure:^(NSError * _Nullable error) {
             self.hadLogin = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -217,7 +219,7 @@
             });
             
         }];
-       
+        
     }else{
         self.hadLogin = NO;
         self.model = nil;
@@ -225,11 +227,8 @@
         [self.tableV reloadData];
         DSLog(@"未登录");
     }
-    
-    [self requestMemebers];
 }
-
-- (void)requestMemebers
+- (void)requestMemebersData
 {
     self.topArr = [NSMutableArray array];
     self.titleArr = [NSMutableArray array];
@@ -258,18 +257,20 @@
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
 //        DSLog(@"--个人中心--%@",responseObject);
-        self.topArr = [TJMembersModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"top"]];
-        for (NSDictionary *dict in responseObject[@"data"][@"main"]) {
-            [self.titleArr addObject:dict[@"name"]];
-            
-        }
         
-        self.menuArr = [TJMemberMainModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"main"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
+            self.topArr = [TJMembersModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"top"]];
+            for (NSDictionary *dict in responseObject[@"data"][@"main"]) {
+                [self.titleArr addObject:dict[@"name"]];
+                
+            }
             
-            [self.topCollectView reloadData];
-            [self.tableV reloadData];
-        });
+            self.menuArr = [TJMemberMainModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"main"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.topCollectView reloadData];
+                [self.tableV reloadData];
+            });
+        
         
     } onFailure:^(NSError * _Nullable error) {
         
@@ -529,7 +530,7 @@
         TJMemberMainModel *model = self.menuArr[indexPath.section-1];
         NSArray *arr = model.menu;
         NSInteger i = ceilf(arr.count/4.0);
-        return i*60+55;
+        return i*70+55;
     }
         return 115;
 

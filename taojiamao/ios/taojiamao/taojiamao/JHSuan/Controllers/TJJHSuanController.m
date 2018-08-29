@@ -23,9 +23,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = KALLRGB;
+//    self.navigationController.navigationBar.barTintColor = KALLRGB;
     
-//    [self.navigationController.navigationBar setBackgroundImage:img forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"jhs_nav_bg"] forBarMetrics:UIBarMetricsDefault];
     //去掉导航栏底部的黑线
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     
@@ -170,7 +170,7 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     }
     [header setImages:@[[UIImage imageNamed:@"1"]] forState:MJRefreshStateIdle];
     [header setImages:temp forState:MJRefreshStatePulling];
-    [header setImages:temp duration:temp.count*0.2 forState:MJRefreshStateRefreshing];
+    [header setImages:temp duration:temp.count*0.03 forState:MJRefreshStateRefreshing];
     header.lastUpdatedTimeLabel.hidden = YES;
     header.stateLabel.hidden = YES;
     self.collectionV.mj_header =header;

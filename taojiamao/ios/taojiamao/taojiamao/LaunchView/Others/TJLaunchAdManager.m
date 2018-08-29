@@ -69,7 +69,7 @@
 //        TJLaunchModel * model = [TJLaunchModel yy_modelWithDictionary:response[@"data"]];
 ////        //配置广告数据
 //        XHLaunchImageAdConfiguration *imageAdconfiguration = [XHLaunchImageAdConfiguration new];
-////        //广告停留时间
+//        广告停留时间
 //        imageAdconfiguration.duration = DuratioN;
 ////        //广告frame
 //        imageAdconfiguration.frame = CGRectMake(0, 0, S_W, S_H);

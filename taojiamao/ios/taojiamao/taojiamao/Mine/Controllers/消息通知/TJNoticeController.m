@@ -70,9 +70,7 @@
         });
         
     } onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--notice-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+
     }];
 }
 - (void)setButton{
@@ -130,40 +128,28 @@
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-
 {
-    
     return   UITableViewCellEditingStyleDelete;
-    
 }
 
 //先要设Cell可编辑
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-
 {
-    
     return YES;
-    
 }
 //修改编辑按钮文字
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-
 {
-    
     return @"删除";
-    
 }
 
 //设置进入编辑状态时，Cell不会缩进
 
 - (BOOL)tableView: (UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
-
 {
-    
     return NO;
-    
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{

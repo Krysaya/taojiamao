@@ -12,7 +12,7 @@
 #import "TJKdMineClassicCell.h"
 #import "TJKdMineMiddleCell.h"
 #import "TJKdMineDefaultCell.h"
-
+#import "TJAssistanceController.h"
 #import "TJKdMyMoneyController.h"
 #import "TJKdMyTeamController.h"
 #import "TKdMyOrderController.h"
@@ -30,23 +30,23 @@
 
 @implementation TJKdUserCenterController
 - (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = RGB(81, 162, 249);
+    [super viewWillAppear:animated];    self.navBarBgAlpha = @"0.0";
     self.tabBarController.tabBar.hidden = NO;
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = KBGRGB;
 
+    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 64)];
+    bg.backgroundColor = KKDRGB;
+    [self.view addSubview:bg];
     TJButton *btn_left = [[TJButton alloc]initDelegate:self backColor:nil tag:BackTag withBackImage:@"kd_left_white" withSelectImage:nil];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn_left];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaBottomHeight) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-49-SafeAreaTopHeight) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.backgroundColor = KBGRGB;
@@ -80,6 +80,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
         TJKdMineHeadCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMineHeadCell"];
+        cell.backgroundColor = KKDRGB;
         return cell;
     }else if (indexPath.row==1){
         TJKdMineClassicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMineClassicCell"];
@@ -110,6 +111,8 @@
 //        邀请好友
     }else if (indexPath.row==4){
 //        客服中心
+        TJAssistanceController *vc = [[TJAssistanceController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.row==5){
 //        意见反馈
         TJKdMyOpintionMyController *vc = [[TJKdMyOpintionMyController alloc]init];

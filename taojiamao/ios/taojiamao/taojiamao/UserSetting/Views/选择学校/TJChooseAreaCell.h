@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TJChooseAreaCell : TJBaseTableCell
-@property (weak, nonatomic) IBOutlet UITextField *tf;
+@property (weak, nonatomic) IBOutlet UIButton *btn;
 
 @end

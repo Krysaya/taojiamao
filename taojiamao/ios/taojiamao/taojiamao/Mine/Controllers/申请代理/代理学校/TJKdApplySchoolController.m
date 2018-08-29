@@ -31,6 +31,8 @@
 @property (nonatomic, strong) UIView *tf_View;
 @property (nonatomic, strong) UITextField *tf_school;
 
+
+@property (nonatomic, strong) UIButton *senderBtn;
 @end
 
 @implementation TJKdApplySchoolController
@@ -179,7 +181,8 @@
             return cell;
         }else{
             TJChooseAreaCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseAreaCell"];
-            cell.tf.delegate = self;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.btn addTarget:self action:@selector(chooseArea:) forControlEvents:UIControlEventTouchUpInside];
             return cell;
         }
     }else{
@@ -241,7 +244,8 @@
     }
 }
 #pragma mark - textfiledDelegate
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+- (void)chooseArea:(UIButton *)sender{
+    self.senderBtn = sender;
     //写你要实现的：页面跳转的相关代码
     UIView *view = [[UIView alloc]initWithFrame:S_F];
     view.backgroundColor = RGBA(51, 51, 51, 0.2);
@@ -271,7 +275,6 @@
     [self pickerView:pickerV didSelectRow:0 inComponent:0];
     
     [bg_view addSubview:pickerV];
-    return NO;
 }
 
 #pragma mark - pickerDelegate
@@ -311,6 +314,8 @@
 #pragma mark - button
 - (void)buttonClick:(UIButton *)but{
     if (but.tag==8934) {
+        [self.senderBtn setTitle:[NSString stringWithFormat:@"%@-%@",self.province.name,self.city.name] forState:UIControlStateNormal];
+        [self.senderBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.pick_View removeFromSuperview];
 
     }else{
