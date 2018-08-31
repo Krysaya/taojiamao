@@ -38,13 +38,13 @@
     
     
     [self setNavgation];
+    [self setFiltrateView];
 
     [self setUITableView];
     [self setUICollectionView];
-    [self setFiltrateView];
     self.tableView.hidden = YES;
     //注册观察者
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransform:) name:TJHorizontalVerticalTransform object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransformClass:) name:TJHorizontalVerticalTransformClass object:nil];
  
 }
 - (void)setFiltrateView{
@@ -97,6 +97,13 @@
             [self.collectionView reloadData];
         });
         
+        if (self.dataArr.count>0) {
+            
+        }else{
+            self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+        }
+        
     } onFailure:^(NSError * _Nullable error) {
         //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         //        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
@@ -118,18 +125,16 @@
 
 }
 -(void)setUITableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+15, S_W, S_H) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[TJGoodsListCell class] forCellReuseIdentifier:@"tabListCell"];
-    
-    [self.view addSubview:self.tableView];
+   UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+15, S_W, S_H) style:UITableViewStylePlain];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"tabListCell"];
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
 }
 
 - (void)setUICollectionView{
     UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
-    
     UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+15, S_W, S_H) collectionViewLayout:layou];
     collectV.delegate = self;
     collectV.dataSource = self;
@@ -185,7 +190,7 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150;
+    return 160;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
@@ -222,7 +227,6 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:self.view.bounds];
     mcv.deletage = self;
     UIWindow * window = [UIApplication sharedApplication].delegate.window;
-    
     [window addSubview:mcv];
 }
 
@@ -230,9 +234,9 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 //    筛选
 }
 #pragma mark - 通知
--(void)horizontalVerticalTransform:(NSNotification*)info{
-    DSLog(@"%@",info.userInfo[@"hsBool"]);
-    NSNumber * num = info.userInfo[@"hsBool"];
+-(void)horizontalVerticalTransformClass:(NSNotification*)info{
+    DSLog(@"%@",info.userInfo[@"hsClassBool"]);
+    NSNumber * num = info.userInfo[@"hsClassBool"];
     BOOL hs = [num boolValue];
     self.tableView.hidden = !hs;
     self.collectionView.hidden = hs;

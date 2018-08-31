@@ -83,7 +83,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 47*H_Scale;
+    return 47;
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (self.ShowQU && section==0) {
@@ -134,10 +134,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (indexPath.section==0) {
-        if (indexPath.row==0) {
-//            TJMyAddressController * mavc = [[TJMyAddressController alloc]init];
-//            [self.navigationController pushViewController:mavc animated:YES];
-        }else if (indexPath.row==1){
+        if (indexPath.row==0){
             TJAccountSafeController * asvc = [[TJAccountSafeController alloc]init];
             asvc.phone = self.phone;
             [self.navigationController pushViewController:asvc animated:YES];
@@ -194,7 +191,7 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
 }
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
-        _dataArray = [NSMutableArray arrayWithObjects:@[@"我的收货地址",@"账户安全",@"账户绑定"],@[@"关于我们",@"服务条款",@"隐私政策"],@[@"清除缓存"], nil];
+        _dataArray = [NSMutableArray arrayWithObjects:@[@"账户安全",@"账户绑定"],@[@"关于我们",@"服务条款",@"隐私政策"],@[@"清除缓存"], nil];
     };
     return _dataArray;
 }

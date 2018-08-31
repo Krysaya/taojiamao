@@ -110,7 +110,9 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self resetSystemNavibar];
+//    [self setNavBarBgAlpha:@"1"];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+//        [self resetSystemNavibar];
 }
 
 - (void)dealloc{
@@ -313,7 +315,7 @@
 //            [self.big_ScrollView addSubview:self.tableView];
             [self setBottomTableView];
     
-            self.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+self.goodsArr.count*150);
+            self.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+self.goodsArr.count*160);
 
         });
         
@@ -337,11 +339,11 @@
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
 //    搜索
-    UIView *midView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 285, 30)];
+    UIView *midView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,S_W-100, 30)];
     midView.backgroundColor = [UIColor whiteColor];
     midView.layer.cornerRadius = 15;
     midView.layer.masksToBounds = YES;
-    UISearchBar *searchB = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 285, 30)];
+    UISearchBar *searchB = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, S_W-100, 30)];
     searchB.delegate = self;
     searchB.searchBarStyle = UISearchBarStyleDefault;
     [midView addSubview:searchB];
@@ -440,8 +442,8 @@
     }];
     [self.big_ScrollView addSubview:view];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75, S_W, self.goodsArr.count*150) style:UITableViewStylePlain];
-    tableView.rowHeight = 150;tableView.scrollEnabled = NO;
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75, S_W, self.goodsArr.count*160) style:UITableViewStylePlain];
+    tableView.rowHeight = 160;tableView.scrollEnabled = NO;
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.separatorColor = RGBA(240, 240, 240, 1);

@@ -86,9 +86,9 @@
         make.left.mas_equalTo(weakSelf.yhq.mas_right).offset(margin);
         make.width.height.mas_equalTo(18);
     }];
-    self.hs.hidden = margin==22?NO:YES;
+//    self.hs.hidden = margin==22?NO:YES;
     
-    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"list_choose" selectImage:@"" tag:sxButton imgAndTitleEdge:YES];
+    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"list_choose" selectImage:@"" tag:sxButton imgAndTitleEdge:NO];
 
     [self addSubview:self.sx];
     if (self.hs.hidden) {
@@ -121,8 +121,8 @@
     [but addTarget:self action:@selector(sixButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     if (type==YES) {
         
-        but.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, -30);
-        but.titleEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 15);
+        but.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, -30);
+        but.titleEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 10);
     }else{
         
     }
@@ -138,7 +138,7 @@
         NSNotificationCenter * noticen = [NSNotificationCenter defaultCenter];
         NSNumber * sele = [NSNumber numberWithBool:but.selected];
         [noticen postNotificationName:TJHorizontalVerticalTransform object:nil userInfo:@{@"hsBool":sele}];
-        
+         [noticen postNotificationName:TJHorizontalVerticalTransformClass object:nil userInfo:@{@"hsClassBool":sele}];
     }else if (but.tag==sxButton){
         if (self.deletage && [self.deletage respondsToSelector:@selector(popupFiltrateView)]) {
             [self.deletage popupFiltrateView];

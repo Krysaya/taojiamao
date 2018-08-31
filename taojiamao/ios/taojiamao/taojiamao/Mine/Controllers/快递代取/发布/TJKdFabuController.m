@@ -170,7 +170,7 @@
         //        self.details.text = self.model.address;
     }else{
         if (self.m_song==nil) {
-            self.lab_address.text = @"请选择送件地址";
+            self.lab_name.text = @"请选择送件地址";
         }if (self.m_qu==nil) {
             self.lab_quAddress.text = @"请选择取件地址";
         }
@@ -387,9 +387,9 @@
                             [self.navigationController pushViewController:vc animated:YES];
                         } onFailure:^(NSError * _Nullable error) {
                           
-//                            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//                            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-                            DSLog(@"---≈≈error-msg%@=======dict%@",error);
+                            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
                         }];
                     }else{
                         //                        发布订单
@@ -429,12 +429,11 @@
                                     NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
                                     NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
                                     DSLog(@"---≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+                            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
                         }];
                     }
                 }
                     
-                
-             
             }
         
     

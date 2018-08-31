@@ -12,4 +12,6 @@
 @interface TJTQGCell : TJBaseTableCell
 @property (nonatomic, strong) TJTqgGoodsModel *model;
 @property (nonatomic, strong) NSString *type;
+@property (weak, nonatomic) IBOutlet UIButton *btn_qiang;
+@property (weak, nonatomic) IBOutlet UIButton *btn_fen;
 @end

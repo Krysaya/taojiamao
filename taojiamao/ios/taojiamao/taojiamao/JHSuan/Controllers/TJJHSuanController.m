@@ -214,8 +214,17 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 //UICollectionViewCell的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake((S_W-10)/2, 275);
+    return CGSizeMake((S_W-5)/2, 275);
 }
+//这个是两行cell之间的间距（上下行cell的间距）
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 5;
+}
+////定义每个Section的四边间距
+//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    return UIEdgeInsetsMake(5, 0, 0, 0);//分别为上、左、下、右
+//}
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     TJJHSuanCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TJJHSuanCell" forIndexPath:indexPath];

@@ -12,6 +12,7 @@
 
 #import "TJOrderInfoController.h"//订单详情
 #import "TJKdUserOrderList.h"
+#import "TJEvaluationController.h"
 
 @interface TJAllOrderContentController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArr;
@@ -156,6 +157,7 @@
     
     TJCourierTakeCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CourierTakeCell"];
     cell.model = self.dataArr[indexPath.row];
+    [cell.btn_pl addTarget:self action:@selector(pingLunClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -166,6 +168,11 @@
     vc.kdstatus = model.status;
     [self.navigationController pushViewController:vc animated:YES];
    
+}
+
+- (void)pingLunClick:(UIButton *)sender{
+    TJEvaluationController *vc = [[TJEvaluationController alloc]init];
+    [self.navigationController  pushViewController:vc animated:YES];
 }
 
 @end

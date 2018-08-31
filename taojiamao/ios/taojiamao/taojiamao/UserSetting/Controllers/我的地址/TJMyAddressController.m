@@ -30,10 +30,16 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 @implementation TJMyAddressController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear: animated];
-    if (self.dataArray.count>0) {
-    }else{
+    if ([self.type isEqualToString:@"fb"]) {
         [self loadRequestMyAddressList];
+
+    }else{
+        if (self.dataArray.count>0) {
+        }else{
+            [self loadRequestMyAddressList];
+        }
     }
+    
    
 }
 - (void)viewDidLoad {
@@ -50,7 +56,6 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
 //    self.navigationItem.rightBarButtonItem = barBut;
     
     self.title = @"我的收货地址";
-    
     [self setUI];
    
 }

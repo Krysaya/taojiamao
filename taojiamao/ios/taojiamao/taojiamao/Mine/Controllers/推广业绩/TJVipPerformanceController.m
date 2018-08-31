@@ -84,7 +84,7 @@
         make.height.mas_equalTo(50);
     }];
     
-    self.iconImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.iconImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"order_info"]];
     [self.orderDetails addSubview:self.iconImage];
     [self.iconImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.orderDetails);
@@ -172,7 +172,7 @@
         make.left.mas_equalTo(20);
     }];
     
-    self.numBalance = [TJLabel setLabelWith:@"1546.00" font:30 color:RGB(255, 71, 119)];
+    self.numBalance = [TJLabel setLabelWith:@"0.00" font:30 color:RGB(255, 71, 119)];
     [self.headView addSubview:self.numBalance];
     [self.numBalance mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.mineBalance.mas_bottom).offset(12);

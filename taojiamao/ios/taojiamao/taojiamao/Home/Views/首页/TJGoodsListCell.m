@@ -58,9 +58,16 @@
         TJJHSGoodsListModel *model = [arr objectAtIndex:indexPath.row];
 
 //        _selectBtn.selected = model.isChecked;
-        [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+        [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
+        UIImage *imgs;
+        if ([model.shoptype isEqualToString:@"B"]) {
+            imgs = [UIImage imageNamed:@"tb_bs"];
+        }else{
+            imgs = [UIImage imageNamed:@"tm_bs"];
+        }
+        
         NSAttributedString *str_tb = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-            make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+            make.insertImage(imgs, 0, CGPointMake(0, 0), CGSizeMake(26, 13));
             make.insertText(@" ", 1);
             make.insertText(model.itemtitle, 2);
         });
@@ -85,9 +92,15 @@
     }else{
         TJGoodsCollectModel *model = [arr objectAtIndex:indexPath.row];
         _selectBtn.selected = model.isChecked;
-        [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+        [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
+        UIImage *imgs;
+        if ([model.shoptype isEqualToString:@"B"]) {
+            imgs = [UIImage imageNamed:@"tb_bs"];
+        }else{
+            imgs = [UIImage imageNamed:@"tm_bs"];
+        }
         NSAttributedString *str_tb = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-            make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+            make.insertImage(imgs, 0, CGPointMake(0, 0), CGSizeMake(26, 13));
             make.insertText(@" ", 1);
             make.insertText(model.itemtitle, 2);
         });

@@ -28,7 +28,7 @@
     // Do any additional setup after loading the view.
 }
 - (void)openTaoBaoOrder{
-    
+//    [SVProgressHUD show];
     UIWebView *webV = [[UIWebView alloc]initWithFrame:S_F];
     [self.view addSubview:webV];
     //打开我的订单页
@@ -38,9 +38,10 @@
     AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[AlibcTradeSDK sharedInstance].tradeService show:self webView:webV page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
-            
+//            [SVProgressHUD dismiss];
         } tradeProcessFailedCallback:^(NSError * _Nullable error) {
-            
+//            [SVProgressHUD dismiss];
+
         }];
     });
     

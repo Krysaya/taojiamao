@@ -145,7 +145,7 @@
     
     self.original.attributedText = [self labelStrikethrough:model.itemprice];
     
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
 
     self.minus.text = [NSString stringWithFormat:@"领券减%@",model.couponmoney];
     

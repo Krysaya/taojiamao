@@ -148,7 +148,8 @@
        
         
         if (self.mobile.text==nil || self.mobile.text.length==0 ||self.verify.text==nil || self.verify.text.length==0 ||self.password.text==nil || self.password.text.length==0 ) {
-            DSLog(@"有选项为空");
+            [SVProgressHUD showInfoWithStatus:@"输入不能为空！"];
+
         }else{
             
             if ([TJOverallJudge judgeMobile:self.mobile.text]) {
@@ -170,8 +171,6 @@
                                                }.mutableCopy;
                 
                 NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
-                //            NSLog(@"-time=%@--md-%@--",timeStr,md5Str);
-                
                 if (self.isRegister) {
                     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
                         request.url = RegisterApp;
@@ -183,9 +182,10 @@
                                              };
                     } onSuccess:^(id  _Nullable responseObject) {
                         DSLog(@"注册成功===%@",responseObject[@"id"]);
+                        [SVProgressHUD showSuccessWithStatus:@"注册成功"];
                         //                    写入
                         SetUserDefaults(responseObject[@"id"], UID);
-                        //                                        SetUserDefaults(data[@"ptoken"], TOKEN);
+                        // SetUserDefaults(data[@"ptoken"], TOKEN);
                         SetUserDefaults(HADLOGIN, HADLOGIN);
                         SetUserDefaults(self.mobile.text, UserPhone);
                         //控制器跳转
@@ -193,11 +193,8 @@
                     } onFailure:^(NSError * _Nullable error) {
                         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
                         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-                        
-                        
                         DSLog(@"----注册-≈≈error-%@",dic_err[@"msg"]);
-                        
-                        
+                        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
                         
                     }];
                     
@@ -212,21 +209,20 @@
                                              };
                     } onSuccess:^(id  _Nullable responseObject) {
                         DSLog(@"修改mm成功===%@",responseObject);
+                        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
                         //控制器跳转
-                        //                    [self.navigationController popToRootViewControllerAnimated:YES];
+                                            [self.navigationController popViewControllerAnimated:YES];
                         //                    //这里是否要自动登录？
                     } onFailure:^(NSError * _Nullable error) {
                         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
                         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-                        
-                        
                         DSLog(@"----修改mm-≈≈error-%@",dic_err[@"msg"]);
-                        
+                        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
                     }];
                     
                 }
             }else{
-                [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号！"];
+                [SVProgressHUD showInfoWithStatus:@"手机号格式有误！"];
 
             }
            

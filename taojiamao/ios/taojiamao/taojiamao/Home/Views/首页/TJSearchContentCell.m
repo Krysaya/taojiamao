@@ -98,7 +98,7 @@
 
 
 - (void)setModel:(TJJHSGoodsListModel *)model{
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
 //    if (model.site) {
 //        <#statements#>
 //    }

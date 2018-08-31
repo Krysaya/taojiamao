@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *itemendprice;//券后价
 @property (nonatomic, strong) NSString *itemprice;//正常售价
 @property (nonatomic, strong) NSString *fqcat;//类目
-
+@property (nonatomic, strong) NSString *shoptype;//b淘宝 c天猫
 @property (nonatomic, strong) NSString *taobao_image;//缩略图
 @property (nonatomic, strong) NSString *url;//购买链接
 @property (nonatomic, strong) NSString *sub_title;//子标题

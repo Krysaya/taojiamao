@@ -140,7 +140,12 @@
                             @"sign":md5Str,};
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"---%@---",responseObject);
         [SVProgressHUD showSuccessWithStatus:@"绑定成功！"];
+        SetUserDefaults(@"1", Bind_WX);
+        self.hadBind.hidden = NO;self.noBind.hidden = YES;
+        [self.cancel setTitle:@"取消绑定"];self.jj.hidden = NO;
+
     } onFailure:^(NSError * _Nullable error) {
         [SVProgressHUD showSuccessWithStatus:@"绑定失败！"];
 

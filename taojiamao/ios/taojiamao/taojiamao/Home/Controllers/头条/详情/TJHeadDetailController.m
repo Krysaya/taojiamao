@@ -45,7 +45,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestReplyList];
 
     self.title = self.title_art;
     //    you边按钮
@@ -68,6 +67,8 @@
     WeakSelf
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf requestNewsInfoList];
+        [weakSelf requestReplyList];
+
     }];
     [tableView.mj_header beginRefreshing];
     self.tableView = tableView;
@@ -324,10 +325,19 @@
             [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
         });
     }onFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section==1) {
+        if (indexPath.row==1) {
+//          推荐
+            
+        }
+    }
 }
 - (IBAction)scrollAllContent:(UIButton *)sender {
     if (self.commentArr.count>0) {
@@ -370,7 +380,7 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"type":i,@"aid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
-        [SVProgressHUD showInfoWithStatus:@"点赞了~"];
+//        [SVProgressHUD showInfoWithStatus:@"点赞了~"];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
         //2.将indexPath添加到数组
         NSArray <NSIndexPath *> *indexPathArray = @[indexPath];
@@ -379,7 +389,9 @@
             [self.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
         });
     }onFailure:^(NSError * _Nullable error) {
-       
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
 }
 #pragma mark - return
@@ -420,7 +432,7 @@
     }onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
     return YES;
 }
@@ -479,7 +491,7 @@
     }onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
 }
 

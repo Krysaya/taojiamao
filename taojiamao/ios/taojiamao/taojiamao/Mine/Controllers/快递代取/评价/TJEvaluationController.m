@@ -51,7 +51,7 @@
     tagView.selectBlock = ^(SQButtonTagView * _Nonnull tagView, NSArray * _Nonnull selectArray) {
         DSLog(@"--select--%ld",tagView.tag);
     };
-    tagView.frame = CGRectMake(15, 30, S_W-30-20, 70);
+    tagView.frame = CGRectMake(15, 30, S_W-30-20, 100);
     [view_bg addSubview:tagView];
 //    line
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(15, tagView.frame.size.height+tagView.frame.origin.y+15, S_W-30-20, 1)];
@@ -64,7 +64,7 @@
     
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(10, 190+225+25, S_W-20, 44)];
     [btn setTitle:@"提交" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(btnTickClick:) forControlEvents:UIControlEventTouchUpInside];
     btn.backgroundColor = KKDRGB;
     btn.layer.masksToBounds = YES;
     btn.layer.cornerRadius = 5;
@@ -72,7 +72,7 @@
     
     
 }
-- (void)butClick:(UIButton *)sender{
+- (void)btnTickClick:(UIButton *)sender{
     
 }
 #pragma mark - star--deleagte

@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/AppDelegate.m"
-            timestampString = "557318069.358163"
+            filePath = "taojiamao/Mine/Controllers/&#x6211;&#x7684;&#x8db3;&#x8ff9;/TJMyFootPrintController.m"
+            timestampString = "557390193.225482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "-doTJOverallJudge"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-requestFootPrint"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,45 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/AppDelegate.m"
-            timestampString = "557318069.358215"
+            filePath = "taojiamao/Mine/Controllers/&#x6211;&#x7684;&#x8db3;&#x8ff9;/TJMyFootPrintController.m"
+            timestampString = "557390193.225587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "-doTJOverallJudge"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "taojiamao/ViewController.m"
-            timestampString = "557288030.397665"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "taojiamao/ViewController.m"
-            timestampString = "557288030.397709"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "-requestFootPrint"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

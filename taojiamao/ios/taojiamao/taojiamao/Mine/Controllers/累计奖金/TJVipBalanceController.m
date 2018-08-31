@@ -38,13 +38,13 @@
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:15]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:17]}];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"账户余额";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],
-                                                                      NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:15]}];
+                                                                      NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     
     DSLog(@"%@",self.balance);
     

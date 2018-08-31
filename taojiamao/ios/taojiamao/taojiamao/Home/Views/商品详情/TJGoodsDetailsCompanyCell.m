@@ -31,7 +31,7 @@
 }
 -(void)setUI{
     WeakSelf
-    self.iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_bg.jpg"]];
     [self.contentView addSubview:self.iconV];
     [self.iconV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(12*W_Scale);
@@ -39,7 +39,7 @@
         make.width.height.mas_equalTo(42*W_Scale);
     }];
     
-    self.type = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.type = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_bg.jpg"]];
     [self.contentView addSubview:self.type];
     [self.type mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(21*H_Scale);

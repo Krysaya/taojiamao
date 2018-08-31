@@ -56,7 +56,7 @@
             request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str};
         } onSuccess:^(id  _Nullable responseObject) {
             NSLog(@"----code-success==%@",responseObject);
-
+            [SVProgressHUD showSuccessWithStatus:@"发送成功"];
 //            NSInteger  code = responseObject[@"code"];
 //            int codeNum = [code intValue];
 //            if (codeNum==100) {
@@ -72,10 +72,13 @@
             NSLog(@"------code==error==%@",error);
             if (sms) sms(NO);
             but.userInteractionEnabled = YES;
+            [SVProgressHUD showErrorWithStatus:@"发送失败"];
+
         }];
     
     }else{
         NSLog(@"手机号格式不正确");
+
         if (sms) sms(NO);
     }
 

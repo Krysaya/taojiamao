@@ -38,6 +38,8 @@
 #import "TJOrderClaimController.h"//  订单认领
 #import "TJRankingListController.h"//   排行榜
 #import "TJAssistanceController.h"// 客服帮助
+#import "TJTaoBaoGoodsCarController.h"//淘宝购物车
+
 #import "TJShareMoneyController.h"//  分享赚钱
 #import "TJInvitationView.h"//    邀请有奖
 //#import "<#header#>"
@@ -121,14 +123,17 @@
     if ([identifier isEqualToString: @"orderClaim"]) {//订单认领
         TJOrderClaimController *vc= [[TJOrderClaimController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
+    if ([identifier isEqualToString: @"makeMoney"]) {//分享赚钱
+        TJShareMoneyController *vc= [[TJShareMoneyController alloc]init];
+        [weakSelf.navigationController pushViewController:vc animated:YES];}
     if ([identifier isEqualToString: @"leaderboard"]) {//排行榜
         TJRankingListController *vc= [[TJRankingListController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
     if ([identifier isEqualToString: @"serviceHelp"]) {//客服帮助
         TJAssistanceController *vc= [[TJAssistanceController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
-    if ([identifier isEqualToString: @"makeMoney"]) {//分享赚钱
-        TJShareMoneyController *vc= [[TJShareMoneyController alloc]init];
+    if ([identifier isEqualToString: @"taobaoCar"]) {//购物车
+        TJTaoBaoGoodsCarController *vc= [[TJTaoBaoGoodsCarController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
     if ([identifier isEqualToString: @"invitation"]) {//邀请有奖
         TJInvitationView *iview = [TJInvitationView invitationView];

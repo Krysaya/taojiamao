@@ -12,6 +12,8 @@
 #import "TJGoodsListCell.h"
 #import "TJGoodsCollectModel.h"
 #import "TJGoodCatesMainListModel.h"
+#import "TJDefaultGoodsDetailController.h"
+
 @interface TJBargainContentController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataGoodsArr;
@@ -49,6 +51,7 @@
 }
 - (void)loadReuqestNormalDataWithType:(NSString *)type  withcateType:(NSString *)cid{
     self.dataGoodsArr = [NSMutableArray array];
+    [SVProgressHUD show];
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -77,6 +80,7 @@
             request.parameters = @{      @"is_jing":@"1",};
         } onSuccess:^(id  _Nullable responseObject) {
             DSLog(@"--jingx99==%@",responseObject);
+            [SVProgressHUD dismiss];
             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
@@ -104,12 +108,14 @@
 //            request.parameters = @{      @"is_jiu":jjtype,};
         } onSuccess:^(id  _Nullable responseObject) {
             DSLog(@"--909==%@",responseObject);
+            [SVProgressHUD dismiss];
+
             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.tableView reloadData];
             
                         });
-        } onFailure:^(NSError * _Nullable error) {
+        } onFailure:^(NSError * _Nullable error) {            [SVProgressHUD dismiss];
         }];
     }else if([type intValue]==2){
         NSMutableDictionary *md = @{
@@ -130,12 +136,14 @@
             request.parameters = @{      @"is_jiu":@"1",};
         } onSuccess:^(id  _Nullable responseObject) {
             DSLog(@"--1909==%@",responseObject);
+            [SVProgressHUD dismiss];
+
              self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.tableView reloadData];
             
                         });
-        } onFailure:^(NSError * _Nullable error) {
+        } onFailure:^(NSError * _Nullable error) { [SVProgressHUD dismiss];
         }];
     }else{
         NSMutableDictionary *md = @{
@@ -155,6 +163,7 @@
             request.httpMethod = kXMHTTPMethodPOST;
             request.parameters = @{      @"cid":cid,};
         } onSuccess:^(id  _Nullable responseObject) {
+            [SVProgressHUD dismiss];
                         DSLog(@"--ccc==%@",responseObject);
              self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -162,7 +171,7 @@
             
                         });
         } onFailure:^(NSError * _Nullable error) {            DSLog(@"--111==%@",error);
-
+            [SVProgressHUD dismiss];
         }];
     }
     
@@ -179,12 +188,6 @@
     return self.dataGoodsArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (self.zj_currentIndex==0) {
-//        if (indexPath.row==0) {
-//            TJBargainHeadCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BargainHeadCell"];
-//            return cell;
-//        }
-//    }
   
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
     [cell cellWithArr:self.dataGoodsArr forIndexPath:indexPath isEditing:NO withType:@"1"];
@@ -195,10 +198,14 @@
 //    if (indexPath.row==0) {
 //        return 134;
 //    }
-    return 150;
+    return 160;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
+    TJGoodsCollectModel *model = self.dataGoodsArr[indexPath.row];
+    goodVC.gid = model.itemid;
+    //    goodVC.price = model.itemprice;goodVC.priceQuan = model.itemendprice;
+    [self.navigationController pushViewController:goodVC animated:YES];
 }
 
 

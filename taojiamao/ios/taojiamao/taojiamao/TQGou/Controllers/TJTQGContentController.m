@@ -103,6 +103,7 @@ static NSString * const TQGContentCell = @"GContentCell";
     TJTQGCell *cell = [tableView dequeueReusableCellWithIdentifier:TQGContentCell];
     cell.type = self.indexx;
     cell.model = self.dataArr[indexPath.row];
+    [cell.btn_qiang addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -118,6 +119,22 @@ static NSString * const TQGContentCell = @"GContentCell";
             DSLog(@"success!==tqg详情：======%@",result);
         } tradeProcessFailedCallback:^(NSError * _Nullable error) {
 
+        }];
+    });
+}
+- (void)btnClick:(UIButton *)sender{
+    TJTQGCell *cell = (TJTQGCell *)[[sender superview] superview];
+    NSIndexPath  *index = [self.tableView indexPathForCell:cell];
+    TJTqgGoodsModel *m = self.dataArr[index.row];
+    id <AlibcTradePage >page = [AlibcTradePageFactory page:m.click_url];
+    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+    showParam.openType = AlibcOpenTypeAuto;
+    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+            DSLog(@"success!==tqg详情：======%@",result);
+        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+            
         }];
     });
 }

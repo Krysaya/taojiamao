@@ -48,7 +48,6 @@
         if (leftBtn) {
             [leftBtn setImage:[UIImage imageNamed:@"back_left"] forState:UIControlStateNormal];
         }
-//        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
         
     }else
     {
@@ -84,7 +83,6 @@
     [navBar setShadowImage:nil];
     NSDictionary *dict = @{NSForegroundColorAttributeName : [UIColor darkTextColor]};
     [navBar setTitleTextAttributes:dict];
-    
     [self setNeedsStatusBarAppearanceUpdate];
 }
 

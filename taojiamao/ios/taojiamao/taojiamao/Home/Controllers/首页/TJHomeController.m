@@ -36,6 +36,7 @@
 @implementation TJHomeController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:17]}];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -86,11 +87,6 @@
         request.httpMethod = kXMHTTPMethodGET;
     } onSuccess:^(id  _Nullable responseObject) {
         self.hotSearchArr = responseObject[@"data"][@"hot"];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-        });
-        
     } onFailure:^(NSError * _Nullable error) {
         
     }];
@@ -98,6 +94,7 @@
 
 #pragma mark - classic
 - (void)loadGoodsCatesList{
+    [SVProgressHUD show];
     self.dataArr_left = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
     
@@ -124,6 +121,8 @@
         request.httpMethod = kXMHTTPMethodGET;
         
     } onSuccess:^(id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
+
         NSDictionary *dict = responseObject[@"data"];
         for (int i=1; i<dict.count+1; i++) {
             NSString *str = [NSString stringWithFormat:@"%d",i];

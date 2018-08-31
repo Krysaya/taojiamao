@@ -18,4 +18,6 @@ static NSString * const TJNotifyNetworkingNON = @"TJNotifyNetworkingNON";
 //横竖切换
 static NSString * const TJHorizontalVerticalTransform = @"TJHorizontalVerticalTransform";
 
+//横竖切换--分类页
+static NSString * const TJHorizontalVerticalTransformClass = @"TJHorizontalVerticalTransformClass";
 

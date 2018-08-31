@@ -83,7 +83,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 #pragma mark - setUI
 -(void)setUIgoTop{
     WeakSelf
-    self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"morentouxiang" withSelectImage:nil];
+    self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"goods_bg.jpg" withSelectImage:nil];
     [self.view addSubview:self.goTop];
     [self.goTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-20*W_Scale);
@@ -102,7 +102,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.height.mas_equalTo(54*H_Scale);
     }];
     
-    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"morentouxiang" withSelectImage:nil];
+    self.shareB = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailShareButton withBackImage:@"goods_bg.jpg" withSelectImage:nil];
     [self.footView addSubview:self.shareB];
     [self.shareB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(31*W_Scale);
@@ -128,7 +128,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 }
 -(void)setUIbanner{
     UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 376)];
-    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:headView.bounds delegate:self placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:headView.bounds delegate:self placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
     [headView addSubview:self.bannerView];
     
     self.popularize = [[TJButton alloc]initWith:@"我要\n推广" delegate:self font:12 titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:DetailsPopularize cornerRadius:21];

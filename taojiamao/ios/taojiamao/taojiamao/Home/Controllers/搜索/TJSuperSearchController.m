@@ -32,7 +32,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self requestSuperSearchListWithSuperSort:@"0"];
-    self.superView = [[TJSearchScreenView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:25];
+    self.superView = [[TJSearchScreenView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:20];
     self.superView.backgroundColor  = [UIColor whiteColor];
     self.superView.deletage = self;
     [self.view addSubview:self.superView];
@@ -89,7 +89,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 45, S_W, S_H-SafeAreaTopHeight-50) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:TJSearchContentFootShowCell];
     
     [self.view addSubview:self.tableView];
@@ -120,7 +120,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150;
+    return 160;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -142,7 +142,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 //UICollectionViewCell的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake((S_W-10)/2, 275);
+    return CGSizeMake((S_W-5)/2, 275);
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
@@ -153,9 +153,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 -(void)superPopupFiltrateView{
     DSLog(@"呼出筛选框");
     TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:self.view.bounds];
-    
     UIWindow * window = [UIApplication sharedApplication].delegate.window;
-    
     [window addSubview:mcv];
 }
 - (void)buttonSureSelectString:(NSMutableDictionary *)sureDict{

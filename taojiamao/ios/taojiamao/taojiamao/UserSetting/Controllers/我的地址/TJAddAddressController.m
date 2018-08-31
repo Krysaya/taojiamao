@@ -130,13 +130,14 @@
                     request.httpMethod = kXMHTTPMethodPOST;
                 } onSuccess:^(id  _Nullable responseObject) {
                     [SVProgressHUD showSuccessWithStatus:@"添加成功"];
-
                     [self.navigationController popViewControllerAnimated:YES];
                     dispatch_async(dispatch_get_main_queue(), ^{
                     });
                     
                 } onFailure:^(NSError * _Nullable error) {
-
+                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                    [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
                 }];
             }
         }else{

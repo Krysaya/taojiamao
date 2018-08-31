@@ -25,7 +25,8 @@
 @implementation TJHeadLineController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,8 +49,10 @@
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineTwoCell" bundle:nil] forCellReuseIdentifier:@"twoCell"];
      [self.tableView registerNib:[UINib nibWithNibName:@"TJHeadLineThreeCell" bundle:nil] forCellReuseIdentifier:@"threeCell"];
     
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadRequestNewsList)];
-    self.tableView.mj_footer.hidden = YES;
+    self.tableView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [self loadRequestNormalNewsList];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)loadRequestNormalNewsList{
@@ -84,24 +87,26 @@
                                  @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"---%@--success",responseObject);
+        [self.tableView.mj_header endRefreshing];
+
         NSDictionary *dict = responseObject[@"data"];
         NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         [self.dataArr addObjectsFromArray:array];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            if (self.dataArr.count<[md[@"page_size"] integerValue]) {
-                
-                self.tableView.mj_footer.hidden = YES;
-            }else{
-                self.tableView.mj_footer.hidden = NO;
-            }
+//            if (self.dataArr.count<[md[@"page_size"] integerValue]) {
+//
+//                self.tableView.mj_footer.hidden = YES;
+//            }else{
+//                self.tableView.mj_footer.hidden = NO;
+//            }
             
         });
         
        
         self.page++;
     } onFailure:^(NSError * _Nullable error) {
-        [self.tableView.mj_footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
 //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
 //        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
 //        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);

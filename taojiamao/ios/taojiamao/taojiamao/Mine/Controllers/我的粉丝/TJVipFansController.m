@@ -113,13 +113,19 @@
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"fans--%@",responseObject);
-        self.searchData = [TJVipFensListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //            [self.tableView reloadData];
-        });
+        NSDictionary *dict = responseObject[@"data"];
+        if (dict.count>0) {
+            self.searchData = [TJVipFensListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //            [self.tableView reloadData];
+            });
+        }else{
+            [SVProgressHUD showInfoWithStatus:@"暂无数据"];
+        }
+        
         
     } onFailure:^(NSError * _Nullable error) {
-        
+         [SVProgressHUD showInfoWithStatus:@"服务器开了个小差~"];
     }];
 }
 -(void)dealloc{

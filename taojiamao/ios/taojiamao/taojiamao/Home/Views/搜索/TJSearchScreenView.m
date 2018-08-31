@@ -94,7 +94,7 @@
     }];
     //    self.hs.hidden = margin==22?NO:YES;
     
-    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"list_choose" selectImage:@"" tag:sxButton imgAndTitleEdge:YES];
+    self.sx =[self buttonWithString:@"筛选" normalColor:RGB(51, 51, 51) selectColor:nil normalImage:@"list_choose" selectImage:@"" tag:sxButton imgAndTitleEdge:NO];
     
     [self addSubview:self.sx];
     if (self.hs.hidden) {
@@ -126,9 +126,11 @@
     [but setImage:[UIImage imageNamed:si] forState:UIControlStateSelected];
     [but addTarget:self action:@selector(sixButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     if (type==YES) {
-        
-        but.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, -30);
-        but.titleEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 15);
+        UIImage *img = [UIImage imageNamed:@"price_bottom"];
+//         [but setTitle:@"价格" forState:UIControlStateNormal];
+        UILabel *lab = but.titleLabel;
+        [but setTitleEdgeInsets:UIEdgeInsetsMake(0, -img.size.width-5, 0, img.size.width+5)];
+        [but setImageEdgeInsets:UIEdgeInsetsMake(0,lab.bounds.size.width+28 , 0, -lab.bounds.size.width-15)];
     }else{
         
     }

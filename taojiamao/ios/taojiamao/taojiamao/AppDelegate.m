@@ -122,11 +122,12 @@
         DSLog(@"第一次打开");
         NSString * str = GetUserDefaults(ISFIRST);
         DSLog(@"%@",str);
-      
-        
-        ViewController * vc = [[ViewController alloc]init];
-        [self.window makeKeyAndVisible];
-        self.window.rootViewController = vc;
+        [self chooseControllersNoGuide];
+
+        NSArray * imageArray = @[@"ydy_1.jpg",@"ydy_2.jpg",@"ydy_3.jpg"];
+        DHGuidePageHUD * guidePage = [[DHGuidePageHUD alloc]dh_initWithFrame:S_F imageNameArray:imageArray buttonIsHidden:YES];
+        [[UIApplication sharedApplication].keyWindow addSubview:guidePage];
+
     }else{
         DSLog(@"不是第一次");
         [self chooseControllersNoGuide];

@@ -41,7 +41,7 @@
         make.right.mas_equalTo(-12*W_Scale);
     }];
     
-    self.taobao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.taobao = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_bg.jpg"]];
     [self.contentView addSubview:self.taobao];
     [self.taobao mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.title);

@@ -520,6 +520,11 @@
 		C7904F6E2124108B00E20E4D /* TJKdQuAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F6D2124108B00E20E4D /* TJKdQuAddressModel.m */; };
 		C7904F72212431C500E20E4D /* TJKdChooseTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7904F70212431C500E20E4D /* TJKdChooseTimeCell.m */; };
 		C7904F73212431C500E20E4D /* TJKdChooseTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7904F71212431C500E20E4D /* TJKdChooseTimeCell.xib */; };
+		C7909A9E2138DADC0088B4DE /* ydy_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7909A9B2138DADC0088B4DE /* ydy_1.jpg */; };
+		C7909A9F2138DADC0088B4DE /* ydy_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7909A9C2138DADC0088B4DE /* ydy_2.jpg */; };
+		C7909AA02138DADC0088B4DE /* ydy_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7909A9D2138DADC0088B4DE /* ydy_3.jpg */; };
+		C7909AA521390E7A0088B4DE /* TJTaoBaoGoodsCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7909AA321390E7A0088B4DE /* TJTaoBaoGoodsCarController.m */; };
+		C7909AA621390E7A0088B4DE /* TJTaoBaoGoodsCarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7909AA421390E7A0088B4DE /* TJTaoBaoGoodsCarController.xib */; };
 		C791B52721269D4200835897 /* AlibabaAuthExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B51321269D4100835897 /* AlibabaAuthExt.framework */; };
 		C791B52821269D4200835897 /* AlibabaAuthSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B51421269D4100835897 /* AlibabaAuthSDK.framework */; };
 		C791B52921269D4200835897 /* AlibcLinkPartnerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B51521269D4100835897 /* AlibcLinkPartnerSDK.framework */; };
@@ -1697,6 +1702,12 @@
 		C7904F6F212431C500E20E4D /* TJKdChooseTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdChooseTimeCell.h; sourceTree = "<group>"; };
 		C7904F70212431C500E20E4D /* TJKdChooseTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdChooseTimeCell.m; sourceTree = "<group>"; };
 		C7904F71212431C500E20E4D /* TJKdChooseTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJKdChooseTimeCell.xib; sourceTree = "<group>"; };
+		C7909A9B2138DADC0088B4DE /* ydy_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ydy_1.jpg; sourceTree = "<group>"; };
+		C7909A9C2138DADC0088B4DE /* ydy_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ydy_2.jpg; sourceTree = "<group>"; };
+		C7909A9D2138DADC0088B4DE /* ydy_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ydy_3.jpg; sourceTree = "<group>"; };
+		C7909AA221390E7A0088B4DE /* TJTaoBaoGoodsCarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTaoBaoGoodsCarController.h; sourceTree = "<group>"; };
+		C7909AA321390E7A0088B4DE /* TJTaoBaoGoodsCarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTaoBaoGoodsCarController.m; sourceTree = "<group>"; };
+		C7909AA421390E7A0088B4DE /* TJTaoBaoGoodsCarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJTaoBaoGoodsCarController.xib; sourceTree = "<group>"; };
 		C791B51321269D4100835897 /* AlibabaAuthExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlibabaAuthExt.framework; sourceTree = "<group>"; };
 		C791B51421269D4100835897 /* AlibabaAuthSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlibabaAuthSDK.framework; sourceTree = "<group>"; };
 		C791B51521269D4100835897 /* AlibcLinkPartnerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlibcLinkPartnerSDK.framework; sourceTree = "<group>"; };
@@ -2616,6 +2627,7 @@
 				C73FC75E209017FD00732F2D /* ViewController.h */,
 				C73FC75F209017FD00732F2D /* ViewController.m */,
 				C7FBE006212ABD45000DB8A4 /* Assets.xcassets */,
+				C7909A9A2138DADC0088B4DE /* 引导页 */,
 				C788E5472137DAC000F48EDF /* yw_1222.jpg */,
 				C7988CAC212D60DB00A88F0E /* qdt.png */,
 				C73FC761209017FD00732F2D /* Main.storyboard */,
@@ -2822,6 +2834,7 @@
 				C74DFFA320F7547100D83ACF /* 我的资产 */,
 				C74DFFA120F7547100D83ACF /* 我的足迹 */,
 				C77B4461211864E700332147 /* 排行榜 */,
+				C7909AA121390E3F0088B4DE /* 淘宝购物车 */,
 				C758A0642109D40A00DDFDAD /* 消息通知 */,
 			);
 			path = Controllers;
@@ -4726,6 +4739,26 @@
 			path = "我的团队";
 			sourceTree = "<group>";
 		};
+		C7909A9A2138DADC0088B4DE /* 引导页 */ = {
+			isa = PBXGroup;
+			children = (
+				C7909A9B2138DADC0088B4DE /* ydy_1.jpg */,
+				C7909A9C2138DADC0088B4DE /* ydy_2.jpg */,
+				C7909A9D2138DADC0088B4DE /* ydy_3.jpg */,
+			);
+			path = "引导页";
+			sourceTree = "<group>";
+		};
+		C7909AA121390E3F0088B4DE /* 淘宝购物车 */ = {
+			isa = PBXGroup;
+			children = (
+				C7909AA221390E7A0088B4DE /* TJTaoBaoGoodsCarController.h */,
+				C7909AA321390E7A0088B4DE /* TJTaoBaoGoodsCarController.m */,
+				C7909AA421390E7A0088B4DE /* TJTaoBaoGoodsCarController.xib */,
+			);
+			path = "淘宝购物车";
+			sourceTree = "<group>";
+		};
 		C791B51221269D4100835897 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -5334,6 +5367,7 @@
 				C7588E6720F5A5D800CA5574 /* TJSignRuleController.xib in Resources */,
 				C7988CAD212D60DB00A88F0E /* qdt.png in Resources */,
 				C7861DA920FC8C4F0056574A /* TJSignSuccessController.xib in Resources */,
+				C7909A9E2138DADC0088B4DE /* ydy_1.jpg in Resources */,
 				C794FFFE21196D3100FB580F /* TJTextFiledCell.xib in Resources */,
 				C793E3A6213692E10001ADA3 /* README.txt in Resources */,
 				C7409A002091CF3600DFCC94 /* IQKeyboardManager.bundle in Resources */,
@@ -5372,6 +5406,7 @@
 				C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */,
 				C79646822111C7A100F1AB26 /* TJHeadLineContentCell.xib in Resources */,
 				C76260F120FEDDA0006889DF /* TJCollectionClassicCell.xib in Resources */,
+				C7909A9F2138DADC0088B4DE /* ydy_2.jpg in Resources */,
 				C788E5482137DAC100F48EDF /* yw_1222.jpg in Resources */,
 				C793E39E2136421C0001ADA3 /* TJCommentsSendView.xib in Resources */,
 				C7FBE02A212ABD46000DB8A4 /* Assets.xcassets in Resources */,
@@ -5381,9 +5416,11 @@
 				C788E5452137A7D100F48EDF /* ShareSDK.bundle in Resources */,
 				C77FF1E2211C272C00D07AFE /* TJKdMyTeamCell.xib in Resources */,
 				C78E5CD520ABB5E700C9C1BF /* MJRefresh.bundle in Resources */,
+				C7909AA02138DADC0088B4DE /* ydy_3.jpg in Resources */,
 				C791B53921269D4200835897 /* NBResource.bundle in Resources */,
 				C7ADB49C211A95C900AD4D95 /* TJOrderHeadViewCell.xib in Resources */,
 				C7904F522123C92500E20E4D /* TJChooseAreaCell.xib in Resources */,
+				C7909AA621390E7A0088B4DE /* TJTaoBaoGoodsCarController.xib in Resources */,
 				C717878D2105D2A4009A2034 /* TJDetailListCell.xib in Resources */,
 				C79400032119734100FB580F /* TJPostageMoneyCell.xib in Resources */,
 				C791B53821269D4200835897 /* ALPLinkPartnerSDK.bundle in Resources */,
@@ -5581,6 +5618,7 @@
 				C74DFFA720F756B500D83ACF /* TJCollectController.m in Sources */,
 				C742A3182099DA260026311A /* MyLayoutDelegate.m in Sources */,
 				C7249B0C20A1418500BB385E /* UIView+Frame.m in Sources */,
+				C7909AA521390E7A0088B4DE /* TJTaoBaoGoodsCarController.m in Sources */,
 				C7A3FC3B2121132300072A57 /* TJBargainController.m in Sources */,
 				C76A61C020EC621A000B747C /* TJMiddleView.m in Sources */,
 				C76BA60520FDC0E6006C749B /* TJHeadLineShareCell.m in Sources */,

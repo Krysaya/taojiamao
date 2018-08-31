@@ -45,7 +45,7 @@
 
 - (void)setModel:(TJGoodCatesMainListModel *)model{
     _model = model;
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl] placeholderImage: [UIImage imageNamed:@"morentouxiang"]];
+    [self.imageV sd_setImageWithURL:[NSURL URLWithString:model.imgurl] placeholderImage: [UIImage imageNamed:@"goods_bg.jpg"]];
     self.labelV.text = model.catname;
 }
 

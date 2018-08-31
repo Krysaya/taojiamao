@@ -230,7 +230,7 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell * cell  = [collectionView dequeueReusableCellWithReuseIdentifier:@"GoodsDetailsFWCell" forIndexPath:indexPath];
     
-    UIImageView * im = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morentouxiang"]];
+    UIImageView * im = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_bg.jpg"]];
     [cell.contentView addSubview:im];
     [im mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(50*W_Scale);

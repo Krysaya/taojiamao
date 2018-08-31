@@ -22,18 +22,18 @@
 @implementation TJMyFootPrintController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestFootPrint];
 }
 -(void)viewWillDisappear:(BOOL)animated
-
 {
     [super viewWillDisappear:animated];
 }
 
 - (void)viewDidLoad {
+    [self requestFootPrint];
     [super viewDidLoad];
     self.title = @"我的足迹";
     self.tableView.rowHeight = 120;
+    self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"TJMyFootPrintCell" bundle:nil] forCellReuseIdentifier:@"footPrintCell"];
 }
 
@@ -72,13 +72,17 @@
         
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"--zuji-≈≈%@=======",responseObject);
-
-        self.dataDict = responseObject[@"data"][@"data"];
-       
-        self.childArr = responseObject[@"data"][@"keys"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+//        NSDictionary *dict = responseObject[@"data"];
+        if (![responseObject[@"data"] isEqualToString:@""]) {
+            self.dataDict = responseObject[@"data"][@"data"];
+            
+            self.childArr = responseObject[@"data"][@"keys"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }else{
+            [SVProgressHUD showInfoWithStatus:@"暂无数据！"];
+        }
         
     } onFailure:^(NSError * _Nullable error) {
 //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];

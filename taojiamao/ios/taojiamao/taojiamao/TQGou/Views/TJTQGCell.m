@@ -17,8 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *pg_yq;
 @property (weak, nonatomic) IBOutlet UILabel *lab_xprice;
 @property (weak, nonatomic) IBOutlet UILabel *lab_yprice;
-@property (weak, nonatomic) IBOutlet UIButton *btn_qiang;
-@property (weak, nonatomic) IBOutlet UIButton *btn_fen;
+
 
 
 @end

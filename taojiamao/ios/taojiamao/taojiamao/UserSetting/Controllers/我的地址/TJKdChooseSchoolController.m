@@ -236,6 +236,9 @@
     pickerV.dataSource = self;
     [self pickerView:pickerV didSelectRow:0 inComponent:0];
     [bg_view addSubview:pickerV];
+    [sender setTitle:[NSString stringWithFormat:@"%@-%@",self.province.name,self.city.name] forState:UIControlStateNormal];
+    [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
 }
 
 #pragma mark - pickerDelegate

@@ -14,6 +14,9 @@
 #import "TJClassicFirstCell.h"
 #import "TJGoodCatesMainListModel.h"
 #import "TJKallAdImgModel.h"
+
+#import "UIViewController+Extension.h"
+
 @interface TJClassicController ()<UITableViewDataSource,UITableViewDelegate,TabCollectCellDelegate,SDCycleScrollViewDelegate>
 
 @property(nonatomic,strong)UITableView *tableView_left;
@@ -33,6 +36,7 @@
 @implementation TJClassicController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self resetSystemNavibar];
     [self loadGoodsCatesList];[self requestAdImg];
     self.select_index = @"0";
     //设置全局状态栏字体颜色为黑色

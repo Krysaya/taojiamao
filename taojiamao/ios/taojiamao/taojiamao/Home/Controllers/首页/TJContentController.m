@@ -7,6 +7,8 @@
 //
 
 #import "TJContentController.h"
+#import "TJDefaultGoodsDetailController.h"
+
 #import "TJContentCollectionCell.h"
 #import "TJHomeFootShowCell.h"
 #import "TJGoodsListCell.h"
@@ -50,7 +52,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource =self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:self.tableView];
     
@@ -184,7 +186,13 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     
     return self.headView;
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJGoodsCollectModel *m = self.dataArr_bottom[indexPath.row];
+    TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
+    goodVC.gid = m.itemid;
+    [self.navigationController pushViewController:goodVC animated:YES];
 
+}
 -(UIView*)setViewForHeaderInSectionWith:(NSString*)title withFrame:(CGRect)frame{
     UIView * view = [[UIView alloc]initWithFrame:frame];
     view.backgroundColor = [UIColor whiteColor];

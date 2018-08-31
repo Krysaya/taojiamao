@@ -21,7 +21,7 @@
 
 #import "TJTabBarController.h"
 
-#define BackTag  4564
+#define BackTag  85954
 
 
 @interface TJKdUserCenterController ()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,SelectCellDelegate>
@@ -43,7 +43,8 @@
     UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 64)];
     bg.backgroundColor = KKDRGB;
     [self.view addSubview:bg];
-    TJButton *btn_left = [[TJButton alloc]initDelegate:self backColor:nil tag:BackTag withBackImage:@"kd_left_white" withSelectImage:nil];
+//    TJButton *btn_left = [[TJButton alloc]initDelegate:self backColor:nil tag:BackTag withBackImage:@"kd_left_white" withSelectImage:nil];
+    TJButton *btn_left = [[TJButton alloc]initWith:@"返回" delegate:self font:17 titleColor:[UIColor whiteColor] tag:BackTag withBackImage:@"kd_left_white" withEdgeType:nil];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn_left];
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-49-SafeAreaTopHeight) style:UITableViewStylePlain];

@@ -50,6 +50,7 @@
                                     <constraint firstAttribute="width" constant="77" id="bpN-oo-zbg"/>
                                     <constraint firstAttribute="height" constant="33" id="vl7-x5-r7Q"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="" backgroundImage="quan_bg">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -73,8 +74,8 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-7o-YnM">
-                                <rect key="frame" x="204" y="135" width="31" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-7o-YnM">
+                                <rect key="frame" x="194" y="135" width="80" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -85,9 +86,10 @@
                             <constraint firstItem="hhx-uP-gb7" firstAttribute="leading" secondItem="tvG-wL-YkI" secondAttribute="trailing" constant="2" id="8ky-yE-2Ft"/>
                             <constraint firstItem="xB3-8k-Zdb" firstAttribute="bottom" secondItem="Atg-Ju-lvF" secondAttribute="bottom" id="ASc-r1-fw0"/>
                             <constraint firstItem="baf-zB-bsn" firstAttribute="bottom" secondItem="Atg-Ju-lvF" secondAttribute="bottom" id="RsL-qx-ulR"/>
+                            <constraint firstItem="baf-zB-bsn" firstAttribute="leading" secondItem="D3Q-7o-YnM" secondAttribute="trailing" constant="10" id="Ryv-YU-u5e"/>
                             <constraint firstItem="tvG-wL-YkI" firstAttribute="leading" secondItem="Atg-Ju-lvF" secondAttribute="trailing" constant="15" id="TTp-vr-Ai8"/>
                             <constraint firstItem="xB3-8k-Zdb" firstAttribute="top" secondItem="tvG-wL-YkI" secondAttribute="bottom" constant="12" id="aRO-sg-xmu"/>
-                            <constraint firstItem="D3Q-7o-YnM" firstAttribute="leading" secondItem="xB3-8k-Zdb" secondAttribute="trailing" constant="20" id="ac1-aL-cgk"/>
+                            <constraint firstItem="D3Q-7o-YnM" firstAttribute="leading" secondItem="xB3-8k-Zdb" secondAttribute="trailing" constant="10" id="ac1-aL-cgk"/>
                             <constraint firstItem="Atg-Ju-lvF" firstAttribute="centerY" secondItem="whZ-Pz-63V" secondAttribute="centerY" id="dCt-0O-fgQ"/>
                             <constraint firstItem="D3Q-7o-YnM" firstAttribute="bottom" secondItem="Atg-Ju-lvF" secondAttribute="bottom" id="eDD-JP-GvY"/>
                             <constraint firstAttribute="trailing" secondItem="baf-zB-bsn" secondAttribute="trailing" constant="10" id="fXq-cS-cVp"/>

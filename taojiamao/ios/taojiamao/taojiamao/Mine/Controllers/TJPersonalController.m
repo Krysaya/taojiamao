@@ -67,6 +67,7 @@
 @property (nonatomic, strong) UIView *classView;
 @property (nonatomic, strong) TJButton *btn_setting;
 @property (nonatomic, strong) TJButton *btn_notice;
+@property (nonatomic, strong) UIView *classV;
 @property(nonatomic,strong)TJMiddleView * midView;
 @property(nonatomic,strong)UIImage * iconImage;
 @property (nonatomic, strong) UITableView *tableV;
@@ -152,6 +153,12 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    DSLog(@"----top==%f",self.tableV.contentOffset.y);
+    if (self.tableV.contentOffset.y==-20) {
+        
+    }else{
+        [self.tableV setContentOffset:CGPointMake(0, -20)];
+    }
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -203,12 +210,12 @@
                     
                 }else{ self.userType.image =[UIImage imageNamed:@"vip_j"];
                 }
-                //                [self.headIcon sd_setImageWithURL:[NSURL URLWithString:self.model.image]];
                 [self setHeadTView];// 加还是不加
-                
                 self.tableV.tableHeaderView = self.headTView;
-//                                [self.tableV reloadData];
+                [self.topCollectView reloadData];
+                [self.tableV reloadData];
             });
+            
             
         } onFailure:^(NSError * _Nullable error) {
             self.hadLogin = NO;
@@ -287,8 +294,9 @@
     self.view.backgroundColor = RGB(245, 245, 245);
     
     [self setCustomNavgation];
-    [self setHeadTView];
+//    [self setHeadTView];
     [self.view addSubview:self.tableV];
+    
 
 }
 -(void)setHeadTView{
@@ -365,32 +373,33 @@
     
     
 // 芬兰
+    if (!self.classV) {
+        self.classV = [[UIView alloc]init];
+        self.classV.frame = CGRectMake(15, 145, S_W-30, 72);
+        self.classV.layer.cornerRadius = 8;
+        self.classV.layer.masksToBounds = YES;
+        self.classV.backgroundColor = [UIColor whiteColor];
+        [self.headTView addSubview:self.classV];
+        
+        UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
+        layou.sectionInset = UIEdgeInsetsMake(10, 30, 10, 28);
+        //    layou.itemSize = CGSizeMake((S_W-200-30)/4, 50);
+        UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.classV.bounds.size.width, 72) collectionViewLayout:layou];
+        collectV.backgroundColor = [UIColor whiteColor];
+        //    collectV.tag = Columns_CollectionV;
+        
+        collectV.delegate = self;
+        collectV.dataSource = self;
+        [collectV registerClass:[TJMineHeaderCell class] forCellWithReuseIdentifier:@"MineheadCell"];
+        [self.classV addSubview:collectV];
+        self.topCollectView = collectV;
+    }
     
-    UIView *classView = [[UIView alloc]init];
-    classView.frame = CGRectMake(15, 145, S_W-30, 72);
-    classView.layer.cornerRadius = 8;
-    classView.layer.masksToBounds = YES;
-    classView.backgroundColor = [UIColor whiteColor];
-    [self.headTView addSubview:classView];
-    
-    UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
-    layou.sectionInset = UIEdgeInsetsMake(10, 30, 10, 28);
-//    layou.itemSize = CGSizeMake((S_W-200-30)/4, 50);
-    UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, classView.bounds.size.width, 72) collectionViewLayout:layou];
-    collectV.backgroundColor = [UIColor whiteColor];
-//    collectV.tag = Columns_CollectionV;
-    
-    collectV.delegate = self;
-    collectV.dataSource = self;
-    [collectV registerClass:[TJMineHeaderCell class] forCellWithReuseIdentifier:@"MineheadCell"];
-    [classView addSubview:collectV];
-    self.topCollectView = collectV;
 //    设置。通知
     if (!self.btn_notice) {
         self.btn_setting = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Setting withBackImage:@"setting" withSelectImage:nil];
         self.btn_notice = [[TJButton alloc]initDelegate:self backColor:[UIColor clearColor] tag:Notify withBackImage:@"notice" withSelectImage:nil];
         [self.headTView addSubview:self.btn_notice];
-        
         [self.headTView addSubview:self.btn_setting];
         
         [self.btn_notice mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -404,7 +413,6 @@
             make.right.mas_equalTo(weakSelf.btn_notice.mas_left).offset(-16*W_Scale);
         }];
     }
-   
     
     [self.view addSubview:self.headTView];
 }
@@ -514,14 +522,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        
-        
         return 35;
     }else if (indexPath.section==3){
         TJMemberMainModel *model = self.menuArr[indexPath.section-1];

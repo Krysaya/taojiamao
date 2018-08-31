@@ -43,7 +43,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.tableView.hidden = YES;
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransform:) name:TJHorizontalVerticalTransform object:nil];
-    [self requestSearchGoodsListWithOrderType:@"1"];
+//    [self requestSearchGoodsListWithOrderType:@"1"];
 }
 - (void)requestSearchGoodsListWithOrderType:(NSString *)type{
     self.dataArr = [NSMutableArray array];
@@ -99,7 +99,6 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = KBGRGB;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:TJSearchContentFootShowCell];
     [self.view addSubview:self.tableView];
    
@@ -131,7 +130,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150;
+    return 160;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -188,6 +187,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 -(void)popupFiltrateView{
     DSLog(@"呼出筛选框");
     TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:self.view.bounds];
+    
     mcv.deletage = self;
     UIWindow * window = [UIApplication sharedApplication].delegate.window;
     

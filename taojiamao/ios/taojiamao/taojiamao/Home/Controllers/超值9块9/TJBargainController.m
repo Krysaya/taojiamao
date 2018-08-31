@@ -60,7 +60,7 @@
     [searchB setBackgroundImage: [UIImage new]];
     [searchB setPlaceholder: @"搜宝贝 领优惠"];
     
-    [searchB setImage:[UIImage imageNamed:@""] forSearchBarIcon:UISearchBarIconResultsList state:UIControlStateNormal];
+    [searchB setImage:[UIImage imageNamed:@"hp_ss"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     UITextField *searchField = [searchB valueForKey:@"searchField"];
     if (searchField) {
         [searchField setBackgroundColor:[UIColor clearColor]];

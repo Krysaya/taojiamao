@@ -51,7 +51,7 @@
 }
 -(void)setUI{
     UIView *bg = [[UIView alloc]initWithFrame:S_F];
-    bg.backgroundColor = RGBA(255, 255, 255, 0.2);
+    bg.backgroundColor = RGBA(1, 1, 1, 0.2);
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [bg addGestureRecognizer:tap];
     [self addSubview:bg];

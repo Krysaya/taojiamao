@@ -139,6 +139,7 @@
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
         DSLog(@"-delete-≈≈error-msg=======dict%@",dic_err);
+        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
 }
 
