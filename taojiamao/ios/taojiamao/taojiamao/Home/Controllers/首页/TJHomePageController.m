@@ -444,6 +444,7 @@
     tableView.rowHeight = 150;tableView.scrollEnabled = NO;
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.separatorColor = RGBA(240, 240, 240, 1);
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.big_ScrollView addSubview:tableView];
     self.tableView = tableView;

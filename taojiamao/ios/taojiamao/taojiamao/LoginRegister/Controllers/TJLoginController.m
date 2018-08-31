@@ -22,7 +22,7 @@
 @interface TJLoginController ()<UIScrollViewDelegate,TJButtonDelegate>
 
 //关闭按钮
-@property (nonatomic, strong) TJButton *btn_close;
+@property (nonatomic, strong) UIButton *btn_close;
 
 @property(nonatomic,strong)UIImageView* nameImage;
 @property(nonatomic,strong)UIView * loginView;
@@ -69,9 +69,14 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.btn_close = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.2) tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
-    self.btn_close.layer.cornerRadius = 15;
-    self.btn_close.layer.masksToBounds = YES;
+//    self.btn_close = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.2) tag:CloseTag withBackImage:@"kd_close" withSelectImage:nil];
+//    self.btn_close.layer.cornerRadius = 15;
+//    self.btn_close.layer.masksToBounds = YES;
+    self.btn_close = [[UIButton alloc]init];
+    self.btn_close.layer.cornerRadius = 15;self.btn_close.layer.masksToBounds = YES;
+    [self.btn_close setBackgroundColor:RGBA(1, 1, 1, 0.2)];
+    [self.btn_close setImage:[UIImage imageNamed:@"kd_close"] forState:UIControlStateNormal];
+    [self.btn_close addTarget:self action:@selector(closeView:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.btn_close];
     [self.btn_close mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(35*H_Scale);
@@ -358,6 +363,10 @@
     
 }
 #pragma mark - TJButtonDelegate
+- (void)closeView:(UIButton *)sender{
+    //        关闭vc
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 -(void)buttonClick:(UIButton *)but{
     [self.view endEditing:YES];
     if (but.tag==RegisterTag) {
@@ -386,8 +395,7 @@
             }];
         }
     }else if(but.tag==CloseTag){
-//        关闭vc
-        [self dismissViewControllerAnimated:YES completion:nil];
+
     }else{
 
         KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
@@ -511,8 +519,8 @@
 //            tb
         {
             ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
-//            [albbSDK setAppkey:@"25038195"];
-            [albbSDK setAuthOption:NormalAuth];
+               dispatch_async(dispatch_get_main_queue(), ^{
+          
             [albbSDK auth:self successCallback:^(ALBBSession *session){
                 ALBBUser *user = [session getUser];
                 DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
@@ -522,6 +530,8 @@
                 DSLog(@"-------------------------------error =%@",error);
                 [SVProgressHUD showInfoWithStatus:@"授权失败！"];
             }];
+                   
+               });
         }
             break;
             
@@ -593,7 +603,7 @@
                 manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript", @"text/plain", nil];
                 [manager GET:url parameters:paraminfo progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
                     DSLog(@"responseObject -info- %@", responseObject);
-                    
+                    [self requestWeiXinLoginWithTaoToken:responseObject[@"openid"] withImage:responseObject[@"headimgurl"] withNickName:responseObject[@"nickname"] withUnionId:responseObject[@"unionid"]];
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
                 }];
@@ -607,42 +617,48 @@
 }
 
 #pragma mark - weixin
-- (void)requestWeiXinLoginWithTaoToken:(NSString *)openid withImage:(NSString *)img withNickName:(NSString *)nick{
+- (void)requestWeiXinLoginWithTaoToken:(NSString *)openid withImage:(NSString *)img withNickName:(NSString *)nick withUnionId:(NSString *)unionid{
     NSString *bimg = [self encodeToPercentEscapeString:img];
-    NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *str = [self disable_emoji:nick];NSString *dnick = [self disblankStr:str];
+    NSString *bnick = [dnick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary *md = @{
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
-                                @"tao_openid":openid,
-                                @"tao_image":bimg,
-                                @"tao_nick":bnick,
+                                @"openid":openid,
+                                @"headimgurl":bimg,
+                                @"nickname":bnick,
+                                @"unionid":unionid,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = TaoBaoLogin;
-        request.parameters = @{ @"tao_openid":openid,
-                                @"tao_image":img,
-                                @"tao_nick":nick,};
+        request.url = WeiXinLogin;
+        request.parameters = @{  @"openid":openid,
+                                 @"headimgurl":img,
+                                 @"nickname":dnick,
+                                 @"unionid":unionid,};
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,};
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id  _Nullable responseObject) {
-        
-        
+
+//        DSLog(@"----微信login-success-%@===",responseObject);
         //写入
         NSDictionary * data = responseObject[@"data"];
-        SetUserDefaults(data[@"id"], UID); SetUserDefaults(data[@"bind_tao"], Bind_TB);
+        SetUserDefaults(data[@"id"],UID);
+        SetUserDefaults(data[@"bind_wx"], Bind_WX);
         SetUserDefaults(HADLOGIN, HADLOGIN);
-        NSLog(@"----微信login-success-%@===",responseObject);
-        //控制器跳转
+//        控制器跳转
+      
         [self dismissViewControllerAnimated:YES completion:nil];
     } onFailure:^(NSError * _Nullable error) {
-        //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        //        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        //        NSLog(@"----login-≈≈error-%@",dic_err[@"msg"]);
+                NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"----login-≈≈error-%@",dic_err);
         [SVProgressHUD showErrorWithStatus:@"登录失败！"];
     }];
 }
@@ -696,12 +712,28 @@
     CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                               (CFStringRef)input,
                                                               NULL,
-                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              (CFStringRef)@"?!@#$^&%*+,:;='\"`<>()[]{}/\\|~",
                                                               kCFStringEncodingUTF8));
     return outputStr;
 }
 
+- (NSString *)disable_emoji:(NSString *)text
+{
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSString *modifiedString = [regex stringByReplacingMatchesInString:text
+                                                               options:0
+                                                                 range:NSMakeRange(0, [text length])
+                                                          withTemplate:@""];
+    return modifiedString;
+}
 
+- (NSString *)disblankStr:(NSString *)str{
+    NSCharacterSet *whiteSpace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *strr = [[NSString alloc]initWithString:[str stringByTrimmingCharactersInSet:whiteSpace]];
+    NSString *newStr= [strr stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+    return newStr;
+}
 #pragma mark -lazyloading
 - (NSMutableArray *)titleBtns
 {

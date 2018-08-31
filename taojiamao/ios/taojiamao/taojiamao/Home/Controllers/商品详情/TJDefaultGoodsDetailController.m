@@ -120,16 +120,21 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         NSDictionary *dict = responseObject[@"data"];
         
         DSLog(@"onSuccess详情:%@ =======",responseObject);
-        
-        TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
-        [self.dataArr addObject:model];
-        self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
-        self.priceQuan = model.itemendprice;self.price = model.itemprice;
+        if (dict.count>0) {
+            TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
+            [self.dataArr addObject:model];
+            self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
+            self.priceQuan = model.itemendprice;self.price = model.itemprice;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setUI];
+                
+            });
+        }else{
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setUI];
-           
-        });
         
     } onFailure:^(NSError *error) {
         

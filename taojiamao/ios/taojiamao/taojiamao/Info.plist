@@ -56,6 +56,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MOBAppKey</key>
+	<string>2718d16c9c950</string>
+	<key>MOBAppSecret</key>
+	<string>81b4d07f851dccfbe9c6662d1d073c6c</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

@@ -10,7 +10,10 @@
 #import "TJTQGContentController.h"
 #import "TJTqgGoodsModel.h"
 #import "TJTQGCell.h"
-
+#import <AlibabaAuthSDK/ALBBSDK.h>
+#import <AlibcTradeSDK/AlibcTradeSDK.h>
+#import <AlibcTradeSDK/AlibcTradePageFactory.h>
+#import <AlibcTradeSDK/AlibcTradeService.h>
 static NSString * const TQGContentCell = @"GContentCell";
 
 @interface TJTQGContentController ()<UITableViewDelegate,UITableViewDataSource>
@@ -50,7 +53,7 @@ static NSString * const TQGContentCell = @"GContentCell";
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary * param = @{
-                                    @"page_size":@"5",
+//                                    @"page_size":@"5",
                                     @"timestamp": timeStr,
                                     @"app": @"ios",
                                     @"uid": userid,
@@ -61,7 +64,9 @@ static NSString * const TQGContentCell = @"GContentCell";
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = TQGGoodsList;
-        request.parameters = @{  @"page_size":@"5",@"start_time": model.arg};
+        request.parameters = @{
+//                               @"page_size":@"5",
+                               @"start_time": model.arg};
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id responseObject) {
@@ -101,5 +106,19 @@ static NSString * const TQGContentCell = @"GContentCell";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TJTqgGoodsModel *m = self.dataArr[indexPath.row];
+    id <AlibcTradePage >page = [AlibcTradePageFactory page:m.click_url];
+    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+    showParam.openType = AlibcOpenTypeAuto;
+    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+            DSLog(@"success!==tqg详情：======%@",result);
+        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
 
+        }];
+    });
+}
 @end

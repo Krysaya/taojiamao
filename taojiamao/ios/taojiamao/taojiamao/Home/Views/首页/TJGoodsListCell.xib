@@ -118,6 +118,7 @@
                     <constraint firstItem="whZ-Pz-63V" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xAO-la-vH0"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="140" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="btn_quan" destination="baf-zB-bsn" id="NBb-Xa-go0"/>
                 <outlet property="checkBtnLeading" destination="Sly-gX-laL" id="tEH-XK-WfX"/>

@@ -358,7 +358,7 @@
                                     @"city_id":self.city.id,};
             request.httpMethod = kXMHTTPMethodPOST;
         } onSuccess:^(id  _Nullable responseObject) {
-            [SVProgressHUD showSuccessWithStatus:@"添加成功"];
+            [SVProgressHUD showSuccessWithStatus:@"添加成功,请耐心等待审核~"];
             [self.tf_View removeFromSuperview];
             [self loadKdSchoolListWithPic:nil];
 

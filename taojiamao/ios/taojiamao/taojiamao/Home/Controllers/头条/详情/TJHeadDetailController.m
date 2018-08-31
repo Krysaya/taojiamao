@@ -19,7 +19,10 @@
 #import "TJCommentsListModel.h"
 #import "TJCommentsSendView.h"
 
-@interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SendBtnDelegate>
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+@interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SendBtnDelegate,ShareDelegate>
 @property (weak, nonatomic) IBOutlet UIView *view_bottom;
 @property (weak, nonatomic) IBOutlet UIButton *btn_collect;
 
@@ -38,13 +41,12 @@
 @implementation TJHeadDetailController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestNewsInfoList];
-    [self requestReplyList];
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    [self requestReplyList];
+
     self.title = self.title_art;
     //    you边按钮
     TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:5496 withBackImage:@"share" withSelectImage:nil];
@@ -63,7 +65,14 @@
     [tableView registerNib:[UINib nibWithNibName:@"TJMoreCommentsCell" bundle:nil] forCellReuseIdentifier:@"moreCell"];
 
     [self.view addSubview:tableView];
+    WeakSelf
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf requestNewsInfoList];
+    }];
+    [tableView.mj_header beginRefreshing];
     self.tableView = tableView;
+    
+    
 }
 
 - (void)requestNewsInfoList{
@@ -94,7 +103,7 @@
 //                request.parameters = @{@"type":type};
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"----newsinfo-success-===%@",responseObject);
-        
+        [self.tableView.mj_header endRefreshing];
         NSDictionary *dict = responseObject[@"data"];
         if (dict.count>0) {
             TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
@@ -110,7 +119,8 @@
        
         
     } onFailure:^(NSError * _Nullable error) {
-        
+        [SVProgressHUD showInfoWithStatus:@"请重试~"];
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 
@@ -213,15 +223,16 @@
             //            h5
             TJHeadLineContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell"];
                 cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, MAXFLOAT);
-            cell.baseView = self.tableView;
+            cell.baseView = tableView;
             cell.model = model;
             
             return cell;
         }else{
             //            分享
             TJHeadLineShareCell *cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell"];
+            cell.delegate = self;
             [cell.btn_zan addTarget:self action:@selector(dianzanClick:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.btn_zan setTitle:self.model.like_num forState:UIControlStateNormal];
+//            [cell.btn_zan setTitle:self.model.like_num forState:UIControlStateNormal];
             return cell;
         }
     }else if (indexPath.section==1){
@@ -368,7 +379,7 @@
             [self.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
         });
     }onFailure:^(NSError * _Nullable error) {
-
+       
     }];
 }
 #pragma mark - return
@@ -407,7 +418,9 @@
         [SVProgressHUD showSuccessWithStatus:@"发布成功"];
         
     }onFailure:^(NSError * _Nullable error) {
-        
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
     return YES;
 }
@@ -464,7 +477,72 @@
         [SVProgressHUD showSuccessWithStatus:@"评论成功"];
       
     }onFailure:^(NSError * _Nullable error) {
-        
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
+
+#pragma mark - share
+- (void)shareButtonClick:(UIButton *)button{
+    //创建分享参数
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:self.title_art
+                                     images:[UIImage imageNamed:@"fail.jpg"] //传入要分享的图片
+                                        url:[NSURL URLWithString:@"http://mob.com"]
+                                      title:self.title_art
+                                       type:SSDKContentTypeWebPage];
+    if (button.tag==130) {
+//        好友
+        //进行分享
+        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else if (button.tag==131){
+//        朋友圈
+        //进行分享
+        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else{
+        [SVProgressHUD showInfoWithStatus:@"暂不支持分享！"];
+    }
+}
+
 @end

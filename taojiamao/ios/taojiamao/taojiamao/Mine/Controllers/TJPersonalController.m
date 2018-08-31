@@ -465,7 +465,7 @@
     }else{
 //        登录
         TJLoginController * lvc = [[TJLoginController alloc]init];
-        [self presentViewController:lvc animated:YES completion:nil];
+        [self presentViewController:lvc animated:NO completion:nil];
     }
    
 }

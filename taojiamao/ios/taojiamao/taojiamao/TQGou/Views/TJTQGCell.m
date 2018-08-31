@@ -54,7 +54,7 @@
     [self.img sd_setImageWithURL: [NSURL URLWithString:model.pic_url]];
     
     NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
+        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(23, 11));
         make.insertText(@" ", 1);
         make.insertText(model.title, 2);
     });
@@ -85,6 +85,8 @@
         [self.btn_qiang setBackgroundColor:KALLRGB];
         [self.btn_qiang setTitle:@"立即抢" forState:UIControlStateNormal];
     }else{
+        self.pg_yq.hidden = YES;
+        self.lab_yq.hidden = YES;
         [self.btn_qiang setTitle:@"稍后抢" forState:UIControlStateNormal];
         [self.btn_qiang setBackgroundColor:RGB(88, 213, 45)];
     }

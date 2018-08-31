@@ -26,7 +26,7 @@
                             <constraint firstAttribute="height" priority="750" constant="30" id="KJS-kg-FEp"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="102" image="zan_gray">
+                        <state key="normal" image="zan_gray">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <state key="selected" image="zan_light">
@@ -37,37 +37,49 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lEC-Nb-zCu">
+                    <button opaque="NO" tag="130" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lEC-Nb-zCu">
                         <rect key="frame" x="135" y="17" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="gE3-dV-sbO"/>
                             <constraint firstAttribute="height" constant="30" id="j2r-PV-Zcd"/>
                         </constraints>
                         <state key="normal" title="Button" image="share_pyq"/>
+                        <connections>
+                            <action selector="shareBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iu8-tB-Szh"/>
+                        </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOo-Cg-zCM">
+                    <button opaque="NO" tag="131" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOo-Cg-zCM">
                         <rect key="frame" x="190" y="17" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="jOU-C6-dn2"/>
                             <constraint firstAttribute="height" constant="30" id="uY6-2k-GP6"/>
                         </constraints>
                         <state key="normal" title="Button" image="share_wx"/>
+                        <connections>
+                            <action selector="shareBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dpI-gY-cjb"/>
+                        </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpd-Cr-PYN">
+                    <button opaque="NO" tag="133" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpd-Cr-PYN">
                         <rect key="frame" x="300" y="17" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="GQF-kJ-P0O"/>
                             <constraint firstAttribute="height" constant="30" id="bX5-Zd-mmm"/>
                         </constraints>
                         <state key="normal" title="Button" image="share_qqaz"/>
+                        <connections>
+                            <action selector="shareBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PuY-Wu-IKm"/>
+                        </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxO-Vf-6OV">
+                    <button opaque="NO" tag="132" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxO-Vf-6OV">
                         <rect key="frame" x="245" y="17.5" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="VED-DP-1WO"/>
                             <constraint firstAttribute="height" constant="30" id="cWW-7Q-H5w"/>
                         </constraints>
                         <state key="normal" title="Button" image="share_qq"/>
+                        <connections>
+                            <action selector="shareBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="53u-hm-Z1K"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

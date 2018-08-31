@@ -9,6 +9,10 @@
 
 #import "TJTaoBaoOrderController.h"
 #import "TJTBOrderContentController.h"
+#import <AlibabaAuthSDK/ALBBSDK.h>
+#import <AlibcTradeSDK/AlibcTradeSDK.h>
+#import <AlibcTradeSDK/AlibcTradePageFactory.h>
+#import <AlibcTradeSDK/AlibcTradeService.h>
 @interface TJTaoBaoOrderController ()
 
 @end
@@ -17,12 +21,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.frame = CGRectMake(0, 20, S_W, S_H);
-
-    [self setControllers];
+    self.view.frame = CGRectMake(0, 64, S_W, S_H);
+    [self openTaoBaoOrder];
+//    [self setControllers];
 //淘宝订单
     // Do any additional setup after loading the view.
 }
+- (void)openTaoBaoOrder{
+    
+    UIWebView *webV = [[UIWebView alloc]initWithFrame:S_F];
+    [self.view addSubview:webV];
+    //打开我的订单页
+    id<AlibcTradePage> page = [AlibcTradePageFactory myOrdersPage:0 isAllOrder:YES];
+    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+    showParam.openType = AlibcOpenTypeH5;
+    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AlibcTradeSDK sharedInstance].tradeService show:self webView:webV page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+            
+        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+            
+        }];
+    });
+    
+}
+
+
 -(void)setControllers{
     
     self.titles = @[@"全部",@"待结算",@"已结算"];
@@ -48,8 +72,9 @@
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
-    
-    return [[TJTBOrderContentController alloc]init];
+    TJTBOrderContentController *vc = [[TJTBOrderContentController alloc]init];
+    vc.type = index;
+    return vc;
     
 }
 //- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {

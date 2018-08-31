@@ -18,14 +18,19 @@
 
 +(BOOL)judgeLoginStatus;
 
+/*验证字符型非空*/
 +(BOOL)judgeBlankString:(NSString *)aStr;
 //-(void)judgeAuthcode;
 
+/*验证手机号*/
 +(BOOL)judgeMobile:(NSString *)mobile;
 
+/*验证字符串都是数字*/
 +(BOOL)judgeNumInputShouldNumber:(NSString *)str;
 
 //+(BOOL)judgeStringIsNull:(NSArray*)array;
+/*过滤emoji*/
++(BOOL)stringContainsEmoji:(NSString *)string;
 
 + (NSString *)encodeToPercentEscapeString:(NSString *)input;
 

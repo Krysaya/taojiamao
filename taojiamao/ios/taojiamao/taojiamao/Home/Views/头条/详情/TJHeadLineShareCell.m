@@ -29,5 +29,10 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)shareBtnClick:(UIButton *)sender {
+    if (self.delegate) {
+        [self.delegate shareButtonClick:sender];
+    }
+}
 
 @end

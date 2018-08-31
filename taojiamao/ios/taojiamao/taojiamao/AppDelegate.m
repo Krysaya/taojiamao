@@ -11,9 +11,14 @@
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+
 #import "ViewController.h"
 #import "TJLaunchAdManager.h"
 #import "TJLoginController.h"
+#import "DHGuidePageHUD.h"
 
 @interface AppDelegate ()
 
@@ -24,8 +29,53 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+//    分享share
+    
+    [ShareSDK registerActivePlatforms:@[
+                                        @(SSDKPlatformTypeMail),
+                                        @(SSDKPlatformTypeSMS),
+                                        @(SSDKPlatformTypeWechat),
+//                                        @(SSDKPlatformTypeQQ),
+                                        ]
+                             onImport:^(SSDKPlatformType platformType)
+     {
+         switch (platformType)
+         {
+             case SSDKPlatformTypeWechat:
+                 [ShareSDKConnector connectWeChat:[WXApi class]];
+                 break;
+//             case SSDKPlatformTypeQQ:
+//                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+//                 break;
+                 
+             default:
+                 break;
+         }
+     }
+                      onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
+     {
+         
+         switch (platformType)
+         {
+                 
+             case SSDKPlatformTypeWechat:
+                 [appInfo SSDKSetupWeChatByAppId:@"wxdd6702d275a50e3b"
+                                       appSecret:@"b61472da8f8c33a18b4fb8e25daa4cf3"];
+                 break;
+//             case SSDKPlatformTypeQQ:
+//                 [appInfo SSDKSetupQQByAppId:@"100371282"
+//                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d"
+//                                    authType:SSDKAuthTypeBoth];
+//                 break;
+                 
+                 
+             default:
+                 break;
+         }
+     }];
 //    注册微信
     [WXApi registerApp:@"wxdd6702d275a50e3b"];
+
     //1.使用默认配置初始化
     [TJLaunchAdManager load];
     // 百川平台基础SDK初始化，加载并初始化各个业务能力插件
@@ -33,7 +83,8 @@
     } failure:^(NSError *error) {
 //        NSLog(@"Init failed: %@", error.description);
     }];
-    [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
+    [[ALBBSDK sharedInstance] setAuthOption:H5Only];
+//    [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
     [[ALBBSDK sharedInstance] setAppkey:@"25038195"];
     // 开发阶段打开日志开关，方便排查错误信息
     //默认调试模式打开日志,release关闭,可以不调用下面的函数
@@ -71,8 +122,11 @@
         DSLog(@"第一次打开");
         NSString * str = GetUserDefaults(ISFIRST);
         DSLog(@"%@",str);
-//        ViewController * vc = [[ViewController alloc]init];
-//        self.window.rootViewController = vc;
+      
+        
+        ViewController * vc = [[ViewController alloc]init];
+        [self.window makeKeyAndVisible];
+        self.window.rootViewController = vc;
     }else{
         DSLog(@"不是第一次");
         [self chooseControllersNoGuide];

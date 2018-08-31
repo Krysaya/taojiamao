@@ -9,7 +9,10 @@
 
 #import "TJTBOrderContentController.h"
 #import "TJTBOrderContentCell.h"
-
+#import <AlibabaAuthSDK/ALBBSDK.h>
+#import <AlibcTradeSDK/AlibcTradeSDK.h>
+#import <AlibcTradeSDK/AlibcTradePageFactory.h>
+#import <AlibcTradeSDK/AlibcTradeService.h>
 static NSString * const TBOrderContentCell = @"TBOrderContentCell";
 
 @interface TJTBOrderContentController ()<UITableViewDelegate,UITableViewDataSource>
@@ -21,13 +24,33 @@ static NSString * const TBOrderContentCell = @"TBOrderContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self openTaoBaoOrderWithStatus:self.type];
+}
+- (void)openTaoBaoOrderWithStatus:(NSInteger )status{
+    
+    UIWebView *webV = [[UIWebView alloc]initWithFrame:S_F];
+    [self.view addSubview:webV];
+    //打开我的订单页
+    id<AlibcTradePage> page = [AlibcTradePageFactory myOrdersPage:status isAllOrder:YES];
+    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+    showParam.openType = AlibcOpenTypeH5;
+    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AlibcTradeSDK sharedInstance].tradeService show:self webView:webV page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+            
+        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+            
+        }];
+    });
+    
+}
+- (void)setTableViewUI{
     self.tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[TJTBOrderContentCell class] forCellReuseIdentifier:TBOrderContentCell];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
-    // Do any additional setup after loading the view.
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;

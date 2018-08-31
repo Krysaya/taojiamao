@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol  ShareDelegate <NSObject>
+- (void)shareButtonClick:(UIButton *)button;
+@end
+
 @interface TJHeadLineShareCell : TJBaseTableCell
 @property (weak, nonatomic) IBOutlet UIButton *btn_zan;
-
+@property (nonatomic,assign)id<ShareDelegate> delegate;
 @end

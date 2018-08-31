@@ -175,10 +175,16 @@ static NSString *const TJSettingCleanCacheCell = @"TJSettingCleanCacheCell";
     WeakSelf
     TJAlertController * alert = [TJAlertController alertWithTitle:@"温馨提示" message:@"确定要退出此账号吗？" style:UIAlertControllerStyleAlert sureClick:^(UIAlertAction * _Nonnull action) {
         RemoveUserDefaults(UID);
-//        RemoveUserDefaults(TOKEN);
         RemoveUserDefaults(HADLOGIN);
-        ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
-        [albbSDK logout];
+        if ([GetUserDefaults(Bind_TB) intValue]==1) {
+            RemoveUserDefaults(Bind_TB);
+            ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
+            [albbSDK logout];
+        }if ([GetUserDefaults(Bind_WX) intValue]==1) {
+            RemoveUserDefaults(Bind_WX);
+
+        }
+      
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } cancelClick:^(UIAlertAction * _Nonnull action) {
         DSLog(@"取消");

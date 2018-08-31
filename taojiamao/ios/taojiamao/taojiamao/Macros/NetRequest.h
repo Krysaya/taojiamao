@@ -29,7 +29,7 @@ static NSString * const UserPhone = @"UserPhone";
 //1基础接口
 #define BASEURL @"http://dev.api.taojiamao.net"
 //2启动页
-#define LaunchImage              [BASEURL stringByAppendingString:@"/api.php?s=index/qad"]
+#define LaunchImageRequest              [BASEURL stringByAppendingString:@"/api.php?s=index/qad"]
 //3首页
 #define HomePages                [BASEURL stringByAppendingString:@"/v1/pages/index"]
 
@@ -44,6 +44,9 @@ static NSString * const UserPhone = @"UserPhone";
 #define LoginWithUserName        [BASEURL stringByAppendingString:@"/v1/members/login"]
 //淘宝登录
 #define TaoBaoLogin              [BASEURL stringByAppendingString:@"/v1/members/taologin"]
+
+//微信登录
+#define WeiXinLogin              [BASEURL stringByAppendingString:@"/v1/members/wxlogin"]
 
 //登录成功后的用户数据==个人中心
 #define LoginedUserData          [BASEURL stringByAppendingString:@"/v1/members"]
