@@ -41,7 +41,9 @@
 #import "TJTaoBaoGoodsCarController.h"//淘宝购物车
 
 #import "TJShareMoneyController.h"//  分享赚钱
-#import "TJInvitationView.h"//    邀请有奖
+//#import "TJInvitationView.h"//    邀请有奖
+#import "TJInvitePrizeController.h"//    邀请有奖
+
 //#import "<#header#>"
 
 @implementation TJPublicURL
@@ -136,9 +138,12 @@
         TJTaoBaoGoodsCarController *vc= [[TJTaoBaoGoodsCarController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
     if ([identifier isEqualToString: @"invitation"]) {//邀请有奖
-        TJInvitationView *iview = [TJInvitationView invitationView];
-        iview.frame = CGRectMake(0, 0, S_W, S_H);
-        [[UIApplication sharedApplication].keyWindow addSubview:iview];}
+//        TJInvitationView *iview = [TJInvitationView invitationView];
+//        iview.frame = CGRectMake(0, 0, S_W, S_H);
+//        [[UIApplication sharedApplication].keyWindow addSubview:iview];
+        TJInvitePrizeController *vc= [[TJInvitePrizeController alloc]init];
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 

@@ -69,7 +69,11 @@
         DSLog(@"--help==%@",responseObject);
         TJAssistanceInfoModel  *m = [TJAssistanceInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
         self.model = m;
+        self.lab_title.text = self.model.title;
+        NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[self.model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+        self.lab_content.attributedText = attrStr;
     } onFailure:^(NSError * _Nullable error) {
+        [SVProgressHUD showInfoWithStatus:@"暂无数据"];[self.navigationController popViewControllerAnimated:YES];
     }];
 }
 - (void)didReceiveMemoryWarning {

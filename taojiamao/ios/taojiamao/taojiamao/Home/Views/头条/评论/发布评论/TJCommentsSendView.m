@@ -11,6 +11,7 @@
 @interface TJCommentsSendView()
 @property (weak, nonatomic) IBOutlet UIButton *btn_cancel;
 @property (weak, nonatomic) IBOutlet UIButton *btn_send;
+@property (weak, nonatomic) IBOutlet UITextField *tf;
 
 
 @end
@@ -24,7 +25,7 @@
 }
 - (IBAction)sendBtnClick:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(sendButtonClick:) ]) {
-        [self.delegate sendButtonClick:self.tf.text];
+        [self.delegate sendButtonClick:self.tf];
     }
 }
 - (IBAction)cancelBtnClick:(id)sender {

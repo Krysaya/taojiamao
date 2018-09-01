@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lab_comments;
 //@property (weak, nonatomic) IBOutlet UIButton *btn_nums;
 @property (weak, nonatomic) IBOutlet UIView *view_bg;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomContraint;
 
 @end
 
@@ -52,7 +54,15 @@
     NSString *timeS = [formatter stringFromDate:myDate];
     self.lab_time.text = timeS;
 
-    
+    if ([TJOverallJudge judgeBlankString:model.re_content]) {
+        DSLog(@"--空");
+        self.view_bg.hidden = YES;
+        self.bottomContraint.constant = 10;
+    }else{
+        self.view_bg.hidden = NO;
+        self.bottomContraint.constant = 60;
+
+    }
 
 }
 

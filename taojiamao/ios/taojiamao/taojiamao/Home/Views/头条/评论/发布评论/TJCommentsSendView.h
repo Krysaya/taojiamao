@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @protocol SendBtnDelegate <NSObject>
--(void)sendButtonClick:(NSString *)text;
+-(void)sendButtonClick:(UITextField *)textFiled;
 
 @end
 @interface TJCommentsSendView : UIView
-@property (weak, nonatomic) IBOutlet UITextField *tf;
 @property (weak, nonatomic) IBOutlet UIView *view_bg;
 +(instancetype)commentsSendView;
 @property (nonatomic,assign)id<SendBtnDelegate> delegate;

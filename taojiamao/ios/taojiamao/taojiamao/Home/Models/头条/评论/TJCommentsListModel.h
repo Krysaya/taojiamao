@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSString *pid;
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *re_content;
 
 @end

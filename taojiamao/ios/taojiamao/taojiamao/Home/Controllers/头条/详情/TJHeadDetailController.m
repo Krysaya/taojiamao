@@ -48,10 +48,10 @@
 
     self.title = self.title_art;
     //    you边按钮
-    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:5496 withBackImage:@"share" withSelectImage:nil];
-    
-    // 修改导航栏左边的item
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
+//    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:5496 withBackImage:@"share" withSelectImage:nil];
+//    
+//    // 修改导航栏左边的item
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-54-SafeAreaTopHeight) style:UITableViewStyleGrouped];
     tableView.delegate = self;
@@ -186,7 +186,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==2) {
-        return self.commentArr.count;
+        return self.commentArr.count+1;
     }
         return 2;
 //    }
@@ -269,6 +269,9 @@
         }else{
             //pinglu
             TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"moreCell"];
+//            if (self.commentArr.count) {
+//                <#statements#>
+//            }
             cell.model = self.commentArr[indexPath.row-1];
             [cell.btn_more addTarget:self action:@selector(moreComments:) forControlEvents:UIControlEventTouchUpInside];
             [cell.btn_comments addTarget:self action:@selector(sendComments:) forControlEvents:UIControlEventTouchUpInside];
@@ -427,7 +430,11 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"content":textField.text,@"aid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
+        [textField resignFirstResponder];
         [SVProgressHUD showSuccessWithStatus:@"发布成功"];
+        [self requestReplyList];
+        NSIndexSet *indexSet= [[NSIndexSet alloc]initWithIndex:2];
+        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         
     }onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
@@ -446,16 +453,17 @@
 }
 - (void)sendComments:(UIButton *)sender
 {
-    TJMoreCommentsCell *cell = (TJMoreCommentsCell *)[[sender superview] superview];
+    TJMoreCommentsCell *cell = (TJMoreCommentsCell *)[[[sender superview] superview] superview];
     NSIndexPath  *index = [self.tableView indexPathForCell:cell];
     TJCommentsListModel *m = self.commentArr[index.row-1];
+    DSLog(@"-indexxxxxx-%@",index);
     self.pid = m.id;
     TJCommentsSendView *view = [TJCommentsSendView commentsSendView];
     view.frame = CGRectMake(0, 0, S_W, S_H);view.delegate = self;
     [self.view addSubview:view];
   
 }
-- (void)sendButtonClick:(NSString *)text{
+- (void)sendButtonClick:(UITextField *)textFiled{
     DSLog(@"pl----pl=评论send");
     NSString *userid = GetUserDefaults(UID);
     
@@ -464,7 +472,7 @@
         userid = @"";
     }
     
-    NSString *content = [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *content = [textFiled.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
     NSMutableDictionary *md = @{
@@ -484,10 +492,13 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{ @"pid":self.pid,@"content":text,@"aid":self.aid};
+        request.parameters = @{ @"pid":self.pid,@"content":textFiled.text,@"aid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
         [SVProgressHUD showSuccessWithStatus:@"评论成功"];
-      
+        [textFiled resignFirstResponder];
+        [self requestReplyList];
+        NSIndexSet *indexSet= [[NSIndexSet alloc]initWithIndex:2];
+        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];

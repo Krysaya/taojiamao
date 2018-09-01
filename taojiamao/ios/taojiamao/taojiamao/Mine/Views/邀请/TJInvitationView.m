@@ -41,7 +41,8 @@
 }
 
 - (IBAction)cancelButtonClick:(UIButton *)sender {
-    self.hidden = YES;
+//    self.hidden = YES;
+    [self removeFromSuperview];
 }
 
 - (IBAction)shareBtnClick:(UIButton *)sender {
