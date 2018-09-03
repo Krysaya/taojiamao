@@ -83,6 +83,7 @@
 //    self.naview.backgroundColor = RandomColor;
     self.search = [TJTextField setTextFieldWith:@"请输入搜索内容" font:15 textColor:RGB(51, 51, 51) backColor:RGB(222, 222, 222)];
     self.search.text = self.searchText;
+//    self.search.end
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 21, 21)];
     label.backgroundColor = [UIColor clearColor];
     self.search.leftViewMode = UITextFieldViewModeAlways;

@@ -283,15 +283,15 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.y==0) {
-//        DSLog(@"原位");
-        self.view_bottom.hidden = NO;
-        self.tableView.frame = CGRectMake(0, SafeAreaTopHeight, S_W, S_H-SafeAreaTopHeight-54);
-    }else if (scrollView.contentOffset.y>0){
-//        DSLog(@"bottom");
-        self.view_bottom.hidden = YES;
-        self.tableView.frame = CGRectMake(0, SafeAreaTopHeight, S_W, S_H-SafeAreaTopHeight);
-    }
+//    if (scrollView.contentOffset.y==0) {
+////        DSLog(@"原位");
+//        self.view_bottom.hidden = NO;
+//        self.tableView.frame = CGRectMake(0, SafeAreaTopHeight, S_W, S_H-SafeAreaTopHeight-54);
+//    }else if (scrollView.contentOffset.y>0){
+////        DSLog(@"bottom");
+//        self.view_bottom.hidden = YES;
+//        self.tableView.frame = CGRectMake(0, SafeAreaTopHeight, S_W, S_H-SafeAreaTopHeight);
+//    }
 }
 #pragma mark- collect
 

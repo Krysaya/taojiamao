@@ -8,6 +8,15 @@
 //
 
 #import "TJKdMineHeadCell.h"
+#import "TJKdAgentsInfoModel.h"
+@interface TJKdMineHeadCell()
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UILabel *lab_name;
+@property (weak, nonatomic) IBOutlet UILabel *lab_ycode;
+
+
+
+@end
 
 @implementation TJKdMineHeadCell
 
@@ -21,5 +30,10 @@
 
     // Configure the view for the selected state
 }
-
+- (void)setModel:(TJKdAgentsInfoModel *)model{
+    _model = model;
+    [self.img sd_setImageWithURL:[NSURL URLWithString:model.card_image] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    self.lab_name.text = [NSString stringWithFormat:@"%@",model.name];
+    self.lab_ycode.text = [NSString stringWithFormat:@"%@",model.invite_code];
+}
 @end

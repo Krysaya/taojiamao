@@ -10,6 +10,7 @@
 @class TJHomePageModel;
 @interface TJPopViewController : TJBaseViewController
 @property (nonatomic, strong) TJHomePageModel *model;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UIButton *btn_close;
 
 @end

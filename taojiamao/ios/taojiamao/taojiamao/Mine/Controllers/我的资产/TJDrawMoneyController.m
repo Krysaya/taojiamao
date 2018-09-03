@@ -46,18 +46,21 @@
     [self setUIinputView];
     [self setExchangeButtons];
     
+    
+}
+-(void)setExchangeButtons{
+    WeakSelf
+    
     if ([self.type_tx intValue]==0) {
         self.exchangeButton.backgroundColor = KALLRGB;
         self.iconView.image = [UIImage imageNamed:@"balance"];
     }else{
         self.exchangeButton.backgroundColor = KKDRGB;
         self.iconView.image = [UIImage imageNamed:@"kd_money_m"];
-
+        
     }
-}
--(void)setExchangeButtons{
-    WeakSelf
-    self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:123 cornerRadius:20];
+    
+    self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:nil tag:123 cornerRadius:20];
     [self.view addSubview:self.exchangeButton];
     [self.exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.input.mas_bottom).offset(40*H_Scale);

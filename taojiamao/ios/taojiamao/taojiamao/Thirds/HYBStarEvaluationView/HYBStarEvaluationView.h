@@ -10,7 +10,7 @@
 
 @protocol DidChangedStarDelegate <NSObject>
 
-- (void)didChangeStar;
+- (void)didChangeStar:(CGFloat)score;
 
 @end
 

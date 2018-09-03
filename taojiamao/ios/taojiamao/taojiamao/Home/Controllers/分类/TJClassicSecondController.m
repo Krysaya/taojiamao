@@ -49,7 +49,7 @@
 }
 - (void)setFiltrateView{
     
-        self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 45) withMargin:22];
+        self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 45) withMargin:25];
         self.filtrate.backgroundColor = [UIColor whiteColor];
         self.filtrate.deletage = self;
         [self.view addSubview:self.filtrate];
@@ -125,7 +125,7 @@
 
 }
 -(void)setUITableView{
-   UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+15, S_W, S_H) style:UITableViewStylePlain];
+   UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+10, S_W, S_H) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"tabListCell"];
@@ -135,7 +135,7 @@
 
 - (void)setUICollectionView{
     UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
-    UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+15, S_W, S_H) collectionViewLayout:layou];
+    UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+10, S_W, S_H) collectionViewLayout:layou];
     collectV.delegate = self;
     collectV.dataSource = self;
     collectV.backgroundColor = RGB(245, 245, 245);
@@ -161,7 +161,7 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 //UICollectionViewCell的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake((S_W-5)/2, 275*H_Scale);
+    return CGSizeMake((S_W-5)/2, 270);
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {

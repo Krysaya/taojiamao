@@ -187,22 +187,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         make.top.mas_equalTo(weakSelf.shareB.mas_bottom).offset(6);
     }];
     
-    NSString *quan = [NSString stringWithFormat:@"¥%@\n领券买",self.priceQuan];
-    self.quanbuy =  [[UIButton alloc]init];[self.quanbuy addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.quanbuy.titleLabel.lineBreakMode = 0;
-    [self.quanbuy setTitle:quan forState:UIControlStateNormal];
-    [self.quanbuy setBackgroundImage:[UIImage imageNamed:@"left_btn_bg"] forState:UIControlStateNormal];
-    self.quanbuy.tag = DetailsQuanBuyButton;
-    [self.footView addSubview:self.quanbuy];
-    [self.quanbuy mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.shareL.mas_right).offset(31);
-        make.width.mas_equalTo((S_W-81)/2);
-        make.bottom.mas_equalTo(weakSelf.footView);
-        make.top.mas_equalTo(weakSelf.footView);
-    }];
-    
-    NSString *buy = [NSString stringWithFormat:@"¥%@\n直接买",self.price];
-
+    NSString *buy = [NSString stringWithFormat:@"¥%@\n不领券",self.price];
     self.buy =  [[UIButton alloc]init];[self.buy addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.buy.titleLabel.lineBreakMode = 0;
     [self.buy setTitle:buy forState:UIControlStateNormal];
@@ -210,11 +195,26 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.buy.tag = DetailsBuyButton;
     [self.footView addSubview:self.buy];
     [self.buy mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.quanbuy.mas_right);
+        make.left.mas_equalTo(weakSelf.shareL.mas_right).offset(31);
+        make.width.mas_equalTo((S_W-81)/2);
+        make.bottom.mas_equalTo(weakSelf.footView);
+        make.top.mas_equalTo(weakSelf.footView);
+    }];
+    
+    NSString *quan = [NSString stringWithFormat:@"¥%@\n领券购买",self.priceQuan];
+    self.quanbuy =  [[UIButton alloc]init];[self.quanbuy addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.quanbuy.titleLabel.lineBreakMode = 0;
+    [self.quanbuy setTitle:quan forState:UIControlStateNormal];
+    [self.quanbuy setBackgroundImage:[UIImage imageNamed:@"left_btn_bg"] forState:UIControlStateNormal];
+    self.quanbuy.tag = DetailsQuanBuyButton;
+    [self.footView addSubview:self.quanbuy];
+    [self.quanbuy mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(weakSelf.buy.mas_right);
         make.right.mas_equalTo(weakSelf.footView);
         make.bottom.mas_equalTo(weakSelf.footView);
         make.top.mas_equalTo(weakSelf.footView);
     }];
+    
 }
 
 -(void)setBackButton{

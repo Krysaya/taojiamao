@@ -38,6 +38,8 @@
 @interface TJKdUserOrderList : NSObject
 
 @property (nonatomic, strong) NSString *id;//快递订单id
+@property (nonatomic, strong) NSString *daili_id;//快递代理人id
+
 @property (nonatomic, strong) NSString *shou_username;
 @property (nonatomic, strong) NSString *shou_telephone;
 @property (nonatomic, strong) NSString *song_address;

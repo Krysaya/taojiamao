@@ -473,6 +473,7 @@
     }else{
 //        登录
         TJLoginController * lvc = [[TJLoginController alloc]init];
+        [TJAppManager sharedTJAppManager].loginVC = lvc;
         [self presentViewController:lvc animated:NO completion:nil];
     }
    

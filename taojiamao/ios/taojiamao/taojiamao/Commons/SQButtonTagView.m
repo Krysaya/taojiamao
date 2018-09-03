@@ -124,7 +124,6 @@
         
         CGFloat with = (self.viewWidth-(self.eachNum-1)*self.hmargin)/self.eachNum;
         
-        
         for (NSInteger i=0; i<self.buttonTags.count; i++) {
             UIButton *button = self.buttonTags[i];
             if (i<tagTexts.count) {
@@ -180,7 +179,7 @@
     
    
     NSInteger tag = button.tag-101;
-    
+//    DSLog(@"-----%@--%ld",button.titleLabel.text,button.tag);
     if ([self.selectArray containsObject:@(tag)]) {
         [self.selectArray removeObject:@(tag)];
     }else{

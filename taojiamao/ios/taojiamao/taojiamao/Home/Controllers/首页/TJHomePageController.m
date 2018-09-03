@@ -167,6 +167,8 @@
             TJPopViewController *vc = [[TJPopViewController alloc]init];
             vc.view.backgroundColor = RGBA(1, 1, 1, 0.2);
             vc.view.frame = S_F;[vc.btn_close addTarget:self action:@selector(hidden) forControlEvents:UIControlEventTouchUpInside];
+            UIGestureRecognizer *tap =  [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(imgUrlClick)];
+            [vc.img addGestureRecognizer:tap];
             vc.model = self.ad_m;
             [self.view addSubview:vc.view];
             _vc = vc;
@@ -176,6 +178,9 @@
 }
 - (void)hidden{
     [_vc.view  removeFromSuperview];
+}
+- (void)imgUrlClick{
+    [TJPublicURL goAnyViewController:self withidentif:self.ad_m.flag withParam:nil];
 }
 - (void)requestSearchGoodsList{
     self.hotSearchArr = [NSArray array];
@@ -487,6 +492,17 @@
         TJSearchController * result = [[TJSearchController alloc] init];
         result.searchText = searchText;
         [searchViewController.navigationController pushViewController:result animated:YES];
+        
+        // 修改UISearchBar右侧的取消按钮文字颜色及背景图片
+        for (UIView *searchbuttons in [searchBar subviews]){
+            if ([searchbuttons isKindOfClass:[UIButton class]]) {
+                UIButton *cancelButton = (UIButton*)searchbuttons;
+                // 修改文字颜色
+                [cancelButton setTitleColor:RGB(151, 151, 151) forState:UIControlStateNormal];
+                [cancelButton setTitleColor:RGB(151, 151, 151) forState:UIControlStateHighlighted];
+                
+            }
+        }
     }];
   
     searchViewController.hotSearchStyle = PYHotSearchStyleDefault;
@@ -504,9 +520,14 @@
 
 #pragma mark - searchbardelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    
     DSLog(@"点了--");[self searchClick];
     return NO;
 }
+
+//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+//    [searchBar setShowsCancelButton:YES animated:YES];
+//}
 #pragma mark - btndelegte
 - (void)buttonClick:(UIButton *)but{
     if (but.tag ==LEFTBTN) {

@@ -17,7 +17,6 @@
 
 #import "ViewController.h"
 #import "TJLaunchAdManager.h"
-#import "TJLoginController.h"
 #import "DHGuidePageHUD.h"
 
 @interface AppDelegate ()
@@ -83,8 +82,8 @@
     } failure:^(NSError *error) {
 //        NSLog(@"Init failed: %@", error.description);
     }];
-    [[ALBBSDK sharedInstance] setAuthOption:H5Only];
-//    [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
+//    [[ALBBSDK sharedInstance] setAuthOption:H5Only];
+    [[ALBBSDK sharedInstance]setAuthOption:NormalAuth];
     [[ALBBSDK sharedInstance] setAppkey:@"25038195"];
     // 开发阶段打开日志开关，方便排查错误信息
     //默认调试模式打开日志,release关闭,可以不调用下面的函数
@@ -109,6 +108,18 @@
     [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeFlat];
     [SVProgressHUD setMaximumDismissTimeInterval:1];
 
+    [XMCenter setupConfig:^(XMConfig *config) {
+//        config.generalServer = @"general server address";
+//        config.generalHeaders = @{@"general-header": @"general header value"};
+//        config.generalParameters = @{@"general-parameter": @"general parameter value"};
+//        config.generalUserInfo = nil;
+        config.callbackQueue = dispatch_get_main_queue();
+        config.engine = [XMEngine sharedEngine];
+        
+#ifdef DEBUG
+        config.consoleLog = YES;
+#endif
+    }];
 
     return YES;
 }
@@ -190,12 +201,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    TJLoginController *vc = [[TJLoginController alloc]init];
+    TJLoginController *vc = [TJAppManager sharedTJAppManager].loginVC;
     return  [WXApi handleOpenURL:url delegate:vc];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -219,12 +231,24 @@
             }
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
+    }else{
+        
+        if ([[AlibcTradeSDK sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
+            return YES;
+        }
+        
+        TJLoginController *vc = [TJAppManager sharedTJAppManager].loginVC;
+        if ([WXApi handleOpenURL:url delegate:vc]) {
+            return YES;
+        }
+        
+        
+    
+        
     }
     
-    if (![[AlibcTradeSDK sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
-    }
-    TJLoginController *vc = [[TJLoginController alloc]init];
-    [WXApi handleOpenURL:url delegate:vc];
+    
+    
     return YES;
 }
 
@@ -254,10 +278,24 @@
             }
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
+    }else
+    {
+        if (@available(iOS 9.0, *)) {
+            if ([[AlibcTradeSDK sharedInstance] application:app openURL:url options:options]) {
+                return YES;
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        TJLoginController *vc = [TJAppManager sharedTJAppManager].loginVC;
+        if ([WXApi handleOpenURL:url delegate:vc]) {
+            return YES;
+        }
     }
-    TJLoginController *vc = [[TJLoginController alloc]init];
-
-    [WXApi handleOpenURL:url delegate:vc];
+    
+    
+    
     
     return YES;
 }

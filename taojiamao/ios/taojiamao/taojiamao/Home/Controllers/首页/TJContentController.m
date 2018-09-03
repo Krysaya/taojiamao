@@ -244,8 +244,10 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
        return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    TJClassicSecondController *vc = [[TJClassicSecondController alloc]init];
-//    [self.navigationController pushViewController:vc animated:YES];
+    TJGoodCatesMainListModel *model = self.dataArr_top[indexPath.row];
+    TJClassicSecondController *vc = [[TJClassicSecondController alloc]init];
+    vc.title_class = model.catname;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(UICollectionView *)collectView{
     if (_collectView==nil) {

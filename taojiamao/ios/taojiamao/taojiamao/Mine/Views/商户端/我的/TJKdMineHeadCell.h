@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TJKdAgentsInfoModel;
 
 @interface TJKdMineHeadCell : UITableViewCell
-
+@property (nonatomic, strong) TJKdAgentsInfoModel *model;
 @end

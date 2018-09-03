@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TJEvaluationController : UIViewController
+@property (nonatomic, strong) NSString *kdid;
+@property (nonatomic, strong) NSString *dali_id;
 
 @end

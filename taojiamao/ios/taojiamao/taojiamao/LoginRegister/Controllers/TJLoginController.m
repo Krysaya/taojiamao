@@ -523,6 +523,7 @@
           
             [albbSDK auth:self successCallback:^(ALBBSession *session){
                 ALBBUser *user = [session getUser];
+//                NSString *userid = user.;
                 DSLog(@"-------------------------------session == %@, user.nick == %@,user.avatarUrl == %@,user.openId == %@,user.openSid == %@,user.topAccessToken == %@",session,user.nick,user.avatarUrl,user.openId,user.openSid,user.topAccessToken);
                 [self requestTaoBaoLoginWithTaoToken:user.openId withImage:user.avatarUrl withNickName:user.nick];
 

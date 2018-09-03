@@ -20,11 +20,14 @@
 #import "TJKdMyOpintionMyController.h"//意见
 
 #import "TJTabBarController.h"
-
+#import "TJKdAgentsInfoModel.h"
 #define BackTag  85954
 
 
 @interface TJKdUserCenterController ()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,SelectCellDelegate>
+
+@property (nonatomic, strong) TJKdAgentsInfoModel *model;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -37,7 +40,7 @@
     [super viewWillDisappear:animated];
 }
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad];[self requstData];
     self.view.backgroundColor = KBGRGB;
 
     UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W, 64)];
@@ -58,11 +61,47 @@
     [tableView registerNib:[UINib nibWithNibName:@"TJKdMineMiddleCell" bundle:nil] forCellReuseIdentifier:@"KdMineMiddleCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJKdMineDefaultCell" bundle:nil] forCellReuseIdentifier:@"KdMineDefaultCell"];
     [self.view addSubview:tableView];
+    self.tableView = tableView;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)requstData{
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = KdAgentsInfo;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"---%@",responseObject);
+        self.model = [TJKdAgentsInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self.tableView reloadData];
+         });
+    } onFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 - (void)buttonClick:(UIButton *)but{
     //    back
@@ -81,14 +120,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
         TJKdMineHeadCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMineHeadCell"];
+        cell.model = self.model;
+
         cell.backgroundColor = KKDRGB;
         return cell;
     }else if (indexPath.row==1){
         TJKdMineClassicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMineClassicCell"];
+        
         cell.mineCellDelegate = self;
         return cell;
     }else if (indexPath.row==2){
         TJKdMineMiddleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMineMiddleCell"];
+        cell.model = self.model;
         return cell;
     }else{
         TJKdMineDefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KdMineDefaultCell"];

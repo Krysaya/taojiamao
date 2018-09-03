@@ -78,6 +78,7 @@ static NSString * const UserPhone = @"UserPhone";
 //pl列表
 #define CommentsList             [BASEURL stringByAppendingString:@"/v1/comments"]
 
+
 //发布评论
 #define PulishComments           [BASEURL stringByAppendingString:@"/v1/comments/acomment"]
 
@@ -178,12 +179,18 @@ static NSString * const UserPhone = @"UserPhone";
 
 //用户-快递-发布订单
 #define KdUserReleaseOrder      [BASEURL stringByAppendingString:@"/v1/kuaidis/kuaidi"]
+//用户-快递-发布评论
+#define KdUserReleaseComments      [BASEURL stringByAppendingString:@"/v1/comments/kuaidi"]
 
-
+//用户-快递-评论标签
+#define KdUserCommentsTags      [BASEURL stringByAppendingString:@"/v1/kuaidis/tag"]
 //用户/商户-快递-订单列表
 #define KdOrderList        [BASEURL stringByAppendingString:@"/v1/kuaidis"]
 //用户/商户-快递-取件地址
 #define KdQuAddress        [BASEURL stringByAppendingString:@"/v1/addresses/qujian"]
+
+//商户-快递-个人信息
+#define KdAgentsInfo        [BASEURL stringByAppendingString:@"/v1/agents/gagent"]
 
 
 //商户-快递-意见反馈

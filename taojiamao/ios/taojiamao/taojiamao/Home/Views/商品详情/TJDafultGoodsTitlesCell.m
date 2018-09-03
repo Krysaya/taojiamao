@@ -36,7 +36,7 @@
 
 - (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, S_W, 375)];
-    [img sd_setImageWithURL:[NSURL URLWithString:model_detail.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [img sd_setImageWithURL:[NSURL URLWithString:model_detail.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
     if ([model_detail.shoptype isEqualToString:@"B"]) {
         [self.img_bs setImage: [UIImage imageNamed:@"tb_bs"]];
     }else{

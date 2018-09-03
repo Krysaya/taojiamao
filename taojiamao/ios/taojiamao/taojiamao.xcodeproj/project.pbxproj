@@ -699,6 +699,8 @@
 		C7FBE02A212ABD46000DB8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7FBE006212ABD45000DB8A4 /* Assets.xcassets */; };
 		C7FEE0AF2122815B008BDBA4 /* TJKdMyOrderContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0AE2122815B008BDBA4 /* TJKdMyOrderContentController.m */; };
 		C7FEE0B22122D872008BDBA4 /* TJMySchoolListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FEE0B12122D872008BDBA4 /* TJMySchoolListModel.m */; };
+		C7FFCAF3213CD72100627FBF /* TJKdAgentsInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FFCAF2213CD72100627FBF /* TJKdAgentsInfoModel.m */; };
+		C7FFCAF7213D394200627FBF /* TJAppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FFCAF6213D394200627FBF /* TJAppManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1995,6 +1997,11 @@
 		C7FEE0AE2122815B008BDBA4 /* TJKdMyOrderContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdMyOrderContentController.m; sourceTree = "<group>"; };
 		C7FEE0B02122D872008BDBA4 /* TJMySchoolListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMySchoolListModel.h; sourceTree = "<group>"; };
 		C7FEE0B12122D872008BDBA4 /* TJMySchoolListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMySchoolListModel.m; sourceTree = "<group>"; };
+		C7FFCAF1213CD72100627FBF /* TJKdAgentsInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJKdAgentsInfoModel.h; sourceTree = "<group>"; };
+		C7FFCAF2213CD72100627FBF /* TJKdAgentsInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJKdAgentsInfoModel.m; sourceTree = "<group>"; };
+		C7FFCAF4213D392600627FBF /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		C7FFCAF5213D394200627FBF /* TJAppManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAppManager.h; sourceTree = "<group>"; };
+		C7FFCAF6213D394200627FBF /* TJAppManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAppManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2939,6 +2946,7 @@
 		C73FC79F20901BC700732F2D /* Bases */ = {
 			isa = PBXGroup;
 			children = (
+				C7FFCAF4213D392600627FBF /* Singleton.h */,
 				C7266E0120A521A5005FD81A /* TJButton.h */,
 				C7266E0220A521A6005FD81A /* TJButton.m */,
 				C720EDB420906D99007AA53C /* TJBaseViewController.h */,
@@ -2957,6 +2965,8 @@
 				C7181E0220AA679D00AEC7D5 /* TJLabel.m */,
 				C7181E0420AA6F8400AEC7D5 /* TJTextField.h */,
 				C7181E0520AA6F8400AEC7D5 /* TJTextField.m */,
+				C7FFCAF5213D394200627FBF /* TJAppManager.h */,
+				C7FFCAF6213D394200627FBF /* TJAppManager.m */,
 			);
 			path = Bases;
 			sourceTree = "<group>";
@@ -4248,6 +4258,8 @@
 		C77FF1F4211C515A00D07AFE /* 商户端 */ = {
 			isa = PBXGroup;
 			children = (
+				C7FFCAF1213CD72100627FBF /* TJKdAgentsInfoModel.h */,
+				C7FFCAF2213CD72100627FBF /* TJKdAgentsInfoModel.m */,
 			);
 			path = "商户端";
 			sourceTree = "<group>";
@@ -5953,6 +5965,7 @@
 				C77FF1F2211C450900D07AFE /* XMTextView.m in Sources */,
 				C7808FEA20E60E4600938A26 /* KSortingAndMD5.m in Sources */,
 				C7181E0620AA6F8400AEC7D5 /* TJTextField.m in Sources */,
+				C7FFCAF3213CD72100627FBF /* TJKdAgentsInfoModel.m in Sources */,
 				C74520C720AD342400FE4217 /* TJGoodsDetailsLFCCell.m in Sources */,
 				C742A3202099DA260026311A /* MyRelativeLayout.m in Sources */,
 				C794FFF32119534100FB580F /* TJAdressCell.m in Sources */,
@@ -6001,6 +6014,7 @@
 				C717878C2105D2A4009A2034 /* TJDetailListCell.m in Sources */,
 				C74C31A820B294CD0074AC00 /* TJMiddleClickController.m in Sources */,
 				C7D9CF11211BE09600E70DD0 /* TJKdHomePageTwoCell.m in Sources */,
+				C7FFCAF7213D394200627FBF /* TJAppManager.m in Sources */,
 				C77D0E9820A3ED5B000F794A /* YYTextKeyboardManager.m in Sources */,
 				C71D207521217BF200580DA5 /* PinyinHelper.m in Sources */,
 				C79B99D620FF0F430096E9C6 /* TJClassicSecondController.m in Sources */,

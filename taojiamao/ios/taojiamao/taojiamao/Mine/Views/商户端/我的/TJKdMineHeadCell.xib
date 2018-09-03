@@ -72,6 +72,11 @@
                     <constraint firstAttribute="bottom" secondItem="KD2-Dt-PZ7" secondAttribute="bottom" id="dzq-ZJ-FNX"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="img" destination="Tng-jJ-VPp" id="zRZ-Kt-MbU"/>
+                <outlet property="lab_name" destination="dqe-dA-GAl" id="Y4C-7i-jZN"/>
+                <outlet property="lab_ycode" destination="Ojh-y1-Q3U" id="JM4-vS-ETD"/>
+            </connections>
             <point key="canvasLocation" x="-94" y="24.5"/>
         </tableViewCell>
     </objects>

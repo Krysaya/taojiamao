@@ -43,14 +43,19 @@
     }else if ([model.status integerValue]==1){
         self.lab_status.text = @"已接单，请按时送达";
 
-    }else{
+    }else if ([model.status integerValue]==3){
         
+        self.lab_status.text = @"待评价";
+        self.btn_right.hidden = NO;
+        [self.btn_right setTitle:@"评论" forState:UIControlStateNormal];
+        
+//
+    }else{
         if ([model.timeout integerValue]==1) {
-            self.lab_status.text = @"即将超时，请尽快送达";
+                        self.lab_status.text = @"即将超时，请尽快送达";
         }else{
-            self.lab_status.text = @"已超时";
-
-        }
+                        self.lab_status.text = @"已超时";
+       }
     }
    
 }

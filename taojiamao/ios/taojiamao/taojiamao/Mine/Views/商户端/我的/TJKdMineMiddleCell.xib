@@ -36,7 +36,7 @@
                                 <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 今日手艺" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjo-YJ-7Nr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 今日收益" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjo-YJ-7Nr">
                                 <rect key="frame" x="170.5" y="131" width="80" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="KmR-aO-xN3"/>
@@ -70,7 +70,7 @@
                                 <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeR-Fj-zXj">
+                            <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeR-Fj-zXj">
                                 <rect key="frame" x="70" y="15" width="80" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="dMu-bu-NZm"/>
@@ -78,8 +78,11 @@
                                 <state key="normal" title="今日业绩">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Tg0-tW-w9V"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJL-G2-hAW">
+                            <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJL-G2-hAW">
                                 <rect key="frame" x="170" y="15" width="80" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="PFk-kt-2m8"/>
@@ -87,6 +90,9 @@
                                 <state key="normal" title="本月业绩">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qbL-vo-6QE"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Oqi-Jh-mV7">
                                 <rect key="frame" x="70" y="57" width="80" height="2"/>
@@ -142,6 +148,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="btn_by" destination="AJL-G2-hAW" id="2Df-Kj-6iG"/>
+                <outlet property="btn_jr" destination="PeR-Fj-zXj" id="zCE-vP-T5M"/>
                 <outlet property="img_line" destination="xoS-pB-QAv" id="crM-Go-Y2I"/>
                 <outlet property="img_lineteo" destination="B9A-vf-TIn" id="gVU-Jo-sdU"/>
                 <outlet property="img_one" destination="Oqi-Jh-mV7" id="Yap-sy-l1R"/>

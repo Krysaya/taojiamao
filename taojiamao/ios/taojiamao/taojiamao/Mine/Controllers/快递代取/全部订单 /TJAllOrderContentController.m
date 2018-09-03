@@ -171,7 +171,12 @@
 }
 
 - (void)pingLunClick:(UIButton *)sender{
+    TJCourierTakeCell *cell = (TJCourierTakeCell *)[[sender superview] superview];
+    NSIndexPath * index = [self.tableView indexPathForCell:cell];
+    TJKdUserOrderList *model =  self.dataArr[index.row];
+
     TJEvaluationController *vc = [[TJEvaluationController alloc]init];
+    vc.kdid = model.id;vc.dali_id = model.daili_id;
     [self.navigationController  pushViewController:vc animated:YES];
 }
 

@@ -10,7 +10,6 @@
 #import "TJPopViewController.h"
 #import "TJHomePageModel.h"
 @interface TJPopViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *img;
 
 @end
 

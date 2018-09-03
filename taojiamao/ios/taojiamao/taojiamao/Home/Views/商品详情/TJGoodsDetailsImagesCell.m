@@ -32,7 +32,7 @@
 
 -(void)setUrlStr:(NSString *)urlStr{
     _urlStr = urlStr;
-    [self.imageS sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"morentouxiang"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [self.imageS sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"good_bg.jpg"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         [XHWebImageAutoSize storeImageSize:image forURL:imageURL completed:^(BOOL result) {
             /** reload  目前我为刷新 暂无问题*/
 //            if(result)  [tableView  xh_reloadDataForURL:imageURL];
