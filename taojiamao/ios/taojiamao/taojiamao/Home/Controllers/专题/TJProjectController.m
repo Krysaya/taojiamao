@@ -10,31 +10,112 @@
 #import "TJProjectController.h"
 #import "TJGoodsListCell.h"
 #import "SJAttributeWorker.h"
-
-@interface TJProjectController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+#import "TJGoodsCollectModel.h"
+#import "TJKallAdImgModel.h"
+@interface TJProjectController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,SDCycleScrollViewDelegate>
 @property (nonatomic, strong) NSMutableArray *dataArr;
-@property (nonatomic, strong) UIPageControl *pageControl;
-@property (nonatomic, strong) UIScrollView *scrollV;
-@property (nonatomic, strong) NSArray *imgArr;
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) SDCycleScrollView *scrollV;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *imgArr;
+@property (nonatomic, strong) NSMutableArray *bannerArr;
 @end
 
 @implementation TJProjectController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     _dataArr = @[].mutableCopy;
-    self.title = @"优质鲜果";
-    [self setupTimer];
+    [self requestAdImg];
+    [self  requestHomePageGoodsJingXuan];
+    self.title = @"推荐好货";
 
-    UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
+    //    广告滑动
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"ad_img"]];
+    cycleScrollView.showPageControl = NO;
+    [self.view addSubview:cycleScrollView];
+    self.scrollV = cycleScrollView;
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 160+64, S_W, S_H-160-64) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
     tableView.delegate = self;
     tableView.dataSource = self;
-    tableView.rowHeight = 150;
+    tableView.rowHeight = 160;
     tableView.tableFooterView = [UIView new];
-    
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
+    self.tableView = tableView;
+}
+
+- (void)requestAdImg{
+    self.bannerArr = [NSMutableArray array];self.imgArr = [NSMutableArray array];
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                @"posid":@"1",
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = [NSString stringWithFormat:@"%@1",KAllAdPosters];
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodGET;
+    } onSuccess:^(id  _Nullable responseObject) {
+        DSLog(@"---banner-%@",responseObject);
+        self.bannerArr = [TJKallAdImgModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        for (TJKallAdImgModel *m in self.bannerArr) {
+            [self.imgArr addObject:m.imgurl];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.scrollV.imageURLStringsGroup = self.imgArr;
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+    }];
+}
+
+- (void)requestHomePageGoodsJingXuan{
+    //    精选
+    self.dataArr = [NSMutableArray array];
+    NSString *userid = GetUserDefaults(UID);
+    
+    if (userid) {
+    }else{
+        userid = @"";
+    }
+    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+    NSString *timeStr = [MD5 timeStr];
+    NSMutableDictionary *md = @{
+                                @"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"uid":userid,
+                                
+                                }.mutableCopy;
+    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+        request.url = HomePageGoods;
+        request.headers = @{@"timestamp": timeStr,
+                            @"app": @"ios",
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
+        request.httpMethod = kXMHTTPMethodPOST;
+    } onSuccess:^(id  _Nullable responseObject) {
+        self.dataArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    } onFailure:^(NSError * _Nullable error) {
+    }];
 }
 
 #pragma mark = delegate
@@ -43,105 +124,30 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
-//    NSAttributedString *str = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-//        make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(27, 13));
-//        make.insertText(@" 淘米瑞春秋装新款套头圆领女士豹纹卫衣粉红宽松韩版的可能花费...", 1);
-//    });
-//    cell.titleLab.attributedText = str;
-    [cell cellWithArr:nil forIndexPath:indexPath isEditing:NO withType:@"0"];
+    [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:NO withType:@"1"];
     return cell;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *bgView = [[UIView alloc]init];
-//    ad
-    //    广告滑动
-     self.imgArr = [[NSArray alloc]initWithObjects:@"",@"",@"",@"", nil];
-    UIScrollView *scrollV = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, 160)];
-    [bgView addSubview:scrollV];
-    scrollV.showsVerticalScrollIndicator = NO;
-    scrollV.showsHorizontalScrollIndicator = NO;
-    scrollV.pagingEnabled = YES;
-    scrollV.contentSize = CGSizeMake(self.imgArr.count * S_W, 0);
-    scrollV.delegate = self;
-    
-    for (int i = 0; i < self.imgArr.count; i++) {
-        NSString * imageName = [NSString stringWithFormat:@"%d",i];
-        UIImage * image = [UIImage imageNamed:imageName];
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:scrollV.bounds];
-        imageView.backgroundColor = RandomColor;
-        imageView.image = image;
-        [scrollV addSubview:imageView];
-    }
-    
-    [scrollV.subviews enumerateObjectsUsingBlock:^(UIImageView *imageView, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        CGRect frame = imageView.frame;
-        frame.origin.x = idx * frame.size.width;
-        imageView.frame = frame;
-    }];
-    //    self.pageControl.currentPage = 0;
-    
-    UIPageControl *pageC = [[UIPageControl alloc]init];
-    pageC.currentPage = 0;
-    pageC.numberOfPages = 4;
-    NSLog(@"--%ld--arr.count",self.imgArr.count);
-//    pageC.backgroundColor = RGBA(1, 1, 1, 0.5);
-    pageC.frame = CGRectMake(S_W-92, 140, 80, 12);
-    pageC.pageIndicatorTintColor = RGB(110, 110, 110);
-    pageC.currentPageIndicatorTintColor = KALLRGB;
-    [bgView addSubview:pageC];
-    self.pageControl = pageC;
-    self.scrollV = scrollV;
-    return bgView;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 160;
-
-}
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//滚动代理
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    UIView *bgView = [[UIView alloc]init];
+////    ad
+//
+//
+//    return bgView;
 //}
-#pragma mark - scroll
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    
-        double page = scrollView.contentOffset.x / scrollView.bounds.size.width;
-        
-        self.pageControl.currentPage = page;
-   
-    
-    
-}
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    
-        [self.timer invalidate];
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return 160;
+//}
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-   
-        [self setupTimer];
-    
-}
-
-- (void)setupTimer{
-    self.timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerChanged) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-    
-}
-
-- (void)timerChanged{
-    NSInteger page = (self.pageControl.currentPage + 1) % self.imgArr.count;
-    self.pageControl.currentPage = page;
-    
-    [self pageChanged:self.pageControl];
-}
-- (void)pageChanged:(UIPageControl *)pageControl{
-    CGFloat x = (pageControl.currentPage) * self.scrollV.bounds.size.width;
-    [self.scrollV setContentOffset:CGPointMake(x, 0) animated:YES];
+#pragma mark - ad  delegate
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
+//    TJHomePageModel *m = self.imgDataArr[index];
+//    TJAdWebController *vc = [[TJAdWebController alloc]init];vc.url = m.flag;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

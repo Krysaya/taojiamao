@@ -8,13 +8,13 @@
 //
 
 #import "TJInvitePrizeCell.h"
+#import "TJGoodsCollectModel.h"
 @interface TJInvitePrizeCell()
 
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UILabel *lab_title;
 @property (weak, nonatomic) IBOutlet UILabel *lab_qhprice;
 @property (weak, nonatomic) IBOutlet UILabel *lab_yjprice;
-@property (weak, nonatomic) IBOutlet UIButton *btn_buy;
 
 @end
 
@@ -24,5 +24,11 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+- (void)setModel:(TJGoodsCollectModel *)model{
+    _model = model;
+    self.lab_title.text = model.itemtitle;
+    self.lab_qhprice.text = model.itemendprice;
+    self.lab_yjprice.text = [NSString stringWithFormat:@"¥ %@",model.itemprice];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
+}
 @end

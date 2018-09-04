@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class TJGoodsCollectModel;
 @interface TJInvitePrizeCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIButton *btn_buy;
 
+@property (nonatomic, strong) TJGoodsCollectModel *model;
 @end

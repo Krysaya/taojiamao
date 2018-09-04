@@ -73,6 +73,9 @@ static NSString * const UserPhone = @"UserPhone";
 //排行榜
 #define RanksList                [BASEURL stringByAppendingString:@"/v1/ranks"]
 
+//拆红包
+#define RegisterHongBao            [BASEURL stringByAppendingString:@"/v1/hongbaos/hongbao"]
+
 //粉丝
 #define MemeberFans              [BASEURL stringByAppendingString:@"/v1//members/fans"]
 //pl列表
@@ -107,7 +110,8 @@ static NSString * const UserPhone = @"UserPhone";
 //客服
 #define MineAssistanceHelp       [BASEURL stringByAppendingString:@"/v1/help"]
 
-
+//fe分享
+#define KShareUrl      [BASEURL stringByAppendingString:@"/v1/shares"]
 //11修改密码
 #define EditPassWord             [BASEURL stringByAppendingString:@"/v1/members/epass"]
 //设置体现账户

@@ -169,7 +169,10 @@
             [self.navigationController  popViewControllerAnimated:YES];
             
         } onFailure:^(NSError * _Nullable error) {
-            DSLog(@"error==%@",error);
+            NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
+//            [SVProgressHUD showSuccessWithStatus:@"申请失败"];
 
         }];}
         

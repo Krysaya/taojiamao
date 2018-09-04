@@ -30,6 +30,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 @property(nonatomic,strong)NSMutableArray * tableData;
 @property (nonatomic, strong) NSMutableArray *dataArr_top;
 @property (nonatomic, strong) NSMutableArray *dataArr_bottom;
+@property (nonatomic, strong) TJGoodCatesMainListModel *model;
 
 
 @end
@@ -41,7 +42,6 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadGoodsCatesList];
-    [self requestHomePageGoodsJingXuan];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,7 +56,8 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:self.tableView];
     
-    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"ad_img"]];
+    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"banner_bg.jpg"]];
+    
     self.bannerView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = self.bannerView;
     
@@ -103,10 +104,13 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
         }
         
         TJGoodCatesMainListModel *m = [arr objectAtIndex:self.index];
+        self.model = m;
         [self.dataArr_top addObjectsFromArray:m.managedSons];
-        DSLog(@"---%ld===%ld",self.dataArr_top.count,m.managedSons.count);
+//        DSLog(@"---%ld===%ld===%@",self.dataArr_top.count,m.managedSons.count,self.model.cid);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectView reloadData];
+            [self requestHomePageGoodsJingXuan];
+
         });
         
     } onFailure:^(NSError * _Nullable error) {
@@ -129,7 +133,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                
+                                @"cid":self.model.cid,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -139,8 +143,11 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
                             @"sign":md5Str,
                             @"uid":userid,
                             };
+        request.parameters = @{ @"cid":self.model.cid,};
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
+        
+        DSLog(@"---%@4ewqrrt4",responseObject);
         self.dataArr_bottom = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{

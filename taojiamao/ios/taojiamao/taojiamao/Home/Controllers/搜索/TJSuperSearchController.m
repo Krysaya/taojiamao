@@ -28,10 +28,12 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @end
 
 @implementation TJSuperSearchController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestSuperSearchListWithSuperSort:@"0"];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestSuperSearchListWithSuperSort:@"0"];
     self.superView = [[TJSearchScreenView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:20];
     self.superView.backgroundColor  = [UIColor whiteColor];
     self.superView.deletage = self;
@@ -44,7 +46,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransform:) name:TJHorizontalVerticalTransform object:nil];
 }
 - (void)requestSuperSearchListWithSuperSort:(NSString *)sort{
-    self.dataArr = [NSMutableArray array];
+    self.dataArr = [NSMutableArray array];[SVProgressHUD show];
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -72,6 +74,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"keyword":self.strsearch,                                @"sort":sort};
     } onSuccess:^(id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -80,11 +83,12 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         });
         
     } onFailure:^(NSError * _Nullable error) {
-       
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showInfoWithStatus:@"加载失败，请重试~"];
+
     }];
 }
 -(void)setUITableView{
-  
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 45, S_W, S_H-SafeAreaTopHeight-50) style:UITableViewStylePlain];
     self.tableView.delegate = self;

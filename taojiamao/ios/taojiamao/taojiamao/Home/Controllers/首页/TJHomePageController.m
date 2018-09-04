@@ -121,19 +121,16 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+    [self setNavgation];
+
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-49)];
     big_ScrollVie.delegate = self;
-//    big_ScrollVie.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     big_ScrollVie.showsVerticalScrollIndicator = NO;
     big_ScrollVie.showsHorizontalScrollIndicator = NO;
     big_ScrollVie.tag = Big_Scroll;
     [self.view addSubview:big_ScrollVie];
     self.big_ScrollView = big_ScrollVie;
-   
-    [self setNavgation];
-    DSLog(@"--did-frame--%@",NSStringFromCGRect(self.big_ScrollView.frame));
 
 }
 - (void)layoutAllView{
@@ -543,7 +540,7 @@
 
 #pragma mark - gydelegate
 - (NSInteger)numberOfRowsForRollingNoticeView:(GYRollingNoticeView *)rollingView{
-    int a = (int)ceilf(self.newsArr.count/2);
+    int a = ceil(self.newsArr.count/2.0);
     return a;
 }
 - (__kindof GYNoticeViewCell *)rollingNoticeView:(GYRollingNoticeView *)rollingView cellAtIndex:(NSUInteger)index
@@ -568,7 +565,6 @@
         alpha = (alpha >= 1)?1:alpha;
         
         _currentAlpha = alpha;
-        
         [self setNaviBarAlpha:_currentAlpha];
     }
 }

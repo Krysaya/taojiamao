@@ -30,7 +30,7 @@
 @property (nonatomic, strong) NSArray *goodsArr;
 
 @property (nonatomic, strong) NSMutableArray *dataArr_left;
-//@property (nonatomic, strong) NSMutableArray *dataArr_right;
+//@property (nonatomic, strong) TJGoodCatesMainListModel *cmodel;
 @end
 
 @implementation TJHomeController
@@ -49,7 +49,8 @@
     self.titleColorSelected = RGB(255, 71, 119);
     self.titleColorNormal = RGB(102, 102, 102);
     self.progressColor = RGB(255, 71, 119);
-    [self setNavTitleItems];    [self loadGoodsCatesList];
+//    [self setNavTitleItems];
+    [self loadGoodsCatesList];
     [self requestSearchGoodsList];
 }
 

@@ -12,7 +12,7 @@
 #import "TJJHSGoodsListModel.h"
 #import "TJSuperSearchController.h"
 
-@interface TJSearchController ()<UITextFieldDelegate,ZJScrollPageViewDelegate>
+@interface TJSearchController ()<UITextFieldDelegate,ZJScrollPageViewDelegate,TJButtonDelegate>
 
 @property(nonatomic,strong)UIView * naview;
 @property(nonatomic,strong)TJTextField * search;
@@ -72,6 +72,8 @@
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"back_left"] forState:UIControlStateNormal];
+    [backButton setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+    [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [backButton sizeToFit];
     // 注意:一定要在按钮内容有尺寸的时候,设置才有效果
@@ -79,8 +81,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     
-    self.naview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 290, 32)];
-//    self.naview.backgroundColor = RandomColor;
+    self.naview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W-140, 32)];
     self.search = [TJTextField setTextFieldWith:@"请输入搜索内容" font:15 textColor:RGB(51, 51, 51) backColor:RGB(222, 222, 222)];
     self.search.text = self.searchText;
 //    self.search.end
@@ -96,11 +97,22 @@
     
     [self.naview addSubview:self.search];
     self.navigationItem.titleView = self.naview;
+    
+    //    you边按钮
+    TJButton *button_right = [[TJButton alloc]initWith:@"搜索" delegate:self font:15 titleColor:KALLRGB backColor:nil tag:478];
+    // 修改导航栏左边的item
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
+    
 }
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (void)buttonClick:(UIButton *)but{
+    DSLog(@"-butttt--%@--",self.searchText);
+    [self.contentView reload];
+//    [self.search resignFirstResponder];
 
+}
 #pragma mark- ZJScrollPageViewDelegate
 - (NSInteger)numberOfChildViewControllers {
     return _childVCs.count;
@@ -129,10 +141,14 @@
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     DSLog(@"%@",textField.text);
-    TJSearchContentController *vc = _childVCs[0];
-    vc.strsearch = textField.text;
-    TJSuperSearchController *vc1 = _childVCs[1];
-    vc1.strsearch = textField.text;
+//    self.searchText = textField.text;
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    self.searchText = textField.text;
+//    [self.contentView reload];
+
     return YES;
 }
 -(void)dealloc{

@@ -43,6 +43,7 @@
 #import "iCarousel.h"
 #import "GYRollingNoticeView.h"
 #import "SVProgressHUD.h"
+#import "MJRefreshGifHeader.h"
 
 #import "SDCycleScrollView.h"
 

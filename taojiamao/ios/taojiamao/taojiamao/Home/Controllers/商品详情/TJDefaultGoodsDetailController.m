@@ -16,12 +16,16 @@
 #import "TJBottomPopupView.h"
 #import "TJPopularizeController.h"
 #import "TJJHSGoodsListModel.h"
+#import "TJInvitationView.h"
 #import "UIViewController+Extension.h"
 
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
 #import <AlibcTradeSDK/AlibcTradePageFactory.h>
 #import <AlibcTradeSDK/AlibcTradeService.h>
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
 static NSString * const GoodsDetailsTitleCell = @"GoodsDetailsTitleCell";
 static NSString * const GoodsDetailsElectCell = @"GoodsDetailsElectCell";
 static NSString * const GoodsDetailsLFCCell = @"GoodsDetailsLFCCell";
@@ -38,7 +42,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 #define DetailsGoTopButton  954
 #define DetailsPopularize   955
 
-@interface TJDefaultGoodsDetailController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,SDCycleScrollViewDelegate,TJBottomPopupViewDelegate>
+@interface TJDefaultGoodsDetailController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,SDCycleScrollViewDelegate,TJBottomPopupViewDelegate,ShareBtnDelegate>
 
 {
     CGFloat _currentAlpha;
@@ -61,6 +65,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @property (nonatomic, strong) NSString *price;
 @property (nonatomic, strong) NSString *priceQuan;
 
+@property (nonatomic, strong) NSString *collectStatus;
 //会员不隐藏推广
 @property(nonatomic,strong)TJButton *popularize;
 @property(nonatomic,strong)NSArray * imageSSS;
@@ -395,18 +400,96 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
        
     }else if (but.tag==DetailShareButton){
         DSLog(@"分享");
+        TJInvitationView *iview = [TJInvitationView invitationView];
+        iview.backgroundColor = RGBA(1, 1, 1, 0.2);
+        iview.frame = CGRectMake(0, 0, S_W, S_H);iview.delegate = self;
+        [[UIApplication sharedApplication].keyWindow addSubview:iview];
+        
     }else if (but.tag==DetailsGoTopButton){
         DSLog(@"返回顶部");
         [self.tableView  scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }else if (but.tag==DetailCollectButton){
         DSLog(@"收藏");
+        self.collectStatus = [NSString stringWithFormat:@"%d",but.selected];
         [self requestCollectGoods];
         
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
-
+#pragma mark - share
+- (void)shareButtonClick:(NSInteger)sender{
+    //创建分享参数
+    TJJHSGoodsListModel *model = self.dataArr[0];
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:model.itemtitle
+                                     images:[NSURL URLWithString:model.itempic] //传入要分享的图片
+                                        url:[NSURL URLWithString:@"http://mob.com"]
+                                      title:model.sub_title
+                                       type:SSDKContentTypeWebPage];
+    
+    if (sender==140) {
+        //        朋友圈
+        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else  if (sender==141) {
+        //        好友
+        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else  if (sender==144) {
+        //sms
+    }else  if (sender==145) {
+        //link
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = model.url;
+        if (pasteboard == nil) {
+            [SVProgressHUD showInfoWithStatus:@"复制失败"];
+        }else
+        {
+            [SVProgressHUD showSuccessWithStatus:@"已复制"];
+        }
+    }else{
+        [SVProgressHUD showInfoWithStatus:@"暂不支持"];
+    }
+}
 - (void)getCouponClick:(UIButton *)sender{
     DSLog(@"优惠券");
     //打开优惠券详情页
@@ -427,11 +510,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
     
     [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
-}
-
-- (void)getCouponClick{
-    DSLog(@"优惠券-领取");
-    
 }
 
 -(void)requestCollectGoods{
@@ -466,16 +544,18 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
          [SVProgressHUD showSuccessWithStatus:@"收藏成功！"];
          self.shareB.selected = YES;
      }onFailure:^(NSError * _Nullable error) {
-         if (error.userInfo.count>0) {
-             NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-             NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-             
-            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
-             DSLog(@"--收藏-≈≈error-msg%@=======code%@",dic_err[@"msg"],dic_err);
-         }else{
-             DSLog(@"--收藏-≈≈error-%@===",error);
-
-         }
+         [SVProgressHUD showSuccessWithStatus:@"取消成功！"];
+         self.shareB.selected = NO;
+         
+//         if (error.userInfo.count>0) {
+//             NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//             NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//            [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
+//             DSLog(@"--收藏-≈≈error-msg%@=======code%@",dic_err[@"msg"],dic_err);
+//         }else{
+//             DSLog(@"--收藏-≈≈error-%@===",error);
+//
+//         }
         
      }];
 }

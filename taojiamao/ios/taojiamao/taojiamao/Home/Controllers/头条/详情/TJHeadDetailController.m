@@ -62,22 +62,19 @@
     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineShareCell" bundle:nil] forCellReuseIdentifier:@"shareCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineThreeCell" bundle:nil] forCellReuseIdentifier:@"tuijianCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJMoreCommentsCell" bundle:nil] forCellReuseIdentifier:@"moreCell"];
-
+    self.tableView = tableView;
     [self.view addSubview:tableView];
+    [self requestReplyList:self.aid];
+
     WeakSelf
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf requestNewsInfoList];
-        [weakSelf requestReplyList];
+        [weakSelf requestNewsInfoList:self.aid];
 
     }];
     [tableView.mj_header beginRefreshing];
-    self.tableView = tableView;
-    
-    
 }
 
-- (void)requestNewsInfoList{
-
+- (void)requestNewsInfoList:(NSString *)aid{
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -90,11 +87,11 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"id":self.aid,
+                                @"id":aid,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@/%@",NewsArticles,self.aid];
+        request.url = [NSString stringWithFormat:@"%@/%@",NewsArticles,aid];
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,
@@ -125,7 +122,7 @@
     }];
 }
 
-- (void)requestReplyList{
+- (void)requestReplyList:(NSString *)aid{
     //
     self.commentArr = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
@@ -140,7 +137,7 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"aid":self.aid,
+                                @"aid":aid,
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
@@ -151,20 +148,18 @@
                             @"uid":userid,
                             };
         request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{ @"aid":self.aid,
+        request.parameters = @{ @"aid":aid,
                                 };
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"--pl%@==success==",responseObject);
 
         NSDictionary *dict = responseObject[@"data"];
-        if (dict.count>0) {
             self.commentArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [self.tableView reloadData];
             });
-        }
-       
+        
     } onFailure:^(NSError * _Nullable error) {
 
     }];
@@ -269,9 +264,6 @@
         }else{
             //pinglu
             TJMoreCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"moreCell"];
-//            if (self.commentArr.count) {
-//                <#statements#>
-//            }
             cell.model = self.commentArr[indexPath.row-1];
             [cell.btn_more addTarget:self action:@selector(moreComments:) forControlEvents:UIControlEventTouchUpInside];
             [cell.btn_comments addTarget:self action:@selector(sendComments:) forControlEvents:UIControlEventTouchUpInside];
@@ -323,10 +315,10 @@
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"type":@"2",@"rid":self.aid};
     }onSuccess:^(id  _Nullable responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            sender.selected = YES;
             [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
-        });
+//        });
     }onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
@@ -338,7 +330,8 @@
     if (indexPath.section==1) {
         if (indexPath.row==1) {
 //          推荐
-            
+            self.aid = self.remodel.id;
+            [self requestNewsInfoList:self.remodel.id];[self requestReplyList:self.remodel.id];
         }
     }
 }
@@ -432,7 +425,7 @@
     }onSuccess:^(id  _Nullable responseObject) {
         [textField resignFirstResponder];
         [SVProgressHUD showSuccessWithStatus:@"发布成功"];
-        [self requestReplyList];
+        [self requestReplyList:self.aid];
         NSIndexSet *indexSet= [[NSIndexSet alloc]initWithIndex:2];
         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         
@@ -496,7 +489,7 @@
     }onSuccess:^(id  _Nullable responseObject) {
         [SVProgressHUD showSuccessWithStatus:@"评论成功"];
         [textFiled resignFirstResponder];
-        [self requestReplyList];
+        [self requestReplyList:self.aid];
         NSIndexSet *indexSet= [[NSIndexSet alloc]initWithIndex:2];
         [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }onFailure:^(NSError * _Nullable error) {

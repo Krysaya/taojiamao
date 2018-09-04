@@ -53,6 +53,7 @@
         [self loadRequestNormalNewsList];
     }];
     [self.tableView.mj_header beginRefreshing];
+    
 }
 
 - (void)loadRequestNormalNewsList{
@@ -94,17 +95,11 @@
         [self.dataArr addObjectsFromArray:array];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-//            if (self.dataArr.count<[md[@"page_size"] integerValue]) {
-//
-//                self.tableView.mj_footer.hidden = YES;
-//            }else{
-//                self.tableView.mj_footer.hidden = NO;
-//            }
             
         });
         
        
-        self.page++;
+//        self.page++;
     } onFailure:^(NSError * _Nullable error) {
         [self.tableView.mj_header endRefreshing];
 //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];

@@ -108,19 +108,6 @@
     [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeFlat];
     [SVProgressHUD setMaximumDismissTimeInterval:1];
 
-    [XMCenter setupConfig:^(XMConfig *config) {
-//        config.generalServer = @"general server address";
-//        config.generalHeaders = @{@"general-header": @"general header value"};
-//        config.generalParameters = @{@"general-parameter": @"general parameter value"};
-//        config.generalUserInfo = nil;
-        config.callbackQueue = dispatch_get_main_queue();
-        config.engine = [XMEngine sharedEngine];
-        
-#ifdef DEBUG
-        config.consoleLog = YES;
-#endif
-    }];
-
     return YES;
 }
 

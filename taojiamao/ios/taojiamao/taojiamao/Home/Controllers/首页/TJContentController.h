@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+//@class TJGoodCatesMainListModel;
 
 @interface TJContentController : TJBaseViewController
 
 @property(nonatomic,copy)NSString * testName;
 @property (nonatomic, assign) NSInteger  index;
+
 
 @end

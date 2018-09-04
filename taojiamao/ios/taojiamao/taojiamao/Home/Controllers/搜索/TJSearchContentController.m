@@ -30,10 +30,12 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @end
 
 @implementation TJSearchContentController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self requestSearchGoodsListWithOrderType:@"0"];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestSearchGoodsListWithOrderType:@"0"];
     self.filtrateView = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:22];
     self.filtrateView.backgroundColor = [UIColor whiteColor];
     self.filtrateView.deletage = self;
@@ -43,10 +45,10 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.tableView.hidden = YES;
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransform:) name:TJHorizontalVerticalTransform object:nil];
-//    [self requestSearchGoodsListWithOrderType:@"1"];
 }
 - (void)requestSearchGoodsListWithOrderType:(NSString *)type{
     self.dataArr = [NSMutableArray array];
+    [SVProgressHUD show];
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -67,6 +69,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = SearchGoodsList;
+        request.timeoutInterval = 20;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,
@@ -75,6 +78,8 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         request.httpMethod = kXMHTTPMethodPOST;
         request.parameters = @{@"keyword":self.strsearch,@"order":type};
     } onSuccess:^(id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
+
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -91,6 +96,8 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         
         
     } onFailure:^(NSError * _Nullable error) {
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showInfoWithStatus:@"加载失败，请重试~"];
     }];
 }
 -(void)setUITableView{

@@ -11,10 +11,10 @@
 #import "TJHomeSignController.h"//签到
 #import "TJNoticeController.h"
 
-#import "TJProjectController.h"//推荐好货
 #import "TJHomeController.h"//女装--分类
 #import "TJClassicController.h"//更多
 #import "TJBargainController.h"//9.9
+#import "TJProjectController.h"//专题--推荐好货
 
 #import "TJSearchController.h"//搜索
 

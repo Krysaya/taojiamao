@@ -10,6 +10,8 @@
 #import "TJSignRuleController.h"
 
 @interface TJSignRuleController ()
+@property (weak, nonatomic) IBOutlet UITextView *tv_content;
+@property (weak, nonatomic) IBOutlet UILabel *lab_title;
 
 @end
 
@@ -18,9 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.modalPresentationStyle =UIModalPresentationCustom;
-    
-
-    // Do any additional setup after loading the view from its nib.
+    if ([self.title isEqualToString: @"活动规则"]) {
+        self.lab_title.text = @"活动规则";
+    }else{
+        
+    }
 }
 - (IBAction)closeClick:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

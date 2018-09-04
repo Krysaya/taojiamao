@@ -71,6 +71,7 @@
         NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
         [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
             request.url = GoodsJiuJiuList;
+            request.timeoutInterval = 20;
             request.headers = @{@"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"sign":md5Str,
@@ -87,6 +88,7 @@
 
             });
         } onFailure:^(NSError * _Nullable error) {
+            [SVProgressHUD dismiss];
         }];
     }else if([type intValue]==1){
 //        9.9

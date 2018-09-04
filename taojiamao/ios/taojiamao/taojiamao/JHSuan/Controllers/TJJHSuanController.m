@@ -9,7 +9,7 @@
 #import "TJJHSuanController.h"
 #import "TJJHSuanCell.h"
 #import "TJJHSGoodsListModel.h"
-//#import "TJGoodsDetailsController.h"
+#import "KRefreshGifHeader.h"
 #import "TJDefaultGoodsDetailController.h"
 
 @interface TJJHSuanController ()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -67,7 +67,7 @@
                                     @"app": @"ios",
                                     @"uid": userid,
                                     }.mutableCopy;
-    
+    WeakSelf
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = JHSGoodsList;
@@ -76,22 +76,22 @@
 //                                @"page_num":@"10",};
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id responseObject) {
-        [self endRefresh];
-
+        [weakSelf endRefresh];
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
     
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionV reloadData];
-            if (self.dataArr.count<[param[@"page_num"] integerValue]) {
-                self.collectionV.mj_footer.hidden = YES;
-            }else{
-                self.collectionV.mj_footer.hidden = NO;
-            }
+            [weakSelf.collectionV reloadData];
         });
-        self.page++;
+        
+        if (weakSelf.dataArr.count<[param[@"page_num"] integerValue]) {
+            weakSelf.collectionV.mj_footer.hidden = YES;
+        }else{
+            weakSelf.collectionV.mj_footer.hidden = NO;
+        }
+        weakSelf.page++;
     } onFailure:^(NSError *error) {
-        [self endRefresh];
+        [weakSelf endRefresh];
     }];
     
 }
@@ -113,6 +113,7 @@
                                     }.mutableCopy;
     
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
+    WeakSelf
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = JHSGoodsList;
         request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
@@ -121,17 +122,14 @@
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id responseObject) {
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        
+        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self.collectionV reloadData];
+            [weakSelf.collectionV reloadData];
         });
-        self.page++;
-        NSLog(@"jhsonSuccess:%@ =======",responseObject);
+        weakSelf.page++;
         
     } onFailure:^(NSError *error) {
-        [self  endRefresh];
+        [weakSelf  endRefresh];
     }];
     
 }
@@ -148,21 +146,15 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     self.collectionV = collectV;
     
     [self addMjRefresh];
-////    上拉加载
-//    self.collectionV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestLoadDataJHSList:)];
-////    下啦刷新
-//    self.collectionV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestLoadNormalJHSList:)];
-//    self.collectionV.mj_footer.hidden = YES;
+
 }
 #pragma mark - refreshSetting
 -(void)addMjRefresh{
     WeakSelf
     MJRefreshGifHeader * header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
-        [weakSelf.dataArr removeAllObjects];
-        weakSelf.page = 1;
-        [self requestLoadNormalJHSList];
+     
+        [weakSelf requestLoadNormalJHSList];
     }];
-    
     NSMutableArray * temp = [NSMutableArray array];
     for (int i =1; i<20; i++) {
         UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",i]];
@@ -170,20 +162,15 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     }
     [header setImages:@[[UIImage imageNamed:@"1"]] forState:MJRefreshStateIdle];
     [header setImages:temp forState:MJRefreshStatePulling];
-    [header setImages:temp duration:temp.count*0.03 forState:MJRefreshStateRefreshing];
+    [header setImages:temp duration:temp.count*0.025 forState:MJRefreshStateRefreshing];
+//    [header setTitle:<#(NSString *)#> forState:<#(MJRefreshState)#>];
     header.lastUpdatedTimeLabel.hidden = YES;
     header.stateLabel.hidden = YES;
-    self.collectionV.mj_header =header;
+    self.collectionV.mj_header = header;
   
     
     MJRefreshAutoStateFooter * footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
-//        DSLog(@"%@",self.total);
-//        if ([weakSelf.total integerValue]==weakSelf.page) {
-//            weakSelf.collectionV.mj_footer.state = MJRefreshStateNoMoreData;
-//            return ;
-//        }
-//        weakSelf.page++;
-        [self requestLoadDataJHSList];
+        [weakSelf requestLoadDataJHSList];
     }];
     [footer setTitle:@"我们是有底线的" forState:MJRefreshStateNoMoreData];
     self.collectionV.mj_footer = footer;

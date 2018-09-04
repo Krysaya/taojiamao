@@ -10,4 +10,5 @@
 
 @interface TJSignRuleController : UIViewController
 
+@property (nonatomic, strong) NSString *title;
 @end
