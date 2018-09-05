@@ -168,6 +168,7 @@
 }
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     
+    self.title = self.dataArr_left[index];
     return self.dataArr_left[index];
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {

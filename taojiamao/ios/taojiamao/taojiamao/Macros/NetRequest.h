@@ -18,6 +18,7 @@ static NSString * const UID = @"id";
 static NSString * const TOKEN = @"token";
 static NSString * const Bind_TB = @"bind_tb";
 static NSString * const Bind_WX = @"bind_wx";
+static NSString * const TB_Pid = @"51786779_16868079_62182259";
 
 static NSString * const UserPhone = @"UserPhone";
 //关键字宏
@@ -111,7 +112,7 @@ static NSString * const UserPhone = @"UserPhone";
 #define MineAssistanceHelp       [BASEURL stringByAppendingString:@"/v1/help"]
 
 //fe分享
-#define KShareUrl      [BASEURL stringByAppendingString:@"/v1/shares"]
+#define KShareUrl                [BASEURL stringByAppendingString:@"/v1/shares"]
 //11修改密码
 #define EditPassWord             [BASEURL stringByAppendingString:@"/v1/members/epass"]
 //设置体现账户
@@ -137,6 +138,9 @@ static NSString * const UserPhone = @"UserPhone";
 
 //商品详情页
 #define GoodsInfoList            [BASEURL stringByAppendingString:@"/v1/tb"]
+//商品详情页--购买追踪
+#define GoodsInfoTBK            [BASEURL stringByAppendingString:@"/v1/tbs/view"]
+
 //商品分类
 #define GoodsClassicList         [BASEURL stringByAppendingString:@"/v1/cates/goods"]
 

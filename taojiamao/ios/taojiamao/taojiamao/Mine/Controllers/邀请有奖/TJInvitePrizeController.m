@@ -46,84 +46,40 @@
 - (void)requestHomePageGoodsJingXuan{
     //    精选
     self.dataArr = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"page":@"1",
-                                @"page_num":@"10",
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = HomePageGoods;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.parameters = @{  @"page":@"1",
-                                 @"page_num":@"10",};
-        request.httpMethod = kXMHTTPMethodPOST;
-    } onSuccess:^(id  _Nullable responseObject) {
+    NSDictionary *param = @{ @"page":@"1",
+                             @"page_num":@"10",};
+    [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         self.dataArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-
+        
         DSLog(@"--success--%@-%lu",responseObject,(unsigned long)self.dataArr.count);
         self.collectHeight.constant = self.dataArr.count*125;
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionV reloadData];
         });
 
-    } onFailure:^(NSError * _Nullable error) {
+    } withFailure:^(NSError * _Nullable error) {
         DSLog(@"error--%@==",error);
     }];
+   
 }
 
 - (void)requestHongBao{
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = RegisterHongBao;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-    } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"--dfs--%@",responseObject);
-
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:RegisterHongBao withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         TJInvitePrizeModel *model = [TJInvitePrizeModel mj_objectWithKeyValues:responseObject[@"data"]];
         self.model = model;
         dispatch_async(dispatch_get_main_queue(), ^{
-        self.lab_prize.text = [NSString stringWithFormat:@"%.2f",[model.money floatValue]];
+            self.lab_prize.text = [NSString stringWithFormat:@"%.2f",[model.money floatValue]];
             NSInteger i  = [model.num intValue]+1;
-        [self.btn_share setTitle:[NSString stringWithFormat:@"分享后拆第%ld份现金",i] forState:UIControlStateNormal];
-
+            [self.btn_share setTitle:[NSString stringWithFormat:@"分享后拆第%ld份现金",i] forState:UIControlStateNormal];
         });
-    } onFailure:^(NSError * _Nullable error) {
-        DSLog(@"--error--%@",error);
+        
+    } withFailure:^(NSError * _Nullable error) {
+        DSLog(@"error--%@==",error);
     }];
+    
 }
+
 - (IBAction)buttonClick:(UIButton *)sender {
     if (sender.tag==4780) {
 //        规则
@@ -152,7 +108,7 @@
                                        type:SSDKContentTypeWebPage];
     if (sender==140) {
         //        朋友圈
-        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
+        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
              parameters:shareParams
          onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
              switch (state) {
@@ -176,7 +132,7 @@
         
     }else  if (sender==141) {
         //        好友
-        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
+        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
              parameters:shareParams
          onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
              switch (state) {

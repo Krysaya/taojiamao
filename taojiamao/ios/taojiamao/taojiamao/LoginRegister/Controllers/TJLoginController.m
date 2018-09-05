@@ -435,6 +435,8 @@
                     NSLog(@"-------data-uid--%@",data[@"id"]);
                     
                     SetUserDefaults(data[@"id"], UID);
+                    SetUserDefaults(data[@"bind_tao"], Bind_TB);
+                    SetUserDefaults(data[@"bind_wx"], Bind_WX);
                     SetUserDefaults(HADLOGIN, HADLOGIN);
                     NSLog(@"----账号密码login-success-%@===ID%@",responseObject,data[@"id"]);
                     //控制器跳转
@@ -490,6 +492,8 @@
                     //写入
                     NSDictionary * data = responseObject[@"data"];
                     SetUserDefaults(data[@"id"], UID);
+                    SetUserDefaults(data[@"bind_tao"], Bind_TB);
+                    SetUserDefaults(data[@"bind_wx"], Bind_WX);
                     SetUserDefaults(HADLOGIN, HADLOGIN);
                     NSLog(@"----快速login-success-%@===ID%@",responseObject,data[@"id"]);
                     //控制器跳转

@@ -22,17 +22,17 @@
 
 
 @implementation TJInvitationView
-- (instancetype)initWithFrame:(CGRect)frame withTitile:(NSString *)title withsmsButtonImg:(NSString *)img
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"TJInvitationView"
-                                              owner:nil options:nil]lastObject];
-        [self.btn_sms setImage:[UIImage imageNamed:img] forState:UIControlStateNormal];
-        self.lab_title.text = title;
-    }
-    return self;
-}
+//- (instancetype)initWithFrame:(CGRect)frame withTitile:(NSString *)title withsmsButtonImg:(NSString *)img
+//{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//        self = [[[NSBundle mainBundle] loadNibNamed:@"TJInvitationView"
+//                                              owner:nil options:nil]lastObject];
+//        [self.btn_sms setImage:[UIImage imageNamed:img] forState:UIControlStateNormal];
+//        self.lab_title.text = title;
+//    }
+//    return self;
+//}
 
 +(instancetype)invitationView{
     
@@ -45,10 +45,19 @@
     [self removeFromSuperview];
 }
 
+- (IBAction)buttonClick:(UIButton *)sender {
+    [self removeFromSuperview];
+
+}
+
 - (IBAction)shareBtnClick:(UIButton *)sender {
+
     if ([self.delegate respondsToSelector:@selector(shareButtonClick:) ]) {
         [self.delegate shareButtonClick:sender.tag];
     }
+    
+    [self removeFromSuperview];
+
 }
 
 

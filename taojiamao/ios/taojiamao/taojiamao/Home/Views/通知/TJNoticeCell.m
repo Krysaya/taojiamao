@@ -34,6 +34,11 @@
 - (void)setModel:(TJNoticeListModel *)model{
     
     self.lab_titel.text = model.message;
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[model.addtime doubleValue]];
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"MM-dd HH:mm"];
+    NSString *timeS = [formatter stringFromDate:myDate];
+    self.lab_time.text = timeS;
     if ([model.isread intValue]==0) {
         self.lab_type.hidden = NO;
     }else{

@@ -56,10 +56,10 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:self.tableView];
     
-    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"banner_bg.jpg"]];
-    
-    self.bannerView.backgroundColor = [UIColor whiteColor];
-    self.tableView.tableHeaderView = self.bannerView;
+//    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, S_W, 160) delegate:self placeholderImage:[UIImage imageNamed:@"banner_bg.jpg"]];
+//
+//    self.bannerView.backgroundColor = [UIColor whiteColor];
+//    self.tableView.tableHeaderView = self.bannerView;
     
     
 }
@@ -120,6 +120,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
 
 - (void)requestHomePageGoodsJingXuan{
     //    精选
+    [SVProgressHUD show];
     self.dataArr_bottom = [NSMutableArray array];
     NSString *userid = GetUserDefaults(UID);
     
@@ -146,8 +147,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
         request.parameters = @{ @"cid":self.model.cid,};
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
-        
-        DSLog(@"---%@4ewqrrt4",responseObject);
+        [SVProgressHUD dismiss];
         self.dataArr_bottom = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -155,7 +155,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
             });
         
     } onFailure:^(NSError * _Nullable error) {
-       
+        [SVProgressHUD dismiss];
     }];
 }
 #pragma mark - sdc deleagte
@@ -229,7 +229,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     return view;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 188*H_Scale;
+    return 188;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -265,7 +265,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
         layout.minimumLineSpacing= 10;
         layout.minimumInteritemSpacing = 0;
         
-        _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 15, S_W, 110) collectionViewLayout:layout];
+        _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 10, S_W, 110) collectionViewLayout:layout];
         _collectView.backgroundColor = [UIColor whiteColor];
         _collectView.showsHorizontalScrollIndicator = NO;
         _collectView.delegate=self;

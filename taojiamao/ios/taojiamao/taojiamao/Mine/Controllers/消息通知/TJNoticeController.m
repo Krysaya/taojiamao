@@ -103,7 +103,7 @@
 - (void)setTableView{
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 105+60, S_W, S_H-95-SafeAreaTopHeight) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
-    tableView.rowHeight = 135;
+    tableView.rowHeight = 80;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.backgroundColor = RGB(245, 245, 245);
 

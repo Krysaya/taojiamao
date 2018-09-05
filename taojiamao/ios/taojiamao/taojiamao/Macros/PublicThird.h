@@ -44,7 +44,7 @@
 #import "GYRollingNoticeView.h"
 #import "SVProgressHUD.h"
 #import "MJRefreshGifHeader.h"
-
+#import "KConnectWorking.h"
 #import "SDCycleScrollView.h"
 
 #endif

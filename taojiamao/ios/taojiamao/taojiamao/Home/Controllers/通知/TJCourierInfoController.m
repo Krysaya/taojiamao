@@ -28,7 +28,7 @@
         
     }
     self.tableView.backgroundColor = RGB(245, 245, 245);
-    self.tableView.rowHeight = 135;
+    self.tableView.rowHeight = 80;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"TJNoticeCell" bundle:nil] forCellReuseIdentifier:@"noticeCell"];
@@ -68,7 +68,7 @@
         request.httpMethod = kXMHTTPMethodPOST;
                 request.parameters = @{@"type":type};
     } onSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"----user-success-===%@",responseObject);
+        NSLog(@"----notice-success-===%@",responseObject);
         
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJNoticeListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
@@ -80,7 +80,7 @@
     } onFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"--个人信息-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+        DSLog(@"--notice-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
     }];
 }
 

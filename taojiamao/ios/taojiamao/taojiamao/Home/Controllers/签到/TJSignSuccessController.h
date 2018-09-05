@@ -10,4 +10,5 @@
 
 @interface TJSignSuccessController : UIViewController
 
+@property (nonatomic, strong) NSString *jifen;
 @end

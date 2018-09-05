@@ -104,16 +104,21 @@
 }
 
 - (void)requestBindTaoBao{
-    ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
-    [albbSDK setAppkey:@"25038195"];
-    [albbSDK setAuthOption:NormalAuth];
-    
-    [albbSDK auth:self successCallback:^(ALBBSession *session){
+//    ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
+//    [albbSDK setAppkey:@"25038195"];
+//    [albbSDK setAuthOption:NormalAuth];
+//
+//    [albbSDK auth:self successCallback:^(ALBBSession *session){
+//        ALBBUser *user = [session getUser];
+//        [self requestTaoBaoLoginWithTaoToken:user.openId withImage:user.avatarUrl withNickName:user.nick];
+//    } failureCallback:^(ALBBSession *session,NSError *error){
+//    }];
+    [KConnectWorking getTaoBaoAuthor:self successCallback:^(ALBBSession *session) {
         ALBBUser *user = [session getUser];
         [self requestTaoBaoLoginWithTaoToken:user.openId withImage:user.avatarUrl withNickName:user.nick];
-    } failureCallback:^(ALBBSession *session,NSError *error){
+    } failureCallback:^(ALBBSession *session, NSError *error) {
+        
     }];
-    
     
 }
 - (void)requestTaoBaoLoginWithTaoToken:(NSString *)openid withImage:(NSString *)img withNickName:(NSString *)nick{
@@ -122,7 +127,10 @@
     NSString *bnick = [nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
     NSString *timeStr = [MD5 timeStr];
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {}else{userid = @"";}
     NSMutableDictionary *md = @{
+                                @"uid":userid,
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"tao_openid":openid,
@@ -137,16 +145,21 @@
                                 @"tao_nick":nick,};
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
-                            @"sign":md5Str,};
+                            @"sign":md5Str,
+                            @"uid":userid,
+                            };
         request.httpMethod = kXMHTTPMethodPOST;
     }onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"---%@---",responseObject);
         [SVProgressHUD showSuccessWithStatus:@"绑定成功！"];
-        SetUserDefaults(@"1", Bind_WX);
+        SetUserDefaults(@"1", Bind_TB);
         self.hadBind.hidden = NO;self.noBind.hidden = YES;
         [self.cancel setTitle:@"取消绑定"];self.jj.hidden = NO;
 
     } onFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"--bind-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
         [SVProgressHUD showSuccessWithStatus:@"绑定失败！"];
 
     }];
@@ -174,8 +187,13 @@
                             @"sign":md5Str,
                             @"uid":userid,
                             };
-        request.httpMethod = kXMHTTPMethodGET;
+        request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
+        
+        SetUserDefaults(@"0", Bind_TB);
+        self.hadBind.hidden = YES;self.noBind.hidden = NO;
+        [self.cancel setTitle:@"去绑定"];self.jj.hidden = YES;
+        
         [SVProgressHUD showSuccessWithStatus:@"解绑成功！"];
         ALBBSDK *albbSDK = [ALBBSDK sharedInstance];
         [albbSDK logout];

@@ -72,10 +72,9 @@
         
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"--zuji-≈≈%@=======",responseObject);
-//        NSDictionary *dict = responseObject[@"data"];
-        if (![responseObject[@"data"] isEqualToString:@""]) {
+        NSDictionary *dict = responseObject[@"data"];
+        if (dict.count>0) {
             self.dataDict = responseObject[@"data"][@"data"];
-            
             self.childArr = responseObject[@"data"][@"keys"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];

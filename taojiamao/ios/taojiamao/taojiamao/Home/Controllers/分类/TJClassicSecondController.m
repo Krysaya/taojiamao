@@ -57,6 +57,9 @@
 }
 - (void)loadRequestClassicGoodsList:(NSString *)type{
     self.dataArr = [NSMutableArray array];
+//    NSDictionary *param = @{ @"keyword":str,
+//                             @"order":type,};
+//    [KConnectWorking requestNormalDataParam:param withRequestURL:<#(NSString *)#> withMethodType:<#(XMHTTPMethodType)#> withSuccessBlock:<#^(id  _Nullable responseObject)successBlock#> withFailure:<#^(NSError * _Nullable error)failureBlock#>];
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {

@@ -36,6 +36,7 @@
 @property (nonatomic, strong) NSMutableArray *commentArr;
 
 @property (nonatomic, strong) NSString *pid;
+@property (nonatomic, strong) NSString *share_url;
 @end
 
 @implementation TJHeadDetailController
@@ -46,6 +47,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [KConnectWorking requestShareUrlData:@"2" withIDStr:self.aid withSuccessBlock:^(id  _Nullable responseObject) {
+        self.share_url = responseObject[@"data"][@"share_url"];
+    }];
     self.title = self.title_art;
     //    you边按钮
 //    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:5496 withBackImage:@"share" withSelectImage:nil];
@@ -504,12 +508,12 @@
     //创建分享参数
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKSetupShareParamsByText:self.title_art
-                                     images:[UIImage imageNamed:@"fail.jpg"] //传入要分享的图片
-                                        url:[NSURL URLWithString:@"http://mob.com"]
+                                     images:[UIImage imageNamed:@"logo"] //传入要分享的图片
+                                        url:[NSURL URLWithString:self.share_url]
                                       title:self.title_art
                                        type:SSDKContentTypeWebPage];
     if (button.tag==130) {
-//        好友
+//        朋友圈
         //进行分享
         [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
              parameters:shareParams
@@ -533,7 +537,7 @@
              }
          }];
     }else if (button.tag==131){
-//        朋友圈
+//        好友
         //进行分享
         [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
              parameters:shareParams

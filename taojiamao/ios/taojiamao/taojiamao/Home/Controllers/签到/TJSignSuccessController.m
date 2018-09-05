@@ -10,11 +10,16 @@
 #import "TJSignSuccessController.h"
 
 @interface TJSignSuccessController ()
+@property (weak, nonatomic) IBOutlet UILabel *lab_jf;
 
 @end
 
 @implementation TJSignSuccessController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.lab_jf.text = [NSString stringWithFormat:@"+%@",self.jifen];
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.modalPresentationStyle =UIModalPresentationCustom;
@@ -22,7 +27,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (IBAction)closeBtnClick:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 
 }
 

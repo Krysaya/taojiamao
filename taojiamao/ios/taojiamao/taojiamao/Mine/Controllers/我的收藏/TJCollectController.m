@@ -77,12 +77,12 @@
     self.contentView = content;
     [self.view addSubview:content];
     
-    UIButton *rightBtn = [[UIButton alloc]init];
-    [rightBtn setTitle:@"编辑" forState:UIControlStateNormal];
-    rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [rightBtn addTarget:self action:@selector(editClick:) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+//    UIButton *rightBtn = [[UIButton alloc]init];
+//    [rightBtn setTitle:@"编辑" forState:UIControlStateNormal];
+//    rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+//    [rightBtn addTarget:self action:@selector(editClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [rightBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     
     
     [self setupBottomStatus];

@@ -127,11 +127,10 @@
     } onSuccess:^(id  _Nullable responseObject) {
 //        NSLog(@"-delete-success-===%@",responseObject);
        
-        
+        [self.goodsTabView reloadData];
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [SVProgressHUD showSuccessWithStatus:@"取消成功！"];
-            [self.goodsTabView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {

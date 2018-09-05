@@ -130,8 +130,10 @@
         DSLog(@"----sign-success-===%@",responseObject);
 
         if (methodtype==kXMHTTPMethodPOST) {
+            TJSignListModel *m = [TJSignListModel mj_objectWithKeyValues:responseObject[@"data"]];
             TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
             successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+            successVc.jifen = m.points;
             [self presentViewController:successVc animated:NO completion:^{
                 [self RequestSignInfoWithType:kXMHTTPMethodGET];
             }];

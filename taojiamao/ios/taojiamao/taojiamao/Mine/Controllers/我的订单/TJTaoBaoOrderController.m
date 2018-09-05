@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"淘宝订单";
     self.view.frame = CGRectMake(0, 64, S_W, S_H);
     [self openTaoBaoOrder];
 //    [self setControllers];

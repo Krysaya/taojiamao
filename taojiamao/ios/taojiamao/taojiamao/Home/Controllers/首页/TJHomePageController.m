@@ -70,7 +70,7 @@
 @property (nonatomic, strong) NSMutableArray *newsArr;
 @property (nonatomic, strong) NSMutableArray *adSmallImgArr;
 
-@property (nonatomic, strong) NSArray *goodsArr;
+@property (nonatomic, strong) NSMutableArray *goodsArr;
 @property (nonatomic, strong) UIScrollView *big_ScrollView;
 @property (nonatomic, strong) GYRollingNoticeView *news_scrollView;
 @property (nonatomic, strong) UIPageControl *pageControl;
@@ -80,6 +80,9 @@
 @property (nonatomic, strong) NSArray *hotSearchArr;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) TJHomePageModel *ad_m;
+
+
+@property (nonatomic, assign) NSInteger page;
 @end
 
 @implementation TJHomePageController
@@ -122,7 +125,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavgation];
-
+    self.page = 1;
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-49)];
     big_ScrollVie.delegate = self;
@@ -132,11 +135,34 @@
     [self.view addSubview:big_ScrollVie];
     self.big_ScrollView = big_ScrollVie;
 
+    WeakSelf
+    
+    MJRefreshGifHeader * header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
+//        [weakSelf requestHomePage];
+        [weakSelf requestHomePageGoodsJingXuan];
+    }];
+    NSMutableArray * temp = [NSMutableArray array];
+    for (int i =1; i<20; i++) {
+        UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",i]];
+        [temp addObject:image];
+    }
+    [header setImages:@[[UIImage imageNamed:@"1"]] forState:MJRefreshStateIdle];
+    [header setImages:temp forState:MJRefreshStatePulling];
+    [header setImages:temp duration:temp.count*0.025 forState:MJRefreshStateRefreshing];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    header.stateLabel.hidden = YES;
+    self.big_ScrollView.mj_header = header;
+    MJRefreshAutoStateFooter * footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+                [weakSelf requestHomePageGoodsMoreJingXuan];
+    }];
+    [footer setTitle:@"我们是有底线的" forState:MJRefreshStateNoMoreData];
+    self.big_ScrollView.mj_footer = footer;
+    
 }
 - (void)layoutAllView{
                 [self setADScrollView];[self setNewsScroll];
                 [self setColumnsCollectView];[self setClassCollectionView];
-                [self setBottomAdImg];
+                [self setBottomAdImg];[self setBottomTableView];
 }
 
 - (void)setPopView{
@@ -181,33 +207,10 @@
 }
 - (void)requestSearchGoodsList{
     self.hotSearchArr = [NSArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SearchGoods;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-    } onSuccess:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:SearchGoods withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         self.hotSearchArr = responseObject[@"data"][@"hot"];
 
-    } onFailure:^(NSError * _Nullable error) {
+    } withFailure:^(NSError * _Nullable error) {
         
     }];
 }
@@ -218,31 +221,9 @@
     self.menuArr = [NSArray array];
     self.adSmallImgArr = [NSMutableArray array];
     self.newsArr = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
     
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = HomePages;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-    } onSuccess:^(id  _Nullable responseObject) {
-//        DSLog(@"---%@--hp",responseObject);
+    
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:HomePages withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         NSDictionary *dataDict = responseObject[@"data"];self.homePageData = dataDict;
         if (dataDict.count>0) {
             NSArray *imgArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
@@ -257,7 +238,7 @@
             
             self.status = responseObject[@"data"][@"pop"][@"status"];
             self.ad_m  = [TJHomePageModel mj_objectWithKeyValues:responseObject[@"data"][@"pop"][@"info"]];
-          
+            
             NSArray *arr = responseObject[@"data"][@"block"];
             NSDictionary *dict = arr[0];NSDictionary *dict2 = arr[1];
             NSArray *menu1Arr = dict[@"menu"];NSArray *menu2Arr = dict2[@"menu"];
@@ -268,64 +249,74 @@
             }
             self.adSmallImgArr  = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"ad_block_foot"]];
             [self setPopView];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self layoutAllView];
                 [self.news_scrollView reloadDataAndStartRoll];
                 
             });
             
         }
-       
-        
-    } onFailure:^(NSError * _Nullable error) {
-
+    } withFailure:^(NSError * _Nullable error) {
         [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
+
     }];
+    
 }
 - (void)requestHomePageGoodsJingXuan{
 //    精选
-    self.goodsArr = [NSArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = HomePageGoods;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-    } onSuccess:^(id  _Nullable responseObject) {
-        self.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        
+    self.page = 1;
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+    WeakSelf
+    self.goodsArr = [NSMutableArray array];
+    NSDictionary *param  = @{@"page":pag,@"page_num":@"10",};
+    [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        [weakSelf.big_ScrollView.mj_header endRefreshing];
+        weakSelf.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         DSLog(@"--success---%@",responseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.big_ScrollView addSubview:self.tableView];
-            [self setBottomTableView];
-    
-            self.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+self.goodsArr.count*160);
-
+            weakSelf.tableView.py_height = self.goodsArr.count*160;
+            [weakSelf.tableView reloadData];
+            weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
         });
         
-    } onFailure:^(NSError * _Nullable error) {
+//        if (weakSelf.dataArr.count<[param[@"page_num"] integerValue]) {
+//                        weakSelf.collectionV.mj_footer.hidden = YES;
+//            }else{
+//                        weakSelf.collectionV.mj_footer.hidden = NO;
+//            }
+        weakSelf.page++;
+    } withFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        DSLog(@"---error---%@",dic_err);
+//        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
+        [weakSelf.big_ScrollView.mj_header endRefreshing];
+    }];
+    
+}
+- (void)requestHomePageGoodsMoreJingXuan{
+    WeakSelf
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+
+    NSDictionary *param  = @{@"page":pag,@"page_num":@"10",};
+    [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        [weakSelf.big_ScrollView.mj_footer endRefreshing];
+        NSArray *array = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [self.goodsArr addObjectsFromArray:array];
+        DSLog(@"--上拉加载success---%@",responseObject);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.tableView.py_height = self.goodsArr.count*160;
+            [weakSelf.tableView reloadData];
+            weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
+        });
+    
+        weakSelf.page++;
+    } withFailure:^(NSError * _Nullable error) {
         DSLog(@"error--%@==",error);
+        [weakSelf.big_ScrollView.mj_header endRefreshing];
     }];
 }
-
 
 
 - (void)setNavgation{
@@ -452,6 +443,7 @@
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.big_ScrollView addSubview:tableView];
     self.tableView = tableView;
+    
 }
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -202,11 +202,22 @@
                         <constraint firstItem="T9m-7Y-ynS" firstAttribute="top" secondItem="jKC-mO-wxm" secondAttribute="bottom" constant="8" id="ybq-w7-mWg"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgb-Td-LDc">
+                    <rect key="frame" x="0.0" y="20" width="375" height="297"/>
+                    <connections>
+                        <action selector="buttonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="rN6-0L-6mF"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.017952696917808219" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="z1o-bd-bs0" secondAttribute="trailing" id="4Ac-Ai-O9k"/>
+                <constraint firstItem="z1o-bd-bs0" firstAttribute="top" secondItem="xgb-Td-LDc" secondAttribute="bottom" id="RX4-NZ-Q9x"/>
                 <constraint firstItem="z1o-bd-bs0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="bo8-Rm-BZ6"/>
+                <constraint firstItem="xgb-Td-LDc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eql-vg-LcC"/>
+                <constraint firstAttribute="trailing" secondItem="xgb-Td-LDc" secondAttribute="trailing" id="hdV-hj-ZZQ"/>
+                <constraint firstItem="xgb-Td-LDc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="i6v-sG-0fO"/>
                 <constraint firstAttribute="bottom" secondItem="z1o-bd-bs0" secondAttribute="bottom" id="wj0-Zi-lDv"/>
                 <constraint firstItem="z1o-bd-bs0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yGd-sC-gWM"/>
             </constraints>

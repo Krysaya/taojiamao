@@ -7,6 +7,7 @@
 //
 
 #import "TJVipPerformanceController.h"
+#import "TJShareMoneyController.h"
 
 #define VipPopularizeButton  9523
 
@@ -190,6 +191,8 @@
 }
 -(void)buttonClick:(UIButton *)but{
     DSLog(@"推广");
+    TJShareMoneyController *vc = [[TJShareMoneyController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

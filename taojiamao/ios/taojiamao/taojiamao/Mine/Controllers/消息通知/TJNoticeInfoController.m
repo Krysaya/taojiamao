@@ -20,7 +20,8 @@
 @implementation TJNoticeInfoController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    self.title = @"通知详情";
+    [super viewDidLoad];[self requestData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,34 +30,16 @@
 }
 
 - (void)requestData{
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@/%@",MessageNotice,self.infoId];
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-    } onSuccess:^(id  _Nullable responseObject) {
+    
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:[NSString stringWithFormat:@"%@/%@",MessageNotice,self.infoId] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+        DSLog(@"--%@--info",responseObject);
         TJNoticeInfoModel *m = [TJNoticeInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
         self.model = m;
-
-    } onFailure:^(NSError * _Nullable error) {
+        self.lab_titel.text = m.message;
+    } withFailure:^(NSError * _Nullable error) {
         
     }];
+   
 }
 
 @end

@@ -57,19 +57,17 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @property(nonatomic,strong)TJLabel * shareL;
 @property(nonatomic,strong)UIButton * buy;
 @property(nonatomic,strong)UIButton * quanbuy;
-
 @property(nonatomic,strong)TJButton * goTop;
-
 @property(nonatomic,strong)TJBottomPopupView * popupView;
-
 @property (nonatomic, strong) NSString *price;
 @property (nonatomic, strong) NSString *priceQuan;
-
 @property (nonatomic, strong) NSString *collectStatus;
 //会员不隐藏推广
 @property(nonatomic,strong)TJButton *popularize;
 @property(nonatomic,strong)NSArray * imageSSS;
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) NSString *shareurl;
 @end
 
 @implementation TJDefaultGoodsDetailController
@@ -94,7 +92,12 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    [KConnectWorking requestShareUrlData:@"1" withIDStr:self.gid withSuccessBlock:^(id  _Nullable responseObject) {
+        //        DSLog(@"---%@--url=",responseObject[@"data"]);
+        //        dispatch_async(dispatch_get_main_queue(), ^{
+        self.shareurl = responseObject[@"data"][@"share_url"];
+        //        });
+    }];
 }
 
 - (void)requestGoodsInfo{
@@ -142,7 +145,10 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
        
         
     } onFailure:^(NSError *error) {
-        
+        DSLog(@"ERROR详情:%@ =======",error);
+        [SVProgressHUD showInfoWithStatus:@"网络错误！"];
+        [self.navigationController popViewControllerAnimated:YES];
+
     }];
     
 }
@@ -368,34 +374,74 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 #pragma mark - TJButtonDeletage
 -(void)buttonClick:(UIButton *)but{
+    NSString* bind_tb = GetUserDefaults(Bind_TB);
+
     if (but.tag==DetailsBuyButton) {
         DSLog(@"详情页购买");
-        //打开商品详情页
-        id <AlibcTradePage >page = [AlibcTradePageFactory itemDetailPage:self.gid];
-        AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
-        showParam.openType = AlibcOpenTypeAuto;
-        AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
-        
-        [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
-//            NSLog(@"success!===%@",result);
-        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+        NSDictionary *param = @{ @"itemid":self.gid,};
+        [KConnectWorking requestNormalDataParam:param withRequestURL:GoodsInfoTBK withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            DSLog(@"===%@--jjjj-",responseObject);
+        } withFailure:^(NSError * _Nullable error) {
+            DSLog(@"===%@--error-",error);
+
         }];
+        
+        if ([bind_tb intValue]==0) {
+            DSLog(@"没绑定绑定进淘宝");
+
+            [KConnectWorking getTaoBaoAuthor:self successCallback:^(ALBBSession *session) {
+                ALBBUser *user = [session getUser];
+                NSString *bimg = [TJOverallJudge encodeToPercentEscapeString:user.avatarUrl];
+                NSString *bnick = [user.nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *mdParam = @{@"tao_image":bimg,
+                                          @"tao_nick":bnick,
+                                          @"tao_openid":user.openId
+                                          };
+                NSDictionary *param = @{@"tao_openid":user.openId,
+                                        @"tao_image":user.avatarUrl,
+                                        @"tao_nick":user.nick,};
+                [KConnectWorking requestNormalDataMD5Param:mdParam withNormlParams:param withRequestURL:BindTaoBao withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                    DSLog(@"---info0--bbb==%@",responseObject);
+                    [self goTaoBaoGoodsInfo];
+
+                } withFailure:^(NSError * _Nullable error) {
+                    NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                    NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                    DSLog(@"--bind-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+                }];
+            } failureCallback:^(ALBBSession *session, NSError *error) {
+            }];
+        }else{
+            DSLog(@"直接进淘宝");
+            [self goTaoBaoGoodsInfo];
+        }
+       
         
     }else if (but.tag==DetailsQuanBuyButton){
         DSLog(@"优惠券页面");
-        //打开优惠券详情页
-         TJJHSGoodsListModel *model = self.dataArr[0];
-        id <AlibcTradePage >page = [AlibcTradePageFactory page:model.couponurl];
-        AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
-        showParam.openType = AlibcOpenTypeAuto;
-        AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
-                DSLog(@"success!==quan=%@",result);
-            } tradeProcessFailedCallback:^(NSError * _Nullable error) {
-                //            NSLog(@"fail");
+        if ([bind_tb intValue]==0) {
+
+            [KConnectWorking getTaoBaoAuthor:self successCallback:^(ALBBSession *session) {
+                ALBBUser *user = [session getUser];
+                NSString *bimg = [TJOverallJudge encodeToPercentEscapeString:user.avatarUrl];
+                NSString *bnick = [user.nick stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *mdParam = @{@"tao_image":bimg,
+                                          @"tao_nick":bnick,
+                                          @"tao_openid":user.openId
+                                          };
+                NSDictionary *param = @{@"tao_openid":user.openId,
+                                        @"tao_image":user.avatarUrl,
+                                        @"tao_nick":user.nick,};
+                [KConnectWorking requestNormalDataMD5Param:mdParam withNormlParams:param withRequestURL:BindTaoBao withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                    [self goTaoBaoGoodsInfoQuanBuy];
+                    
+                } withFailure:^(NSError * _Nullable error) {
+                }];
+            } failureCallback:^(ALBBSession *session, NSError *error) {
             }];
-        });
+        }else{
+            [self goTaoBaoGoodsInfoQuanBuy];
+        }
         
        
     }else if (but.tag==DetailShareButton){
@@ -422,15 +468,15 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     //创建分享参数
     TJJHSGoodsListModel *model = self.dataArr[0];
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:model.itemtitle
+    [shareParams SSDKSetupShareParamsByText:model.itemshorttitle
                                      images:[NSURL URLWithString:model.itempic] //传入要分享的图片
-                                        url:[NSURL URLWithString:@"http://mob.com"]
-                                      title:model.sub_title
+                                        url:[NSURL URLWithString:self.shareurl]
+                                      title:model.itemshorttitle
                                        type:SSDKContentTypeWebPage];
     
     if (sender==140) {
         //        朋友圈
-        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
+        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
              parameters:shareParams
          onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
              switch (state) {
@@ -453,7 +499,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
          }];
     }else  if (sender==141) {
         //        好友
-        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
+        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
              parameters:shareParams
          onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
              switch (state) {
@@ -479,7 +525,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }else  if (sender==145) {
         //link
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = model.url;
+        pasteboard.string = self.shareurl;
         if (pasteboard == nil) {
             [SVProgressHUD showInfoWithStatus:@"复制失败"];
         }else
@@ -559,14 +605,40 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         
      }];
 }
+
+- (void)goTaoBaoGoodsInfo
+{
+    //打开商品详情页
+    id <AlibcTradePage >page = [AlibcTradePageFactory itemDetailPage:self.gid];
+    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+    showParam.openType = AlibcOpenTypeAuto;
+    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+    
+    [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+        //            NSLog(@"success!==淘宝详情=%@",result);
+    } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+    }];
+}
+
+- (void)goTaoBaoGoodsInfoQuanBuy{
+    //打开优惠券详情页
+    TJJHSGoodsListModel *model = self.dataArr[0];
+    NSString *url = [NSString stringWithFormat:@"%@&pid=%@",model.couponurl,TB_Pid];
+    id <AlibcTradePage >page = [AlibcTradePageFactory page:url];
+    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
+    showParam.openType = AlibcOpenTypeAuto;
+    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AlibcTradeSDK sharedInstance].tradeService show:self page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
+        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+        }];
+    });
+}
 #pragma mark - TJBottomViewDeletage
 -(void)clickViewRemoveFromSuper{
     [self.popupView removeFromSuperview];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 
 
