@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TJInvitePrizeController">
             <connections>
                 <outlet property="big_scroll" destination="Y0l-Yd-Xlg" id="TaT-cC-02w"/>
+                <outlet property="btn_one" destination="SPD-PT-cta" id="x4E-X4-hOm"/>
                 <outlet property="btn_share" destination="qu2-f6-w64" id="M4N-lf-9vg"/>
                 <outlet property="collectHeight" destination="W3p-iy-lh3" id="gLA-Wy-fkH"/>
                 <outlet property="collectionV" destination="6RS-pv-gmU" id="N6m-kk-lRs"/>

@@ -39,6 +39,7 @@
 #import "TJRankingListController.h"//   排行榜
 #import "TJAssistanceController.h"// 客服帮助
 #import "TJTaoBaoGoodsCarController.h"//淘宝购物车
+#import "TJTaoBaoOrderController.h"//淘宝订单
 
 #import "TJShareMoneyController.h"//  分享赚钱
 //#import "TJInvitationView.h"//    邀请有奖
@@ -95,6 +96,9 @@
      if ([identifier isEqualToString: @"track"]) {//我的足迹
          TJMyFootPrintController *vc = [[TJMyFootPrintController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
+    
+    
+    
      if ([identifier isEqualToString: @"bonus"]) {//累计奖金
          TJVipBalanceController *vc  = [[TJVipBalanceController alloc]init];
             [weakSelf.navigationController pushViewController:vc animated:YES];}
@@ -134,6 +138,11 @@
     if ([identifier isEqualToString: @"serviceHelp"]) {//客服帮助
         TJAssistanceController *vc= [[TJAssistanceController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
+    
+    if ([identifier isEqualToString: @"taobaoOrder"]) {//淘宝订单
+        TJTaoBaoOrderController *vc  = [[TJTaoBaoOrderController alloc]init];
+        [weakSelf.navigationController pushViewController:vc animated:YES];}
+    
     if ([identifier isEqualToString: @"taobaoCar"]) {//购物车
         TJTaoBaoGoodsCarController *vc= [[TJTaoBaoGoodsCarController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}

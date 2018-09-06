@@ -11,14 +11,15 @@
 
 @interface TJSignSuccessController ()
 @property (weak, nonatomic) IBOutlet UILabel *lab_jf;
+@property (weak, nonatomic) IBOutlet UILabel *lab_mjf;
 
 @end
 
 @implementation TJSignSuccessController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.lab_jf.text = [NSString stringWithFormat:@"+%@",self.jifen];
-
+    self.lab_jf.text = [NSString stringWithFormat:@"%@",self.jifen];
+ self.lab_mjf.text = [NSString stringWithFormat:@"%@",self.mjifen];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

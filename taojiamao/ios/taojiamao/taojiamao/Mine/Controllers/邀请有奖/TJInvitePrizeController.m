@@ -12,6 +12,8 @@
 #import "TJInvitationView.h"
 #import "TJGoodsCollectModel.h"
 #import "TJInvitePrizeModel.h"
+#import "TJHongBaoLogModel.h"
+#import "TJDrawMoneyController.h"
 #import "TJDefaultGoodsDetailController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -26,20 +28,24 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionV;
 @property (weak, nonatomic) IBOutlet UIButton *btn_share;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectHeight;
+@property (weak, nonatomic) IBOutlet UIButton *btn_one;
+
+
+
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) TJInvitePrizeModel *model;
-//@property (nonatomic, strong) UICollectionView *collectionV;
 @end
 
 @implementation TJInvitePrizeController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestHongBao];[self requestHomePageGoodsJingXuan];
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self requestHongBao];[self requestHomePageGoodsJingXuan];
+    [self requestHongBaoListLog];
     self.title = @"邀请好友";
-
     [self.collectionV registerNib:[UINib nibWithNibName:@"TJInvitePrizeCell" bundle:nil] forCellWithReuseIdentifier:@"InvitePrizeCell"];
 }
 
@@ -51,7 +57,7 @@
     [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         self.dataArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-        DSLog(@"--success--%@-%lu",responseObject,(unsigned long)self.dataArr.count);
+//        DSLog(@"--success--%@-%lu",responseObject,(unsigned long)self.dataArr.count);
         self.collectHeight.constant = self.dataArr.count*125;
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -79,17 +85,30 @@
     }];
     
 }
-
+- (void)requestHongBaoListLog{
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:RegisterHongBaoLog withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        DSLog(@"--%@--log",responseObject);
+        for (int i=0; i<5; i++) {
+            
+        }
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
+}
 - (IBAction)buttonClick:(UIButton *)sender {
     if (sender.tag==4780) {
 //        规则
         TJSignRuleController *ruleVc = [[TJSignRuleController alloc]init];
-        ruleVc.title = @"活动规则";
+        ruleVc.type_title = @"活动规则";
         ruleVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
         [self presentViewController:ruleVc animated:NO completion:nil];
         
     }else if (sender.tag==4781){
 //        提现
+        
+        TJDrawMoneyController * dmvc = [[TJDrawMoneyController alloc]init];
+//        dmvc.moneyNum = self.balance;
+        [self.navigationController pushViewController:dmvc animated:YES];
     }else if (sender.tag==4782){
 //        分享
         TJInvitationView *iview = [TJInvitationView invitationView];

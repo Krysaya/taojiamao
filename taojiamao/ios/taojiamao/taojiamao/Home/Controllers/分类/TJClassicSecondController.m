@@ -22,6 +22,7 @@
 @property(nonatomic,strong)UICollectionView * collectionView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property(nonatomic,strong)TJFiltrateView *filtrate;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -31,6 +32,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.page = 1;
     [self loadRequestClassicGoodsList:@"0"];
 
     self.view.backgroundColor = RGB(245, 245, 245);
@@ -43,6 +45,9 @@
     [self setUITableView];
     [self setUICollectionView];
     self.tableView.hidden = YES;
+    self.tableView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        
+    }];
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransformClass:) name:TJHorizontalVerticalTransformClass object:nil];
  
@@ -55,43 +60,49 @@
         [self.view addSubview:self.filtrate];
     
 }
+- (void)loadRequestNormalClassicGoodsList:(NSString *)type{
+    self.page = 1;
+    WeakSelf
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+    [SVProgressHUD show];
+    self.dataArr = [NSMutableArray array];
+    NSString *str = [self.title_class stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *mdparam = @{ @"keyword":str,
+                             @"order":type,};
+    NSDictionary *param = @{ @"keyword":self.title_class,
+                               @"order":type,};
+    [KConnectWorking requestNormalDataMD5Param:mdparam withNormlParams:param withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
+        NSDictionary *dict = responseObject[@"data"];
+        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+//        DSLog(@"-%lu--arr==",(unsigned long)weakSelf.dataArr.count);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.collectionView reloadData];
+        });
+        
+        if (self.dataArr.count>0) {
+            
+        }else{
+            self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+        }
+    } withFailure:^(NSError * _Nullable error) {
+        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
+        [SVProgressHUD dismiss];
+    }];
+}
+
 - (void)loadRequestClassicGoodsList:(NSString *)type{
     self.dataArr = [NSMutableArray array];
-//    NSDictionary *param = @{ @"keyword":str,
-//                             @"order":type,};
-//    [KConnectWorking requestNormalDataParam:param withRequestURL:<#(NSString *)#> withMethodType:<#(XMHTTPMethodType)#> withSuccessBlock:<#^(id  _Nullable responseObject)successBlock#> withFailure:<#^(NSError * _Nullable error)failureBlock#>];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
     NSString *str = [self.title_class stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"keyword":str,
-                                @"order":type,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SearchGoodsList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"keyword":self.title_class,
-                               @"order":type,
-                               };
-    } onSuccess:^(id  _Nullable responseObject) {
-        //        NSLog(@"----search-success-===%@",responseObject);
-        
+    NSDictionary *mdparam = @{ @"keyword":str,
+                               @"order":type,};
+    NSDictionary *param = @{ @"keyword":self.title_class,
+                             @"order":type,};
+    [KConnectWorking requestNormalDataMD5Param:mdparam withNormlParams:param withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         DSLog(@"-%lu--arr==",(unsigned long)self.dataArr.count);
@@ -106,29 +117,25 @@
             self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
             self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
-        
-    } onFailure:^(NSError * _Nullable error) {
-        //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        //        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        //        DSLog(@"--搜索-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    } withFailure:^(NSError * _Nullable error) {
+//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+//        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
 }
 - (void)setNavgation{
 
     //    1边按钮
     TJButton *button_left = [[TJButton alloc]initDelegate:self backColor:nil tag:885 withBackImage:@"search" withSelectImage:nil];
-    
 //    //    you2边按钮
 //    TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:896 withBackImage:@"notice" withSelectImage:nil];
     UIBarButtonItem *item1 = [[UIBarButtonItem alloc]initWithCustomView:button_left];
 //    UIBarButtonItem *item2 = [[UIBarButtonItem alloc]initWithCustomView:button_right];
-
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = item1;
-
 }
 -(void)setUITableView{
-   UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+10, S_W, S_H) style:UITableViewStylePlain];
+   UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+10, S_W, S_H-SafeAreaTopHeight-45-10) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"tabListCell"];
@@ -138,7 +145,7 @@
 
 - (void)setUICollectionView{
     UICollectionViewFlowLayout *layou = [[UICollectionViewFlowLayout alloc]init];
-    UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+10, S_W, S_H) collectionViewLayout:layou];
+    UICollectionView *collectV = [[UICollectionView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+10, S_W, S_H-SafeAreaTopHeight-45-10) collectionViewLayout:layou];
     collectV.delegate = self;
     collectV.dataSource = self;
     collectV.backgroundColor = RGB(245, 245, 245);

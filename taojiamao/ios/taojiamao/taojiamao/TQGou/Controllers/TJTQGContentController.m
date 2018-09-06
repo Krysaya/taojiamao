@@ -14,12 +14,18 @@
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
 #import <AlibcTradeSDK/AlibcTradePageFactory.h>
 #import <AlibcTradeSDK/AlibcTradeService.h>
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+
 static NSString * const TQGContentCell = @"GContentCell";
 
-@interface TJTQGContentController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TJTQGContentController ()<UITableViewDelegate,UITableViewDataSource,ShareBtnDelegate>
 @property (nonatomic, strong) NSArray *dataArr;
 @property(nonatomic,strong)UITableView *tableView;
+@property (nonatomic, strong) NSString *shareurl;
 
+@property (nonatomic, strong) TJTqgGoodsModel *selectM;
 @end
 
 @implementation TJTQGContentController
@@ -104,6 +110,8 @@ static NSString * const TQGContentCell = @"GContentCell";
     cell.type = self.indexx;
     cell.model = self.dataArr[indexPath.row];
     [cell.btn_qiang addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.btn_fen addTarget:self action:@selector(btnShareClick:) forControlEvents:UIControlEventTouchUpInside];
+
     return cell;
 }
 
@@ -137,5 +145,94 @@ static NSString * const TQGContentCell = @"GContentCell";
             
         }];
     });
+}
+- (void)btnShareClick:(UIButton *)sender{
+    TJTQGCell *cell = (TJTQGCell *)[[sender superview] superview];
+    NSIndexPath  *index = [self.tableView indexPathForCell:cell];
+    TJTqgGoodsModel *m = self.dataArr[index.row];
+    self.selectM = m;
+    [KConnectWorking requestShareUrlData:@"1" withIDStr:m.num_iid withSuccessBlock:^(id  _Nullable responseObject) {
+        self.shareurl = responseObject[@"data"][@"share_url"];
+    }];
+    
+    TJInvitationView *iview = [TJInvitationView invitationView];
+    iview.backgroundColor = RGBA(1, 1, 1, 0.2);
+    iview.frame = CGRectMake(0, 0, S_W, S_H);iview.delegate = self;
+    [[UIApplication sharedApplication].keyWindow addSubview:iview];
+    
+}
+
+#pragma mark - share
+- (void)shareButtonClick:(NSInteger)sender{
+    //创建分享参数
+    TJTqgGoodsModel *model = self.selectM;
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:model.title
+                                     images:[NSURL URLWithString:model.pic_url] //传入要分享的图片
+                                        url:[NSURL URLWithString:self.shareurl]
+                                      title:model.title
+                                       type:SSDKContentTypeWebPage];
+    
+    if (sender==140) {
+        //        朋友圈
+        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else  if (sender==141) {
+        //        好友
+        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else  if (sender==144) {
+        //sms
+    }else  if (sender==145) {
+        //link
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = self.shareurl;
+        if (pasteboard == nil) {
+            [SVProgressHUD showInfoWithStatus:@"复制失败"];
+        }else
+        {
+            [SVProgressHUD showSuccessWithStatus:@"已复制"];
+        }
+    }else{
+        [SVProgressHUD showInfoWithStatus:@"暂不支持"];
+    }
 }
 @end

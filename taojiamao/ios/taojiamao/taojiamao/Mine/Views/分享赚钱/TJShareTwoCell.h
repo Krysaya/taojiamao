@@ -7,7 +7,9 @@
 //
 
 #import "TJBaseTableCell.h"
-
+@class TJGoodsCollectModel;
 @interface TJShareTwoCell : TJBaseTableCell
-
+@property (weak, nonatomic) IBOutlet UIButton *btn_qiang;
+@property (weak, nonatomic) IBOutlet UIButton *btn_share;
+@property (nonatomic, strong) TJGoodsCollectModel *model;
 @end

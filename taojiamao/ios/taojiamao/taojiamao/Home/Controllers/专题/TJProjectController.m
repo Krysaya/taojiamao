@@ -9,7 +9,6 @@
 
 #import "TJProjectController.h"
 #import "TJGoodsListCell.h"
-#import "SJAttributeWorker.h"
 #import "TJGoodsCollectModel.h"
 #import "TJKallAdImgModel.h"
 @interface TJProjectController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,SDCycleScrollViewDelegate>
@@ -56,11 +55,11 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"posid":@"1",
+                                @"posid":@"2",
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@1",KAllAdPosters];
+        request.url = [NSString stringWithFormat:@"%@2",KAllAdPosters];
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,

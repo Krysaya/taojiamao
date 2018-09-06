@@ -33,3 +33,6 @@
 #import "TJTextField.h"
 
 #import "TJPublicURL.h"
+
+#import "TJInvitationView.h"
+

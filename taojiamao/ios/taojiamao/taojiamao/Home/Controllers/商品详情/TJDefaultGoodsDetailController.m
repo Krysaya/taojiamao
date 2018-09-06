@@ -19,13 +19,7 @@
 #import "TJInvitationView.h"
 #import "UIViewController+Extension.h"
 
-#import <AlibabaAuthSDK/ALBBSDK.h>
-#import <AlibcTradeSDK/AlibcTradeSDK.h>
-#import <AlibcTradeSDK/AlibcTradePageFactory.h>
-#import <AlibcTradeSDK/AlibcTradeService.h>
 
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKUI/ShareSDK+SSUI.h>
 static NSString * const GoodsDetailsTitleCell = @"GoodsDetailsTitleCell";
 static NSString * const GoodsDetailsElectCell = @"GoodsDetailsElectCell";
 static NSString * const GoodsDetailsLFCCell = @"GoodsDetailsLFCCell";
@@ -92,6 +86,13 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [KConnectWorking requestNormalDataParam:@{@"id":self.gid,} withRequestURL:GoodsInfoFoot withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+         DSLog(@"---%@--足迹斤斤计较=",responseObject);
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
+    
     [KConnectWorking requestShareUrlData:@"1" withIDStr:self.gid withSuccessBlock:^(id  _Nullable responseObject) {
         //        DSLog(@"---%@--url=",responseObject[@"data"]);
         //        dispatch_async(dispatch_get_main_queue(), ^{
@@ -104,27 +105,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.dataArr = [NSMutableArray array];
     self.imageSSS = [NSArray array];
 
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary * param = @{
-                                    @"id":self.gid,
-                                    @"timestamp": timeStr,
-                                    @"app": @"ios",
-                                    @"uid":userid,
-                                    }.mutableCopy;
-    
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:SECRET];
-//    DSLog(@"sign==%@,times==%@,uid==%@,gid==%@,url==%@",md5Str,timeStr,userid,self.gid,[NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid]);
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid];
-        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid":userid};
-        request.httpMethod = kXMHTTPMethodGET;
-    }onSuccess:^(id responseObject) {
+    NSDictionary *param  = @{  @"id":self.gid,};
+    [KConnectWorking requestNormalDataParam:param withRequestURL:GoodsInfoList withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         
         DSLog(@"onSuccess详情:%@ =======",responseObject);
@@ -142,9 +124,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
             
             [self.navigationController popViewControllerAnimated:YES];
         }
-       
-        
-    } onFailure:^(NSError *error) {
+    } withFailure:^(NSError * _Nullable error) {
         DSLog(@"ERROR详情:%@ =======",error);
         [SVProgressHUD showInfoWithStatus:@"网络错误！"];
         [self.navigationController popViewControllerAnimated:YES];
@@ -202,7 +182,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.buy =  [[UIButton alloc]init];[self.buy addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.buy.titleLabel.lineBreakMode = 0;
     [self.buy setTitle:buy forState:UIControlStateNormal];
-    [self.buy setBackgroundImage:[UIImage imageNamed:@"right_btn_bg"] forState:UIControlStateNormal];
+    [self.buy setBackgroundImage:[UIImage imageNamed:@"left_btn_bg"] forState:UIControlStateNormal];
     self.buy.tag = DetailsBuyButton;
     [self.footView addSubview:self.buy];
     [self.buy mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -216,7 +196,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.quanbuy =  [[UIButton alloc]init];[self.quanbuy addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.quanbuy.titleLabel.lineBreakMode = 0;
     [self.quanbuy setTitle:quan forState:UIControlStateNormal];
-    [self.quanbuy setBackgroundImage:[UIImage imageNamed:@"left_btn_bg"] forState:UIControlStateNormal];
+    [self.quanbuy setBackgroundImage:[UIImage imageNamed:@"right_btn_bg"] forState:UIControlStateNormal];
     self.quanbuy.tag = DetailsQuanBuyButton;
     [self.footView addSubview:self.quanbuy];
     [self.quanbuy mas_makeConstraints:^(MASConstraintMaker *make) {

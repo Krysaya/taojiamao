@@ -22,17 +22,101 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zVK-7b-vn3">
-                    <rect key="frame" x="25" y="141.5" width="325" height="384"/>
+                    <rect key="frame" x="30" y="173.5" width="315" height="320"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="2.散发饿哦我服了你发给客人十五年            2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年2.散发饿哦我服了你发给客人十五年" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pMO-uG-0Oy">
-                            <rect key="frame" x="15" y="58" width="295" height="306"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pMO-uG-0Oy">
+                            <rect key="frame" x="15" y="58" width="285" height="242"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <attributedString key="attributedText">
+                                <fragment content="1.">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" metaFont="system"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="散发饿哦我服了你发给客人十五. ">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="2.">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" metaFont="system"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="散发饿哦我服了你发给客人十五年">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content=".">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" metaFont="system"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="散发饿哦我服了你发给客人十五年 ">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="3.">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" metaFont="system"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="散发饿哦我服了你发给客人十五年 ">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="4.">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" metaFont="system"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="散发饿哦我服了你发给客人十五年 ">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="5.">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" metaFont="system"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="散发饿哦我服了你发给客人十五年">
+                                    <attributes>
+                                        <color key="NSColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—— 签到规则 ——" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qku-fQ-Eop">
-                            <rect key="frame" x="90" y="20" width="145" height="21"/>
+                            <rect key="frame" x="85" y="20" width="145" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.98039215686274506" green="0.28627450980392155" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -45,7 +129,7 @@
                         <constraint firstItem="qku-fQ-Eop" firstAttribute="top" secondItem="zVK-7b-vn3" secondAttribute="top" constant="20" id="Tvu-7n-DNO"/>
                         <constraint firstAttribute="trailing" secondItem="pMO-uG-0Oy" secondAttribute="trailing" constant="15" id="Wv7-fe-dDR"/>
                         <constraint firstItem="pMO-uG-0Oy" firstAttribute="leading" secondItem="zVK-7b-vn3" secondAttribute="leading" constant="15" id="jdA-NI-SB7"/>
-                        <constraint firstAttribute="height" constant="384" id="n6A-px-3lC"/>
+                        <constraint firstAttribute="height" constant="320" id="n6A-px-3lC"/>
                         <constraint firstItem="pMO-uG-0Oy" firstAttribute="top" secondItem="qku-fQ-Eop" secondAttribute="bottom" constant="17" id="rAM-M9-eyw"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -54,7 +138,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBh-Wo-MhB">
-                    <rect key="frame" x="331" y="107.5" width="19" height="19"/>
+                    <rect key="frame" x="326" y="139.5" width="19" height="19"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="19" id="Vvu-MD-aix"/>
                         <constraint firstAttribute="width" constant="19" id="pIP-Bc-zXc"/>
@@ -69,10 +153,10 @@
                 <constraint firstItem="zVK-7b-vn3" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="KpK-Jt-5kw"/>
                 <constraint firstItem="fBh-Wo-MhB" firstAttribute="trailing" secondItem="zVK-7b-vn3" secondAttribute="trailing" id="XNd-et-s6o"/>
                 <constraint firstItem="zVK-7b-vn3" firstAttribute="top" secondItem="fBh-Wo-MhB" secondAttribute="bottom" constant="15" id="ZP5-uU-50T"/>
-                <constraint firstItem="zVK-7b-vn3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="kus-Q6-Nbp"/>
-                <constraint firstAttribute="trailing" secondItem="zVK-7b-vn3" secondAttribute="trailing" constant="25" id="lqC-f8-yxj"/>
+                <constraint firstItem="zVK-7b-vn3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="kus-Q6-Nbp"/>
+                <constraint firstAttribute="trailing" secondItem="zVK-7b-vn3" secondAttribute="trailing" constant="30" id="lqC-f8-yxj"/>
             </constraints>
-            <point key="canvasLocation" x="24.5" y="51.5"/>
+            <point key="canvasLocation" x="-144" y="47"/>
         </view>
     </objects>
     <resources>

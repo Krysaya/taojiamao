@@ -47,6 +47,14 @@
 #import "KConnectWorking.h"
 #import "SDCycleScrollView.h"
 
+#import <AlibabaAuthSDK/ALBBSDK.h>
+#import <AlibcTradeSDK/AlibcTradeSDK.h>
+#import <AlibcTradeSDK/AlibcTradePageFactory.h>
+#import <AlibcTradeSDK/AlibcTradeService.h>
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+
 #endif
 
 #endif /* PublicThird_h */

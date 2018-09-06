@@ -13,5 +13,6 @@
 @property (nonatomic, assign) int num;
 @property (nonatomic, assign) int nums;
 @property (nonatomic, strong) NSString * status;
+@property (nonatomic, strong) NSString * rule;
 
 @end

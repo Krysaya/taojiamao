@@ -15,4 +15,7 @@
 @property (nonatomic, strong) NSString *num;
 @property (nonatomic, strong) NSString *points;
 @property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSString *jin_msg;
+@property (nonatomic, strong) NSString *ming_msg;
+
 @end

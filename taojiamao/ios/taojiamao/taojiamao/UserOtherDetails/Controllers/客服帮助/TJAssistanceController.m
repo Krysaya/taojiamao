@@ -9,7 +9,8 @@
 #import "TJAssistanceController.h"
 #import "TJAssistanceCell.h"
 #import "TJAssistanceModel.h"
-#import "TJAssistanceDetailsController.h"
+
+#import "TJHelpDetailController.h"
 
 #define OPENQQ    856749
 #define OPENPHONE 8792167
@@ -137,7 +138,7 @@ static NSString * const TJUserAssistanceCell = @"TJUserAssistanceCell";
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TJAssistanceModel *m = self.dataArray[indexPath.row];
-    TJAssistanceDetailsController * advc = [[TJAssistanceDetailsController alloc]init];
+    TJHelpDetailController * advc = [[TJHelpDetailController alloc]init];
     advc.detailsID = m.id;
     [self.navigationController pushViewController:advc animated:YES];
 }

@@ -77,6 +77,10 @@ static NSString * const UserPhone = @"UserPhone";
 //拆红包
 #define RegisterHongBao            [BASEURL stringByAppendingString:@"/v1/hongbaos/hongbao"]
 
+//拆红包记录
+#define RegisterHongBaoLog            [BASEURL stringByAppendingString:@"/v1/hongbaos/log"]
+
+
 //粉丝
 #define MemeberFans              [BASEURL stringByAppendingString:@"/v1//members/fans"]
 //pl列表
@@ -140,6 +144,9 @@ static NSString * const UserPhone = @"UserPhone";
 #define GoodsInfoList            [BASEURL stringByAppendingString:@"/v1/tb"]
 //商品详情页--购买追踪
 #define GoodsInfoTBK            [BASEURL stringByAppendingString:@"/v1/tbs/view"]
+
+//商品详情页
+#define GoodsInfoFoot            [BASEURL stringByAppendingString:@"/v1/foots/foot"]
 
 //商品分类
 #define GoodsClassicList         [BASEURL stringByAppendingString:@"/v1/cates/goods"]

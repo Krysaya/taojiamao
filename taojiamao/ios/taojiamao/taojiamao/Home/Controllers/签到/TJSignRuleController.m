@@ -20,10 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.modalPresentationStyle =UIModalPresentationCustom;
-    if ([self.title isEqualToString: @"活动规则"]) {
-        self.lab_title.text = @"活动规则";
+    if ([self.type_title isEqualToString: @"活动规则"]) {
+        self.lab_title.text = @"--活动规则--";
     }else{
-        
+        self.tv_content.text = self.rule;
     }
 }
 - (IBAction)closeClick:(UIButton *)sender {

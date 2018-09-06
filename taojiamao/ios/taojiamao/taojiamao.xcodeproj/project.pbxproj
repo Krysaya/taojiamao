@@ -82,7 +82,6 @@
 		C7249B1520A1519F00BB385E /* TJAssistanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B1420A1519F00BB385E /* TJAssistanceController.m */; };
 		C7249B1820A152E200BB385E /* TJAssistanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B1720A152E200BB385E /* TJAssistanceCell.m */; };
 		C7249B1B20A1536900BB385E /* TJAssistanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B1A20A1536900BB385E /* TJAssistanceModel.m */; };
-		C7249B1E20A170CC00BB385E /* TJAssistanceDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B1D20A170CC00BB385E /* TJAssistanceDetailsController.m */; };
 		C7249B2920A1740600BB385E /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B2220A1740600BB385E /* UITableView+FDIndexPathHeightCache.m */; };
 		C7249B2A20A1740600BB385E /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B2420A1740600BB385E /* UITableView+FDKeyedHeightCache.m */; };
 		C7249B2B20A1740600BB385E /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B2620A1740600BB385E /* UITableView+FDTemplateLayoutCell.m */; };
@@ -192,11 +191,14 @@
 		C74520C720AD342400FE4217 /* TJGoodsDetailsLFCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74520C620AD342400FE4217 /* TJGoodsDetailsLFCCell.m */; };
 		C74520CA20AD626200FE4217 /* TJGoodsDetailsCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74520C920AD626200FE4217 /* TJGoodsDetailsCompanyCell.m */; };
 		C74520CD20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74520CC20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.m */; };
+		C7454025214116AF00157D17 /* TJHelpDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7454023214116AF00157D17 /* TJHelpDetailController.m */; };
+		C7454026214116AF00157D17 /* TJHelpDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7454024214116AF00157D17 /* TJHelpDetailController.xib */; };
 		C746005221070C1F00302DB8 /* TJOredrInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C746005021070C1F00302DB8 /* TJOredrInfoCell.m */; };
 		C746005321070C1F00302DB8 /* TJOredrInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C746005121070C1F00302DB8 /* TJOredrInfoCell.xib */; };
 		C74C31A820B294CD0074AC00 /* TJMiddleClickController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C31A720B294CD0074AC00 /* TJMiddleClickController.m */; };
 		C74C31AB20B2C2DF0074AC00 /* TJContentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C31AA20B2C2DF0074AC00 /* TJContentCollectionCell.m */; };
 		C74C31AE20B2DDE70074AC00 /* TJPopularizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C31AD20B2DDE70074AC00 /* TJPopularizeController.m */; };
+		C74CA1E42140BC9600C1C431 /* TJHongBaoLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C74CA1E32140BC9600C1C431 /* TJHongBaoLogModel.m */; };
 		C74D892721001F1E0098754C /* TJShareMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D892621001F1E0098754C /* TJShareMoneyController.m */; };
 		C74D892C210023520098754C /* TJShareOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D892A210023520098754C /* TJShareOneCell.m */; };
 		C74D892D210023520098754C /* TJShareOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74D892B210023520098754C /* TJShareOneCell.xib */; };
@@ -873,8 +875,6 @@
 		C7249B1720A152E200BB385E /* TJAssistanceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAssistanceCell.m; sourceTree = "<group>"; };
 		C7249B1920A1536900BB385E /* TJAssistanceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAssistanceModel.h; sourceTree = "<group>"; };
 		C7249B1A20A1536900BB385E /* TJAssistanceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAssistanceModel.m; sourceTree = "<group>"; };
-		C7249B1C20A170CC00BB385E /* TJAssistanceDetailsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAssistanceDetailsController.h; sourceTree = "<group>"; };
-		C7249B1D20A170CC00BB385E /* TJAssistanceDetailsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAssistanceDetailsController.m; sourceTree = "<group>"; };
 		C7249B2120A1740600BB385E /* UITableView+FDIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDIndexPathHeightCache.h"; sourceTree = "<group>"; };
 		C7249B2220A1740600BB385E /* UITableView+FDIndexPathHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDIndexPathHeightCache.m"; sourceTree = "<group>"; };
 		C7249B2320A1740600BB385E /* UITableView+FDKeyedHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDKeyedHeightCache.h"; sourceTree = "<group>"; };
@@ -1105,6 +1105,9 @@
 		C74520C920AD626200FE4217 /* TJGoodsDetailsCompanyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsDetailsCompanyCell.m; sourceTree = "<group>"; };
 		C74520CB20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJGoodsDetailsImagesCell.h; sourceTree = "<group>"; };
 		C74520CC20AD7F4900FE4217 /* TJGoodsDetailsImagesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsDetailsImagesCell.m; sourceTree = "<group>"; };
+		C7454022214116AF00157D17 /* TJHelpDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJHelpDetailController.h; sourceTree = "<group>"; };
+		C7454023214116AF00157D17 /* TJHelpDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJHelpDetailController.m; sourceTree = "<group>"; };
+		C7454024214116AF00157D17 /* TJHelpDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJHelpDetailController.xib; sourceTree = "<group>"; };
 		C746004F21070C1F00302DB8 /* TJOredrInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJOredrInfoCell.h; sourceTree = "<group>"; };
 		C746005021070C1F00302DB8 /* TJOredrInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJOredrInfoCell.m; sourceTree = "<group>"; };
 		C746005121070C1F00302DB8 /* TJOredrInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJOredrInfoCell.xib; sourceTree = "<group>"; };
@@ -1114,6 +1117,8 @@
 		C74C31AA20B2C2DF0074AC00 /* TJContentCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJContentCollectionCell.m; sourceTree = "<group>"; };
 		C74C31AC20B2DDE70074AC00 /* TJPopularizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPopularizeController.h; sourceTree = "<group>"; };
 		C74C31AD20B2DDE70074AC00 /* TJPopularizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPopularizeController.m; sourceTree = "<group>"; };
+		C74CA1E22140BC9600C1C431 /* TJHongBaoLogModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJHongBaoLogModel.h; sourceTree = "<group>"; };
+		C74CA1E32140BC9600C1C431 /* TJHongBaoLogModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJHongBaoLogModel.m; sourceTree = "<group>"; };
 		C74D892521001F1E0098754C /* TJShareMoneyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJShareMoneyController.h; sourceTree = "<group>"; };
 		C74D892621001F1E0098754C /* TJShareMoneyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJShareMoneyController.m; sourceTree = "<group>"; };
 		C74D8929210023520098754C /* TJShareOneCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJShareOneCell.h; sourceTree = "<group>"; };
@@ -2872,16 +2877,16 @@
 		C73FC79B20901BC700732F2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C79FAE832112F23C00E5065E /* TJMembersModel.h */,
+				C79FAE842112F23C00E5065E /* TJMembersModel.m */,
+				C79FAE862113020B00E5065E /* TJMemberMainModel.h */,
+				C79FAE872113020B00E5065E /* TJMemberMainModel.m */,
 				C783CE2C213E6160005C388C /* 邀请好友 */,
 				C7904F682123FFFC00E20E4D /* 我的团队 */,
 				C7904F572123DAA300E20E4D /* 取件地址 */,
 				C77BACAA2122705F00C599DB /* 我的粉丝 */,
 				C77BACA221226A2300C599DB /* 排行榜 */,
 				C77FF1F3211C515A00D07AFE /* 快递代取 */,
-				C79FAE832112F23C00E5065E /* TJMembersModel.h */,
-				C79FAE842112F23C00E5065E /* TJMembersModel.m */,
-				C79FAE862113020B00E5065E /* TJMemberMainModel.h */,
-				C79FAE872113020B00E5065E /* TJMemberMainModel.m */,
 				C78E83F2210EEB2D00B04E19 /* 我的资产 */,
 				C758A0682109D41700DDFDAD /* 消息通知 */,
 				C7861DA120FC77F30056574A /* 我的收藏 */,
@@ -4160,8 +4165,9 @@
 			children = (
 				C7249B1320A1519F00BB385E /* TJAssistanceController.h */,
 				C7249B1420A1519F00BB385E /* TJAssistanceController.m */,
-				C7249B1C20A170CC00BB385E /* TJAssistanceDetailsController.h */,
-				C7249B1D20A170CC00BB385E /* TJAssistanceDetailsController.m */,
+				C7454022214116AF00157D17 /* TJHelpDetailController.h */,
+				C7454023214116AF00157D17 /* TJHelpDetailController.m */,
+				C7454024214116AF00157D17 /* TJHelpDetailController.xib */,
 			);
 			path = "客服帮助";
 			sourceTree = "<group>";
@@ -4418,6 +4424,8 @@
 		C783CE2C213E6160005C388C /* 邀请好友 */ = {
 			isa = PBXGroup;
 			children = (
+				C74CA1E22140BC9600C1C431 /* TJHongBaoLogModel.h */,
+				C74CA1E32140BC9600C1C431 /* TJHongBaoLogModel.m */,
 				C783CE2D213E617F005C388C /* TJInvitePrizeModel.h */,
 				C783CE2E213E617F005C388C /* TJInvitePrizeModel.m */,
 			);
@@ -5441,6 +5449,7 @@
 				C7861DA920FC8C4F0056574A /* TJSignSuccessController.xib in Resources */,
 				C7909A9E2138DADC0088B4DE /* ydy_1.jpg in Resources */,
 				C794FFFE21196D3100FB580F /* TJTextFiledCell.xib in Resources */,
+				C7454026214116AF00157D17 /* TJHelpDetailController.xib in Resources */,
 				C793E3A6213692E10001ADA3 /* README.txt in Resources */,
 				C7409A002091CF3600DFCC94 /* IQKeyboardManager.bundle in Resources */,
 				C7C72F512101CD0F0087A8CB /* Info.plist in Resources */,
@@ -5834,7 +5843,6 @@
 				C781BECD210B198E00B7BD57 /* SDImageCacheConfig.m in Sources */,
 				C732067A20EDE87100E480A8 /* TJTQGContentController.m in Sources */,
 				C7206C0F20A02DAB00957A4A /* TJLaunchModel.m in Sources */,
-				C7249B1E20A170CC00BB385E /* TJAssistanceDetailsController.m in Sources */,
 				C742A3102099DA260026311A /* MyBaseLayout.m in Sources */,
 				C772AA37210880800029C515 /* FSCalendar.m in Sources */,
 				C742A3192099DA260026311A /* MyLayoutMath.m in Sources */,
@@ -5867,6 +5875,7 @@
 				C781BECC210B198E00B7BD57 /* SDImageCache.m in Sources */,
 				C73FC819209025CE00732F2D /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C742A31D2099DA260026311A /* MyLinearLayout.m in Sources */,
+				C7454025214116AF00157D17 /* TJHelpDetailController.m in Sources */,
 				C786473820F34FC400995A8F /* TJHomeSignController.m in Sources */,
 				C7ADB48C211A903600AD4D95 /* TJOrderInfoOneCell.m in Sources */,
 				C7DE68A8209985DC00160435 /* NewPagedFlowView.m in Sources */,
@@ -6072,6 +6081,7 @@
 				C7292A2E2095566700073099 /* NSObject+YYModel.m in Sources */,
 				C74099F62091CF3600DFCC94 /* IQUIViewController+Additions.m in Sources */,
 				C74099F52091CF3600DFCC94 /* IQUIView+Hierarchy.m in Sources */,
+				C74CA1E42140BC9600C1C431 /* TJHongBaoLogModel.m in Sources */,
 				C77B445F2118430B00332147 /* UIView+SDExtension.m in Sources */,
 				C772AA36210880800029C515 /* FSCalendar+Deprecated.m in Sources */,
 			);

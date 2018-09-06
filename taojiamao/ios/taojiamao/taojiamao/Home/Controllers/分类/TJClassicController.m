@@ -36,14 +36,15 @@
 @implementation TJClassicController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self resetSystemNavibar];
-    [self loadGoodsCatesList];[self requestAdImg];
+   
     self.select_index = @"0";
     //设置全局状态栏字体颜色为黑色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self resetSystemNavibar];
+    [self loadGoodsCatesList];[self requestAdImg];
     self.title = @"商品分类";
     self.view.backgroundColor = RGB(245, 245, 245);
     UITableView *tableV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 100, S_H) style:UITableViewStylePlain];

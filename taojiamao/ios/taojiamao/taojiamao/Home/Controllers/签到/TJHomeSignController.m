@@ -35,9 +35,8 @@
 
 @property (nonatomic, strong) UILabel *lab;
 @property (nonatomic, strong) UILabel *lab_total;//签到总人数
-
-
 @property (nonatomic, strong) NSString *signStatus;
+@property (nonatomic, strong) NSString *rule;
 @end
 
 @implementation TJHomeSignController
@@ -68,127 +67,82 @@
 }
 - (void)requestAdImg{
     self.bannerArr = [NSMutableArray array];
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"posid":@"1",
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@1",KAllAdPosters];
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-    } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"---banner-%@",responseObject);
+    [KConnectWorking requestNormalDataParam:@{@"posid":@"1"} withRequestURL:[NSString stringWithFormat:@"%@1",KAllAdPosters] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         self.bannerArr = [TJKallAdImgModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
-        [self.icaroursel reloadData];
+            [self.icaroursel reloadData];
         });
-
-    } onFailure:^(NSError * _Nullable error) {
-        DSLog(@"---banner-%@",error);
-
+    } withFailure:^(NSError * _Nullable error) {
     }];
 }
 - (void)RequestSignInfoWithType:(XMHTTPMethodType )methodtype
 {
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {       
-    }else{
-        userid = @"";
-    }
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = MembersSigns;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = methodtype;
-    } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"----sign-success-===%@",responseObject);
+     if (methodtype==kXMHTTPMethodPOST) {
 
-        if (methodtype==kXMHTTPMethodPOST) {
-            TJSignListModel *m = [TJSignListModel mj_objectWithKeyValues:responseObject[@"data"]];
-            TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
-            successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-            successVc.jifen = m.points;
-            [self presentViewController:successVc animated:NO completion:^{
-                [self RequestSignInfoWithType:kXMHTTPMethodGET];
-            }];
-        }else{
-            NSDictionary *dict = responseObject[@"data"];
-            if (dict.count>0) {
-                NSMutableArray *arr = [TJSignListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                self.dataArr = [NSMutableArray array];
-                
-                for (TJSignListModel *model in arr) {
-                    NSString *time = [self.dateFormatter2 stringFromDate:[NSDate dateWithTimeIntervalSince1970:[model.addtime doubleValue]]];
-                    [self.dataArr addObject:time];
-                }
-                
-                TJSignNumsModel *m = [TJSignNumsModel mj_objectWithKeyValues:responseObject[@"data"]];
-                //            DSLog(@"--%d--%d",m.num,m.nums);
-                self.signStatus = m.status;
-                NSString *dayStr = [NSString stringWithFormat:@"%d",m.num];
-                NSString *totalStr = [NSString stringWithFormat:@"%d",m.nums];
-                NSString *day = [NSString stringWithFormat:@"本月连续签到%@天",dayStr];
-                
-                NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-                    make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
-                    make.append(day);
-                    make.rangeEdit(NSMakeRange(6, dayStr.length), ^(SJAttributesRangeOperator * _Nonnull make) {
-                        make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
-                    });
-                    
-                    
-                });
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.lab_total.text = totalStr;//一赋值就崩溃
-                    self.lab.attributedText = attrStr;
-                    if ([self.signStatus intValue]==1) {
-                        [self.signBtn setBackgroundColor:RGB(100, 100, 100)];
-                    }else{
-                        [self.signBtn setBackgroundColor:KALLRGB];
-                    }
-                    [self.calendar reloadData];
-                    
-                });
-                
-            }
-           
-            
-            
-        }
+         [KConnectWorking requestNormalDataParam:nil withRequestURL:MembersSigns withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+             DSLog(@"---signn---%@",responseObject);
+
+             TJSignListModel *m = [TJSignListModel mj_objectWithKeyValues:responseObject[@"data"]];
+             TJSignSuccessController *successVc = [[TJSignSuccessController alloc]init];
+             successVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+             successVc.jifen = m.jin_msg;  successVc.mjifen = m.ming_msg;
+
+             [self presentViewController:successVc animated:NO completion:^{
+                 [self RequestSignInfoWithType:kXMHTTPMethodGET];
+             }];
+         } withFailure:^(NSError * _Nullable error) {
         
-    } onFailure:^(NSError * _Nullable error) {
-        if (methodtype==kXMHTTPMethodPOST) {
-            [SVProgressHUD showInfoWithStatus:@"签到失败！"];
-        }else{
-                
-            }
-    }];
+         }];
+     }else{
+         [KConnectWorking requestNormalDataParam:nil withRequestURL:MembersSigns withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+             DSLog(@"---info---%@",responseObject);
+             NSDictionary *dict = responseObject[@"data"];
+             if (dict.count>0) {
+                 NSMutableArray *arr = [TJSignListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                 self.dataArr = [NSMutableArray array];
+                 
+                 for (TJSignListModel *model in arr) {
+                     NSString *time = [self.dateFormatter2 stringFromDate:[NSDate dateWithTimeIntervalSince1970:[model.addtime doubleValue]]];
+                     [self.dataArr addObject:time];
+                 }
+                 
+                 TJSignNumsModel *m = [TJSignNumsModel mj_objectWithKeyValues:responseObject[@"data"]];
+                 //            DSLog(@"--%d--%d",m.num,m.nums);
+                 self.signStatus = m.status;
+                 self.rule = m.rule;
+                 NSString *dayStr = [NSString stringWithFormat:@"%d",m.num];
+                 NSString *totalStr = [NSString stringWithFormat:@"%d",m.nums];
+                 NSString *day = [NSString stringWithFormat:@"本月连续签到%@天",dayStr];
+                 
+                 NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
+                     make.font([UIFont systemFontOfSize:14.f]).textColor([UIColor darkTextColor]);
+                     make.append(day);
+                     make.rangeEdit(NSMakeRange(6, dayStr.length), ^(SJAttributesRangeOperator * _Nonnull make) {
+                         make.font([UIFont systemFontOfSize:14.f]).textColor(KALLRGB);
+                     });
+                     
+                 });
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     self.lab_total.text = totalStr;//一赋值就崩溃
+                     self.lab.attributedText = attrStr;
+                     if ([self.signStatus intValue]==1) {
+                         [self.signBtn setBackgroundColor:RGB(100, 100, 100)];
+                         self.signBtn.userInteractionEnabled = NO;
+                     }else{
+                         [self.signBtn setBackgroundColor:KALLRGB];
+                         self.signBtn.userInteractionEnabled = YES;
+
+                     }
+                     [self.calendar reloadData];
+                     
+                 });
+                 
+             }
+             
+         } withFailure:^(NSError * _Nullable error) {
+             
+         }];
+     }
     
 }
 - (void)setOnClick
@@ -213,6 +167,7 @@
 #pragma mark - ButtonClick签到规则
 - (void)buttonClick:(UIButton *)but{
     TJSignRuleController *ruleVc = [[TJSignRuleController alloc]init];
+    ruleVc.rule = self.rule;
     ruleVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
     [self presentViewController:ruleVc animated:NO completion:nil];
 }
@@ -306,15 +261,7 @@
 //    numLab.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:numLab];
     self.lab_page = numLab;
-    NSString *str = @"1 /3";
-    NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-        make.font([UIFont systemFontOfSize:16.f]).textColor([UIColor orangeColor]);
-        make.append(str);
-        make.rangeEdit(NSMakeRange(0, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
-            make.font([UIFont systemFontOfSize:13.f]).textColor([UIColor darkTextColor]);
-        });
-    });
-    numLab.attributedText = attrStr;
+
     iCarousel *icarou = [[iCarousel alloc]initWithFrame:CGRectMake(0, S_H-120, S_W, 120)];
     icarou.type = iCarouselTypeLinear;
     icarou.pagingEnabled = YES;
@@ -329,11 +276,8 @@
 }
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
-    
-
     if (view==nil) {
         view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, S_W-50, 100)];
-//        view.backgroundColor = RandomColor;
         view.layer.masksToBounds = YES;
         view.layer.cornerRadius = 8;
         TJKallAdImgModel *model = self.bannerArr[index];
@@ -349,12 +293,12 @@
 }
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
 //    切换index
-    NSString*  str = [NSString stringWithFormat:@"%ld /3",(long)carousel.currentItemIndex+1];
+    NSString*  str = [NSString stringWithFormat:@"%ld/%ld",(long)carousel.currentItemIndex+1,self.bannerArr.count];
     NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.font([UIFont systemFontOfSize:18.f]).textColor([UIColor darkTextColor]);
         make.append(str);
-        make.rangeEdit(NSMakeRange(str.length - 1, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
-            make.font([UIFont systemFontOfSize:13.f]).textColor([UIColor orangeColor]);
+        make.rangeEdit(NSMakeRange(0, 1), ^(SJAttributesRangeOperator * _Nonnull make) {
+            make.font([UIFont systemFontOfSize:17.f]).textColor([UIColor orangeColor]);
         });
     });
     self.lab_page.attributedText = attrStr;
@@ -400,10 +344,8 @@
 {
     
     TJSignCalendarCell *diyCell = (TJSignCalendarCell *)cell;
-    
     // Custom today circle
     diyCell.circleImageView.hidden = ![self.gregorian isDateInToday:date];
-    
     diyCell.shapeLayer.fillColor = [UIColor clearColor].CGColor;
 }
 
