@@ -26,7 +26,7 @@
 #import "TJClassicController.h"
 #import "TJHeadLineController.h"
 #import "TJBargainController.h"//9.9
-#import "TJPopViewController.h"
+#import "TJHomePagePopView.h"
 
 #import "UIViewController+Extension.h"
 
@@ -50,11 +50,10 @@
 #define NEWS_Scroll  9556
 #define CLASSS_CollectionV  569845
 #define Columns_CollectionV 475525
-@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,GYRollingNoticeViewDelegate,GYRollingNoticeViewDataSource,SDCycleScrollViewDelegate>
+@interface TJHomePageController ()<TJButtonDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,GYRollingNoticeViewDelegate,GYRollingNoticeViewDataSource,SDCycleScrollViewDelegate,PopViewClickDelgate>
 
 {
     CGFloat _currentAlpha;
-    TJPopViewController *_vc;
 }
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -169,36 +168,45 @@
     
     
     //showalert之前进行 一天一次判断
-    NSDate *now = [NSDate date];
-    NSDate *agoDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"nowDate"];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *ageDateString = [dateFormatter stringFromDate:agoDate];
-    NSString *nowDateString = [dateFormatter stringFromDate:now];
-    NSLog(@"日期比较：之前：%@ 现在：%@",ageDateString,nowDateString);
-    if ([ageDateString isEqualToString:nowDateString]) {
-        NSLog(@"一天就显示一次");
-    }else{
-        //记录弹窗时间
-        NSDate *nowDate = [NSDate date];
-        NSUserDefaults *dataUser = [NSUserDefaults standardUserDefaults];
-        [dataUser setObject:nowDate forKey:@"nowDate"];
-        [dataUser synchronize];
-
-        if ([self.status intValue]==1) {
+//    NSDate *now = [NSDate date];
+//    NSDate *agoDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"nowDate"];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+//    NSString *ageDateString = [dateFormatter stringFromDate:agoDate];
+//    NSString *nowDateString = [dateFormatter stringFromDate:now];
+//    NSLog(@"日期比较：之前：%@ 现在：%@",ageDateString,nowDateString);
+//    if ([ageDateString isEqualToString:nowDateString]) {
+//        NSLog(@"一天就显示一次");
+//    }else{
+//        //记录弹窗时间
+//        NSDate *nowDate = [NSDate date];
+//        NSUserDefaults *dataUser = [NSUserDefaults standardUserDefaults];
+//        [dataUser setObject:nowDate forKey:@"nowDate"];
+//        [dataUser synchronize];
+//
+//        if ([self.status intValue]==1) {
             DSLog(@"弹窗00");
-            TJPopViewController *vc = [[TJPopViewController alloc]init];
-            vc.view.backgroundColor = RGBA(1, 1, 1, 0.2);
-            vc.view.frame = S_F;[vc.btn_close addTarget:self action:@selector(hidden) forControlEvents:UIControlEventTouchUpInside];
-            vc.model = self.ad_m;
-            [self.view addSubview:vc.view];
-            _vc = vc;
+            TJHomePagePopView *popview = [TJHomePagePopView invitationView];
+            popview.frame = S_F;popview.delegate = self;
+            popview.backgroundColor = RGBA(1, 1, 1, 0.2);
+            popview.model = self.ad_m;
+            [self.view addSubview:popview];
 
-        }
-    }
+//        }
+//    }
 }
-- (void)hidden{
-    [_vc.view  removeFromSuperview];
+- (void)tapClick{
+    DSLog(@"ddddddddddddddddd");
+    
+    NSString *userid = GetUserDefaults(UID);
+    if (userid) {
+        [TJPublicURL goAnyViewController:self withidentif:self.ad_m.flag withParam:nil];
+        
+    }else{
+        TJLoginController * lvc = [[TJLoginController alloc]init];
+        [TJAppManager sharedTJAppManager].loginVC = lvc;
+        [self presentViewController:lvc animated:NO completion:nil];
+    }
 }
 
 - (void)requestSearchGoodsList{

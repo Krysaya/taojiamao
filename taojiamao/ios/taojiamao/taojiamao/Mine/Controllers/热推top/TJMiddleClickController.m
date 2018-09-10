@@ -49,6 +49,8 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"热推TOP";
+    [self requestSearchGoodsTopWithOrderType:@"0" withKeyString:@""];
+
     [self setSearchFiltrateView];
     [self setUIBottomShare];
     [self setUItableView];

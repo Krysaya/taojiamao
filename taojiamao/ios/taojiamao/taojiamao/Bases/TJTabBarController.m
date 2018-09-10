@@ -26,6 +26,10 @@
     self.tabBar.tintColor = KALLRGB;
     //setControllers
     [self setControllers];
+    
+    
+    
+    
 }
 -(void)setControllers{
 
