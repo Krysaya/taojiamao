@@ -184,14 +184,12 @@
         NSUserDefaults *dataUser = [NSUserDefaults standardUserDefaults];
         [dataUser setObject:nowDate forKey:@"nowDate"];
         [dataUser synchronize];
-        
+
         if ([self.status intValue]==1) {
             DSLog(@"弹窗00");
             TJPopViewController *vc = [[TJPopViewController alloc]init];
             vc.view.backgroundColor = RGBA(1, 1, 1, 0.2);
             vc.view.frame = S_F;[vc.btn_close addTarget:self action:@selector(hidden) forControlEvents:UIControlEventTouchUpInside];
-            UIGestureRecognizer *tap =  [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(imgUrlClick)];
-            [vc.img addGestureRecognizer:tap];
             vc.model = self.ad_m;
             [self.view addSubview:vc.view];
             _vc = vc;
@@ -202,9 +200,7 @@
 - (void)hidden{
     [_vc.view  removeFromSuperview];
 }
-- (void)imgUrlClick{
-    [TJPublicURL goAnyViewController:self withidentif:self.ad_m.flag withParam:nil];
-}
+
 - (void)requestSearchGoodsList{
     self.hotSearchArr = [NSArray array];
     [KConnectWorking requestNormalDataParam:nil withRequestURL:SearchGoods withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {

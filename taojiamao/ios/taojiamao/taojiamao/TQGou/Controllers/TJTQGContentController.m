@@ -221,6 +221,29 @@ static NSString * const TQGContentCell = @"GContentCell";
          }];
     }else  if (sender==144) {
         //sms
+        //短信
+         [shareParams SSDKSetupSMSParamsByText:model.title title:model.title images:nil attachments:nil recipients:nil type:SSDKContentTypeAuto];
+        [ShareSDK share:SSDKPlatformTypeSMS //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
     }else  if (sender==145) {
         //link
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

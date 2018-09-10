@@ -30,10 +30,11 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @implementation TJSuperSearchController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestSuperSearchListWithSuperSort:@"0"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self requestSuperSearchListWithSuperSort:@"0"];
+
     self.superView = [[TJSearchScreenView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:20];
     self.superView.backgroundColor  = [UIColor whiteColor];
     self.superView.deletage = self;
@@ -177,15 +178,11 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         DSLog(@"%@",kind);
         [self requestSuperSearchListWithSuperSort:@"5"];
         
-        
-        
     }else if ([kind isEqualToString:@"有券"]){
         DSLog(@"%@",kind);
         
-        
     }else{
         DSLog(@"%@",kind);
-        
     }
 }
 

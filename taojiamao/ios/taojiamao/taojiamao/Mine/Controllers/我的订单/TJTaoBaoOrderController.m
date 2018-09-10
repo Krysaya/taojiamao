@@ -29,7 +29,8 @@
     // Do any additional setup after loading the view.
 }
 - (void)openTaoBaoOrder{
-//    [SVProgressHUD show];
+    [SVProgressHUD show];
+    [SVProgressHUD dismissWithDelay:3];
     UIWebView *webV = [[UIWebView alloc]initWithFrame:S_F];
     [self.view addSubview:webV];
     //打开我的订单页

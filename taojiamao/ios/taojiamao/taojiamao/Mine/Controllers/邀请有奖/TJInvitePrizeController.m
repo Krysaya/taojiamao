@@ -13,12 +13,18 @@
 #import "TJGoodsCollectModel.h"
 #import "TJInvitePrizeModel.h"
 #import "TJHongBaoLogModel.h"
+#import "TJHongBaoLogModel.h"
 #import "TJDrawMoneyController.h"
 #import "TJDefaultGoodsDetailController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
+#import "UIButton+WebCache.h"
 @interface TJInvitePrizeController ()<UICollectionViewDelegate,UICollectionViewDataSource,ShareBtnDelegate>
+{
+    CGFloat _passTime;
+}
+
 @property (weak, nonatomic) IBOutlet UIScrollView *big_scroll;
 @property (weak, nonatomic) IBOutlet UILabel *lab_prize;
 @property (weak, nonatomic) IBOutlet UILabel *lab_hour;
@@ -29,11 +35,22 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn_share;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectHeight;
 @property (weak, nonatomic) IBOutlet UIButton *btn_one;
+@property (weak, nonatomic) IBOutlet UILabel *lab_one;
+@property (weak, nonatomic) IBOutlet UIButton *btn_two;
+@property (weak, nonatomic) IBOutlet UIButton *btn_three;
+@property (weak, nonatomic) IBOutlet UIButton *btn_four;
+@property (weak, nonatomic) IBOutlet UIButton *btn_five;
 
 
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSMutableArray *hongBaoArr;
+
 @property (nonatomic, strong) TJInvitePrizeModel *model;
+
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) double  timeInterval;
+
 @end
 
 @implementation TJInvitePrizeController
@@ -47,6 +64,11 @@
     [self requestHongBaoListLog];
     self.title = @"邀请好友";
     [self.collectionV registerNib:[UINib nibWithNibName:@"TJInvitePrizeCell" bundle:nil] forCellWithReuseIdentifier:@"InvitePrizeCell"];
+    if ([self.type intValue]==1) {
+        DSLog(@"有导航");
+    }else{
+        
+    }
 }
 
 - (void)requestHomePageGoodsJingXuan{
@@ -86,10 +108,66 @@
     
 }
 - (void)requestHongBaoListLog{
+    self.hongBaoArr = [NSMutableArray array];
+    WeakSelf
     [KConnectWorking requestNormalDataParam:nil withRequestURL:RegisterHongBaoLog withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         DSLog(@"--%@--log",responseObject);
+        weakSelf.hongBaoArr = [TJHongBaoLogModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         for (int i=0; i<5; i++) {
-            
+            if (i+1>weakSelf.hongBaoArr.count) {
+                
+            }else{
+                if (i==0) {
+                    TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    self.lab_one.text = [NSString stringWithFormat:@"%.2f",[m.money floatValue]];
+                    if ([m.image containsString:@"http"]) {
+                         [weakSelf.btn_one sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }else{
+                        [weakSelf.btn_one sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,m.image]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }
+                    
+                }
+                if (i==1) {
+                    DSLog(@"---第二个");
+                    TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    if ([m.image containsString:@"http"]) {
+                         [weakSelf.btn_two sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }else{
+                        [weakSelf.btn_two sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,m.image]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }
+                  
+                }
+                if (i==2) {
+                    DSLog(@"---第3个");
+                    TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    if ([m.image containsString:@"http"]) {
+                         [weakSelf.btn_three sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }else{
+                        [weakSelf.btn_three sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,m.image]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }
+                    
+                }
+                if (i==3) {
+                    DSLog(@"---第4个");
+                    TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    if ([m.image containsString:@"http"]) {
+                         [weakSelf.btn_four sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }else{
+                        [weakSelf.btn_four sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,m.image]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }
+                  
+                }
+                if (i==4) {
+                    DSLog(@"---第5个");
+                    TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    if ([m.image containsString:@"http"]) {
+                        [weakSelf.btn_five sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }else{
+                       [weakSelf.btn_five sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,m.image]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+                    }
+                    
+                }
+            }
         }
     } withFailure:^(NSError * _Nullable error) {
         
@@ -171,8 +249,31 @@
                  default:
                      break;
              }
-         }];    }else  if (sender==144) {
-        //
+         }];
+        
+    }else  if (sender==144) {
+        //短信
+        [ShareSDK share:SSDKPlatformTypeSMS //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
     }else  if (sender==145) {
         //link
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -231,4 +332,81 @@
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 
+- (void)countTime{
+    NSDateFormatter *dataFormatter = [[NSDateFormatter alloc] init];
+    dataFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
+    
+    //获取当前系统的时间，并用相应的格式转换
+    [dataFormatter stringFromDate:[NSDate date]];
+    NSString *currentDayStr = [dataFormatter stringFromDate:[NSDate date]];
+    NSDate *currentDate = [dataFormatter dateFromString:currentDayStr];
+    
+    //优惠结束的时间，也用相同的格式去转换
+    NSDate *date =  [NSDate dateWithTimeInterval:24*60*60 sinceDate:currentDate];
+    NSString *deadlineStr = [dataFormatter stringFromDate:date];
+    NSDate *deadlineDate = [dataFormatter dateFromString:deadlineStr];
+    
+    _timeInterval= [deadlineDate timeIntervalSinceDate:currentDate]*1000;
+    if (_timeInterval!=0)
+    {
+        //时间间隔是100毫秒，也就是0.1秒
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+        
+        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:UITrackingRunLoopMode];
+    }else{
+        //        [_countdownBackView removeFromSuperview];
+        [_timer invalidate];
+    }
+    
+}
+
+- (void)timerAction{
+    // 每间隔100毫秒定时器触发执行该方法
+    [self getTimeFromTimeInterval:_timeInterval] ;
+    
+    
+    // 当时间间隔为0时干掉定时器
+    if (_timeInterval-_passTime == 0)
+    {
+        [_timer invalidate] ;
+        _timer = nil ;
+    }
+}
+// 通过时间间隔计算具体时间(小时,分,秒,毫秒)
+- (void)getTimeFromTimeInterval : (double)timeInterval
+{
+    
+    //1s=1000毫秒
+    _passTime += 100.f;//毫秒数从0-9，所以每次过去100毫秒
+    
+    //小时数
+    NSString *hours = [NSString stringWithFormat:@"%ld", (long)((timeInterval-_passTime)/1000/60/60)];
+    //分钟数
+    NSString *minute = [NSString stringWithFormat:@"%ld", (NSInteger)((timeInterval-_passTime)/1000/60)%60];
+    //秒数
+    NSString *second = [NSString stringWithFormat:@"%ld", ((NSInteger)(timeInterval-_passTime))/1000%60];
+    //毫秒数
+    CGFloat sss = ((NSInteger)((timeInterval - _passTime)))%1000/100;
+    
+    
+    NSString *ss = [NSString stringWithFormat:@"0%.lf", sss];
+    
+    if (minute.integerValue < 10) {
+        minute = [NSString stringWithFormat:@"0%@", minute];
+    }
+    
+    
+    self.lab_hour.text = [NSString stringWithFormat:@"%@",hours];
+    self.lab_min.text = [NSString stringWithFormat:@"%@",minute];
+    self.lab_ss.text = [NSString stringWithFormat:@"%@",second];
+    self.lab_mss.text = [NSString stringWithFormat:@"%@",ss];
+    
+    if (timeInterval - _passTime <= 0) {
+        //        [_countdownBackView removeFromSuperview];
+        //        [self removeFromSuperview];
+        [_timer invalidate];
+        _timer = nil;
+    }
+    
+}
 @end

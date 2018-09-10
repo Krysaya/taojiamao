@@ -79,6 +79,8 @@
 }
 
 - (void)requestNewsInfoList:(NSString *)aid{
+    self.model = nil;
+    self.remodel = nil;
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -334,8 +336,10 @@
     if (indexPath.section==1) {
         if (indexPath.row==1) {
 //          推荐
-            self.aid = self.remodel.id;
-            [self requestNewsInfoList:self.remodel.id];[self requestReplyList:self.remodel.id];
+//            self.aid = self.remodel.id;
+//            self.title = self.remodel.title;
+//
+//            [tableView.mj_header beginRefreshing];
         }
     }
 }

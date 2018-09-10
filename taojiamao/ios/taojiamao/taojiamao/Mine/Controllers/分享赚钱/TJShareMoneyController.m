@@ -23,6 +23,8 @@
 @property (nonatomic, strong) SDCycleScrollView *scrollV;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSString *shareurl;
+
+@property (nonatomic, strong)  TJGoodsCollectModel *selctM;
 @end
 
 @implementation TJShareMoneyController
@@ -131,7 +133,7 @@
     TJShareTwoCell *cell = (TJShareTwoCell *)[[sender superview] superview];
     NSIndexPath  *index = [self.tabelView indexPathForCell:cell];
     TJGoodsCollectModel *model = self.dataArr[index.row];
-    
+    self.selctM = model;
     [KConnectWorking requestShareUrlData:@"1" withIDStr:model.itemid withSuccessBlock:^(id  _Nullable responseObject) {
         self.shareurl = responseObject[@"data"][@"share_url"];
     }];
@@ -141,5 +143,101 @@
     [self.view addSubview:iview];
 }
 
-
+#pragma mark - share
+- (void)shareButtonClick:(NSInteger)sender{
+    //创建分享参数
+    TJGoodsCollectModel *model = self.selctM;
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:model.itemshorttitle
+                                     images:[NSURL URLWithString:model.itempic] //传入要分享的图片
+                                        url:[NSURL URLWithString:self.shareurl]
+                                      title:model.itemshorttitle
+                                       type:SSDKContentTypeWebPage];
+    
+    if (sender==140) {
+        //        朋友圈
+        [ShareSDK share:SSDKPlatformSubTypeWechatTimeline //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else  if (sender==141) {
+        //        好友
+        [ShareSDK share:SSDKPlatformSubTypeWechatSession //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else  if (sender==144) {
+        //sms
+        //短信
+        [shareParams SSDKSetupSMSParamsByText:model.sub_title title:model.sub_title images:nil attachments:nil recipients:nil type:SSDKContentTypeAuto];
+        
+        [ShareSDK share:SSDKPlatformTypeSMS //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else  if (sender==145) {
+        //link
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = self.shareurl;
+        if (pasteboard == nil) {
+            [SVProgressHUD showInfoWithStatus:@"复制失败"];
+        }else
+        {
+            [SVProgressHUD showSuccessWithStatus:@"已复制"];
+        }
+    }else{
+        [SVProgressHUD showInfoWithStatus:@"暂不支持"];
+    }
+}
 @end

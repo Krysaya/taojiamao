@@ -106,7 +106,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.imageSSS = [NSArray array];
 
     NSDictionary *param  = @{  @"id":self.gid,};
-    [KConnectWorking requestNormalDataParam:param withRequestURL:GoodsInfoList withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataParam:param withRequestURL:[NSString stringWithFormat:@"%@/%@",GoodsInfoList,self.gid] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         
         DSLog(@"onSuccess详情:%@ =======",responseObject);
@@ -137,9 +137,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"morentouxiang" withSelectImage:nil];
     [self.view addSubview:self.goTop];
     [self.goTop mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-20*W_Scale);
-        make.bottom.mas_equalTo(weakSelf.footView.mas_top).offset(-36*H_Scale);
-        make.width.height.mas_equalTo(25*W_Scale);
+        make.right.mas_equalTo(-20);
+        make.bottom.mas_equalTo(weakSelf.footView.mas_top).offset(-36);
+        make.width.height.mas_equalTo(25);
     }];
 }
 -(void)setUIfootView{
@@ -215,9 +215,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.backButton.layer.masksToBounds = YES;
     [self.view addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(9*W_Scale);
+        make.left.mas_equalTo(9);
         make.top.mas_equalTo(TOP);
-        make.width.height.mas_equalTo(32*W_Scale);
+        make.width.height.mas_equalTo(32);
     }];
 //    DetailShareButton
      TJButton *shareButton = [[TJButton alloc]initDelegate:self backColor:RGBA(1, 1, 1, 0.2) tag:DetailShareButton withBackImage:@"share" withSelectImage:nil];
@@ -227,7 +227,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-9);
         make.top.mas_equalTo(TOP);
-        make.width.height.mas_equalTo(32*W_Scale);
+        make.width.height.mas_equalTo(32);
     }];
 }
 
@@ -387,6 +387,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
                 } withFailure:^(NSError * _Nullable error) {
                     NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
                     NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                    [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
                     DSLog(@"--bind-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
                 }];
             } failureCallback:^(ALBBSession *session, NSError *error) {
@@ -420,6 +421,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
             } failureCallback:^(ALBBSession *session, NSError *error) {
             }];
         }else{
+            DSLog(@"绑定--进淘宝");
             [self goTaoBaoGoodsInfoQuanBuy];
         }
         
@@ -502,6 +504,29 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
          }];
     }else  if (sender==144) {
         //sms
+        //短信
+         [shareParams SSDKSetupSMSParamsByText:model.itemshorttitle title:model.itemshorttitle images:nil attachments:nil recipients:nil type:SSDKContentTypeAuto];
+        [ShareSDK share:SSDKPlatformTypeSMS //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
     }else  if (sender==145) {
         //link
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

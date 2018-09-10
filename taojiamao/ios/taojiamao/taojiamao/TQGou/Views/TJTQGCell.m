@@ -50,7 +50,7 @@
     
     self.lab_yprice.attributedText = attribt_yuanj;
     
-    [self.img sd_setImageWithURL: [NSURL URLWithString:model.pic_url]];
+    [self.img sd_setImageWithURL: [NSURL URLWithString:model.pic_url] placeholderImage:[UIImage imageNamed:@"good_bg.jpg"]];
     
     NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(23, 11));

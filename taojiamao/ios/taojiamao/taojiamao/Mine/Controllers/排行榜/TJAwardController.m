@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.frame = CGRectMake(0, 20, S_W, S_H);
+    self.view.frame = CGRectMake(0, 0, S_W, S_H);
     [self setControllers];
 
 }

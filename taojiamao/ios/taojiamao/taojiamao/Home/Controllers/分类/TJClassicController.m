@@ -78,29 +78,7 @@
 }
 - (void)requestAdImg{
     self.bannerArr = [NSMutableArray array];self.imgArr = [NSMutableArray array];
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"posid":@"1",
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@1",KAllAdPosters];
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-    } onSuccess:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataParam:@{@"posid":@"1",} withRequestURL:[NSString stringWithFormat:@"%@1",KAllAdPosters] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         DSLog(@"---banner-%@",responseObject);
         self.bannerArr = [TJKallAdImgModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         for (TJKallAdImgModel *m in self.bannerArr) {
@@ -108,11 +86,9 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             self.scrollV.imageURLStringsGroup = self.imgArr;
-
+            
         });
-        
-    } onFailure:^(NSError * _Nullable error) {
-        DSLog(@"---banner-%@",error);
+    } withFailure:^(NSError * _Nullable error) {
         
     }];
 }
@@ -120,48 +96,21 @@
     self.dataArr_left = [NSMutableArray array];
     self.dataArr_right = [NSMutableArray array];
 
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    DSLog(@"--sign==%@",md5Str);
-
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = GoodsClassicList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-    
-    } onSuccess:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:GoodsClassicList withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         NSDictionary *dict = responseObject[@"data"];
         for (int i=1; i<dict.count+1; i++) {
             NSString *str = [NSString stringWithFormat:@"%d",i];
             TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
             [self.dataArr_left addObject:model];
-    
+            
         }
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView_left reloadData];
             [self.tableView_right reloadData];
-
+            
         });
+    } withFailure:^(NSError * _Nullable error) {
         
-    } onFailure:^(NSError * _Nullable error) {
-
     }];
 }
 #pragma mark - icarouseldelegte

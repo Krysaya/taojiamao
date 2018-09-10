@@ -77,7 +77,8 @@
                                @"user_type":userType,
                                };
     } onSuccess:^(id  _Nullable responseObject) {
-        self.dataArr = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        DSLog(@"--jjjffffmmmmxxxx-%@",responseObject);
+        self.dataArr = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });

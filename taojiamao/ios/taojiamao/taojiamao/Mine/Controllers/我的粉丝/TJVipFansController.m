@@ -35,7 +35,7 @@
 }
 -(void)setControllers{
 
-    self.titles = @[@"一度粉丝()",@"二度粉丝()",@"三度粉丝()"];
+    self.titles = @[@"一度粉丝",@"二度粉丝",@"三度粉丝"];
     self.menuViewStyle = WMMenuViewStyleLine;
     self.selectIndex = 0;
     self.titleSizeNormal = 14;

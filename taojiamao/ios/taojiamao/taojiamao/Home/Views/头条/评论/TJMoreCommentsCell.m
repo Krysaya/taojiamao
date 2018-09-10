@@ -37,7 +37,7 @@
 }
 - (void)setModel:(TJCommentsListModel *)model{
     _model = model;
-    [self.headimg sd_setImageWithURL: [NSURL URLWithString:model.image]];
+    [self.headimg sd_setImageWithURL: [NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
     self.lab_nick.text = model.username;
     self.lab_comments.text = model.content;
     if ([model.num intValue]==0) {

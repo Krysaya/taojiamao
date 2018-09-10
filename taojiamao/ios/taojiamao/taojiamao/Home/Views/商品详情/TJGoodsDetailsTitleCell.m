@@ -57,7 +57,7 @@
         make.top.mas_equalTo(weakSelf.taobao.mas_bottom).offset(15*H_Scale);
     }];
     
-    self.money = [TJLabel setLabelWith:@"148.0" font:24 color:RGB(255, 71, 119)];
+    self.money = [TJLabel setLabelWith:@"0.00" font:24 color:RGB(255, 71, 119)];
     [self.contentView addSubview:self.money];
     [self.money mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.discount.mas_right);
@@ -65,7 +65,7 @@
     }];
     
     self.original = [[YYLabel alloc]init];
-    self.original.attributedText = [self labelStrikethrough:@"238.00"];
+    self.original.attributedText = [self labelStrikethrough:@"0.00"];
     [self.contentView addSubview:self.original];
     [self.original mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.money.mas_right).offset(35*W_Scale);

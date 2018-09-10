@@ -51,9 +51,7 @@
     ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 64+50, S_W, S_H - 64 - SafeAreaBottomHeight) segmentView:segment parentViewController:self delegate:self];
     self.contentView = content;
     [self.view addSubview:content];
-    
-   
-
+ 
 }
 
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods{

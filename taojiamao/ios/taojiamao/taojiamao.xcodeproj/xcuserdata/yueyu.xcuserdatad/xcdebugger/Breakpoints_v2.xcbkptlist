@@ -26,7 +26,7 @@
                   moduleName = "taojiamao"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/LoginRegister/Controllers/TJLoginController.m"
-                  timestampString = "557922399.140395"
+                  timestampString = "558008768.448259"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "496"
@@ -41,7 +41,7 @@
                   moduleName = "taojiamao"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/LoginRegister/Controllers/TJLoginController.m"
-                  timestampString = "557922399.142169"
+                  timestampString = "558008768.449939"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "496"
@@ -49,6 +49,118 @@
                   offsetFromSymbolStart = "664">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Home/Controllers/&#x5934;&#x6761;/&#x8be6;&#x60c5;/TJHeadDetailController.m"
+            timestampString = "558009017.4848"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "-requestNewsInfoList:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Home/Controllers/&#x5934;&#x6761;/&#x8be6;&#x60c5;/TJHeadDetailController.m"
+            timestampString = "558009017.484863"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "-requestNewsInfoList:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__46-[TJHeadDetailController requestNewsInfoList:]_block_invoke_2"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Home/Controllers/%E5%A4%B4%E6%9D%A1/%E8%AF%A6%E6%83%85/TJHeadDetailController.m"
+                  timestampString = "558008768.458804"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.193"
+                  moduleName = "taojiamao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Home/Controllers/%E5%A4%B4%E6%9D%A1/%E8%AF%A6%E6%83%85/TJHeadDetailController.m"
+                  timestampString = "558008768.460561"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Home/Controllers/&#x9996;&#x9875;/TJHomePageController.m"
+            timestampString = "558009017.485009"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-requestHomePage"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Home/Controllers/&#x5f39;&#x7a97;/TJPopViewController.m"
+            timestampString = "558009017.485052"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-btnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taojiamao/Home/Controllers/&#x5f39;&#x7a97;/TJPopViewController.m"
+            timestampString = "558009017.485093"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-btnClick:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

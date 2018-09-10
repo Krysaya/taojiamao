@@ -10,6 +10,7 @@
 #import "TJNoticeCell.h"
 #import "TJCourierInfoController.h"
 #import "TJNoticeListModel.h"
+#import "TJNoticeInfoController.h"
 #define CourierBtn  489053
 #define Withdrawal  324253
 @interface TJNoticeController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -126,7 +127,12 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJNoticeListModel *m = self.dataArr[indexPath.row];
+    TJNoticeInfoController *vc = [[TJNoticeInfoController alloc]init];
+    vc.infoId = m.id;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return   UITableViewCellEditingStyleDelete;

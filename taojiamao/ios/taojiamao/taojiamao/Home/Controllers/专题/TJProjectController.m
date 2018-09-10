@@ -55,11 +55,11 @@
                                 @"timestamp": timeStr,
                                 @"app": @"ios",
                                 @"uid":userid,
-                                @"posid":@"2",
+                                @"posid":@"19",
                                 }.mutableCopy;
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@2",KAllAdPosters];
+        request.url = [NSString stringWithFormat:@"%@19",KAllAdPosters];
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,

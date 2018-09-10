@@ -41,7 +41,7 @@
     
     WeakSelf
     self.icon = [[UIImageView alloc]init];
-    self.icon.backgroundColor = RandomColor;
+//    self.icon.backgroundColor = RandomColor;
     UITapGestureRecognizer * tap =  [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(iconClick)];
     [self.icon addGestureRecognizer:tap];
     [self.contentView addSubview:self.icon];
@@ -60,7 +60,7 @@
     
     
     self.taobao = [[UIImageView alloc]init];
-    self.taobao.backgroundColor = RandomColor;
+//    self.taobao.backgroundColor = RandomColor;
     [self.contentView addSubview:self.taobao];
     [self.taobao mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.icon.mas_right).offset(15*W_Scale);
@@ -76,7 +76,7 @@
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.taobao);
         make.top.mas_equalTo(weakSelf.taobao).offset(-2);
-        make.right.mas_equalTo(-30*W_Scale);
+        make.right.mas_equalTo(-30);
 //        make.height.mas_equalTo(32*H_Scale);
     }];
     
@@ -98,7 +98,7 @@
     self.original = [[YYLabel alloc]init];
     [self.contentView addSubview:self.original];
     [self.original mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.money.mas_right).offset(19*W_Scale);
+        make.left.mas_equalTo(weakSelf.money.mas_right).offset(19);
         make.bottom.mas_equalTo(weakSelf.discount);
     }];
     
@@ -109,14 +109,13 @@
         make.top.mas_equalTo(weakSelf.discount.mas_bottom).offset(10*H_Scale);
     }];
     
-    self.backView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"youhuiquanBJ"]];
-    self.backView.backgroundColor = RandomColor;
+    self.backView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"quan_bg"]];
     [self.contentView addSubview:self.backView];
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.taobao);
-        make.top.mas_equalTo(weakSelf.buyNum.mas_bottom).offset(10*H_Scale);
-        make.width.mas_equalTo(62*W_Scale);
-        make.height.mas_equalTo(18*H_Scale);
+        make.top.mas_equalTo(weakSelf.buyNum.mas_bottom).offset(10);
+        make.width.mas_equalTo(62);
+        make.height.mas_equalTo(18);
     }];
     
     self.minus = [TJLabel setLabelWith:@"" font:12 color:RGB(255, 255, 255)];
@@ -126,19 +125,25 @@
     }];
     
     self.line = [[UIView alloc]init];
-    self.line.backgroundColor = RGB(165, 1165, 165);
+    self.line.backgroundColor = RGB(211, 211, 211);
     [self.contentView addSubview:self.line];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(weakSelf.contentView);
-        make.height.mas_equalTo(1);
-        make.width.mas_equalTo(211*W_Scale);
+        make.height.mas_equalTo(0.8);
+//        make.width.mas_equalTo();
         make.left.mas_equalTo(weakSelf.taobao);
+        make.right.mas_equalTo(weakSelf.contentView.mas_right).offset(-5);
+
     }];
 }
 -(void)setModel:(TJJHSGoodsListModel *)model{
     _model = model;
     self.money.text = model.itemendprice;
-    
+    if ([model.shoptype isEqualToString:@"B"]) {
+        self.taobao.image = [UIImage imageNamed:@"tb_bs"];
+    }else{
+        self.taobao.image = [UIImage imageNamed:@"tm_bs"];
+    }
     self.title.attributedText = [self labelRetract:model.itemtitle];
     
     self.buyNum.text =[NSString stringWithFormat:@"%@人已买",model.itemsale];
@@ -176,14 +181,14 @@
     _showShare = showShare;
     self.shareOption.hidden = !showShare;
     self.icon.userInteractionEnabled = showShare;
-    self.shareOption.image = [UIImage imageNamed:@"loading1"];
+    self.shareOption.image = [UIImage imageNamed:@"check_default"];
 }
 -(void)setIsShare:(BOOL)isShare{
     _isShare = isShare;
     if (isShare) {
-        self.shareOption.image = [UIImage imageNamed:@"morentouxiang"];
+        self.shareOption.image = [UIImage imageNamed:@"check_light"];
     }else{
-        self.shareOption.image = [UIImage imageNamed:@"loading1"];
+        self.shareOption.image = [UIImage imageNamed:@"check_default"];
     }
     self.selectB = isShare;
 }
@@ -192,9 +197,9 @@
 
     self.selectB = !self.selectB;
     if (self.selectB) {
-       self.shareOption.image = [UIImage imageNamed:@"morentouxiang"];
+       self.shareOption.image = [UIImage imageNamed:@"check_light"];
     }else{
-       self.shareOption.image = [UIImage imageNamed:@"loading1"];
+       self.shareOption.image = [UIImage imageNamed:@"check_default"];
     }
 
     if (self.deletage && [self.deletage respondsToSelector:@selector(deletageWithModel:withCell:)]) {

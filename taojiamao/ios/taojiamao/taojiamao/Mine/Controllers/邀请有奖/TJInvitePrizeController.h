@@ -10,4 +10,5 @@
 
 @interface TJInvitePrizeController : UIViewController
 
+@property (nonatomic, strong) NSString *type;
 @end

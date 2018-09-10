@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,6 +23,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Av2-vY-kDf">
                     <rect key="frame" x="62" y="208.5" width="250" height="250"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="bOk-bV-ENO"/>
                         <constraint firstAttribute="height" constant="250" id="jFN-uy-8pU"/>
@@ -35,11 +36,23 @@
                         <constraint firstAttribute="height" constant="30" id="ec5-Tx-t60"/>
                     </constraints>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MT5-dn-rZB">
+                    <rect key="frame" x="78" y="220" width="220" height="228"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="228" id="h6j-qf-Vxj"/>
+                        <constraint firstAttribute="width" constant="220" id="zZ8-1W-zuT"/>
+                    </constraints>
+                    <connections>
+                        <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="OU3-Iu-Mcd"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="JXu-Ds-6dg" firstAttribute="trailing" secondItem="Av2-vY-kDf" secondAttribute="trailing" id="0HI-x2-WKA"/>
+                <constraint firstItem="MT5-dn-rZB" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="8JN-Ph-F5D"/>
                 <constraint firstItem="Av2-vY-kDf" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Hl9-VX-MHW"/>
+                <constraint firstItem="MT5-dn-rZB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Mc6-cL-SyN"/>
                 <constraint firstItem="JXu-Ds-6dg" firstAttribute="top" secondItem="Av2-vY-kDf" secondAttribute="top" id="PD0-qs-TEe"/>
                 <constraint firstItem="Av2-vY-kDf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="luq-BS-7Vl"/>
             </constraints>

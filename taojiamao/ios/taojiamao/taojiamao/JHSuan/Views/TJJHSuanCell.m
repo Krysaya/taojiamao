@@ -29,9 +29,12 @@
 
 - (void)setModel:(TJJHSGoodsListModel *)model{
     
-//    if (model.shop) {
-//        <#statements#>
-//    }
+    if ([model.shoptype isEqualToString:@"B"]) {
+        [self.tb_img setImage: [UIImage imageNamed:@"tb_bs"]];
+    }else{
+        [self.tb_img setImage: [UIImage imageNamed:@"tm_bs"]];
+        
+    }
     self.title_lab.text = model.itemtitle;
     self.yimai_lab.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
     NSString *str = [NSString stringWithFormat:@"券后：¥%@",model.itemendprice];
@@ -45,6 +48,6 @@
     self.quanhou_lab.attributedText = attrStr;
     [self.btn_quan setTitle:[NSString stringWithFormat:@"%@元券",model.couponmoney] forState:UIControlStateNormal];
 
-    [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"good_bg.jpg"]];
 }
 @end

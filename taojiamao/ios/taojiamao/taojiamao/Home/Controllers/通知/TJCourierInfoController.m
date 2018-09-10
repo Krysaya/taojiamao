@@ -10,6 +10,7 @@
 #import "TJCourierInfoController.h"
 #import "TJNoticeCell.h"
 #import "TJNoticeListModel.h"
+#import "TJNoticeInfoController.h"
 @interface TJCourierInfoController ()
 @property(nonatomic,strong)NSMutableArray *dataArr;
 
@@ -112,7 +113,13 @@
     return cell;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TJNoticeListModel *m = self.dataArr[indexPath.row];
+    TJNoticeInfoController *vc = [[TJNoticeInfoController alloc]init];
+    vc.infoId = m.id;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

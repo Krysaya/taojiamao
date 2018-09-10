@@ -11,8 +11,9 @@
 #import "TJFiltrateView.h"
 #import "TJHomeFootShowModel.h"
 #import "TJHomeFootShowCell.h"
-#import "TJGoodsDetailsController.h"
+#import "TJDefaultGoodsDetailController.h"
 
+#import "TJJHSGoodsListModel.h"
 static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerCell";
 
 @interface TJMiddleClickController ()<TJSearchViewDelegate,TJFiltrateViewDelegate,UITableViewDelegate,UITableViewDataSource,TJHomeFootShowCellDeletage,TJButtonDelegate>
@@ -30,15 +31,12 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 @property(nonatomic,strong)TJLabel * numberLabel;
 @property(nonatomic,strong)TJButton * shareButton;
 
+@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSString *searchStr;
 @end
 
 @implementation TJMiddleClickController
 
--(void)requestData{
-    //使用的是首页接口 test
-   
-    
-}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -51,10 +49,45 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"热推TOP";
-    [self requestData];
     [self setSearchFiltrateView];
     [self setUIBottomShare];
     [self setUItableView];
+}
+
+- (void)requestSearchGoodsTopWithOrderType:(NSString *)type withKeyString:(NSString *)keyStr{
+    self.dataArr = [NSMutableArray array];    [SVProgressHUD show];
+
+     NSString *str = [keyStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *param = @{
+                            @"keyword":keyStr,
+                            @"order":type,
+                            @"is_top":@"1",
+                            };
+    NSDictionary *mdParam = @{@"keyword":str,
+                              @"order":type,
+                              @"is_top":@"1",
+                              };
+    [KConnectWorking requestNormalDataMD5Param:mdParam withNormlParams:param withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
+
+        NSDictionary *dict = responseObject[@"data"];
+        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+//            [self.collectionView reloadData];
+        });
+        
+        if (self.dataArr.count>0) {
+            
+        }else{
+//            self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+        }
+        
+    } withFailure:^(NSError * _Nullable error) {
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showInfoWithStatus:@"加载失败，请重试~"];
+    }];
 }
 -(void)setUItableView{
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,self.filtrate.yj_y+self.filtrate.yj_height+5, S_W, S_H-self.filtrate.yj_y-self.filtrate.yj_height-5-self.bottomShare.yj_height) style:UITableViewStylePlain];
@@ -115,11 +148,11 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
     [self.shareCells removeAllObjects];
     NSMutableArray * temp = [NSMutableArray array];
     for(int i=0;i<9;i++){
-        int rand = arc4random_uniform((int)self.footData.count);
+        int rand = arc4random_uniform((int)self.dataArr.count);
         for (int j=0; j<temp.count; j++) {
             NSNumber * number = temp[j];
             while ([number intValue] == rand) {
-                rand = arc4random_uniform((int)self.footData.count);
+                rand = arc4random_uniform((int)self.dataArr.count);
                 j=-1;
             }
         }
@@ -144,7 +177,7 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
     self.search.delegate  = self;
     [self.view addSubview:self.search];
     
-    self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+self.search.mj_h, S_W, 45) withMargin:33];
+    self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+self.search.mj_h, S_W, 45) withMargin:25];
     self.filtrate.backgroundColor = [UIColor whiteColor];
     self.filtrate.deletage =self;
     [self.view addSubview:self.filtrate];
@@ -152,11 +185,11 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.footData.count;
+    return self.dataArr.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TJHomeFootShowCell * cell = [tableView dequeueReusableCellWithIdentifier:TJMiddleClickControllerCell forIndexPath:indexPath];
-    cell.model = self.footData[indexPath.row];
+    cell.model = self.dataArr[indexPath.row];
     cell.showShare = YES;
     cell.deletage =self;
     NSNumber * index = [NSNumber numberWithInteger:indexPath.row];
@@ -168,11 +201,12 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150*H_Scale;
+    return 160;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    TJGoodsDetailsController * gdvc = [[TJGoodsDetailsController alloc]init];
-    gdvc.model = self.footData[indexPath.row];
+    TJJHSGoodsListModel *m = self.dataArr[indexPath.row];
+    TJDefaultGoodsDetailController * gdvc = [[TJDefaultGoodsDetailController alloc]init];
+    gdvc.gid = m.itemid;
     [self.navigationController pushViewController:gdvc animated:YES];
 }
 #pragma mark - TJHomeFootShowCellDeletage
@@ -191,13 +225,37 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 }
 #pragma mark - TJSearchViewDelegate,TJFiltrateViewDelegate
 -(void)SearchButtonClick:(NSString *)text{
-    DSLog(@"%@",text);
+    DSLog(@"点了搜索%@",text);
+    self.searchStr = text;
+    [self requestSearchGoodsTopWithOrderType:@"0" withKeyString:self.searchStr];
+
 }
 -(void)popupFiltrateView{
     DSLog(@"呼出筛选框");
 }
 -(void)requestWithKind:(NSString *)kind{
     DSLog(@"%@",kind);
+    if ([kind isEqualToString:@"综合"]) {
+        DSLog(@"%@",kind);
+        [self requestSearchGoodsTopWithOrderType:@"0" withKeyString:self.searchStr];
+        
+    }else if ([kind isEqualToString:@"销量"]){
+        DSLog(@"%@",kind);
+        [self requestSearchGoodsTopWithOrderType:@"6" withKeyString:self.searchStr];
+    }else if ([kind isEqualToString:@"价格"]){
+        DSLog(@"%@",kind);
+        [self requestSearchGoodsTopWithOrderType:@"2" withKeyString:self.searchStr];
+
+        
+    }else if ([kind isEqualToString:@"优惠券"]){
+        DSLog(@"%@",kind);
+        [self requestSearchGoodsTopWithOrderType:@"4" withKeyString:self.searchStr];
+
+    }else{
+        DSLog(@"%@",kind);
+        
+    }
+    
 }
 
 -(NSMutableArray *)footData{

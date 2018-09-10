@@ -151,7 +151,7 @@
 //        iview.frame = CGRectMake(0, 0, S_W, S_H);
 //        [[UIApplication sharedApplication].keyWindow addSubview:iview];
         TJInvitePrizeController *vc= [[TJInvitePrizeController alloc]init];
-        [weakSelf.navigationController pushViewController:vc animated:YES];
+        [weakSelf presentViewController:vc animated:NO completion:nil];
     }
     
 }

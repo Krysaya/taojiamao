@@ -32,10 +32,11 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @implementation TJSearchContentController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self requestSearchGoodsListWithOrderType:@"0"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self requestSearchGoodsListWithOrderType:@"0"];
+
     self.filtrateView = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:22];
     self.filtrateView.backgroundColor = [UIColor whiteColor];
     self.filtrateView.deletage = self;
@@ -174,11 +175,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     BOOL hs = [num boolValue];
     self.tableView.hidden = !hs;
     self.collectionView.hidden = hs;
-//    if (!hs) {
-//        [self.tableView reloadData];
-//    }else{
-//        [self.collectionView reloadData];
-//    }
+
 }
 
 -(void)dealloc{
@@ -193,12 +190,11 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 
 -(void)popupFiltrateView{
     DSLog(@"呼出筛选框");
-    TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:self.view.bounds];
-    
+    TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:S_F];
+//    mcv.backgroundColor = RGBA(1, 1, 1, 0.2);
     mcv.deletage = self;
-    UIWindow * window = [UIApplication sharedApplication].delegate.window;
-    
-    [window addSubview:mcv];
+//    UIWindow * window = [UIApplication sharedApplication].delegate.window;
+    [[UIApplication sharedApplication].keyWindow addSubview:mcv];
 }
 -(void)requestWithKind:(NSString *)kind{
     if ([kind isEqualToString:@"综合"]) {
@@ -224,54 +220,57 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 }
 
 - (void)buttonSureSelectString:(NSMutableDictionary *)sureDict{
-    self.dataChooseArr = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSString *shoptype = sureDict[@"type"];
-    NSString *type = [shoptype stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if (![TJOverallJudge judgeBlankString:shoptype]) {
-        DSLog(@"ksd--%@",shoptype);
-    }
-    
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"keyword":str,
-                                @"shoptype":type,
-                                @"cid":@"1",
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SearchGoodsList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"keyword":self.strsearch, @"shoptype":shoptype,
-                               @"cid":@"1",};
-    } onSuccess:^(id  _Nullable responseObject) {
-        NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.dataArr = self.dataArr;
-            [self.collectionView reloadData];
-        });
+    if (sureDict.count>0) {
+        DSLog(@"筛选--？？？？")
+        self.dataChooseArr = [NSMutableArray array];
+        NSString *userid = GetUserDefaults(UID);
         
-    } onFailure:^(NSError * _Nullable error) {
-    }];
+        if (userid) {
+        }else{
+            userid = @"";
+        }
+        KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+        NSString *timeStr = [MD5 timeStr];
+        NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSString *shoptype = sureDict[@"type"];
+        NSMutableDictionary *md = @{
+                                    @"timestamp": timeStr,
+                                    @"app": @"ios",
+                                    @"uid":userid,
+                                    @"keyword":str,
+                                    @"shoptype":shoptype,
+//                                    @"cid":@"1",
+                                    }.mutableCopy;
+        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+        
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = SearchGoodsList;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = kXMHTTPMethodPOST;
+            request.parameters = @{@"keyword":self.strsearch, @"shoptype":shoptype,
+//                                   @"cid":@"1",
+                                   
+                                   };
+        } onSuccess:^(id  _Nullable responseObject) {
+            DSLog(@"---SXX---%@",responseObject);
+            NSDictionary *dict = responseObject[@"data"];
+            if (dict.count>0) {
+                self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.collectionView reloadData];
+                });
+            }
+           
+            
+        } onFailure:^(NSError * _Nullable error) {
+        }];
+    }
+   
 }
 
 

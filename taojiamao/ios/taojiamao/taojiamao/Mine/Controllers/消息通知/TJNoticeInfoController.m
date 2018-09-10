@@ -31,11 +31,18 @@
 
 - (void)requestData{
     
-    [KConnectWorking requestNormalDataParam:nil withRequestURL:[NSString stringWithFormat:@"%@/%@",MessageNotice,self.infoId] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+    
+    [KConnectWorking requestNormalDataParam:@{@"id":self.infoId} withRequestURL:[NSString stringWithFormat:@"%@/%@",MessageNotice,self.infoId] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         DSLog(@"--%@--info",responseObject);
         TJNoticeInfoModel *m = [TJNoticeInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
         self.model = m;
         self.lab_titel.text = m.message;
+        NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[m.addtime doubleValue]];
+        NSDateFormatter *formatter = [NSDateFormatter new];
+        [formatter setDateFormat:@"MM-dd HH:mm"];
+        NSString *timeS = [formatter stringFromDate:myDate];
+        self.lab_time.text = timeS;
+        
     } withFailure:^(NSError * _Nullable error) {
         
     }];

@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property(nonatomic,strong)TJFiltrateView *filtrate;
 @property (nonatomic, assign) NSInteger page;
-
+@property (nonatomic, strong) NSString *type;
 @end
 
 @implementation TJClassicSecondController
@@ -33,7 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.page = 1;
-    [self loadRequestClassicGoodsList:@"0"];
+    self.type = @"0";
+    
 
     self.view.backgroundColor = RGB(245, 245, 245);
     self.title = self.title_class;
@@ -46,7 +47,7 @@
     [self setUICollectionView];
     self.tableView.hidden = YES;
     self.tableView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        
+        [self loadRequestNormalClassicGoodsList:self.type];
     }];
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransformClass:) name:TJHorizontalVerticalTransformClass object:nil];
@@ -96,7 +97,6 @@
 }
 
 - (void)loadRequestClassicGoodsList:(NSString *)type{
-    self.dataArr = [NSMutableArray array];
     NSString *str = [self.title_class stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *mdparam = @{ @"keyword":str,
                                @"order":type,};
@@ -104,19 +104,13 @@
                              @"order":type,};
     [KConnectWorking requestNormalDataMD5Param:mdparam withNormlParams:param withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        DSLog(@"-%lu--arr==",(unsigned long)self.dataArr.count);
+        NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        [self.dataArr addObjectsFromArray:arr];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [self.collectionView reloadData];
         });
         
-        if (self.dataArr.count>0) {
-            
-        }else{
-            self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
-            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
-        }
     } withFailure:^(NSError * _Nullable error) {
 //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
 //        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
@@ -212,18 +206,22 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 -(void)requestWithKind:(NSString *)kind{
     if ([kind isEqualToString:@"综合"]) {
         DSLog(@"%@",kind);
+        self.type = @"0";
         [self loadRequestClassicGoodsList:@"0"];
         
     }else if ([kind isEqualToString:@"销量"]){
-        DSLog(@"%@",kind);
+        DSLog(@"%@",kind);        self.type = @"6";
+
         [self loadRequestClassicGoodsList:@"6"];
     }else if ([kind isEqualToString:@"价格"]){
-        DSLog(@"%@",kind);
+        DSLog(@"%@",kind);        self.type = @"2";
+
         [self loadRequestClassicGoodsList:@"2"];//高--低
         
         
     }else if ([kind isEqualToString:@"优惠券"]){
-        DSLog(@"%@",kind);
+        DSLog(@"%@",kind);        self.type = @"4";
+
         [self loadRequestClassicGoodsList:@"4"];
         
     }else{

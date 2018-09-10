@@ -12,13 +12,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TJInvitePrizeController">
             <connections>
                 <outlet property="big_scroll" destination="Y0l-Yd-Xlg" id="TaT-cC-02w"/>
+                <outlet property="btn_five" destination="ekV-Iu-7Rg" id="diH-li-LmB"/>
+                <outlet property="btn_four" destination="b2a-2e-aTj" id="4oy-2Q-woy"/>
                 <outlet property="btn_one" destination="SPD-PT-cta" id="x4E-X4-hOm"/>
                 <outlet property="btn_share" destination="qu2-f6-w64" id="M4N-lf-9vg"/>
+                <outlet property="btn_three" destination="Del-6i-pDI" id="CrN-fR-YGq"/>
+                <outlet property="btn_two" destination="gwW-HM-k4U" id="Amx-9F-XsR"/>
                 <outlet property="collectHeight" destination="W3p-iy-lh3" id="gLA-Wy-fkH"/>
                 <outlet property="collectionV" destination="6RS-pv-gmU" id="N6m-kk-lRs"/>
                 <outlet property="lab_hour" destination="HS4-cD-xFl" id="HIJ-lM-vwd"/>
                 <outlet property="lab_min" destination="feg-9E-ycw" id="TJt-vM-2w4"/>
                 <outlet property="lab_mss" destination="jsg-y9-lnP" id="4zT-LT-j1O"/>
+                <outlet property="lab_one" destination="T71-q3-tlQ" id="6z6-Jy-0SG"/>
                 <outlet property="lab_prize" destination="eTx-3X-BPg" id="rF4-bh-3Po"/>
                 <outlet property="lab_ss" destination="TBB-SS-MZR" id="8Eb-YP-S5x"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -56,7 +61,13 @@
                                         <constraint firstAttribute="width" constant="34" id="6sb-jT-l0N"/>
                                         <constraint firstAttribute="height" constant="34" id="wgU-Di-d9O"/>
                                     </constraints>
-                                    <state key="normal" title="Button" image="1"/>
+                                    <state key="normal" title="Button" image="yq_add_bg"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="17"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvW-Jd-FnR">
                                     <rect key="frame" x="110" y="13" width="34" height="34"/>
@@ -73,6 +84,12 @@
                                         <constraint firstAttribute="width" constant="34" id="NSX-DO-yDK"/>
                                     </constraints>
                                     <state key="normal" title="Button" image="yq_add_bg"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="17"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Del-6i-pDI">
                                     <rect key="frame" x="202" y="13" width="34" height="34"/>
@@ -81,6 +98,12 @@
                                         <constraint firstAttribute="width" constant="34" id="x0d-fX-nQU"/>
                                     </constraints>
                                     <state key="normal" title="Button" image="yq_add_bg"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="17"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2a-2e-aTj">
                                     <rect key="frame" x="248" y="13" width="34" height="34"/>
@@ -89,6 +112,12 @@
                                         <constraint firstAttribute="width" constant="34" id="ylm-YH-Mr3"/>
                                     </constraints>
                                     <state key="normal" title="Button" image="yq_add_bg"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="17"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4qJ-EU-89C">
                                     <rect key="frame" x="52" y="25" width="1" height="25"/>
@@ -105,6 +134,12 @@
                                         <constraint firstAttribute="width" constant="34" id="M7E-6E-LlA"/>
                                     </constraints>
                                     <state key="normal" title="Button" image="yq_add_bg"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="17"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T71-q3-tlQ">
                                     <rect key="frame" x="61" y="53" width="34" height="14"/>
@@ -229,7 +264,7 @@
                                         <action selector="buttonClick:" destination="-1" eventType="touchUpInside" id="YoS-SR-BwZ"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HS4-cD-xFl">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HS4-cD-xFl">
                                     <rect key="frame" x="20" y="86" width="25" height="25"/>
                                     <color key="backgroundColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
@@ -433,8 +468,7 @@
         </view>
     </objects>
     <resources>
-        <image name="1" width="80" height="80"/>
-        <image name="gz_bg" width="74" height="76"/>
+        <image name="gz_bg" width="37" height="38"/>
         <image name="hwtj" width="375" height="48"/>
         <image name="yq_add_bg" width="38" height="38"/>
         <image name="yq_bg" width="375" height="309"/>

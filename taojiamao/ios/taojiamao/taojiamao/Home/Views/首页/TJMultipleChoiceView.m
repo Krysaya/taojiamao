@@ -78,7 +78,7 @@
     self.reset = [[TJButton alloc]initWith:@"重置" delegate:self font:15 titleColor:RGB(51, 51, 51) backColor:[UIColor whiteColor] tag:ResetButton cornerRadius:0.0 borderColor:RGB(51, 51, 51) borderWidth:0.5 withBackImage:nil withSelectImage:nil];
     [self.tableback addSubview:self.reset];
     [self.reset mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.tableback);
+        make.left.mas_equalTo(weakSelf.tableView);
         make.width.mas_equalTo(TableViewW*0.5);
         make.bottom.mas_equalTo(weakSelf.tableback).offset(-SafeAreaBottomHeight);
         make.height.mas_equalTo(TwoButtonsH);
@@ -107,7 +107,7 @@
        
     }else if (but.tag==ResetButton){
         self.record.selected = NO;
-        [self.record setBackgroundColor:RGB(111, 111, 111)];
+        [self.record setBackgroundColor:RGB(244, 244, 244)];
         self.record = nil;
         self.recordStr= @"";
         
@@ -120,14 +120,30 @@
         self.MAX.text = @"";
         
     }else if (but.tag==SureButton){
+
         NSMutableDictionary *dict = @{}.mutableCopy;
-        dict[@"min"] = self.MIN.text;
-        dict[@"max"] = self.MAX.text;
-        dict[@"type"] = self.TBTMStr;
-        dict[@"class"] = self.recordStr;
+        if (![TJOverallJudge judgeBlankString:self.MIN.text]) {
+             dict[@"min"] = self.MIN.text;
+        }
+        if (![TJOverallJudge judgeBlankString:self.MAX.text]) {
+            dict[@"max"] = self.MAX.text;
+        }
+        if (![TJOverallJudge judgeBlankString:self.TBTMStr]) {
+            if ([self.TBTMStr isEqualToString:@"天猫"]) {
+                 dict[@"type"] = @"C";
+            }else{
+                 dict[@"type"] = @"B";
+            }
+        }
+        if (![TJOverallJudge judgeBlankString:self.recordStr]) {
+            dict[@"class"] = self.recordStr;
+        }
 //        if (self.deletage) {
             [self.deletage buttonSureSelectString:dict];
 //        }
+        
+        [self removeFromSuperview];
+
         DSLog(@"%@----%@---%@----%@",self.MIN.text,self.MAX.text,self.TBTMStr,self.recordStr);
     }else{
         if (!(but==self.record)) {
@@ -275,7 +291,7 @@
 
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
-        _dataArray = [NSMutableArray arrayWithObjects: @"女装",@"男装",@"内衣",@"母婴",@"化妆品",@"居家",@"鞋包配饰",@"美食",@"文体车品",@"数码家电",nil];
+        _dataArray = [NSMutableArray arrayWithObjects: @"女装",@"男装",@"内衣",@"美妆",@"配饰",@"鞋品",@"箱包",@"儿童",@"母婴",@"数码",@"家电",@"车品",@"文体",@"宠物",nil];
     }
     return _dataArray;
 }

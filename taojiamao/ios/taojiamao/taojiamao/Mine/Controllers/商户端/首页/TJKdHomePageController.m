@@ -61,7 +61,8 @@
     
     TJButton *btn = [[TJButton alloc]initDelegate:self backColor:nil tag:NoticeTag withBackImage:@"kd_notice" withSelectImage:nil];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    TJButton *btn_left = [[TJButton alloc]initDelegate:self backColor:nil tag:BackTag withBackImage:@"back_left" withSelectImage:nil];
+    TJButton *btn_left = [[TJButton alloc]initWith:@"返回" delegate:self font:16 titleColor:RGB(51, 51, 51) tag:BackTag withBackImage:@"back_left" withEdgeType:@"right"];
+//    [[TJButton alloc]initDelegate:self backColor:nil tag:BackTag withBackImage:@"back_left" withSelectImage:nil];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn_left];
 }
 

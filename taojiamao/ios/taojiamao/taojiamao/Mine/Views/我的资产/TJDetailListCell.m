@@ -40,11 +40,11 @@
         self.lab_type.text = @"签到";
     }
     
-    if ([model.operate intValue]==1) {
-        self.lab_num.text = [NSString stringWithFormat:@"+ %@",model.point];
-    }else{
-        self.lab_num.text = [NSString stringWithFormat:@"- %@",model.point];
+//    if ([model.operate intValue]==1) {
+        self.lab_num.text = [NSString stringWithFormat:@"%@",model.point];
+//    }else{
+//        self.lab_num.text = [NSString stringWithFormat:@"%@",model.point];
 
-    }
+//    }
 }
 @end
