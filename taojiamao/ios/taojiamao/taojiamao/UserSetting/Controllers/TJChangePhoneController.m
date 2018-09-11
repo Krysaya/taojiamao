@@ -45,6 +45,7 @@
             break;
         case 1:
             self.title = @"设置提现账户";
+           
             break;
         default:
             self.title = @"修改密码";
@@ -56,13 +57,13 @@
     CGFloat headViewH;
     switch (self.vcID) {
         case 0:
-            headViewH =158*H_Scale;
+            headViewH =158;
             break;
         case 1:
-            headViewH =104*H_Scale;
+            headViewH =104;
             break;
         default:
-            headViewH = 207*H_Scale;
+            headViewH = 207;
             break;
     }
     self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+10, S_W,headViewH)];
@@ -73,8 +74,8 @@
     self.phoneLabel = [self setLabelWith:@"" font:15*W_Scale color:RGB(51, 51, 51)];
     [self.headView addSubview:self.phoneLabel];
     [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(17*H_Scale);
-        make.left.mas_equalTo(20*W_Scale);
+        make.top.mas_equalTo(17);
+        make.left.mas_equalTo(20);
     }];
     self.phoneLabel.text = self.vcID==1?@"支付宝账号":@"手机号码";
     
@@ -89,58 +90,58 @@
     }else{
         self.phoneField.placeholder = @"请输入要设置的手机号";
     }
-    self.phoneField.font = [UIFont systemFontOfSize:15*W_Scale];
+    self.phoneField.font = [UIFont systemFontOfSize:15];
     [self.headView addSubview:self.phoneField];
     [self.phoneField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.phoneLabel);
-        make.right.mas_equalTo(-20*W_Scale);
-        make.width.mas_equalTo(243*W_Scale);
-        make.height.mas_equalTo(25*H_Scale);
+        make.right.mas_equalTo(-20);
+        make.width.mas_equalTo(243);
+        make.height.mas_equalTo(25);
     }];
     
     self.phoneLine = [[UIView alloc]init];
     self.phoneLine.backgroundColor = RGB(251, 251, 251);
     [self.headView addSubview:self.phoneLine];
     [self.phoneLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.phoneLabel.mas_bottom).offset(17*H_Scale);
+        make.top.mas_equalTo(weakSelf.phoneLabel.mas_bottom).offset(17);
         make.centerX.mas_equalTo(weakSelf.headView);
-        make.width.mas_equalTo(335*W_Scale);
+        make.width.mas_equalTo(S_W-40);
         make.height.mas_equalTo(2);
     }];
     
     //--------------
-    self.verifyLabel = [self setLabelWith:@"" font:15*W_Scale color:RGB(51, 51, 51)];
+    self.verifyLabel = [self setLabelWith:@"" font:15 color:RGB(51, 51, 51)];
     [self.headView addSubview:self.verifyLabel];
     [self.verifyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.phoneLine.mas_bottom).offset(17*H_Scale);
-        make.left.mas_equalTo(20*W_Scale);
+        make.top.mas_equalTo(weakSelf.phoneLine.mas_bottom).offset(17);
+        make.left.mas_equalTo(20);
     }];
     self.verifyLabel.text = self.vcID==1?@"支付宝实名":@"验证码";
     
     self.verifyField = [[UITextField alloc]init];
 //    self.verifyField.backgroundColor = [UIColor grayColor];
     self.verifyField.placeholder = self.vcID==1?@"请填写支付宝账号实名":@"请输入验证码";
-    self.verifyField.font = [UIFont systemFontOfSize:15*W_Scale];
+    self.verifyField.font = [UIFont systemFontOfSize:15];
     [self.headView addSubview:self.verifyField];
     [self.verifyField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.verifyLabel);
-        make.right.mas_equalTo(-20*W_Scale);
-        make.width.mas_equalTo(243*W_Scale);
-        make.height.mas_equalTo(25*H_Scale);
+        make.right.mas_equalTo(-20);
+        make.width.mas_equalTo(243);
+        make.height.mas_equalTo(25);
     }];
     
     self.verifyLine = [[UIView alloc]init];
-    self.verifyLine.backgroundColor = RGB(251, 251, 251);
+    self.verifyLine.backgroundColor = RGB(251, 251, 215251);
     self.verifyLine.hidden = self.vcID==1?YES:NO;
     [self.headView addSubview:self.verifyLine];
     [self.verifyLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.verifyLabel.mas_bottom).offset(17*H_Scale);
+        make.top.mas_equalTo(weakSelf.verifyLabel.mas_bottom).offset(17);
         make.centerX.mas_equalTo(weakSelf.headView);
-        make.width.mas_equalTo(335*W_Scale);
+        make.width.mas_equalTo(S_W-40);
         make.height.mas_equalTo(1);
     }];
     
-    self.getVerify = [[TJButton alloc]initWith:@"获取验证码" delegate:self font:14*W_Scale titleColor:[UIColor redColor] backColor:[UIColor whiteColor] tag:CPGetVerify];
+    self.getVerify = [[TJButton alloc]initWith:@"获取验证码" delegate:self font:14 titleColor:[UIColor redColor] backColor:[UIColor whiteColor] tag:CPGetVerify];
     self.getVerify.hidden = self.vcID==1?YES:NO;
     [self.headView addSubview:self.getVerify];
     [self.getVerify mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,24 +151,24 @@
     
     //-----
     if (!(self.vcID==1)) {
-        self.passLabel = [self setLabelWith:@"" font:15*W_Scale color:RGB(51, 51, 51)];
+        self.passLabel = [self setLabelWith:@"" font:15 color:RGB(51, 51, 51)];
         self.passLabel.text = self.vcID==2?@"新密码":@"登录密码";
         [self.headView addSubview:self.passLabel];
         [self.passLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(weakSelf.verifyLine.mas_bottom).offset(17*H_Scale);
-            make.left.mas_equalTo(20*W_Scale);
+            make.top.mas_equalTo(weakSelf.verifyLine.mas_bottom).offset(17);
+            make.left.mas_equalTo(20);
         }];
         
         self.passField = [[UITextField alloc]init];
 //        self.passField.backgroundColor = KBGRGB;
         self.passField.placeholder = self.vcID==2?@"请输入新密码":@"登录密码(6-16位字符)";
-        self.passField.font = [UIFont systemFontOfSize:15*W_Scale];
+        self.passField.font = [UIFont systemFontOfSize:15];
         [self.headView addSubview:self.passField];
         [self.passField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(weakSelf.passLabel);
-            make.right.mas_equalTo(-20*W_Scale);
-            make.width.mas_equalTo(243*W_Scale);
-            make.height.mas_equalTo(25*H_Scale);
+            make.right.mas_equalTo(-20);
+            make.width.mas_equalTo(243);
+            make.height.mas_equalTo(25);
         }];
         
         
@@ -178,37 +179,37 @@
             [self.passLine mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(weakSelf.passLabel.mas_bottom).offset(17);
                 make.centerX.mas_equalTo(weakSelf.headView);
-                make.width.mas_equalTo(335*W_Scale);
+                make.width.mas_equalTo(S_W-40);
                 make.height.mas_equalTo(1);
             }];
             
             self.sureLabel = [self setLabelWith:@"确认密码" font:15*W_Scale color:RGB(51, 51, 51)];
             [self.headView addSubview:self.sureLabel];
             [self.sureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(weakSelf.passLine.mas_bottom).offset(17*H_Scale);
-                make.left.mas_equalTo(20*W_Scale);
+                make.top.mas_equalTo(weakSelf.passLine.mas_bottom).offset(17);
+                make.left.mas_equalTo(20);
             }];
             
             self.sureField = [[UITextField alloc]init];
             self.sureField.placeholder = @"确认新密码";
-            self.sureField.font = [UIFont systemFontOfSize:15*W_Scale];
+            self.sureField.font = [UIFont systemFontOfSize:15];
             [self.headView addSubview:self.sureField];
             [self.sureField mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.mas_equalTo(weakSelf.sureLabel);
-                make.right.mas_equalTo(-20*W_Scale);
-                make.width.mas_equalTo(243*W_Scale);
-                make.height.mas_equalTo(25*H_Scale);
+                make.right.mas_equalTo(-20);
+                make.width.mas_equalTo(243);
+                make.height.mas_equalTo(25);
             }];
         }
     }
     
-    self.sure = [[TJButton alloc]initWith:@"确定" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:CPSure cornerRadius:20.0];
+    self.sure = [[TJButton alloc]initWith:@"确定" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:CPSure cornerRadius:20.0];
     [self.view addSubview:self.sure];
     [self.sure mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.headView.mas_bottom).offset(40*W_Scale);
+        make.top.mas_equalTo(weakSelf.headView.mas_bottom).offset(40);
         make.centerX.mas_equalTo(weakSelf.view);
-        make.width.mas_equalTo(335*W_Scale);
-        make.height.mas_equalTo(40*H_Scale);
+        make.width.mas_equalTo(S_W-40);
+        make.height.mas_equalTo(40);
     }];
 }
 -(UILabel*)setLabelWith:(NSString*)text font:(CGFloat)font color:(UIColor*)c{
@@ -285,32 +286,43 @@
                                    @"ali_account":self.phoneField.text,
                                    @"ali_true_name":self.verifyField.text,
                                    };
-            
-            NSMutableDictionary *mdstr = @{
-                                       @"timestamp": timeStr,
-                                       @"app": @"ios",
-                                       @"ali_account":self.phoneField.text,
-                                       @"ali_true_name":self.verifyField.text,
-                                           }.mutableCopy;
-            
-            NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
-            
-            [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-                request.url = SetAliAccount;
-                request.httpMethod = kXMHTTPMethodPOST;
-                request.parameters = dict;
-                request.headers = @{ @"timestamp": timeStr,
-                                     @"app": @"ios",
-                                     @"sign":md5Str,
-                                     };
-            } onSuccess:^(id  _Nullable responseObject) {
+            NSDictionary * mparam =@{
+                                   @"ali_account":[self.phoneField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                   @"ali_true_name":[self.verifyField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                   };
+            [KConnectWorking requestNormalDataMD5Param:mparam withNormlParams:dict withRequestURL:SetAliAccount withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
                 DSLog(@"设置成功===%@",responseObject);
                 [SVProgressHUD showSuccessWithStatus:@"设置成功！"];
                 [self.navigationController popViewControllerAnimated:YES];
-                
-            } onFailure:^(NSError * _Nullable error) {
-                
+
+            } withFailure:^(NSError * _Nullable error) {
+                NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
+                DSLog(@"--bind-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+                [SVProgressHUD showSuccessWithStatus:dic_err[@"msg"]];
             }];
+//            NSMutableDictionary *mdstr = @{
+//                                       @"timestamp": timeStr,
+//                                       @"app": @"ios",
+//                                       @"ali_account":self.phoneField.text,
+//                                       @"ali_true_name":self.verifyField.text,
+//                                           }.mutableCopy;
+//
+//            NSString *md5Str = [MD5 sortingAndMD5SignWithParam:mdstr withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
+//
+//            [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+//                request.url = SetAliAccount;
+//                request.httpMethod = kXMHTTPMethodPOST;
+//                request.parameters = dict;
+//                request.headers = @{ @"timestamp": timeStr,
+//                                     @"app": @"ios",
+//                                     @"sign":md5Str,
+//                                     };
+//            } onSuccess:^(id  _Nullable responseObject) {
+////
+//            } onFailure:^(NSError * _Nullable error) {
+//                
+//            }];
             
             
         }else{

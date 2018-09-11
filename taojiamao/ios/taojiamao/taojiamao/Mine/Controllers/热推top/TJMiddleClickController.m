@@ -49,11 +49,12 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"热推TOP";
-    [self requestSearchGoodsTopWithOrderType:@"0" withKeyString:@""];
 
     [self setSearchFiltrateView];
     [self setUIBottomShare];
     [self setUItableView];
+    [self requestSearchGoodsTopWithOrderType:@"0" withKeyString:@""];
+
 }
 
 - (void)requestSearchGoodsTopWithOrderType:(NSString *)type withKeyString:(NSString *)keyStr{
@@ -71,18 +72,16 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
                               };
     [KConnectWorking requestNormalDataMD5Param:mdParam withNormlParams:param withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [SVProgressHUD dismiss];
-
+        DSLog(@"=-=-=-=%@--top===",responseObject);
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-//            [self.collectionView reloadData];
         });
         
         if (self.dataArr.count>0) {
             
         }else{
-//            self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
             self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
         

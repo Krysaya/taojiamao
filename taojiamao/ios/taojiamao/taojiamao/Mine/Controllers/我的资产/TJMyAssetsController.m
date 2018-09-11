@@ -34,7 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的资产";
-    
+    NSString *str = [NSString stringWithFormat:@"%@",GetUserDefaults(Balance)];
+    CGFloat i = [str floatValue]/100;
+    NSString *money = [NSString stringWithFormat:@"%.2f",i];
+    self.lab_money.text = money;
     TJButton *right = [[TJButton alloc]initWith:@"明细" delegate:self font:15 titleColor:RGB(51, 51, 51) backColor:nil tag:1289];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:right];
 }
@@ -42,6 +45,7 @@
 - (IBAction)withdrawalClick:(UIButton *)sender {
 //    提现
     TJDrawMoneyController *vc = [[TJDrawMoneyController alloc]init];
+    vc.moneyNum = self.lab_money.text;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

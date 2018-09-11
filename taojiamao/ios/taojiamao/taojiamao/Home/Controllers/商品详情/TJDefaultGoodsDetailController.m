@@ -67,8 +67,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @implementation TJDefaultGoodsDetailController
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self setNaviBarAlpha:0];
+
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
     if (self.dataArr>0) {
     }else{
         [self requestGoodsInfo];
@@ -80,7 +81,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 {
     [super viewWillDisappear:animated];
     //视图将要消失时取消隐藏
-    self.navigationController.navigationBarHidden = NO;
+    [self setNaviBarAlpha:1];
 
 }
 

@@ -437,6 +437,10 @@
                     SetUserDefaults(data[@"id"], UID);
                     SetUserDefaults(data[@"bind_tao"], Bind_TB);
                     SetUserDefaults(data[@"bind_wx"], Bind_WX);
+                    SetUserDefaults(data[@"ali_true_name"], Ali_name);
+                    SetUserDefaults(data[@"ali_account"], Ali_account);
+                    SetUserDefaults(data[@"balance"], Balance);
+
                     SetUserDefaults(HADLOGIN, HADLOGIN);
                     NSLog(@"----账号密码login-success-%@===ID%@",responseObject,data[@"id"]);
                     //控制器跳转
@@ -494,6 +498,10 @@
                     SetUserDefaults(data[@"id"], UID);
                     SetUserDefaults(data[@"bind_tao"], Bind_TB);
                     SetUserDefaults(data[@"bind_wx"], Bind_WX);
+                    SetUserDefaults(data[@"ali_true_name"], Ali_name);
+                    SetUserDefaults(data[@"ali_account"], Ali_account);
+                    SetUserDefaults(data[@"balance"], Balance);
+
                     SetUserDefaults(HADLOGIN, HADLOGIN);
                     NSLog(@"----快速login-success-%@===ID%@",responseObject,data[@"id"]);
                     //控制器跳转
@@ -656,6 +664,8 @@
         NSDictionary * data = responseObject[@"data"];
         SetUserDefaults(data[@"id"],UID);
         SetUserDefaults(data[@"bind_wx"], Bind_WX);
+        SetUserDefaults(data[@"ali_true_name"], Ali_name);
+        SetUserDefaults(data[@"ali_account"], Ali_account);
         SetUserDefaults(HADLOGIN, HADLOGIN);
 //        控制器跳转
       
@@ -698,6 +708,8 @@
         //写入
         NSDictionary * data = responseObject[@"data"];
         SetUserDefaults(data[@"id"], UID); SetUserDefaults(data[@"bind_tao"], Bind_TB);
+        SetUserDefaults(data[@"ali_true_name"], Ali_name);
+        SetUserDefaults(data[@"ali_account"], Ali_account);
         SetUserDefaults(HADLOGIN, HADLOGIN);
         NSLog(@"----淘宝login-success-%@===",responseObject);
         //控制器跳转

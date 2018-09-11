@@ -70,7 +70,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     
     [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
         request.url = SearchGoodsList;
-        request.timeoutInterval = 20;
+//        request.timeoutInterval = 20;
         request.headers = @{@"timestamp": timeStr,
                             @"app": @"ios",
                             @"sign":md5Str,

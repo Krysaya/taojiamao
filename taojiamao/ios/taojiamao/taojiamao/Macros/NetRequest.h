@@ -18,6 +18,10 @@ static NSString * const UID = @"id";
 static NSString * const TOKEN = @"token";
 static NSString * const Bind_TB = @"bind_tb";
 static NSString * const Bind_WX = @"bind_wx";
+static NSString * const Ali_name = @"ali_true_name";
+static NSString * const Ali_account = @"ali_account";
+static NSString * const Balance = @"balance";
+
 static NSString * const TB_Pid = @"51786779_16868079_62182259";
 
 static NSString * const UserPhone = @"UserPhone";
@@ -121,6 +125,9 @@ static NSString * const UserPhone = @"UserPhone";
 #define EditPassWord             [BASEURL stringByAppendingString:@"/v1/members/epass"]
 //设置体现账户
 #define SetAliAccount            [BASEURL stringByAppendingString:@"/v1/members/aliAccount"]
+
+//提现
+#define    UserBalanceTiXian            [BASEURL stringByAppendingString:@"/v1/tixians/tixian"]
 
 //修改手机号
 #define EditTelePhoneNum         [BASEURL stringByAppendingString:@"/v1/members/etele"]

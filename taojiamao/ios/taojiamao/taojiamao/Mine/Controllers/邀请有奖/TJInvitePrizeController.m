@@ -37,11 +37,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn_one;
 @property (weak, nonatomic) IBOutlet UILabel *lab_one;
 @property (weak, nonatomic) IBOutlet UIButton *btn_two;
+@property (weak, nonatomic) IBOutlet UILabel *lab_two;
 @property (weak, nonatomic) IBOutlet UIButton *btn_three;
+@property (weak, nonatomic) IBOutlet UILabel *lab_three;
 @property (weak, nonatomic) IBOutlet UIButton *btn_four;
+@property (weak, nonatomic) IBOutlet UILabel *lab_four;
 @property (weak, nonatomic) IBOutlet UIButton *btn_five;
 
 
+@property (weak, nonatomic) IBOutlet UILabel *lab_five;
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *hongBaoArr;
@@ -64,11 +68,18 @@
     [self requestHongBaoListLog];
     self.title = @"邀请好友";
     [self.collectionV registerNib:[UINib nibWithNibName:@"TJInvitePrizeCell" bundle:nil] forCellWithReuseIdentifier:@"InvitePrizeCell"];
-    if ([self.type intValue]==1) {
-        DSLog(@"有导航");
+    self.lab_five.hidden = YES;self.lab_four.hidden= YES;
+    self.lab_three.hidden = YES;self.lab_two.hidden = YES;
+    DSLog(@"+++++++++-----diddidiididi----%f",_timeInterval);
+
+    if (_timeInterval!=0)
+    {
+      
     }else{
-        
+        //        [_countdownBackView removeFromSuperview];
+        [_timer invalidate];
     }
+    
 }
 
 - (void)requestHomePageGoodsJingXuan{
@@ -97,7 +108,9 @@
         TJInvitePrizeModel *model = [TJInvitePrizeModel mj_objectWithKeyValues:responseObject[@"data"]];
         self.model = model;
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.lab_prize.text = [NSString stringWithFormat:@"%.2f",[model.money floatValue]];
+            
+            NSString *money = [NSString stringWithFormat:@"%.2f",[model.money floatValue]/100];
+            self.lab_prize.text = money;
             NSInteger i  = [model.num intValue]+1;
             [self.btn_share setTitle:[NSString stringWithFormat:@"分享后拆第%ld份现金",i] forState:UIControlStateNormal];
         });
@@ -119,7 +132,8 @@
             }else{
                 if (i==0) {
                     TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
-                    self.lab_one.text = [NSString stringWithFormat:@"%.2f",[m.money floatValue]];
+                    NSString *one = [NSString stringWithFormat:@"%.2f",[m.money floatValue]/100];
+                    self.lab_one.text = one;
                     if ([m.image containsString:@"http"]) {
                          [weakSelf.btn_one sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
                     }else{
@@ -130,6 +144,10 @@
                 if (i==1) {
                     DSLog(@"---第二个");
                     TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    self.lab_two.hidden = NO;
+                    NSString *two = [NSString stringWithFormat:@"%.2f",[m.money floatValue]/100];
+                    self.lab_two.text = two;
+                    
                     if ([m.image containsString:@"http"]) {
                          [weakSelf.btn_two sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
                     }else{
@@ -140,6 +158,10 @@
                 if (i==2) {
                     DSLog(@"---第3个");
                     TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    self.lab_three.hidden = NO;
+
+                    NSString *one = [NSString stringWithFormat:@"%.2f",[m.money floatValue]/100];
+                    self.lab_three.text = one;
                     if ([m.image containsString:@"http"]) {
                          [weakSelf.btn_three sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
                     }else{
@@ -150,6 +172,10 @@
                 if (i==3) {
                     DSLog(@"---第4个");
                     TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    self.lab_four.hidden = NO;
+
+                    NSString *one = [NSString stringWithFormat:@"%.2f",[m.money floatValue]/100];
+                    self.lab_four.text = one;
                     if ([m.image containsString:@"http"]) {
                          [weakSelf.btn_four sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
                     }else{
@@ -160,6 +186,10 @@
                 if (i==4) {
                     DSLog(@"---第5个");
                     TJHongBaoLogModel *m = weakSelf.hongBaoArr[i];
+                    self.lab_five.hidden = NO;
+
+                    NSString *one = [NSString stringWithFormat:@"%.2f",[m.money floatValue]/100];
+                    self.lab_five.text = one;
                     if ([m.image containsString:@"http"]) {
                         [weakSelf.btn_five sd_setImageWithURL:[NSURL URLWithString:m.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
                     }else{
@@ -188,6 +218,7 @@
 //        dmvc.moneyNum = self.balance;
         [self.navigationController pushViewController:dmvc animated:YES];
     }else if (sender.tag==4782){
+        
 //        分享
         TJInvitationView *iview = [TJInvitationView invitationView];
         iview.backgroundColor = RGBA(1, 1, 1, 0.2);
@@ -197,6 +228,8 @@
 }
 #pragma mark - share
 - (void)shareButtonClick:(NSInteger)sender{
+    
+    [self countTime];
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKSetupShareParamsByText:@"大恩不言谢！大家帮我拆红包~"
                                      images:[UIImage imageNamed:@"morentouxiang"] //传入要分享的图片
@@ -352,7 +385,7 @@
         //时间间隔是100毫秒，也就是0.1秒
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
         
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:UITrackingRunLoopMode];
+        [[NSRunLoop mainRunLoop] addTimer:_timer forMode:UITrackingRunLoopMode];
     }else{
         //        [_countdownBackView removeFromSuperview];
         [_timer invalidate];
@@ -409,4 +442,11 @@
     }
     
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    DSLog(@"+++++++++---------%f",_timeInterval);
+}
+
 @end

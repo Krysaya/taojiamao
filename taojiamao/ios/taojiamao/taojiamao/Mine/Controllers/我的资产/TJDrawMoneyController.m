@@ -46,7 +46,20 @@
     [self setUIinputView];
     [self setExchangeButtons];
     
+    NSString *aliname = GetUserDefaults(Ali_name);
+    NSString *aliaccount = GetUserDefaults(Ali_account);
+
+    if (!aliname) {
+        self.name.text = @"";
+        [SVProgressHUD showInfoWithStatus:@"未绑定，先去绑定"];
+
+    }else{
+        self.name.text = aliname;
+        self.account.text = aliaccount;
+
+    }
     
+    self.explain.text = [NSString stringWithFormat:@"可提现金额%@(元)",self.moneyNum];
 }
 -(void)setExchangeButtons{
     WeakSelf
@@ -63,10 +76,10 @@
     self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:nil tag:123 cornerRadius:20];
     [self.view addSubview:self.exchangeButton];
     [self.exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.input.mas_bottom).offset(40*H_Scale);
+        make.top.mas_equalTo(weakSelf.input.mas_bottom).offset(40);
         make.centerX.mas_equalTo(weakSelf.view);
-        make.width.mas_equalTo(335*W_Scale);
-        make.height.mas_equalTo(40*H_Scale);
+        make.width.mas_equalTo(S_W-40);
+        make.height.mas_equalTo(40);
     }];
 }
 -(void)buttonClick:(UIButton *)but{
@@ -79,6 +92,12 @@
         DSLog(@"数额不正确");
     }else{
         DSLog(@"提现喽");
+        
+        [KConnectWorking requestNormalDataParam:@{@"type":@"1",@"balance":@"",} withRequestURL:UserBalanceTiXian withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            
+        } withFailure:^(NSError * _Nullable error) {
+            
+        }];
     }
 }
 -(void)setUIinputView{
@@ -96,24 +115,25 @@
     [self.inputView addSubview:self.explain];
     [self.explain mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(MarginLR);
-        make.top.mas_equalTo(15*H_Scale);
+        make.top.mas_equalTo(35);
+//        make.centerY.mas_equalTo();
     }];
     
     self.symbol = [TJLabel setLabelWith:@"￥" font:27 color:RGB(51, 51, 51)];
     [self.inputView addSubview:self.symbol];
     [self.symbol mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(MarginLR);
-        make.top.mas_equalTo(weakSelf.explain.mas_bottom).offset(15*H_Scale);
+        make.top.mas_equalTo(weakSelf.explain.mas_bottom).offset(15);
     }];
     
-    self.input = [TJTextField setTextFieldWith:@"每次提现金额不得少于30元" textFont:25 textColor:RGB(51, 51, 51) backColor:nil placeholderFont:13];
+    self.input = [TJTextField setTextFieldWith:@"每次提现金额不得少于30元" textFont:25 textColor:RGB(151, 151, 151) backColor:nil placeholderFont:13];
     self.input.keyboardType = UIKeyboardTypePhonePad;
     [self.inputView addSubview:self.input];
     [self.input mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.symbol.mas_right).offset(19*W_Scale);
+        make.left.mas_equalTo(weakSelf.symbol.mas_right).offset(19);
         make.centerY.mas_equalTo(weakSelf.symbol);
-        make.width.mas_equalTo(288*W_Scale);
-        make.height.mas_equalTo(41*H_Scale);
+        make.width.mas_equalTo(288);
+        make.height.mas_equalTo(41);
     }];
 }
 -(void)setUIalipayView{
@@ -146,7 +166,7 @@
         make.top.mas_equalTo((49*H_Scale-H)*0.5);
     }];
     
-    self.name = [TJLabel setLabelWith:@"伟人之光" font:15 color:RGB(51, 51, 51)];
+    self.name = [TJLabel setLabelWith:@" " font:15 color:RGB(51, 51, 51)];
     [self.alipayView addSubview:self.name];
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.realName.mas_right).offset(30*W_Scale);
@@ -160,7 +180,7 @@
         make.top.mas_equalTo(weakSelf.line.mas_bottom).offset((49*H_Scale-H)*0.5);
     }];
     
-    self.account = [TJLabel setLabelWith:@"157412345" font:15 color:RGB(51, 51, 51)];
+    self.account = [TJLabel setLabelWith:@" " font:15 color:RGB(51, 51, 51)];
     [self.alipayView addSubview:self.account];
     [self.account mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.name);

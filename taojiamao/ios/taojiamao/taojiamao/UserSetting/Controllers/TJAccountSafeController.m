@@ -69,7 +69,7 @@
         
     }else if(indexPath.section==1){
         UILabel * intro = [self setLabelWith:@"设置提现账户" font:AccountSafeFont color:RGB(51, 51, 51)];
-        UILabel * phone = [self setLabelWith:@"未设置" font:AccountSafeFont color:RGB(128, 128, 128)];
+        UILabel * phone = [self setLabelWith:@"去设置" font:AccountSafeFont color:RGB(128, 128, 128)];
         UIImageView * jj = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow"]];
         
         [cell.contentView addSubview:intro];
@@ -133,11 +133,28 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
  
-    TJChangePhoneController * cpvc = [[TJChangePhoneController alloc]init];
-    cpvc.vcID = indexPath.section;
-    cpvc.phoneNum = self.phone;
-    [self.navigationController pushViewController:cpvc animated:YES];
 
+    if (indexPath.section==1) {
+        NSString *aliname = GetUserDefaults(Ali_name);
+        
+        if (aliname) {
+            [SVProgressHUD showInfoWithStatus:@"您已设置提现账户"];
+        }else{
+            TJChangePhoneController * cpvc = [[TJChangePhoneController alloc]init];
+            cpvc.vcID = indexPath.section;
+            cpvc.phoneNum = self.phone;
+            [self.navigationController pushViewController:cpvc animated:YES];
+
+        }
+    }else{
+        TJChangePhoneController * cpvc = [[TJChangePhoneController alloc]init];
+        cpvc.vcID = indexPath.section;
+        cpvc.phoneNum = self.phone;
+        [self.navigationController pushViewController:cpvc animated:YES];
+
+    }
+    
+   
 }
 #pragma makr -setlabel
 -(UILabel*)setLabelWith:(NSString*)text font:(CGFloat)font color:(UIColor*)c{
