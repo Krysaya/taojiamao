@@ -553,7 +553,6 @@
 		C791B53C21269F0A00835897 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B53B21269F0A00835897 /* libc++.tbd */; };
 		C791B53E21269F1600835897 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B53D21269F1600835897 /* libsqlite3.0.tbd */; };
 		C791B54021269F1C00835897 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B53F21269F1C00835897 /* libz.tbd */; };
-		C791B54221269F2500835897 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B54121269F2500835897 /* libstdc++.6.0.9.tbd */; };
 		C791B54421269F3100835897 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B54321269F3100835897 /* CoreMotion.framework */; };
 		C791B54621269F3B00835897 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B54521269F3B00835897 /* CoreGraphics.framework */; };
 		C791B54821269F4400835897 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B54721269F4300835897 /* Foundation.framework */; };
@@ -2024,6 +2023,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C791B53C21269F0A00835897 /* libc++.tbd in Frameworks */,
 				C791B54421269F3100835897 /* CoreMotion.framework in Frameworks */,
 				C788E53D2137A7D100F48EDF /* SinaWeiboConnector.framework in Frameworks */,
 				C788E5432137A7D100F48EDF /* libWeChatSDK.a in Frameworks */,
@@ -2046,11 +2046,9 @@
 				C793E3A5213692E10001ADA3 /* libWeChatSDK.a in Frameworks */,
 				C791B54621269F3B00835897 /* CoreGraphics.framework in Frameworks */,
 				C788E53A2137A7D100F48EDF /* CopyConnector.framework in Frameworks */,
-				C791B54221269F2500835897 /* libstdc++.6.0.9.tbd in Frameworks */,
 				C791B54021269F1C00835897 /* libz.tbd in Frameworks */,
 				C791B53E21269F1600835897 /* libsqlite3.0.tbd in Frameworks */,
 				C788E5362137A7D100F48EDF /* ShareSDK.framework in Frameworks */,
-				C791B53C21269F0A00835897 /* libc++.tbd in Frameworks */,
 				C788E5392137A7D100F48EDF /* ShareSDKUI.framework in Frameworks */,
 				C791B52D21269D4200835897 /* AlipaySDK.framework in Frameworks */,
 				C791B52821269D4200835897 /* AlibabaAuthSDK.framework in Frameworks */,
@@ -6267,7 +6265,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";
-				INFOPLIST_FILE = taojiamao/Info.plist;
+				INFOPLIST_FILE = $SRCROOT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6313,7 +6311,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";
-				INFOPLIST_FILE = taojiamao/Info.plist;
+				INFOPLIST_FILE = $SRCROOT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
