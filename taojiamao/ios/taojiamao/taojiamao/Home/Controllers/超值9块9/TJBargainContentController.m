@@ -52,133 +52,57 @@
 - (void)loadReuqestNormalDataWithType:(NSString *)type  withcateType:(NSString *)cid{
     self.dataGoodsArr = [NSMutableArray array];
     [SVProgressHUD show];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    
     if ([type intValue]==0) {//精选
-        NSMutableDictionary *md = @{
-                                    @"timestamp": timeStr,
-                                    @"app": @"ios",
-                                    @"uid":userid,
-                                    @"is_jing":@"1",
-                                    }.mutableCopy;
-        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-            request.url = GoodsJiuJiuList;
-            request.timeoutInterval = 20;
-            request.headers = @{@"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"sign":md5Str,
-                                @"uid":userid,
-                                };
-            request.httpMethod = kXMHTTPMethodPOST;
-            request.parameters = @{      @"is_jing":@"1",};
-        } onSuccess:^(id  _Nullable responseObject) {
-            DSLog(@"--jingx99==%@",responseObject);
+        
+        [KConnectWorking requestNormalDataParam:@{ @"is_jing":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
             [SVProgressHUD dismiss];
             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
-
+                
             });
-        } onFailure:^(NSError * _Nullable error) {
+        } withFailure:^(NSError * _Nullable error) {
             [SVProgressHUD dismiss];
         }];
     }else if([type intValue]==1){
 //        9.9
-        NSMutableDictionary *md = @{
-                                    @"timestamp": timeStr,
-                                    @"app": @"ios",
-                                    @"uid":userid,
-//                                    @"is_jiu":@"",
-                                    }.mutableCopy;
-        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-            request.url = GoodsJiuJiuList;
-            request.headers = @{@"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"sign":md5Str,
-                                @"uid":userid,
-                                };
-            request.httpMethod = kXMHTTPMethodPOST;
-//            request.parameters = @{      @"is_jiu":jjtype,};
-        } onSuccess:^(id  _Nullable responseObject) {
-            DSLog(@"--909==%@",responseObject);
+        [KConnectWorking requestNormalDataParam:nil withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
             [SVProgressHUD dismiss];
-
             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.tableView reloadData];
-            
-                        });
-        } onFailure:^(NSError * _Nullable error) {            [SVProgressHUD dismiss];
-        }];
-    }else if([type intValue]==2){
-        NSMutableDictionary *md = @{
-                                    @"timestamp": timeStr,
-                                    @"app": @"ios",
-                                    @"uid":userid,
-                                    @"is_jiu":@"1",
-                                    }.mutableCopy;
-        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-            request.url = GoodsJiuJiuList;
-            request.headers = @{@"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"sign":md5Str,
-                                @"uid":userid,
-                                };
-            request.httpMethod = kXMHTTPMethodPOST;
-            request.parameters = @{      @"is_jiu":@"1",};
-        } onSuccess:^(id  _Nullable responseObject) {
-            DSLog(@"--1909==%@",responseObject);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                
+            });
+        } withFailure:^(NSError * _Nullable error) {
             [SVProgressHUD dismiss];
+        }];
+        
+    }else if([type intValue]==2){
 
-             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.tableView reloadData];
-            
-                        });
-        } onFailure:^(NSError * _Nullable error) { [SVProgressHUD dismiss];
+        [KConnectWorking requestNormalDataParam:@{ @"is_jiu":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            [SVProgressHUD dismiss];
+            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                
+            });
+        } withFailure:^(NSError * _Nullable error) {
+            [SVProgressHUD dismiss];
         }];
     }else{
-        NSMutableDictionary *md = @{
-                                    @"timestamp": timeStr,
-                                    @"app": @"ios",
-                                    @"uid":userid,
-                                    @"cid":cid,
-                                    }.mutableCopy;
-        NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-            request.url = GoodsJiuJiuList;
-            request.headers = @{@"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"sign":md5Str,
-                                @"uid":userid,
-                                };
-            request.httpMethod = kXMHTTPMethodPOST;
-            request.parameters = @{      @"cid":cid,};
-        } onSuccess:^(id  _Nullable responseObject) {
+        
+        [KConnectWorking requestNormalDataParam:@{@"cid":cid,} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
             [SVProgressHUD dismiss];
-                        DSLog(@"--ccc==%@",responseObject);
-             self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.tableView reloadData];
-            
-                        });
-        } onFailure:^(NSError * _Nullable error) {            DSLog(@"--111==%@",error);
+            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                
+            });
+        } withFailure:^(NSError * _Nullable error) {
             [SVProgressHUD dismiss];
         }];
+        
     }
-    
-
-  
     
 }
 #pragma mark - tableViewDelgate

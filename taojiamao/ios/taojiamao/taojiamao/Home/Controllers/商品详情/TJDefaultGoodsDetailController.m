@@ -67,8 +67,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @implementation TJDefaultGoodsDetailController
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self setNaviBarAlpha:0];
-
+//    [self setNaviBarAlpha:0];
+    self.navigationController.navigationBarHidden = YES;
     [super viewWillAppear:animated];
     if (self.dataArr>0) {
     }else{
@@ -81,7 +81,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 {
     [super viewWillDisappear:animated];
     //视图将要消失时取消隐藏
-    [self setNaviBarAlpha:1];
+//    [self setNaviBarAlpha:1];
+    self.navigationController.navigationBarHidden = NO;
 
 }
 
@@ -95,7 +96,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     }];
     
     [KConnectWorking requestShareUrlData:@"1" withIDStr:self.gid withSuccessBlock:^(id  _Nullable responseObject) {
-        //        DSLog(@"---%@--url=",responseObject[@"data"]);
+//                DSLog(@"---%@--url=",responseObject[@"data"]);
         //        dispatch_async(dispatch_get_main_queue(), ^{
         self.shareurl = responseObject[@"data"][@"share_url"];
         //        });

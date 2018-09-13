@@ -26,7 +26,8 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @property (nonatomic, strong) NSMutableArray *dataChooseArr;
 
 @property(nonatomic,strong)UICollectionView * collectionView;
-
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) NSString *type;
 @end
 
 @implementation TJSearchContentController
@@ -35,7 +36,8 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestSearchGoodsListWithOrderType:@"0"];
+    self.type = @"0";
+    self.page = 1;
 
     self.filtrateView = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:22];
     self.filtrateView.backgroundColor = [UIColor whiteColor];
@@ -44,48 +46,49 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     [self setUITableView];
     [self setUICollectionView];
     self.tableView.hidden = YES;
+    WeakSelf
+    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf requestNormalSearchGoodsWithType:self.type];
+    }];
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+//        [weakSelf loadRequestClassicGoodsList:self.type];
+    }];
+    self.collectionView.mj_header = header;
+    self.collectionView.mj_footer = footer;
+    [self.collectionView.mj_header beginRefreshing];
+    MJRefreshStateHeader *header2 = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf requestNormalSearchGoodsWithType:self.type];
+    }];
+    
+    MJRefreshAutoStateFooter *footer2 = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+//        [weakSelf loadRequestClassicGoodsList:self.type];
+    }];
+    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
+    self.tableView.mj_header = header2;
+    self.tableView.mj_footer = footer2;
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransform:) name:TJHorizontalVerticalTransform object:nil];
 }
-- (void)requestSearchGoodsListWithOrderType:(NSString *)type{
+
+
+- (void)requestNormalSearchGoodsWithType:(NSString *)type{
     self.dataArr = [NSMutableArray array];
+    self.page = 1;
+    WeakSelf
     [SVProgressHUD show];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
     NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"keyword":str,
-                                @"order":type,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SearchGoodsList;
-//        request.timeoutInterval = 20;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"keyword":self.strsearch,@"order":type};
-    } onSuccess:^(id  _Nullable responseObject) {
+
+    [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str,@"order":type,@"page":pag,
+                                                  @"page_num":@"10",} withNormlParams:@{@"keyword":self.strsearch,@"order":type,@"page":pag,@"page_num":@"10",} withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [SVProgressHUD dismiss];
+        [weakSelf endRefrensh];
 
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [self.collectionView reloadData];
+            [weakSelf.tableView reloadData];
+            [weakSelf.collectionView reloadData];
         });
         
         if (self.dataArr.count>0) {
@@ -94,12 +97,55 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
             self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
             self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
-        
-        
-    } onFailure:^(NSError * _Nullable error) {
+                                                      
+        weakSelf.page++;
+
+                                                      
+    } withFailure:^(NSError * _Nullable error) {
+        [weakSelf endRefrensh];
+
         [SVProgressHUD dismiss];
         [SVProgressHUD showInfoWithStatus:@"加载失败，请重试~"];
     }];
+   
+}
+
+- (void)requestSearchGoodsWithType:(NSString *)type{
+    WeakSelf
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+    NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str,@"order":type,@"page":pag,@"page_num":@"10",} withNormlParams:@{@"keyword":self.strsearch,@"order":type,@"page":pag,@"page_num":@"10",} withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+//        [SVProgressHUD dismiss];
+        [weakSelf endRefrensh];
+        NSDictionary *dict = responseObject[@"data"];
+        NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+       
+        if (arr.count==0) {
+            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
+            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+            [weakSelf.tableView.mj_footer resetNoMoreData];
+            [weakSelf.collectionView.mj_footer resetNoMoreData];
+        }else{
+            [weakSelf.dataArr addObjectsFromArray:arr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.collectionView reloadData];
+            });
+            weakSelf.page++;
+        }
+    
+    } withFailure:^(NSError * _Nullable error) {
+        [weakSelf endRefrensh];
+
+    }];
+}
+
+- (void)endRefrensh{
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+    [self.collectionView.mj_footer endRefreshing];
+    [self.collectionView.mj_header endRefreshing];
 }
 -(void)setUITableView{
     
@@ -193,30 +239,26 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     TJMultipleChoiceView * mcv = [[TJMultipleChoiceView alloc]initWithFrame:S_F];
 //    mcv.backgroundColor = RGBA(1, 1, 1, 0.2);
     mcv.deletage = self;
-//    UIWindow * window = [UIApplication sharedApplication].delegate.window;
     [[UIApplication sharedApplication].keyWindow addSubview:mcv];
 }
 -(void)requestWithKind:(NSString *)kind{
     if ([kind isEqualToString:@"综合"]) {
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"0"];
-        
+        DSLog(@"%@--0",kind);
+        self.type = @"0";
+
     }else if ([kind isEqualToString:@"销量"]){
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"6"];
+        DSLog(@"%@---6",kind);
+        self.type = @"6";
     }else if ([kind isEqualToString:@"价格"]){
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"2"];//高--低
-        
-        
+        DSLog(@"%@---2",kind);
+        self.type = @"2";
+
     }else if ([kind isEqualToString:@"优惠券"]){
-        DSLog(@"%@",kind);
-        [self requestSearchGoodsListWithOrderType:@"4"];
-        
-    }else{
-        DSLog(@"%@",kind);
-        
+        DSLog(@"%@---4",kind);
+        self.type = @"4";
     }
+    
+    [self requestNormalSearchGoodsWithType:self.type];
 }
 
 - (void)buttonSureSelectString:(NSMutableDictionary *)sureDict{
@@ -263,6 +305,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
                 self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.collectionView reloadData];
+                    [self.tableView reloadData];
                 });
             }
            

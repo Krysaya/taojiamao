@@ -24,6 +24,9 @@
 @property(nonatomic,strong)TJFiltrateView *filtrate;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSString *type;
+
+//@property (nonatomic, strong)MJRefreshStateHeader *header;
+//@property (nonatomic, strong) MJRefreshAutoStateFooter *footer;
 @end
 
 @implementation TJClassicSecondController
@@ -33,36 +36,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.page = 1;
+
     self.type = @"0";
     
 
     self.view.backgroundColor = RGB(245, 245, 245);
     self.title = self.title_class;
     
-    
-    [self setNavgation];
+//    [self setNavgation];
     [self setFiltrateView];
 
     [self setUITableView];
     [self setUICollectionView];
     self.tableView.hidden = YES;
-    self.tableView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        [self loadRequestNormalClassicGoodsList:self.type];
+    WeakSelf
+   
+    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf loadRequestNormalClassicGoodsList:self.type];
     }];
-    [self.tableView.mj_header beginRefreshing];
-    
-    self.collectionView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        [self loadRequestNormalClassicGoodsList:self.type];
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+        [weakSelf loadRequestClassicGoodsList:self.type];
     }];
-    [self.collectionView.mj_header beginRefreshing];
+    self.collectionView.mj_header = header;
+    self.collectionView.mj_footer = footer;
+    MJRefreshStateHeader *header2 = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf loadRequestNormalClassicGoodsList:self.type];
+    }];
     
+    MJRefreshAutoStateFooter *footer2 = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+        [weakSelf loadRequestClassicGoodsList:self.type];
+    }];
+    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
+ 
+    self.tableView.mj_header = header2;
+    self.tableView.mj_footer = footer2;
+    if (self.tableView.hidden) {
+    
+        [self.collectionView.mj_header beginRefreshing];
+    }else{
+    
+        [self.tableView.mj_header beginRefreshing];
+    }
+//    self.footer = footer;
+//    self.header = header;
+  
+
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransformClass:) name:TJHorizontalVerticalTransformClass object:nil];
  
 }
 - (void)setFiltrateView{
     
-        self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 45) withMargin:25];
+        self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 45) withMargin:28];
         self.filtrate.backgroundColor = [UIColor whiteColor];
         self.filtrate.deletage = self;
         [self.view addSubview:self.filtrate];
@@ -70,19 +95,20 @@
 }
 - (void)loadRequestNormalClassicGoodsList:(NSString *)type{
     self.page = 1;
-    WeakSelf
-//    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
-    [SVProgressHUD show];
     self.dataArr = [NSMutableArray array];
+
+    WeakSelf
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+    [SVProgressHUD show];
     NSString *str = [self.title_class stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *mdparam = @{ @"keyword":str,
-                             @"order":type,};
+                               @"order":type,@"page":pag,
+                               @"page_num":@"10",};
     NSDictionary *param = @{ @"keyword":self.title_class,
-                               @"order":type,};
+                             @"order":type,@"page":pag,
+                             @"page_num":@"10",};
     [KConnectWorking requestNormalDataMD5Param:mdparam withNormlParams:param withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [SVProgressHUD dismiss];
-        [self.collectionView.mj_header endRefreshing];
-        [self.tableView.mj_header endRefreshing];
         NSDictionary *dict = responseObject[@"data"];
         weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         DSLog(@"-%lu-分类小分类-arr==",(unsigned long)weakSelf.dataArr.count);
@@ -90,16 +116,20 @@
             [weakSelf.tableView reloadData];
             [weakSelf.collectionView reloadData];
         });
-        
+        weakSelf.page++;
+
         if (self.dataArr.count>0) {
             
         }else{
             self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
             self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
+        
+        [weakSelf endRefrenshHeader];
+
     } withFailure:^(NSError * _Nullable error) {
-        [self.collectionView.mj_header endRefreshing];
-        [self.tableView.mj_header endRefreshing];
+        [weakSelf endRefrenshHeader];
+
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
         [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
@@ -108,25 +138,64 @@
 }
 
 - (void)loadRequestClassicGoodsList:(NSString *)type{
+    WeakSelf
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
     NSString *str = [self.title_class stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *mdparam = @{ @"keyword":str,
-                               @"order":type,};
+                               @"order":type,@"page":pag,
+                               @"page_num":@"10",};
     NSDictionary *param = @{ @"keyword":self.title_class,
-                             @"order":type,};
+                             @"order":type,@"page":pag,
+                             @"page_num":@"10",};
     [KConnectWorking requestNormalDataMD5Param:mdparam withNormlParams:param withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        [weakSelf endRefrenshFooter];
         NSDictionary *dict = responseObject[@"data"];
         NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        [self.dataArr addObjectsFromArray:arr];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [self.collectionView reloadData];
-        });
-        
+        if (arr.count==0) {
+            
+            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
+            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+            [weakSelf.tableView.mj_footer resetNoMoreData];
+            [weakSelf.collectionView.mj_footer resetNoMoreData];
+
+        }else{
+            [weakSelf.dataArr addObjectsFromArray:arr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.collectionView reloadData];
+            });
+            weakSelf.page++;
+        }
+       
     } withFailure:^(NSError * _Nullable error) {
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
+       
     }];
+}
+
+- (void)endRefrenshHeader{
+    
+    if (self.tableView.hidden) {
+        [self.collectionView.mj_header endRefreshing];
+    }else{
+        [self.tableView.mj_header endRefreshing];
+    }
+}
+- (void)endRefrenshFooter{
+    
+    if (self.tableView.hidden) {
+        [self.collectionView.mj_footer endRefreshing];
+    }else{
+        [self.tableView.mj_footer endRefreshing];
+    }
+}
+- (void)relodData{
+    if (self.tableView.hidden) {
+        [self.tableView reloadData];
+        [self.collectionView reloadData];
+    }else{
+        [self.tableView reloadData];
+        [self.collectionView reloadData];
+    }
 }
 - (void)setNavgation{
 
@@ -143,6 +212,7 @@
    UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+45+10, S_W, S_H-SafeAreaTopHeight-45-10) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.tableFooterView = [UIView new];
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"tabListCell"];
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -256,6 +326,25 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
 
 - (void)buttonSureSelectString:(NSMutableDictionary *)sureDict{
 //    筛选
+    if (sureDict.count>0) {
+        NSString *shoptype = sureDict[@"type"];
+        NSString *str = [self.title_class stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        DSLog(@"筛选--？？？？")
+        
+        [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str,@"shoptype":shoptype,} withNormlParams:@{@"keyword":self.title_class, @"shoptype":shoptype,} withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            NSDictionary *dict = responseObject[@"data"];
+            if (dict.count>0) {
+                self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.collectionView reloadData];
+                    [self.tableView reloadData];
+                });
+            }
+            
+        } withFailure:^(NSError * _Nullable error) {
+            
+        }];
+    }
 }
 #pragma mark - 通知
 -(void)horizontalVerticalTransformClass:(NSNotification*)info{
@@ -264,7 +353,12 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     BOOL hs = [num boolValue];
     self.tableView.hidden = !hs;
     self.collectionView.hidden = hs;
- 
+    if (self.tableView.hidden) {
+        
+    }else{
+        
+    }
+    
 }
 #pragma mark - btndelegte
 - (void)buttonClick:(UIButton *)but{

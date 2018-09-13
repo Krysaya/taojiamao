@@ -106,7 +106,8 @@
     
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeFlat];
-    [SVProgressHUD setMaximumDismissTimeInterval:1];
+    [SVProgressHUD setMinimumDismissTimeInterval:1];
+    [SVProgressHUD setMaximumDismissTimeInterval:10];
 
     return YES;
 }

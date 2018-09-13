@@ -25,6 +25,10 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @property(nonatomic,strong)TJSearchScreenView * superView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property(nonatomic,strong)UICollectionView * collectionView;
+
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) NSString *type;
+
 @end
 
 @implementation TJSuperSearchController
@@ -33,7 +37,9 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestSuperSearchListWithSuperSort:@"0"];
+    self.type = @"0";
+    self.page = 1;
+//    [self requestSuperSearchListWithSuperSort:@"0"];
 
     self.superView = [[TJSearchScreenView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:20];
     self.superView.backgroundColor  = [UIColor whiteColor];
@@ -46,49 +52,105 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransform:) name:TJHorizontalVerticalTransform object:nil];
 }
-- (void)requestSuperSearchListWithSuperSort:(NSString *)sort{
+- (void)requestNoemalSuperListWithSuperSort:(NSString *)sort{
     self.dataArr = [NSMutableArray array];[SVProgressHUD show];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
+    self.page = 1;
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+
+    WeakSelf
     NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"keyword":str,
-                                @"sort":sort,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SuperSearchGoodsList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"keyword":self.strsearch,                                @"sort":sort};
-    } onSuccess:^(id  _Nullable responseObject) {
+
+    [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str, @"sort":sort,@"page":pag,  @"page_num":@"10",} withNormlParams:@{ @"keyword":self.strsearch, @"sort":sort,@"page":pag,  @"page_num":@"10",} withRequestURL:SuperSearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [SVProgressHUD dismiss];
-        NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.tableView reloadData];
-            [self.collectionView reloadData];
-        });
+        [weakSelf endRefrensh];
         
-    } onFailure:^(NSError * _Nullable error) {
+        NSDictionary *dict = responseObject[@"data"];
+        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        if (weakSelf.dataArr.count>0) {
+            
+        }else{
+            weakSelf.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+            weakSelf.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.collectionView reloadData];
+        });
+        weakSelf.page++;
+    } withFailure:^(NSError * _Nullable error) {
         [SVProgressHUD dismiss];
+        [weakSelf endRefrensh];
         [SVProgressHUD showInfoWithStatus:@"加载失败，请重试~"];
 
     }];
+//    NSString *userid = GetUserDefaults(UID);
+//    if (userid) {
+//    }else{
+//        userid = @"";
+//    }
+//    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
+//    NSString *timeStr = [MD5 timeStr];
+//    NSMutableDictionary *md = @{
+//                                @"timestamp": timeStr,
+//                                @"app": @"ios",
+//                                @"uid":userid,
+//                                @"keyword":str,
+//                                @"sort":sort,
+//                                }.mutableCopy;
+//    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
+//    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+//        request.url = SuperSearchGoodsList;
+//        request.headers = @{@"timestamp": timeStr,
+//                            @"app": @"ios",
+//                            @"sign":md5Str,
+//                            @"uid":userid,
+//                            };
+//        request.httpMethod = kXMHTTPMethodPOST;
+//        request.parameters = @{@"keyword":self.strsearch,                                @"sort":sort};
+//    } onSuccess:^(id  _Nullable responseObject) {
+//
+//
+//    } onFailure:^(NSError * _Nullable error) {
+//
+//    }];
 }
+
+- (void)requestSuperListWithSuperSort:(NSString *)sort{
+    WeakSelf
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+    NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str,@"sort":sort,@"page":pag,@"page_num":@"10",} withNormlParams:@{@"keyword":self.strsearch,@"sort":sort,@"page":pag,@"page_num":@"10",} withRequestURL:SuperSearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        [weakSelf endRefrensh];
+        NSDictionary *dict = responseObject[@"data"];
+        NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        
+        if (arr.count==0) {
+            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
+            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+            [weakSelf.tableView.mj_footer resetNoMoreData];
+            [weakSelf.collectionView.mj_footer resetNoMoreData];
+        }else{
+            [weakSelf.dataArr addObjectsFromArray:arr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.collectionView reloadData];
+            });
+            weakSelf.page++;
+        }
+    } withFailure:^(NSError * _Nullable error) {
+        [weakSelf endRefrensh];
+
+    }];
+}
+
+- (void)endRefrensh{
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+    [self.collectionView.mj_footer endRefreshing];
+    [self.collectionView.mj_header endRefreshing];
+}
+
 -(void)setUITableView{
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 45, S_W, S_H-SafeAreaTopHeight-50) style:UITableViewStylePlain];
@@ -168,15 +230,15 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 -(void)superRequestWithKind:(NSString *)kind{
     if ([kind isEqualToString:@"综合"]) {
         DSLog(@"%@",kind);
-        [self requestSuperSearchListWithSuperSort:@"0"];
+//        [self requestSuperSearchListWithSuperSort:@"0"];
         
     }else if ([kind isEqualToString:@"销量"]){
         DSLog(@"%@",kind);
-        [self requestSuperSearchListWithSuperSort:@"2"];
+//        [self requestSuperSearchListWithSuperSort:@"2"];
         
     }else if ([kind isEqualToString:@"价格"]){
         DSLog(@"%@",kind);
-        [self requestSuperSearchListWithSuperSort:@"5"];
+//        [self requestSuperSearchListWithSuperSort:@"5"];
         
     }else if ([kind isEqualToString:@"有券"]){
         DSLog(@"%@",kind);

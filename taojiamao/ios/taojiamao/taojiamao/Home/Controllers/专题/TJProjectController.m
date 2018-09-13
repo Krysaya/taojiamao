@@ -11,6 +11,7 @@
 #import "TJGoodsListCell.h"
 #import "TJGoodsCollectModel.h"
 #import "TJKallAdImgModel.h"
+#import "TJDefaultGoodsDetailController.h"
 @interface TJProjectController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,SDCycleScrollViewDelegate>
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) SDCycleScrollView *scrollV;
@@ -130,6 +131,13 @@
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
     [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:NO withType:@"1"];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJDefaultGoodsDetailController *goodVC = [[TJDefaultGoodsDetailController alloc]init];
+    TJGoodsCollectModel *model = self.dataArr[indexPath.row];
+    goodVC.gid = model.itemid;
+    [self.navigationController pushViewController:goodVC animated:YES];
 }
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 //    UIView *bgView = [[UIView alloc]init];

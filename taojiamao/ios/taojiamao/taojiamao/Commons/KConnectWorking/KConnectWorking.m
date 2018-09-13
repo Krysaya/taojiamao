@@ -73,6 +73,7 @@
                             @"uid":userid,
                             };
         request.httpMethod = type;
+        request.timeoutInterval = 15;
         request.parameters = params;
     } onSuccess:successBlock onFailure:failureBlock];
 

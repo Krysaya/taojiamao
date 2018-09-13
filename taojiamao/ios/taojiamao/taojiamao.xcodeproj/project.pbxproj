@@ -572,7 +572,6 @@
 		C793E39C213642100001ADA3 /* TJCommentsSendView.m in Sources */ = {isa = PBXBuildFile; fileRef = C793E39B213642100001ADA3 /* TJCommentsSendView.m */; };
 		C793E39E2136421C0001ADA3 /* TJCommentsSendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C793E39D2136421C0001ADA3 /* TJCommentsSendView.xib */; };
 		C793E3A5213692E10001ADA3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C793E3A0213692E10001ADA3 /* libWeChatSDK.a */; };
-		C793E3A6213692E10001ADA3 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C793E3A1213692E10001ADA3 /* README.txt */; };
 		C79400022119734100FB580F /* TJPostageMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C79400002119734100FB580F /* TJPostageMoneyCell.m */; };
 		C79400032119734100FB580F /* TJPostageMoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C79400012119734100FB580F /* TJPostageMoneyCell.xib */; };
 		C794FFDE2119296700FB580F /* TJCourierTakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C794FFDC2119296700FB580F /* TJCourierTakeCell.m */; };
@@ -1774,7 +1773,6 @@
 		C793E39B213642100001ADA3 /* TJCommentsSendView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJCommentsSendView.m; sourceTree = "<group>"; };
 		C793E39D2136421C0001ADA3 /* TJCommentsSendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJCommentsSendView.xib; sourceTree = "<group>"; };
 		C793E3A0213692E10001ADA3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		C793E3A1213692E10001ADA3 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		C793E3A2213692E10001ADA3 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		C793E3A3213692E10001ADA3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C793E3A4213692E10001ADA3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -4909,7 +4907,6 @@
 			isa = PBXGroup;
 			children = (
 				C793E3A0213692E10001ADA3 /* libWeChatSDK.a */,
-				C793E3A1213692E10001ADA3 /* README.txt */,
 				C793E3A2213692E10001ADA3 /* WechatAuthSDK.h */,
 				C793E3A3213692E10001ADA3 /* WXApi.h */,
 				C793E3A4213692E10001ADA3 /* WXApiObject.h */,
@@ -5450,7 +5447,6 @@
 				C7909A9E2138DADC0088B4DE /* ydy_1.jpg in Resources */,
 				C794FFFE21196D3100FB580F /* TJTextFiledCell.xib in Resources */,
 				C7454026214116AF00157D17 /* TJHelpDetailController.xib in Resources */,
-				C793E3A6213692E10001ADA3 /* README.txt in Resources */,
 				C7409A002091CF3600DFCC94 /* IQKeyboardManager.bundle in Resources */,
 				C7C72F512101CD0F0087A8CB /* Info.plist in Resources */,
 				C7C72F362101845B0087A8CB /* TJInvitationView.xib in Resources */,
