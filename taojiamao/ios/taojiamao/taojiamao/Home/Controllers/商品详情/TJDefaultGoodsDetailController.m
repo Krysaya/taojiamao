@@ -62,6 +62,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
 @property (nonatomic, strong) NSString *shareurl;
+
+@property (nonatomic, strong) NSString *taokoul;
 @end
 
 @implementation TJDefaultGoodsDetailController
@@ -115,7 +117,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         if (dict.count>0) {
             TJJHSGoodsListModel *model = [TJJHSGoodsListModel mj_objectWithKeyValues:dict];
             [self.dataArr addObject:model];
-            self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
+//            self.imageSSS = [model.taobao_image componentsSeparatedByString:@","];
+            self.imageSSS = model.content_images;
             self.priceQuan = model.itemendprice;self.price = model.itemprice;
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -326,7 +329,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     if (indexPath.section==1) {
 
     }else if (indexPath.section==2){
-        self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20-SafeAreaBottomHeight) select:indexPath.section height:325*H_Scale info:nil];
+        TJJHSGoodsListModel *model = self.dataArr[0];
+
+        self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20-SafeAreaBottomHeight) select:indexPath.section height:S_W-50 info:model.tbk_pwd];
         self.popupView.deletage = self;
         [self.view addSubview:self.popupView];
     }else if (indexPath.section==3){
@@ -547,7 +552,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     DSLog(@"优惠券");
     //打开优惠券详情页
     TJJHSGoodsListModel *model = self.dataArr[0];
-    id <AlibcTradePage >page = [AlibcTradePageFactory page:model.couponurl];
+    id <AlibcTradePage >page = [AlibcTradePageFactory page:model.coupon_short_url];
     AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
     showParam.openType = AlibcOpenTypeAuto;
     AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
@@ -630,8 +635,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 - (void)goTaoBaoGoodsInfoQuanBuy{
     //打开优惠券详情页
     TJJHSGoodsListModel *model = self.dataArr[0];
-    NSString *url = [NSString stringWithFormat:@"%@&pid=%@",model.couponurl,TB_Pid];
-    id <AlibcTradePage >page = [AlibcTradePageFactory page:url];
+//    NSString *url = [NSString stringWithFormat:@"%@&pid=%@",model.couponurl,TB_Pid];
+    id <AlibcTradePage >page = [AlibcTradePageFactory page:model.coupon_short_url];
     AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
     showParam.openType = AlibcOpenTypeAuto;
     AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
@@ -645,7 +650,16 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 -(void)clickViewRemoveFromSuper{
     [self.popupView removeFromSuperview];
 }
+- (void)buttonCopyClick{
+    
+    TJJHSGoodsListModel *model = self.dataArr[0];
 
+     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = model.tbk_pwd;
+    [SVProgressHUD showSuccessWithStatusy6:@"已复制到剪切板，前往淘宝打开"];
+    [self.popupView removeFromSuperview];
+
+}
 
 
 

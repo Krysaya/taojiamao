@@ -78,6 +78,13 @@ static NSString * const UserPhone = @"UserPhone";
 //排行榜
 #define RanksList                [BASEURL stringByAppendingString:@"/v1/ranks"]
 
+//我的订单类别
+#define MyOrderList                [BASEURL stringByAppendingString:@"/v1/orders/taobao"]
+
+//我的订单--详情
+//#define MyOrderListContent                [BASEURL stringByAppendingString:@"/v1/orders/taobao/ID"]
+
+
 //拆红包
 #define RegisterHongBao            [BASEURL stringByAppendingString:@"/v1/hongbaos/hongbao"]
 

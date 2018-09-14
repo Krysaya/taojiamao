@@ -9,5 +9,5 @@
 #import "TJBaseViewController.h"
 
 @interface TJTBOrderContentController : TJBaseViewController
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong ) NSString *type;
 @end

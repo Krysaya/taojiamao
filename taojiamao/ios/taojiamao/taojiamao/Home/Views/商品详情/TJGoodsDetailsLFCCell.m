@@ -40,36 +40,36 @@
     [self.contentView addSubview:self.TKLLabel];
     [self.TKLLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.contentView);
-        make.left.mas_equalTo(12*W_Scale);
-        make.height.mas_equalTo(18*H_Scale);
-        make.width.mas_equalTo(45*W_Scale);
+        make.left.mas_equalTo(12);
+        make.height.mas_equalTo(18);
+        make.width.mas_equalTo(45);
     }];
     self.TKLLabel.hidden = YES;
     
-    self.leftLabel = [TJLabel setLabelWith:@"" font:14*W_Scale color:RGB(128, 128, 128)];
+    self.leftLabel = [TJLabel setLabelWith:@"" font:14 color:RGB(128, 128, 128)];
     [self.contentView addSubview:self.leftLabel];
     [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(12*W_Scale);
+        make.left.mas_equalTo(12);
         make.centerY.mas_equalTo(weakSelf.contentView);
-        make.width.mas_equalTo(30*W_Scale);
+        make.width.mas_equalTo(30);
     }];
    
-    self.middleLabel = [TJLabel setLabelWith:@"" font:14*W_Scale color:RGB(51, 51, 51)];
+    self.middleLabel = [TJLabel setLabelWith:@"" font:14 color:RGB(51, 51, 51)];
     self.middleLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:self.middleLabel];
     [self.middleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf.leftLabel.mas_right).offset(18*W_Scale);
-        make.width.mas_equalTo(280*W_Scale);
+        make.left.mas_equalTo(weakSelf.leftLabel.mas_right).offset(18);
+        make.width.mas_equalTo(S_W-95);
         make.centerY.mas_equalTo(weakSelf.contentView);
     }];
 
     self.jj = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_right"]];
     [self.contentView addSubview:self.jj];
     [self.jj mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-12*W_Scale);
+        make.right.mas_equalTo(-12);
         make.centerY.mas_equalTo(weakSelf.contentView);
-        make.width.mas_equalTo(6*W_Scale);
-        make.height.mas_equalTo(11*H_Scale);
+        make.width.mas_equalTo(6);
+        make.height.mas_equalTo(11);
     }];
 }
 -(void)setLFC:(NSString *)LFC{

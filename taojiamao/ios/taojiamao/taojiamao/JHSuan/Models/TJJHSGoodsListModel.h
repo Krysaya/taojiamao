@@ -59,6 +59,7 @@
 @property (nonatomic, strong) NSString *gid;//商品id
 @property (nonatomic, strong) NSString *itemtitle;//商品
 @property (nonatomic, strong) NSString *itemshorttitle;//商品
+@property (nonatomic, strong) NSString *tbk_pwd;
 @property (nonatomic, strong) NSString *itemsale;//销量
 @property (nonatomic, strong) NSString *todaysale;//当天销量
 @property (nonatomic, strong) NSString *itempic;//图
@@ -66,7 +67,8 @@
 @property (nonatomic, strong) NSString *itemprice;//正常售价
 @property (nonatomic, strong) NSString *fqcat;//类目
 @property (nonatomic, strong) NSString *shoptype;//店铺类型
-@property (nonatomic, strong) NSString *taobao_image;//缩略图
+@property (nonatomic, strong) NSString *taobao_image;//头图
+@property (nonatomic, strong) NSArray *content_images;//详情图
 @property (nonatomic, strong) NSString *url;//购买链接
 @property (nonatomic, strong) NSString *sub_title;//子标题
 @property (nonatomic, strong) NSString *itempic_copy;//商品长图
@@ -84,6 +86,7 @@
 @property (nonatomic, strong) NSString *is_collect;//收藏
 @property (nonatomic, strong) NSString *couponmoney;//优惠券金额
 @property (nonatomic, strong) NSString *couponurl;//优惠券连接
+@property (nonatomic, strong) NSString *coupon_short_url;//优惠券daun连接
 
 @property (nonatomic, strong) NSString *couponsurplus;//优惠券总数
 @property (nonatomic, strong) NSString *couponreceive;//当前已领优惠券

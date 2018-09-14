@@ -8,6 +8,7 @@
 //
 
 #import "TJTBOrderContentCell.h"
+#import "TJTaoBaoOrderModel.h"
 
 @interface TJTBOrderContentCell()
 @property(nonatomic,strong)UIImageView *iconImg;
@@ -40,7 +41,7 @@
 
 
 - (void)setUIsubViews{
-    self.iconImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading1"]];
+    self.iconImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_bg"]];
     WeakSelf;
     [self.contentView addSubview:self.iconImg];
     [self.iconImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -52,7 +53,7 @@
     }];
     
     self.title = [[UILabel alloc]init];
-    self.title.text = @"雅丽洁防晒霜喷雾学生户外超强隔离女全身面部保护";
+    self.title.text = @" ";
     self.title.textColor = RGB(51, 51, 51);
     self.title.numberOfLines = 0;
     self.title.font = [UIFont systemFontOfSize:14];
@@ -60,28 +61,28 @@
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(10*H_Scale);
         make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
-        make.height.mas_equalTo(35*H_Scale);
-        make.width.mas_equalTo(160*W_Scale);
+        make.height.mas_equalTo(35);
+        make.width.mas_equalTo(160);
 
     }];
 
-    self.tbImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tb_bs"]];
-    [self.contentView addSubview:self.tbImg];
-    [self.tbImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.title.mas_bottom).offset(9*H_Scale);
-        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
-        make.height.mas_equalTo(13*H_Scale);
-        make.width.mas_equalTo(27*W_Scale);
-
-    }];
+//    self.tbImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tb_bs"]];
+//    [self.contentView addSubview:self.tbImg];
+//    [self.tbImg mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(weakSelf.title.mas_bottom).offset(9);
+//        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
+//        make.height.mas_equalTo(13);
+//        make.width.mas_equalTo(27);
+//
+//    }];
     
     self.arrowImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_right"]];
     [self.contentView addSubview:self.arrowImg];
     [self.arrowImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.iconImg.mas_centerY);
-        make.right.mas_equalTo(-38*W_Scale);
-        make.height.mas_equalTo(11*H_Scale);
-        make.width.mas_equalTo(6*W_Scale);
+        make.right.mas_equalTo(-38);
+        make.height.mas_equalTo(11);
+        make.width.mas_equalTo(6);
     }];
     
     self.jiesuan_time = [[UILabel alloc]init];
@@ -103,7 +104,7 @@
     
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(1);
-        make.width.mas_equalTo(351*W_Scale);
+        make.width.mas_equalTo(S_W-24);
         make.centerX.mas_equalTo(weakSelf.contentView);
         make.top.mas_equalTo(weakSelf.iconImg.mas_bottom).offset(10);
         
@@ -123,7 +124,7 @@
         make.height.mas_equalTo(10);
     }];
     self.time = [[UILabel alloc]init];
-    self.time.text = @"下单时间：09月28号";
+    self.time.text = @"下单时间：";
     
     self.time.font = [UIFont systemFontOfSize:12];
 
@@ -131,12 +132,12 @@
     [self.time mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.mas_equalTo(weakSelf.order_type.mas_centerY);
-        make.right.mas_equalTo(-12*W_Scale);
-        make.height.mas_equalTo(10*H_Scale);
+        make.right.mas_equalTo(-12);
+        make.height.mas_equalTo(10);
     }];
     
     self.order_num = [[UILabel alloc]init];
-    self.order_num.text = @"订单号：394u79345739";
+    self.order_num.text = @"订单号：";
     self.order_num.font = [UIFont systemFontOfSize:12];
     self.order_num.textColor = RGB(102, 102, 102);
 
@@ -145,7 +146,7 @@
     [self.order_num mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.order_type.mas_bottom).offset(19*H_Scale);
 //        make.height.mas_equalTo(10);
-        make.left.mas_equalTo(12*W_Scale);
+        make.left.mas_equalTo(12);
     }];
     
     self.daijiesuan = [[UILabel alloc]init];
@@ -156,10 +157,31 @@
     [self.contentView addSubview:self.daijiesuan];
     
     [self.daijiesuan mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-12*W_Scale);
+        make.right.mas_equalTo(-12);
         make.centerY.mas_equalTo(weakSelf.order_num.mas_centerY);
 //        make.height.mas_equalTo(10);
     }];
+}
+
+- (void)setModel:(TJTaoBaoOrderModel *)model{
+    _model = model;
+    [self.iconImg sd_setImageWithURL: [NSURL URLWithString:model.item_pic] placeholderImage:[UIImage imageNamed:@"goods_bg"]];
+    self.title.text = model.item_title;
+    self.order_num.text = [NSString stringWithFormat:@"订单号：%@",model.trade_id];
+    self.order_type.text = [NSString stringWithFormat:@"订单来源：%@",model.order_type];
+    self.time.text = model.create_time;
+    if ([model.tk_status intValue]==3) {
+        self.daijiesuan.text = @"订单待结算";
+    }
+    if ([model.tk_status intValue]==13) {
+        self.daijiesuan.text = @"订单已失效";
+    }if ([model.tk_status intValue]==12) {
+        self.daijiesuan.text = @"订单待付款";
+    }if ([model.tk_status intValue]==14) {
+        self.daijiesuan.text = @"订单已完成";
+    }if ([model.tk_status intValue]==15) {
+        self.daijiesuan.text = @"";
+    }
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

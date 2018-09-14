@@ -596,6 +596,7 @@
 		C79BBA3D20E9D17500506C66 /* TJMallOrdersController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79BBA3C20E9D17500506C66 /* TJMallOrdersController.m */; };
 		C79BBA4020E9D2C100506C66 /* TJMallOrdersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C79BBA3F20E9D2C100506C66 /* TJMallOrdersCell.m */; };
 		C79BBA9820EA141A00506C66 /* TJMineOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79BBA9720EA141A00506C66 /* TJMineOrderController.m */; };
+		C79CDD35214A041600DE5377 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C791B54121269F2500835897 /* libstdc++.6.0.9.tbd */; };
 		C79FAE4D2112DDC600E5065E /* TJHeadLineDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C79FAE4B2112DDC600E5065E /* TJHeadLineDefaultCell.m */; };
 		C79FAE4E2112DDC600E5065E /* TJHeadLineDefaultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C79FAE4C2112DDC600E5065E /* TJHeadLineDefaultCell.xib */; };
 		C79FAE782112F0C000E5065E /* TJGoodsCollectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C79FAE772112F0C000E5065E /* TJGoodsCollectModel.m */; };
@@ -628,6 +629,7 @@
 		C7ADB4AD211AA91700AD4D95 /* TJAllOrderContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7ADB4AC211AA91700AD4D95 /* TJAllOrderContentController.m */; };
 		C7ADB4B1211ABDA200AD4D95 /* TJOrderPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7ADB4AF211ABDA200AD4D95 /* TJOrderPersonCell.m */; };
 		C7ADB4B2211ABDA200AD4D95 /* TJOrderPersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7ADB4B0211ABDA200AD4D95 /* TJOrderPersonCell.xib */; };
+		C7B04AA5214A5C6200A210EF /* TJTaoBaoOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B04AA4214A5C6100A210EF /* TJTaoBaoOrderModel.m */; };
 		C7B3E1A120AEAE85006CEE0A /* TJBottomPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B3E1A020AEAE85006CEE0A /* TJBottomPopupView.m */; };
 		C7B80D9320A5769300C1333B /* TJUserInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B80D9220A5769300C1333B /* TJUserInfoController.m */; };
 		C7B913DC2113E90F00D8729C /* TJHomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B913DB2113E90F00D8729C /* TJHomePageModel.m */; };
@@ -1871,6 +1873,8 @@
 		C7ADB4AE211ABDA200AD4D95 /* TJOrderPersonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJOrderPersonCell.h; sourceTree = "<group>"; };
 		C7ADB4AF211ABDA200AD4D95 /* TJOrderPersonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJOrderPersonCell.m; sourceTree = "<group>"; };
 		C7ADB4B0211ABDA200AD4D95 /* TJOrderPersonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJOrderPersonCell.xib; sourceTree = "<group>"; };
+		C7B04AA3214A5C6100A210EF /* TJTaoBaoOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTaoBaoOrderModel.h; sourceTree = "<group>"; };
+		C7B04AA4214A5C6100A210EF /* TJTaoBaoOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTaoBaoOrderModel.m; sourceTree = "<group>"; };
 		C7B3E19F20AEAE85006CEE0A /* TJBottomPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBottomPopupView.h; sourceTree = "<group>"; };
 		C7B3E1A020AEAE85006CEE0A /* TJBottomPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBottomPopupView.m; sourceTree = "<group>"; };
 		C7B80D9120A5769300C1333B /* TJUserInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUserInfoController.h; sourceTree = "<group>"; };
@@ -2023,6 +2027,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C79CDD35214A041600DE5377 /* libstdc++.6.0.9.tbd in Frameworks */,
 				C791B53C21269F0A00835897 /* libc++.tbd in Frameworks */,
 				C791B54421269F3100835897 /* CoreMotion.framework in Frameworks */,
 				C788E53D2137A7D100F48EDF /* SinaWeiboConnector.framework in Frameworks */,
@@ -2877,6 +2882,7 @@
 				C79FAE842112F23C00E5065E /* TJMembersModel.m */,
 				C79FAE862113020B00E5065E /* TJMemberMainModel.h */,
 				C79FAE872113020B00E5065E /* TJMemberMainModel.m */,
+				C7B04AA2214A5C3600A210EF /* 我的订单 */,
 				C783CE2C213E6160005C388C /* 邀请好友 */,
 				C7904F682123FFFC00E20E4D /* 我的团队 */,
 				C7904F572123DAA300E20E4D /* 取件地址 */,
@@ -5072,6 +5078,15 @@
 			path = "订单支付";
 			sourceTree = "<group>";
 		};
+		C7B04AA2214A5C3600A210EF /* 我的订单 */ = {
+			isa = PBXGroup;
+			children = (
+				C7B04AA3214A5C6100A210EF /* TJTaoBaoOrderModel.h */,
+				C7B04AA4214A5C6100A210EF /* TJTaoBaoOrderModel.m */,
+			);
+			path = "我的订单";
+			sourceTree = "<group>";
+		};
 		C7B913D92113E8E000D8729C /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5560,6 +5575,7 @@
 				C76E866B21259A1400DD8AA5 /* PGDatePicker+YearAndMonth.m in Sources */,
 				C742A3212099DA260026311A /* MyTableLayout.m in Sources */,
 				C7904F3E2123B58600E20E4D /* TJAddAddressController.m in Sources */,
+				C7B04AA5214A5C6200A210EF /* TJTaoBaoOrderModel.m in Sources */,
 				C7C72F592101CD0F0087A8CB /* NSObject+MJKeyValue.m in Sources */,
 				C722E63A20A138F300EE9D61 /* UINavigationController+Cloudox.m in Sources */,
 				C77B445B2118430B00332147 /* TADotView.m in Sources */,
@@ -6265,7 +6281,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";
-				INFOPLIST_FILE = $SRCROOT/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/taojiamao/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6311,7 +6327,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/taojiamao/Macros/PrefixHeader.pch";
-				INFOPLIST_FILE = $SRCROOT/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/taojiamao/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

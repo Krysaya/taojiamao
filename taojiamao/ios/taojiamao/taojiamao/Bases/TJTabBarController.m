@@ -33,6 +33,42 @@
 }
 -(void)setControllers{
 
+//    TJHomePageController *VC1 = [[TJHomePageController alloc] init];
+//    TJNavigationController *home = [[TJNavigationController alloc] initWithRootViewController:VC1];
+//
+//    TJTQGouController *VC2 = [[TJTQGouController alloc] init];
+//    //    VC2.progressColor = KALLRGB;
+//    VC2.progressHeight = 50*H_Scale;
+//    VC2.progressColor = KALLRGB;
+//    VC2.titleColorNormal = [UIColor whiteColor];
+//    VC2.titleColorSelected = [UIColor redColor];
+//    VC2.menuViewStyle = WMMenuViewStyleFlood;
+//    VC2.progressViewCornerRadius = 0.f;
+//
+//
+//    TJNavigationController *tqg = [[TJNavigationController alloc] initWithRootViewController:VC2];
+//
+//    //    TJCQuanController *VC3 = [[TJCQuanController alloc] init];
+//    //    TJNavigationController *cqu = [[TJNavigationController alloc] initWithRootViewController:VC3];
+//
+//    TJJHSuanController *VC4 = [[TJJHSuanController alloc] init];
+//    TJNavigationController *jhs = [[TJNavigationController alloc] initWithRootViewController:VC4];
+//    //
+//    //    TJMineController *VC5 = [[TJMineController alloc] init];
+//    //    TJNavigationController *mine = [[TJNavigationController alloc] initWithRootViewController:VC5];
+//
+//    TJPersonalController *VC5 = [[TJPersonalController alloc] init];
+//    TJNavigationController *mine = [[TJNavigationController alloc] initWithRootViewController:VC5];
+//    VC1.title = @"首页";
+//    VC2.title = @"淘抢购";
+//    //    VC3.title = @"查券";
+//    VC4.title = @"聚划算";
+//    VC5.title = @"我的";
+//    //
+//    NSArray *viewCtrs = @[home,tqg,jhs,mine];
+//    //
+//    [self setViewControllers:viewCtrs animated:YES];
+    
     [self addOneChildViewController:[[TJNavigationController alloc]initWithRootViewController:[[TJHomePageController alloc]init]]
                           WithTitle:@"首页"
                           imageName:@"tjm_hp_gray.jpg"

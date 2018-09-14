@@ -11,7 +11,7 @@
 @protocol TJBottomPopupViewDelegate<NSObject>
 
 -(void)clickViewRemoveFromSuper;
-
+- (void)buttonCopyClick;
 @end
 
 @interface TJBottomPopupView : UIView

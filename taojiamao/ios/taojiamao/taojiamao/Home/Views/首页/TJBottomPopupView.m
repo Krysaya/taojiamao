@@ -17,7 +17,7 @@
 
 @property(nonatomic,strong)UICollectionView * FWCollectionView;
 @property(nonatomic,strong)NSArray * FWData;
-
+@property (nonatomic, strong) NSString *content;
 @property(nonatomic,strong)UITableView * CSTableView;
 
 @end
@@ -32,11 +32,11 @@
         tap.delegate = self;
         [self addGestureRecognizer:tap];
         self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-h, frame.size.width, h)];
-        self.backView.backgroundColor = RandomColor;
+        self.backView.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.backView];
         
-        self.FWData = [NSArray arrayWithArray:(NSArray*)info];
-        
+//        self.FWData = [NSArray arrayWithArray:(NSArray*)info];
+        self.content = (NSString *)info;
         if (select == 2) {
             DSLog(@"淘口令");
             [self showDifferentViewWithTKL];
@@ -60,21 +60,28 @@
     [self.backView addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.backView);
-        make.top.mas_equalTo(24*H_Scale);
+        make.top.mas_equalTo(24);
     }];
     
-    UIView * middle = [[UIView alloc]initWithFrame:CGRectMake(30*W_Scale, 66*H_Scale, S_W-30*W_Scale*2, 200*H_Scale)];
-    middle.backgroundColor = RandomColor;
+    UIView * middle = [[UIView alloc]initWithFrame:CGRectMake(30, 66, S_W-30*W_Scale*2, 180)];
+    middle.backgroundColor = [UIColor whiteColor];
     [self addBorderToLayer:middle];
     [self.backView addSubview:middle];
     
-    TJButton * over = [[TJButton alloc]initWith:@"一键复制" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:[UIColor redColor] tag:TKLCopy cornerRadius:20.0];
+    TJLabel * title_content = [TJLabel setLabelWith:self.content font:15 color:RGB(77, 77, 77)];
+    [middle addSubview:title_content];
+    [title_content mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(middle);
+        make.top.mas_equalTo(middle.mas_top).offset(25);
+    }];
+    
+    TJButton * over = [[TJButton alloc]initWith:@"一键复制" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:TKLCopy cornerRadius:20.0];
     [self.backView addSubview:over];
     [over mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.backView);
         make.bottom.mas_equalTo(-8);
-        make.width.mas_equalTo(351*W_Scale);
-        make.height.mas_equalTo(40*H_Scale);
+        make.width.mas_equalTo(S_W-24);
+        make.height.mas_equalTo(40);
     }];
 }
 
@@ -181,8 +188,9 @@
         [self removeFromSuperview];
     }else if(but.tag==LQButtonMid){
         DSLog(@"领券");
-    }else if(but.tag==LQButtonMid){
+    }else if(but.tag==TKLCopy){
         DSLog(@"一键复制");
+        [self.deletage buttonCopyClick];
     }
     
 }
@@ -274,7 +282,7 @@
 {
     CAShapeLayer *border = [CAShapeLayer layer];
    
-    border.strokeColor = [UIColor redColor].CGColor;
+    border.strokeColor = KALLRGB.CGColor;
     
     border.fillColor = nil;
     

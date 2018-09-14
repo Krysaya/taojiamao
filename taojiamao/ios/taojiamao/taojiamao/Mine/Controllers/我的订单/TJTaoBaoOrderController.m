@@ -22,9 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"淘宝订单";
-    self.view.frame = CGRectMake(0, 64, S_W, S_H);
-    [self openTaoBaoOrder];
-//    [self setControllers];
+    self.view.frame = CGRectMake(0, 0, S_W, S_H);
+//    [self openTaoBaoOrder];
+    [self setControllers];
 //淘宝订单
     // Do any additional setup after loading the view.
 }
@@ -76,7 +76,7 @@
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     
     TJTBOrderContentController *vc = [[TJTBOrderContentController alloc]init];
-    vc.type = index;
+    vc.type = [NSString stringWithFormat:@"%ld",index];
     return vc;
     
 }
@@ -87,7 +87,7 @@
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
     CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
     CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    return CGRectMake(leftMargin, originY+65, S_W - 2*leftMargin, 44*H_Scale);
+    return CGRectMake(leftMargin, originY+65, S_W - 2*leftMargin, 44);
 }
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TJOredrInfoController : UIViewController
-
+@property (nonatomic, strong) NSString *gid;
 @end

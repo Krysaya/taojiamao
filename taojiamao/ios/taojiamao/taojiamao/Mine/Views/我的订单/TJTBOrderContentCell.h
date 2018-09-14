@@ -7,7 +7,10 @@
 //
 
 #import "TJBaseTableCell.h"
+@class TJTaoBaoOrderModel;
+
 
 @interface TJTBOrderContentCell : TJBaseTableCell
 
+@property (nonatomic, strong) TJTaoBaoOrderModel *model;
 @end

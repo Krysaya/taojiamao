@@ -46,17 +46,17 @@
 //             case SSDKPlatformTypeQQ:
 //                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
 //                 break;
-                 
+
              default:
                  break;
          }
      }
                       onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
      {
-         
+
          switch (platformType)
          {
-                 
+
              case SSDKPlatformTypeWechat:
                  [appInfo SSDKSetupWeChatByAppId:@"wxdd6702d275a50e3b"
                                        appSecret:@"b61472da8f8c33a18b4fb8e25daa4cf3"];
@@ -66,8 +66,8 @@
 //                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d"
 //                                    authType:SSDKAuthTypeBoth];
 //                 break;
-                 
-                 
+
+
              default:
                  break;
          }
@@ -156,10 +156,10 @@
 }
 #pragma mark controllers
 -(void)chooseControllersNoGuide{
-    self.window = [[UIWindow alloc]initWithFrame:S_F];
+//    self.window = [[UIWindow alloc]initWithFrame:S_F];
     TJTabBarController * tbc = [[TJTabBarController alloc]init];
     self.window.rootViewController = tbc;
-    [self.window makeKeyAndVisible];
+//    [self.window makeKeyAndVisible];
 }
 
 

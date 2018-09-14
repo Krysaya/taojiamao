@@ -10,6 +10,19 @@
 #import "TJMallOrdersCell.h"
 #import "TJOredrInfoCell.h"
 @interface TJOredrInfoController ()<UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *lab_one;
+@property (weak, nonatomic) IBOutlet UILabel *lab_two;
+@property (weak, nonatomic) IBOutlet UILabel *lab_three;
+@property (weak, nonatomic) IBOutlet UILabel *lab_four;
+@property (weak, nonatomic) IBOutlet UIImageView *img_one;
+@property (weak, nonatomic) IBOutlet UIImageView *img_two;
+@property (weak, nonatomic) IBOutlet UIImageView *img_three;
+@property (weak, nonatomic) IBOutlet UIImageView *img_four;
+@property (weak, nonatomic) IBOutlet UILabel *lab_b_one;
+@property (weak, nonatomic) IBOutlet UILabel *lab_b_two;
+@property (weak, nonatomic) IBOutlet UILabel *lab_b_three;
+@property (weak, nonatomic) IBOutlet UILabel *lab_b_four;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -18,19 +31,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单信息";
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJOredrInfoCell" bundle:nil] forCellReuseIdentifier:@"OrderInfoCell"];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJMallOrdersCell" bundle:nil] forCellReuseIdentifier:@"OrdersCell"];
 }
 
 - (void)setTableView{
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+100, S_W, S_H-100-SafeAreaTopHeight) style:UITableViewStylePlain];
-    [self.view addSubview:tableView];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [tableView registerNib:[UINib nibWithNibName:@"TJOredrInfoCell" bundle:nil] forCellReuseIdentifier:@"OrderInfoCell"];
-
-    [tableView registerNib:[UINib nibWithNibName:@"TJMallOrdersCell" bundle:nil] forCellReuseIdentifier:@"OrdersCell"];
+   
+   
 }
-
+- (void)requestTaoBaoOrderInfo{
+    [KConnectWorking requestNormalDataParam:@{@"id":self.gid} withRequestURL:[NSString stringWithFormat:@"%@/%@",MyOrderList,self.gid] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+        
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
+}
 #pragma mark - delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;

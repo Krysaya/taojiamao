@@ -95,7 +95,7 @@
         [self requestSearchGoodsList];
         [self requestHomePage];
         [self requestHomePageGoodsJingXuan];
-    }    
+    }
     if (self.menuArr.count>0) {
         [self.news_scrollView reloadDataAndStartRoll];
     }
@@ -211,8 +211,9 @@
 
 - (void)requestSearchGoodsList{
     self.hotSearchArr = [NSArray array];
+    WeakSelf
     [KConnectWorking requestNormalDataParam:nil withRequestURL:SearchGoods withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
-        self.hotSearchArr = responseObject[@"data"][@"hot"];
+        weakSelf.hotSearchArr = responseObject[@"data"][@"hot"];
 
     } withFailure:^(NSError * _Nullable error) {
         
@@ -225,14 +226,15 @@
     self.menuArr = [NSArray array];
     self.adSmallImgArr = [NSMutableArray array];
     self.newsArr = [NSMutableArray array];
-    
+    WeakSelf
     
     [KConnectWorking requestNormalDataParam:nil withRequestURL:HomePages withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         NSDictionary *dataDict = responseObject[@"data"];self.homePageData = dataDict;
+//        DSLog(@"-shoye ----%@",responseObject);
         if (dataDict.count>0) {
             NSArray *imgArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"slides"]];
-            self.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
-            self.newsArr = [TJHeadLineScrollModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"toutiao"]];
+            weakSelf.menuArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"menu"]];
+            weakSelf.newsArr = [TJHeadLineScrollModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"toutiao"]];
             
             for (int i = 0; i < imgArr.count; i++) {
                 TJHomePageModel *model = imgArr[i];
@@ -306,9 +308,10 @@
     NSDictionary *param  = @{@"page":pag,@"page_num":@"10",};
     [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [weakSelf.big_ScrollView.mj_footer endRefreshing];
+        DSLog(@"--上拉加载success---%@",responseObject);
+
         NSArray *array = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         [self.goodsArr addObjectsFromArray:array];
-        DSLog(@"--上拉加载success---%@",responseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.tableView.py_height = self.goodsArr.count*160;
             [weakSelf.tableView reloadData];
