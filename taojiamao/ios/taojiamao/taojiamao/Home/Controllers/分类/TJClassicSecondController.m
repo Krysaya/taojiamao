@@ -87,7 +87,7 @@
 }
 - (void)setFiltrateView{
     
-        self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 45) withMargin:28];
+        self.filtrate = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 45) withMargin:25];
         self.filtrate.backgroundColor = [UIColor whiteColor];
         self.filtrate.deletage = self;
         [self.view addSubview:self.filtrate];

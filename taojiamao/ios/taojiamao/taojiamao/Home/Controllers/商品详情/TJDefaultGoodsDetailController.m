@@ -407,6 +407,14 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         
     }else if (but.tag==DetailsQuanBuyButton){
         DSLog(@"优惠券页面");
+        NSDictionary *param = @{ @"itemid":self.gid,};
+        [KConnectWorking requestNormalDataParam:param withRequestURL:GoodsInfoTBK withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            DSLog(@"===%@-qqqq-jjjj-",responseObject);
+        } withFailure:^(NSError * _Nullable error) {
+            DSLog(@"===%@--error-",error);
+            
+        }];
+        
         if ([bind_tb intValue]==0) {
 
             [KConnectWorking getTaoBaoAuthor:self successCallback:^(ALBBSession *session) {
@@ -620,6 +628,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
 - (void)goTaoBaoGoodsInfo
 {
+    
     //打开商品详情页
     id <AlibcTradePage >page = [AlibcTradePageFactory itemDetailPage:self.gid];
     AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
@@ -656,7 +665,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
      UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = model.tbk_pwd;
-    [SVProgressHUD showSuccessWithStatusy6:@"已复制到剪切板，前往淘宝打开"];
+    [SVProgressHUD showSuccessWithStatus:@"已复制到剪切板，前往淘宝打开"];
     [self.popupView removeFromSuperview];
 
 }

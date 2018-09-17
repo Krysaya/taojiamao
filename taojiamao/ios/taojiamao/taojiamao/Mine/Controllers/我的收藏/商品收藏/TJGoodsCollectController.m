@@ -48,21 +48,20 @@
     TJGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"goodslistCell"];
     
     [cell cellWithArr:self.dataArr forIndexPath:indexPath isEditing:_goodsEditStatus withType:@"0"];
-
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-
-    if (_goodsEditStatus) {
-        TJGoodsCollectModel *model = [_dataArr objectAtIndex:indexPath.row];
-        model.isChecked = !model.isChecked;
-        [self.indexArr addObject:model.gid];
-        NSLog(@"=点了==%ld",indexPath.row);
-        
-        [tableView reloadData];
-    }
+//
+//    if (_goodsEditStatus) {
+//        TJGoodsCollectModel *model = [_dataArr objectAtIndex:indexPath.row];
+//        model.isChecked = !model.isChecked;
+//        [self.indexArr addObject:model.gid];
+//        NSLog(@"=点了==%ld",indexPath.row);
+//
+//        [tableView reloadData];
+//    }
    
 }
 //修改编辑按钮文字

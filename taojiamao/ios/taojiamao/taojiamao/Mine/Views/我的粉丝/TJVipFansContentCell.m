@@ -35,14 +35,14 @@
         make.width.height.mas_equalTo(70);
     }];
     
-    self.name = [TJLabel setLabelWith:@"红旗雷哥" font:14 color:RGB(51, 51, 51)];
+    self.name = [TJLabel setLabelWith:@" " font:14 color:RGB(51, 51, 51)];
     [self.contentView addSubview:self.name];
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.iconView.mas_right).offset(16);
         make.top.mas_equalTo(25);
     }];
     
-    self.fansID = [TJLabel setLabelWith:@"ID:66666" font:14 color:RGB(51, 51, 51)];
+    self.fansID = [TJLabel setLabelWith:@"ID:" font:14 color:RGB(51, 51, 51)];
     [self.contentView addSubview:self.fansID];
     [self.fansID mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(weakSelf.name);
@@ -62,7 +62,7 @@
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.contentView);
         make.top.mas_equalTo(weakSelf.iconView.mas_bottom).offset(10);
-        make.width.mas_equalTo(351);
+        make.width.mas_equalTo(S_W-24);
         make.height.mas_equalTo(1);
     }];
     
@@ -80,14 +80,14 @@
         make.top.mas_equalTo(weakSelf.fanses.mas_bottom).offset(15);
     }];
     
-    self.recommend = [TJLabel setLabelWith:@"推荐人ID：546987" font:14 color:RGB(51, 51, 51)];
+    self.recommend = [TJLabel setLabelWith:@"推荐人ID：" font:14 color:RGB(51, 51, 51)];
     [self.contentView addSubview:self.recommend];
     [self.recommend mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.fanses);
         make.right.mas_equalTo(weakSelf.time);
     }];
     
-    self.money = [TJLabel setLabelWith:@"累计佣金：132.0" font:14 color:RGB(51, 51, 51)];
+    self.money = [TJLabel setLabelWith:@"累计佣金：0.00" font:14 color:RGB(51, 51, 51)];
     [self.contentView addSubview:self.money];
     [self.money mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(weakSelf.grade);
@@ -118,7 +118,6 @@
     _model = model;
     self.name.text = model.nickname;
     self.fanses.text = [NSString stringWithFormat:@"粉丝数：%@",model.invite_num];
-    self.grade.text = [NSString stringWithFormat:@"会员等级：%@",model.level];
     self.fansID.text = [NSString stringWithFormat:@"ID:%@",model.id];
     self.recommend.text = [NSString stringWithFormat:@"推荐人ID:%@",model.pid];
     self.money.text = [NSString stringWithFormat:@"累计佣金:%@",model.total_bonus];
@@ -127,5 +126,24 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
     self.time.text = currentDateStr;
+    
+     if ([model.image containsString:@"http"]) {
+         [self.iconView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+     }else{
+           [self.iconView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASEURL,model.image]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+     }
+    
+    if ([model.level intValue]==0) {
+        self.grade.text = @"会员等级:普通会员";
+    }
+    if ([model.level intValue]==1) {
+        self.grade.text = @"会员等级:铜牌会员";
+    }
+    if ([model.level intValue]==2) {
+        self.grade.text = @"会员等级:银牌会员";
+    }
+    if ([model.level intValue]==3) {
+        self.grade.text = @"会员等级:金牌会员";
+    }
 }
 @end

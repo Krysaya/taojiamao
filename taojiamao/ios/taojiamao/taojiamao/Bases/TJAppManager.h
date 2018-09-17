@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
 #import "TJLoginController.h"
-
-
+//#import "TJMineOrderController.h"
+@class TJMineOrderController;
 @interface TJAppManager : NSObject
 singleton_interface(TJAppManager);
 
 
 @property (nonatomic, weak) TJLoginController *loginVC;
+@property (nonatomic, weak) TJMineOrderController *myOrderVC;
 
 @end

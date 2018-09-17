@@ -28,7 +28,7 @@
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
 
-//    DSLog(@"%@ %lu",viewController,(unsigned long)self.viewControllers.count);
+    DSLog(@"%@ %lu",viewController,(unsigned long)self.viewControllers.count);
     //如果现在push的不是栈底控制器（最先push进来的那个控制器）
     if (self.viewControllers.count > 0) {
         //隐藏tabbar

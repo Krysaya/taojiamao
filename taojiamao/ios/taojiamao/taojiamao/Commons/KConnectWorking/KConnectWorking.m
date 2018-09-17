@@ -45,12 +45,13 @@
         request.parameters = @{  @"id":IDStr,
                                  @"type":type,};
     } onSuccess:successBlock onFailure:^(NSError * _Nullable error) {
-        DSLog(@"--error===%@",error);
+
+        
     }];
 
 }
 
-+ (void)requestNormalDataParam:(NSDictionary *)params withRequestURL:(NSString *)URL withMethodType:(XMHTTPMethodType)type withSuccessBlock:(nullable XMSuccessBlock)successBlock withFailure:(nullable XMFailureBlock)failureBlock{
++ (void)requestNormalDataParam:(NSDictionary *)params withRequestURL:(NSString *)URL withMethodType:(XMHTTPMethodType)type withSuccessBlock:(nullable XMSuccessBlock)successBlock withFailure:(nullable XMFailureBlock)failureBlock {
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
     }else{
@@ -65,17 +66,22 @@
                                 }.mutableCopy;
     [md addEntriesFromDictionary:params];
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = URL;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = type;
-        request.timeoutInterval = 15;
-        request.parameters = params;
-    } onSuccess:successBlock onFailure:failureBlock];
+    if ([TJOverallJudge sharedJudge].netStatus==0) {
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
+    }else{
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = URL;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = type;
+            request.timeoutInterval = 10;
+            request.parameters = params;
+        } onSuccess:successBlock onFailure:failureBlock];
+    }
+    
 
 }
 
@@ -94,19 +100,22 @@
                                 }.mutableCopy;
     [md addEntriesFromDictionary:params];
     NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = URL;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = type;
-        request.parameters = normalPara;
-    } onSuccess:successBlock onFailure:failureBlock];
-
-    
-    
+    if ([TJOverallJudge sharedJudge].netStatus==0) {
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
+    }else{
+        [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
+            request.url = URL;
+            request.timeoutInterval = 10;
+            request.headers = @{@"timestamp": timeStr,
+                                @"app": @"ios",
+                                @"sign":md5Str,
+                                @"uid":userid,
+                                };
+            request.httpMethod = type;
+            request.parameters = normalPara;
+        } onSuccess:successBlock onFailure:failureBlock];
+    }
+   
 }
 
 @end

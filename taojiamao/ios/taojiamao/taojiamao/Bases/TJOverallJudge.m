@@ -7,7 +7,6 @@
 //
 
 #import "TJOverallJudge.h"
-
 @interface TJOverallJudge()
 
 
@@ -25,9 +24,12 @@
     return instance;
     
 }
-+(void)judgeNet{
++(NSInteger)judgeNet{
     //网络检查
-//    [XMCenter ];
+    
+    NSInteger status = [[XMEngine sharedEngine] reachabilityStatus];
+//    [[XMEngine sharedEngine] networkReachability];
+    return status;
 }
 
 //检查字符非空 nil null @“” <null>
@@ -165,7 +167,12 @@
     NSString *dateStr = [formatter stringFromDate:date];
     return dateStr;
 }
-
+/*过滤所有空格*/
++ (NSString *)stringContainCharactersInSet:(NSString *)str{
+    NSString *topstr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *endStr = [topstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return endStr;
+}
 /*过滤emoji*/
 +(BOOL)stringContainsEmoji:(NSString *)string
 {

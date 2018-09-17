@@ -9,7 +9,7 @@
 
 #import "TJMallOrdersController.h"
 #import "TJMallOrdersCell.h"
-
+#import "TJTBOrderInfoController.h"
 //static NSString * const TJMallOrdersCell = @"TJMallOrdersCell";
 
 
@@ -44,6 +44,10 @@
 //    cell.model = self.dataArray[indexPath.section];
     
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TJTBOrderInfoController *vc = [[TJTBOrderInfoController alloc]init];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 229*H_Scale;

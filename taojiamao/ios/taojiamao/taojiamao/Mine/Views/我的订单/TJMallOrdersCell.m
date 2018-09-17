@@ -37,9 +37,9 @@
     [self.contentView addSubview:self.iconImg];
     [self.iconImg mas_makeConstraints:^(MASConstraintMaker *make) {
      make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(15*H_Scale);
-        make.left.mas_equalTo(12*W_Scale);
-        make.height.mas_equalTo(80*H_Scale);
-        make.width.mas_equalTo(80*W_Scale);
+        make.left.mas_equalTo(12);
+        make.height.mas_equalTo(80);
+        make.width.mas_equalTo(80);
         
     }];
     
@@ -49,16 +49,16 @@
     self.title.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:self.title];
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(10*H_Scale);
-        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(15*W_Scale);
-        make.height.mas_equalTo(20*H_Scale);
+        make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(10);
+        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(15);
+        make.height.mas_equalTo(20);
 //        make.width.mas_equalTo(160*W_Scale);
         
     }];
     
     self.members = [[UILabel alloc]init];
     self.members.textColor = [UIColor whiteColor];
-    self.members.text = @"VIP会员";
+    self.members.text = @" ";
     self.members.font = [UIFont systemFontOfSize:12];
     self.members.textAlignment = NSTextAlignmentCenter;
     self.members.backgroundColor = KALLRGB;
@@ -66,20 +66,20 @@
     self.members.layer.cornerRadius = 5;
     [self.contentView addSubview:self.members];
     [self.members mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.title.mas_bottom).offset(10*H_Scale);
-        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(15*W_Scale);
-        make.height.mas_equalTo(20*H_Scale);
-        make.width.mas_equalTo(50*W_Scale);
+        make.top.mas_equalTo(weakSelf.title.mas_bottom).offset(10);
+        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(15);
+        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(50);
     }];
     
     self.price = [[UILabel alloc]init];
     self.price.textColor = KALLRGB;
-    self.price.text = @"¥9.9";
+    self.price.text = @"¥0.00";
     [self.contentView addSubview:self.price];
     [self.price mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.members.mas_bottom).offset(22*H_Scale);
-        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(15*W_Scale);
-        make.height.mas_equalTo(20*H_Scale);
+        make.top.mas_equalTo(weakSelf.members.mas_bottom).offset(22);
+        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(15);
+        make.height.mas_equalTo(20);
     }];
     
     self.line = [[UIView alloc]init];
@@ -87,9 +87,9 @@
     [self.contentView addSubview:self.line];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(1);
-        make.width.mas_equalTo(351*W_Scale);
+        make.width.mas_equalTo(S_W-24);
         make.centerX.mas_equalTo(weakSelf.mas_centerX);
-        make.top.mas_equalTo(weakSelf.iconImg.mas_bottom).offset(10*H_Scale);
+        make.top.mas_equalTo(weakSelf.iconImg.mas_bottom).offset(10);
     }];
     
     self.courierNum = [[UILabel alloc]init];
@@ -98,8 +98,8 @@
     self.courierNum.textColor = RGB(102, 102, 102);
     [self.contentView addSubview:self.courierNum];
     [self.courierNum mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.line.mas_bottom).offset(10*H_Scale);
-        make.left.mas_equalTo(12*W_Scale);
+        make.top.mas_equalTo(weakSelf.line.mas_bottom).offset(10);
+        make.left.mas_equalTo(12);
         
     }];
     
@@ -109,32 +109,33 @@
     self.placeOrderTime.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:self.placeOrderTime];
     [self.placeOrderTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(12*W_Scale);
-        make.top.mas_equalTo(weakSelf.courierNum.mas_bottom).offset(12*H_Scale);
+        make.left.mas_equalTo(12);
+        make.top.mas_equalTo(weakSelf.courierNum.mas_bottom).offset(12);
         
     }];
     
     self.orderNum = [[UILabel alloc]init];
     self.orderNum.textColor = RGB(102, 102, 102);
-    self.orderNum.text = @"订单编号：565894413367332299";
+    self.orderNum.text = @"订单编号：";
     self.orderNum.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:self.orderNum];
     [self.orderNum mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(12*W_Scale);
-        make.top.mas_equalTo(weakSelf.placeOrderTime.mas_bottom).offset(12*H_Scale);
+        make.left.mas_equalTo(12);
+        make.top.mas_equalTo(weakSelf.placeOrderTime.mas_bottom).offset(12);
         
     }];
     
     self.receiveInfo = [[UILabel alloc]init];
     self.receiveInfo.textColor = RGB(102, 102, 102);
     self.receiveInfo.numberOfLines = 0;
-    self.receiveInfo.text = @"收货信息：啦啦啦 15728913893 河北省 石家庄市 新华区 民族路 华强广场1202";
+    self.receiveInfo.text = @"收货信息：";
     self.receiveInfo.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:self.receiveInfo];
     [self.receiveInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(12*W_Scale);
-        make.right.mas_equalTo(-12*W_Scale); make.top.mas_equalTo(weakSelf.orderNum.mas_bottom).offset(12*H_Scale);
-        
+        make.left.mas_equalTo(12);
+        make.right.mas_equalTo(-12);
+        make.top.mas_equalTo(weakSelf.orderNum.mas_bottom).offset(12);
+        make.bottom.mas_equalTo(weakSelf.contentView.mas_bottom).offset(-12);
     }];
     
 }

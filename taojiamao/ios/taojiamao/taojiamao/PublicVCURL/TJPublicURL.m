@@ -89,6 +89,7 @@
          [weakSelf.navigationController pushViewController:vc animated:YES];}
     if ([identifier isEqualToString: @"order"]) {// 我的订单
         TJMineOrderController *vc = [[TJMineOrderController alloc]init];
+        [TJAppManager sharedTJAppManager].myOrderVC = vc;
         [weakSelf.navigationController pushViewController:vc animated:YES];}
      if ([identifier isEqualToString: @"favorite"]) {//我的收藏
          TJCollectController *vc = [[TJCollectController alloc]init];

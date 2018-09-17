@@ -8,7 +8,9 @@
 //
 
 #import "TJTBOrderContentController.h"
+#import "TJTBOrderInfoController.h"
 #import "TJTBOrderContentCell.h"
+#import "TJTabBarController.h"
 #import "TJTaoBaoOrderModel.h"
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
@@ -25,6 +27,8 @@ static NSString * const TBOrderContentCell = @"TBOrderContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    DSLog(@"--%@--nav",self.navigationController);
+
     [self  requestTaoBaoOrder:self.type];
     [self setTableViewUI];
 //    [self openTaoBaoOrderWithStatus:self.type];
@@ -95,6 +99,36 @@ static NSString * const TBOrderContentCell = @"TBOrderContentCell";
     cell.model = self.dataArr[indexPath.section];
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    DSLog(@"dianle");
+    TJTBOrderInfoController *avc = [[TJTBOrderInfoController alloc]init];
+//    TJTaoBaoOrderModel *model = self.dataArr[indexPath.section];
+//    avc.gid = model.id;
+    UIViewController *order = (UIViewController *)[TJAppManager sharedTJAppManager].myOrderVC;
+    [order.navigationController pushViewController:avc animated:NO];
+}
+- (UIViewController *)currentViewController
+{
+    UIWindow *keyWindow  = [UIApplication sharedApplication].keyWindow;
+    UIViewController *vc = keyWindow.rootViewController;
+    while (vc.presentedViewController)
+    {
+        vc = vc.presentedViewController;
+        
+        if ([vc isKindOfClass:[TJNavigationController class]])
+        {
+            vc = [(TJNavigationController *)vc visibleViewController];
+        }
+        else if ([vc isKindOfClass:[TJTabBarController class]])
+        {
+            vc = [(TJTabBarController *)vc selectedViewController];
+        }
+    }
+    return vc;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 172;
 }

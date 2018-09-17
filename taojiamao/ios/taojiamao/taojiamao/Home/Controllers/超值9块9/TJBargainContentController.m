@@ -51,58 +51,62 @@
 }
 - (void)loadReuqestNormalDataWithType:(NSString *)type  withcateType:(NSString *)cid{
     self.dataGoodsArr = [NSMutableArray array];
-    [SVProgressHUD show];
-    if ([type intValue]==0) {//精选
-        
-        [KConnectWorking requestNormalDataParam:@{ @"is_jing":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-            [SVProgressHUD dismiss];
-            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                
-            });
-        } withFailure:^(NSError * _Nullable error) {
-            [SVProgressHUD dismiss];
-        }];
-    }else if([type intValue]==1){
-//        9.9
-        [KConnectWorking requestNormalDataParam:nil withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-            [SVProgressHUD dismiss];
-            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                
-            });
-        } withFailure:^(NSError * _Nullable error) {
-            [SVProgressHUD dismiss];
-        }];
-        
-    }else if([type intValue]==2){
-
-        [KConnectWorking requestNormalDataParam:@{ @"is_jiu":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-            [SVProgressHUD dismiss];
-            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                
-            });
-        } withFailure:^(NSError * _Nullable error) {
-            [SVProgressHUD dismiss];
-        }];
+    if ([TJOverallJudge sharedJudge].netStatus==0) {
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
     }else{
-        
-        [KConnectWorking requestNormalDataParam:@{@"cid":cid,} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-            [SVProgressHUD dismiss];
-            self.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
+        [SVProgressHUD show];
+        WeakSelf
+        if ([type intValue]==0) {//精选
+            
+            [KConnectWorking requestNormalDataParam:@{ @"is_jing":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                [SVProgressHUD dismiss];
+                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                //            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
                 
-            });
-        } withFailure:^(NSError * _Nullable error) {
-            [SVProgressHUD dismiss];
-        }];
-        
+                //            });
+            } withFailure:^(NSError * _Nullable error) {
+                [SVProgressHUD dismiss];
+            }];
+        }else if([type intValue]==1){
+            //        9.9
+            [KConnectWorking requestNormalDataParam:nil withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                [SVProgressHUD dismiss];
+                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                //            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                
+                //            });
+            } withFailure:^(NSError * _Nullable error) {
+                [SVProgressHUD dismiss];
+            }];
+            
+        }else if([type intValue]==2){
+            
+            [KConnectWorking requestNormalDataParam:@{ @"is_jiu":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                [SVProgressHUD dismiss];
+                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                //            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                
+                //            });
+            } withFailure:^(NSError * _Nullable error) {
+                [SVProgressHUD dismiss];
+            }];
+        }else{
+            
+            [KConnectWorking requestNormalDataParam:@{@"cid":cid,} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                [SVProgressHUD dismiss];
+                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                [weakSelf.tableView reloadData];
+            } withFailure:^(NSError * _Nullable error) {
+                [SVProgressHUD dismiss];
+            }];
+            
+        }
     }
+    
+  
     
 }
 #pragma mark - tableViewDelgate

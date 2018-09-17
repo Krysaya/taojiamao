@@ -8,6 +8,6 @@
 
 #import "TJBaseViewController.h"
 
-@interface TJTBOrderContentController : TJBaseViewController
+@interface TJTBOrderContentController : UIViewController<ZJScrollPageViewChildVcDelegate>
 @property (nonatomic, strong ) NSString *type;
 @end

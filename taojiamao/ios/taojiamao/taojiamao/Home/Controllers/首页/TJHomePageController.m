@@ -72,8 +72,7 @@
 @property (nonatomic, strong) NSMutableArray *goodsArr;
 @property (nonatomic, strong) UIScrollView *big_ScrollView;
 @property (nonatomic, strong) GYRollingNoticeView *news_scrollView;
-@property (nonatomic, strong) UIPageControl *pageControl;
-@property (nonatomic, strong) UIPageControl *pageC_NEWS;
+@property (nonatomic, strong) TJHomePagePopView *popview;
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSArray *hotSearchArr;
@@ -89,13 +88,7 @@
 {
     [super viewWillAppear:animated];
     [self setNaviBarAlpha:0];
-    if (self.homePageData.count>0) {
-        
-    }else{
-        [self requestSearchGoodsList];
-        [self requestHomePage];
-        [self requestHomePageGoodsJingXuan];
-    }
+
     if (self.menuArr.count>0) {
         [self.news_scrollView reloadDataAndStartRoll];
     }
@@ -124,6 +117,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavgation];
+
     self.page = 1;
     self.view.backgroundColor = RGB(245, 245, 245);
     UIScrollView * big_ScrollVie = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-49)];
@@ -137,7 +131,9 @@
     WeakSelf
     
     MJRefreshGifHeader * header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
-//        [weakSelf requestHomePage];
+        [weakSelf requestSearchGoodsList];
+
+        [weakSelf requestHomePage];
         [weakSelf requestHomePageGoodsJingXuan];
     }];
     NSMutableArray * temp = [NSMutableArray array];
@@ -151,6 +147,7 @@
     header.lastUpdatedTimeLabel.hidden = YES;
     header.stateLabel.hidden = YES;
     self.big_ScrollView.mj_header = header;
+    [self.big_ScrollView.mj_header beginRefreshing];
     MJRefreshAutoStateFooter * footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
                 [weakSelf requestHomePageGoodsMoreJingXuan];
     }];
@@ -159,9 +156,12 @@
     
 }
 - (void)layoutAllView{
-                [self setADScrollView];[self setNewsScroll];
-                [self setColumnsCollectView];[self setClassCollectionView];
-                [self setBottomAdImg];[self setBottomTableView];
+    if (!self.news_scrollView) {
+        [self setADScrollView];[self setNewsScroll];
+        [self setColumnsCollectView];[self setClassCollectionView];
+        [self setBottomAdImg];[self setBottomTableView];
+    }
+    
 }
 
 - (void)setPopView{
@@ -186,11 +186,16 @@
 //
 //        if ([self.status intValue]==1) {
             DSLog(@"弹窗00");
+        if (!self.popview) {
             TJHomePagePopView *popview = [TJHomePagePopView invitationView];
             popview.frame = S_F;popview.delegate = self;
             popview.backgroundColor = RGBA(1, 1, 1, 0.2);
             popview.model = self.ad_m;
             [self.view addSubview:popview];
+            self.popview = popview;
+        }
+    
+    
 
 //        }
 //    }
@@ -210,14 +215,18 @@
 }
 
 - (void)requestSearchGoodsList{
-    self.hotSearchArr = [NSArray array];
-    WeakSelf
-    [KConnectWorking requestNormalDataParam:nil withRequestURL:SearchGoods withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
-        weakSelf.hotSearchArr = responseObject[@"data"][@"hot"];
-
-    } withFailure:^(NSError * _Nullable error) {
-        
-    }];
+    if (!self.hotSearchArr) {
+        self.hotSearchArr = [NSArray array];
+        WeakSelf
+        [KConnectWorking requestNormalDataParam:nil withRequestURL:SearchGoods withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+            weakSelf.hotSearchArr = responseObject[@"data"][@"hot"];
+            DSLog(@"====%@",responseObject);
+        } withFailure:^(NSError * _Nullable error) {
+            DSLog(@"====err%@",error);
+            
+        }];
+    }
+   
 }
 
 - (void)requestHomePage{
@@ -238,34 +247,34 @@
             
             for (int i = 0; i < imgArr.count; i++) {
                 TJHomePageModel *model = imgArr[i];
-                [self.imgADArr addObject:model.imgurl];
-                [self.imgDataArr addObject:model];
+                [weakSelf.imgADArr addObject:model.imgurl];
+                [weakSelf.imgDataArr addObject:model];
             }
             
-            self.status = responseObject[@"data"][@"pop"][@"status"];
-            self.ad_m  = [TJHomePageModel mj_objectWithKeyValues:responseObject[@"data"][@"pop"][@"info"]];
+            weakSelf.status = responseObject[@"data"][@"pop"][@"status"];
+            weakSelf.ad_m  = [TJHomePageModel mj_objectWithKeyValues:responseObject[@"data"][@"pop"][@"info"]];
             
             NSArray *arr = responseObject[@"data"][@"block"];
             NSDictionary *dict = arr[0];NSDictionary *dict2 = arr[1];
             NSArray *menu1Arr = dict[@"menu"];NSArray *menu2Arr = dict2[@"menu"];
             if (menu1Arr.count>0) {
-                self.class_TopArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict[@"menu"]];
+                weakSelf.class_TopArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict[@"menu"]];
             }if (menu2Arr.count>0) {
-                self.class_bottomArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict2[@"menu"]];
+                weakSelf.class_bottomArr = [TJHomePageModel mj_objectArrayWithKeyValuesArray:dict2[@"menu"]];
             }
-            self.adSmallImgArr  = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"ad_block_foot"]];
-            [self setPopView];
+            weakSelf.adSmallImgArr  = [TJHomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"ad_block_foot"]];
+            [weakSelf setPopView];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self layoutAllView];
-                [self.news_scrollView reloadDataAndStartRoll];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf layoutAllView];
+                [weakSelf.news_scrollView reloadDataAndStartRoll];
                 
-            });
+//            });
             
         }
     } withFailure:^(NSError * _Nullable error) {
         [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
-
+        [weakSelf.big_ScrollView.mj_header endRefreshing];
     }];
     
 }
@@ -279,12 +288,12 @@
     [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [weakSelf.big_ScrollView.mj_header endRefreshing];
         weakSelf.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        DSLog(@"--success---%@",responseObject);
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        DSLog(@"--success---%@",responseObject);
+//        dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.tableView.py_height = self.goodsArr.count*160;
             [weakSelf.tableView reloadData];
             weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
-        });
+//        });
         
 //        if (weakSelf.dataArr.count<[param[@"page_num"] integerValue]) {
 //                        weakSelf.collectionV.mj_footer.hidden = YES;
@@ -293,10 +302,7 @@
 //            }
         weakSelf.page++;
     } withFailure:^(NSError * _Nullable error) {
-        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-        DSLog(@"---error---%@",dic_err);
-//        [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
+        DSLog(@"---error---%ld",error.code);
         [weakSelf.big_ScrollView.mj_header endRefreshing];
     }];
     
@@ -308,10 +314,9 @@
     NSDictionary *param  = @{@"page":pag,@"page_num":@"10",};
     [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [weakSelf.big_ScrollView.mj_footer endRefreshing];
-        DSLog(@"--上拉加载success---%@",responseObject);
 
         NSArray *array = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        [self.goodsArr addObjectsFromArray:array];
+        [weakSelf.goodsArr addObjectsFromArray:array];
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.tableView.py_height = self.goodsArr.count*160;
             [weakSelf.tableView reloadData];
@@ -327,6 +332,7 @@
 
 
 - (void)setNavgation{
+
 //    左边按钮
     TJButton *button_left = [[TJButton alloc]initDelegate:self backColor:nil tag:LEFTBTN withBackImage:@"sign" withSelectImage:nil];
    

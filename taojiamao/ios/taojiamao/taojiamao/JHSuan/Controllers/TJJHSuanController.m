@@ -47,30 +47,34 @@
 
 - (void)requestLoadNormalJHSList{
 //    商品列表页
-    self.page = 1;
-    self.dataArr = [NSMutableArray array];
-    WeakSelf
-    NSString *pag = [NSString stringWithFormat:@"%d",self.page];
-    NSDictionary *param = @{@"page":pag,
+    if ([TJOverallJudge sharedJudge].netStatus==0) {
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
+        [self endRefresh];
+
+    }else{
+
+        self.page = 1;
+        self.dataArr = [NSMutableArray array];
+            WeakSelf
+        NSString *pag = [NSString stringWithFormat:@"%d",self.page];
+        NSDictionary *param = @{@"page":pag,
                             @"page_num":@"10",};
-    [KConnectWorking requestNormalDataParam:param withRequestURL:JHSGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-        [weakSelf endRefresh];
-        NSDictionary *dict = responseObject[@"data"];
-        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        [KConnectWorking requestNormalDataParam:param withRequestURL:JHSGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            [weakSelf endRefresh];
+            NSDictionary *dict = responseObject[@"data"];
+            weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.collectionV reloadData];
-        });
-        
-        if (weakSelf.dataArr.count<[param[@"page_num"] integerValue]) {
-            weakSelf.collectionV.mj_footer.hidden = YES;
-        }else{
-            weakSelf.collectionV.mj_footer.hidden = NO;
-        }
+            if (weakSelf.dataArr.count<[param[@"page_num"] integerValue]) {
+                weakSelf.collectionV.mj_footer.hidden = YES;
+            }else{
+                weakSelf.collectionV.mj_footer.hidden = NO;
+            }
         weakSelf.page++;
-    } withFailure:^(NSError * _Nullable error) {
-        [weakSelf endRefresh];
-    }];
+        } withFailure:^(NSError * _Nullable error) {
+            [weakSelf endRefresh];
+        }];
+    }
 }
 - (void)requestLoadDataJHSList{
 
@@ -120,8 +124,8 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     [header setImages:@[[UIImage imageNamed:@"1"]] forState:MJRefreshStateIdle];
     [header setImages:temp forState:MJRefreshStatePulling];
     [header setImages:temp duration:temp.count*0.025 forState:MJRefreshStateRefreshing];
-    header.lastUpdatedTimeLabel.hidden = YES;
-    header.stateLabel.hidden = YES;
+//    header.lastUpdatedTimeLabel.hidden = YES;
+//    header.stateLabel.hidden = YES;
     self.collectionV.mj_header = header;
   
     

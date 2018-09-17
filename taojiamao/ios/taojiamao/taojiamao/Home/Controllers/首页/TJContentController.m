@@ -102,34 +102,35 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     //    精选
     self.page = 1;
     NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
-    WeakSelf
-    [SVProgressHUD show];
-    [SVProgressHUD dismissWithDelay:10];
-    self.dataArr_bottom = [NSMutableArray array];
-    if (self.model) {
-        DSLog(@"有值");
-        [KConnectWorking requestNormalDataParam:@{@"cid":self.model.cid,@"page":pag,@"page_num":@"10",} withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-            [SVProgressHUD dismiss];
-            [weakSelf.tableView.mj_header endRefreshing];
-            weakSelf.dataArr_bottom = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-            });
-            if (weakSelf.dataArr_bottom.count<10) {
-                weakSelf.tableView.mj_footer.hidden = YES;
-            }else{
-                weakSelf.tableView.mj_footer.hidden = NO;
-            }
+    if ([TJOverallJudge sharedJudge].netStatus==0) {
+        [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
+    }else{
+        WeakSelf
+        [SVProgressHUD show];
+        [SVProgressHUD dismissWithDelay:10];
+        self.dataArr_bottom = [NSMutableArray array];
+        if (self.model) {
+            DSLog(@"有值");
+            [KConnectWorking requestNormalDataParam:@{@"cid":self.model.cid,@"page":pag,@"page_num":@"10",} withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                [SVProgressHUD dismiss];
+                [weakSelf.tableView.mj_header endRefreshing];
+                weakSelf.dataArr_bottom = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+                    [weakSelf.tableView reloadData];
+                if (weakSelf.dataArr_bottom.count<10) {
+                    weakSelf.tableView.mj_footer.hidden = YES;
+                }else{
+                    weakSelf.tableView.mj_footer.hidden = NO;
+                }
             
-            weakSelf.page++;
+                weakSelf.page++;
             
-        } withFailure:^(NSError * _Nullable error) {
-            [SVProgressHUD dismiss];
-            [weakSelf.tableView.mj_header endRefreshing];
+            } withFailure:^(NSError * _Nullable error) {
+                [SVProgressHUD dismiss];
+                [weakSelf.tableView.mj_header endRefreshing];
             
-        }];
+            }];
+        }
     }
-    
 }
 
 - (void)requestHomePageGoodsJingXuanFooterData{
@@ -165,7 +166,7 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150*H_Scale;
+    return 150;
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 

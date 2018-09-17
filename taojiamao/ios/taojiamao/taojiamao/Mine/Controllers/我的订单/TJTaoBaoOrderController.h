@@ -8,6 +8,6 @@
 
 #import "WMPageController.h"
 
-@interface TJTaoBaoOrderController : WMPageController
+@interface TJTaoBaoOrderController : UIViewController
 
 @end

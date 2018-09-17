@@ -10,9 +10,11 @@
 
 @interface TJOverallJudge : NSObject
 
+
+@property (nonatomic, assign) NSInteger netStatus;
 +(instancetype)sharedJudge;
 
-+(void)judgeNet;
++(NSInteger)judgeNet;
 
 -(BOOL)judgeFirstOpen;
 
@@ -27,6 +29,8 @@
 
 /*验证字符串都是数字*/
 +(BOOL)judgeNumInputShouldNumber:(NSString *)str;
+/*过滤空格*/
++ (NSString *)stringContainCharactersInSet:(NSString *)str;
 
 //+(BOOL)judgeStringIsNull:(NSArray*)array;
 /*过滤emoji*/

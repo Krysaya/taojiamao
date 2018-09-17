@@ -124,11 +124,11 @@
     if (index==0) {
     
         TJSearchContentController *vc = _childVCs[index];
-        vc.strsearch = self.searchText;
+        vc.strsearch = [TJOverallJudge stringContainCharactersInSet:self.searchText];
 
     }else{
         TJSuperSearchController *vc = _childVCs[index];
-        vc.strsearch = self.searchText;
+        vc.strsearch = [TJOverallJudge stringContainCharactersInSet:self.searchText];
 
     }
     return _childVCs[index];

@@ -52,20 +52,6 @@
 
     }];
     
-    self.title = [[UILabel alloc]init];
-    self.title.text = @" ";
-    self.title.textColor = RGB(51, 51, 51);
-    self.title.numberOfLines = 0;
-    self.title.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:self.title];
-    [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(10*H_Scale);
-        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
-        make.height.mas_equalTo(35);
-        make.width.mas_equalTo(160);
-
-    }];
-
 //    self.tbImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tb_bs"]];
 //    [self.contentView addSubview:self.tbImg];
 //    [self.tbImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,6 +71,21 @@
         make.width.mas_equalTo(6);
     }];
     
+    self.title = [[UILabel alloc]init];
+    self.title.text = @" ";
+    self.title.textColor = RGB(51, 51, 51);
+    self.title.numberOfLines = 0;
+    self.title.font = [UIFont systemFontOfSize:14];
+    [self.contentView addSubview:self.title];
+    [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakSelf.contentView.mas_top).offset(10);
+        make.left.mas_equalTo(weakSelf.iconImg.mas_right).offset(16);
+        make.height.mas_equalTo(35);
+        make.right.mas_equalTo(weakSelf.arrowImg.mas_right).offset(30);
+//        make.width.mas_equalTo(160);
+        
+    }];
+
     self.jiesuan_time = [[UILabel alloc]init];
     self.jiesuan_time.text = @"预计05月12日结算";
     self.jiesuan_time.textColor = RGB(102, 102, 102);

@@ -40,7 +40,7 @@
 #import "TJShareMoneyController.h"
 #import "TJCollectController.h"//收藏
 #import "TJMyAssetsController.h"
-#import "TJMineOrderController.h"//订单
+//#import "TJMineOrderController.h"//订单
 #import "TJMyFootPrintController.h"//足迹
 #import "TJVipBalanceController.h"//累计
 #import "TJVipPerformanceController.h"//推广
@@ -578,13 +578,13 @@
 }
 
 #pragma mark - tabbarController delagte
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    UIViewController *vc = [tabBarController.viewControllers objectAtIndex:1];
-    if (viewController == vc) {
-        DSLog(@"刷新-------vc===");
-        return NO;
-    }
-    return YES;
-    
-}
+//- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+//    UIViewController *vc = [tabBarController.viewControllers objectAtIndex:1];
+//    if (viewController == vc) {
+//        DSLog(@"刷新-------vc===");
+//        return NO;
+//    }
+//    return YES;
+//    
+//}
 @end

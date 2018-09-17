@@ -13,8 +13,9 @@
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
 #import <AlibcTradeSDK/AlibcTradePageFactory.h>
 #import <AlibcTradeSDK/AlibcTradeService.h>
-@interface TJTaoBaoOrderController ()
-
+@interface TJTaoBaoOrderController ()<ZJScrollPageViewDelegate,ZJScrollPageViewChildVcDelegate>
+@property(weak, nonatomic)ZJContentView *contentView;
+@property (nonatomic, strong) ZJScrollSegmentView *segV;
 @end
 
 @implementation TJTaoBaoOrderController
@@ -22,9 +23,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"淘宝订单";
+    DSLog(@"--%@--nav",self.navigationController);
     self.view.frame = CGRectMake(0, 0, S_W, S_H);
+    //    分栏
+    ZJSegmentStyle *style = [[ZJSegmentStyle alloc] init];
+    //显示遮盖
+    style.showLine = YES;
+    style.titleMargin = 30.f;
+    style.segmentViewBounces = NO;
+    style.selectedTitleColor = KALLRGB;
+    style.normalTitleColor = RGB(151, 151, 151);
+    /// 显示图片 (在显示图片的时候只有下划线的效果可以开启, 其他的'遮盖','渐变',效果会被内部关闭)
+//    style.showImage = YES;
+    /// 图片位置
+//    style.imagePosition = TitleImagePositionTop;
+    // 当标题(和图片)宽度总和小于ZJScrollPageView的宽度的时候, 标题会自适应宽度
+    style.autoAdjustTitlesWidth = YES;
+    
+    // 注意: 一定要避免循环引用!!
+    __weak typeof(self) weakSelf = self;
+    ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc]initWithFrame:CGRectMake(0, 64, S_W, 50) segmentStyle:style delegate:self titles:@[@"全部",@"待结算",@"已结算"] titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
+        [weakSelf.contentView setContentOffSet:CGPointMake(weakSelf.contentView.bounds.size.width * index, 0.0) animated:YES];
+        
+    }];
+    segment.backgroundColor = [UIColor whiteColor];
+//    self.segV = segment;
+    // 自定义标题的样式
+    segment.layer.cornerRadius = 14.0;
+    [self.view addSubview:segment];
+    // 初始化
+    CGRect scrollPageViewFrame = CGRectMake(0, SafeAreaTopHeight+50, S_W, S_H-SafeAreaTopHeight-50);
+    ZJContentView *contentV = [[ZJContentView alloc] initWithFrame:scrollPageViewFrame segmentView:segment parentViewController:self delegate:self];
+    self.contentView = contentV;
+    [self.view addSubview:self.contentView];
 //    [self openTaoBaoOrder];
-    [self setControllers];
+//    [self setControllers];
 //淘宝订单
     // Do any additional setup after loading the view.
 }
@@ -50,51 +83,30 @@
 }
 
 
--(void)setControllers{
-    
-    self.titles = @[@"全部",@"待结算",@"已结算"];
-    self.menuViewStyle = WMMenuViewStyleLine;
-    self.selectIndex = 0;
-    self.titleSizeNormal = 14;
-    self.titleSizeSelected = 15;
-    self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = RGB(255, 71, 119);
-    self.titleColorNormal = RGB(51, 51, 51);
-    self.progressColor = RGB(255, 71, 119);
-    
-    [self reloadData];
-}
-
-#pragma mark - deletage DataSource
-- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    return self.titles.count;
-}
-- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-    
-    return self.titles[index];
-}
-- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    
-    TJTBOrderContentController *vc = [[TJTBOrderContentController alloc]init];
-    vc.type = [NSString stringWithFormat:@"%ld",index];
-    return vc;
+#pragma mark - zj-delegate
+- (NSInteger)numberOfChildViewControllers {
+    return 3;
     
 }
-//- (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index {
-//        CGFloat width = [super menuView:menu widthForItemAtIndex:index];
-//    return width;
-//}
-- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    CGFloat leftMargin = self.showOnNavigationBar ? 50 : 0;
-    CGFloat originY = self.showOnNavigationBar ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    return CGRectMake(leftMargin, originY+65, S_W - 2*leftMargin, 44);
+- (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index {
+    
+    // 根据不同的下标或者title返回相应的控制器, 但是控制器必须要遵守ZJScrollPageViewChildVcDelegate
+    // 并且可以通过实现协议中的方法来加载不同的数据
+    // 注意ZJScrollPageView不会保证viewWillAppear等生命周期方法一定会调用
+    // 所以建议使用ZJScrollPageViewChildVcDelegate中的方法来加载不同的数据
+        TJTBOrderContentController *childVc = (TJTBOrderContentController *)reuseViewController;
+        if (!childVc) {
+    
+            childVc = [[TJTBOrderContentController alloc]init];
+    
+        }
+//    TJTBOrderContentController *vc = [[TJTBOrderContentController alloc]init];
+    childVc.type = [NSString stringWithFormat:@"%ld",index];
+    return childVc;
 }
-- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    CGFloat originY = CGRectGetMaxY([self pageController:pageController preferredFrameForMenuView:self.menuView]);
-    return CGRectMake(0, originY, self.view.frame.size.width, self.view.frame.size.height - originY);
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods{
+    return NO;
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

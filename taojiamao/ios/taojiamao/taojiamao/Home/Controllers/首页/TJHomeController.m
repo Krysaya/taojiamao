@@ -63,84 +63,36 @@
 #pragma mark - search
 - (void)requestSearchGoodsList{
     self.hotSearchArr = [NSArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = SearchGoods;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-    } onSuccess:^(id  _Nullable responseObject) {
-        self.hotSearchArr = responseObject[@"data"][@"hot"];
-    } onFailure:^(NSError * _Nullable error) {
-        
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:SearchGoods withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+        weakSelf.hotSearchArr = responseObject[@"data"][@"hot"];
+    } withFailure:^(NSError * _Nullable error) {
     }];
+    
 }
 
 #pragma mark - classic
 - (void)loadGoodsCatesList{
-    [SVProgressHUD show];
-    self.dataArr_left = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
     
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = GoodsClassicList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
+    self.dataArr_left = [NSMutableArray array];
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:GoodsClassicList withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         
-    } onSuccess:^(id  _Nullable responseObject) {
-        [SVProgressHUD dismiss];
-
         NSDictionary *dict = responseObject[@"data"];
         for (int i=1; i<dict.count+1; i++) {
             NSString *str = [NSString stringWithFormat:@"%d",i];
             TJGoodCatesMainListModel *model = [TJGoodCatesMainListModel mj_objectWithKeyValues:dict[str]];
-            [self.dataArr_left addObject:model.catname];
+            [weakSelf.dataArr_left addObject:model.catname];
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self reloadData];
-            int indexpath = [self.index intValue]-100;
-            if (self.dataArr_left.count>0) {
-                self.title = self.dataArr_left[indexpath];
-            }
-        });
+        [weakSelf reloadData];
+        int indexpath = [weakSelf.index intValue]-100;
+        if (weakSelf.dataArr_left.count>0) {
+            weakSelf.title = weakSelf.dataArr_left[indexpath];
+        }
+    } withFailure:^(NSError * _Nullable error) {
         
-    } onFailure:^(NSError * _Nullable error) {
-      
     }];
+
 }
 -(void)searchClick{
 

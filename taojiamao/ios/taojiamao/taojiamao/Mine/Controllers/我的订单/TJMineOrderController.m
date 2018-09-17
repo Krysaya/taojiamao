@@ -46,6 +46,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _listDic = [NSMutableDictionary dictionary];
+    DSLog(@"--%@-aaa-nav",self.navigationController);
+
     // Do any additional setup after loading the view.
     //先生成存放标题的数据
     NSArray *array = [NSArray arrayWithObjects:@"淘宝订单",@"商城订单", nil];
@@ -72,7 +74,6 @@
     NSString *keyName = [NSString stringWithFormat:@"VC_%ld",segIndex];
     
     UIViewController *controller = (UIViewController *)[_listDic objectForKey:keyName];
-    
     if (!controller) {
         if (segIndex == 0) {//申请
             controller = self.taobVC;

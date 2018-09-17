@@ -51,44 +51,17 @@ static NSString * const TQGContentCell = @"GContentCell";
 - (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
     //    商品列表
     self.dataArr  = [NSArray array];
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary * param = @{
-//                                    @"page_size":@"5",
-                                    @"timestamp": timeStr,
-                                    @"app": @"ios",
-                                    @"uid": userid,
-                                    @"start_time": model.arg,
-                                    
-                                    }.mutableCopy;
-    
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:param withSecert:@"uFxH^dFsVbah1tnxA%LXrwtDIZ4$#XV5"];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = TQGGoodsList;
-        request.parameters = @{
-//                               @"page_size":@"5",
-                               @"start_time": model.arg};
-        request.headers = @{@"app":@"ios",@"timestamp":timeStr,@"sign":md5Str,@"uid": userid};
-        request.httpMethod = kXMHTTPMethodPOST;
-    }onSuccess:^(id responseObject) {
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{ @"start_time": model.arg,} withRequestURL:TQGGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
         
-        self.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-    
-        dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
             
-            [self.tableView reloadData];
-            
-        });
-        
-    } onFailure:^(NSError *error) {
+         [weakSelf.tableView reloadData];
+    } withFailure:^(NSError * _Nullable error) {
         
     }];
+   
 }
 
 #pragma mark - Table view data source
@@ -111,7 +84,6 @@ static NSString * const TQGContentCell = @"GContentCell";
     cell.model = self.dataArr[indexPath.row];
     [cell.btn_qiang addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.btn_fen addTarget:self action:@selector(btnShareClick:) forControlEvents:UIControlEventTouchUpInside];
-
     return cell;
 }
 

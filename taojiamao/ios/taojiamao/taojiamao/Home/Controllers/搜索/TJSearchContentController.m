@@ -76,6 +76,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.page = 1;
     WeakSelf
     [SVProgressHUD show];
+    
     NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
     NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
@@ -86,24 +87,20 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 
         NSDictionary *dict = responseObject[@"data"];
         self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
             [weakSelf.collectionView reloadData];
-        });
         
-        if (self.dataArr.count>0) {
+        if (weakSelf.dataArr.count>0) {
             
         }else{
-            self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
-            self.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+            weakSelf.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
+            weakSelf.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
-                                                      
         weakSelf.page++;
 
                                                       
     } withFailure:^(NSError * _Nullable error) {
         [weakSelf endRefrensh];
-
         [SVProgressHUD dismiss];
         [SVProgressHUD showInfoWithStatus:@"加载失败，请重试~"];
     }];

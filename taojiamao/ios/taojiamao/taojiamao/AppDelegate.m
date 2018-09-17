@@ -109,13 +109,38 @@
     [SVProgressHUD setMinimumDismissTimeInterval:1];
     [SVProgressHUD setMaximumDismissTimeInterval:10];
 
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        [TJOverallJudge sharedJudge].netStatus = status;
+        // 当网络状态改变时调用
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                DSLog(@"-------未知网络");
+                [SVProgressHUD showInfoWithStatus:@"未知网络"];
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                DSLog(@"-------没有网络");
+                [SVProgressHUD showInfoWithStatus:@"没有网络！"];
+                
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                DSLog(@"------手机自带网络");
+                [SVProgressHUD showInfoWithStatus:@"数据网络"];
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                DSLog(@"--------WIFI");
+                break;
+        }
+    }];
+    
+    //开始监控
+    [manager startMonitoring];
     return YES;
 }
 
 -(void)doTJOverallJudge{
-    //网络
-    [TJOverallJudge judgeNet];
-    
+  
 //    //是否第一次打开
     if ([[TJOverallJudge sharedJudge]judgeFirstOpen]) {
         DSLog(@"第一次打开");
@@ -159,7 +184,7 @@
 //    self.window = [[UIWindow alloc]initWithFrame:S_F];
     TJTabBarController * tbc = [[TJTabBarController alloc]init];
     self.window.rootViewController = tbc;
-//    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];
 }
 
 
