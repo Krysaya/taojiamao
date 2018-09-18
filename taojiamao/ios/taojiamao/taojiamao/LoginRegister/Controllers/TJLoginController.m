@@ -439,7 +439,6 @@
                     SetUserDefaults(data[@"bind_wx"], Bind_WX);
                     SetUserDefaults(data[@"ali_true_name"], Ali_name);
                     SetUserDefaults(data[@"ali_account"], Ali_account);
-                    SetUserDefaults(data[@"balance"], Balance);
 
                     SetUserDefaults(HADLOGIN, HADLOGIN);
                     NSLog(@"----账号密码login-success-%@===ID%@",responseObject,data[@"id"]);
@@ -500,8 +499,6 @@
                     SetUserDefaults(data[@"bind_wx"], Bind_WX);
                     SetUserDefaults(data[@"ali_true_name"], Ali_name);
                     SetUserDefaults(data[@"ali_account"], Ali_account);
-                    SetUserDefaults(data[@"balance"], Balance);
-
                     SetUserDefaults(HADLOGIN, HADLOGIN);
                     NSLog(@"----快速login-success-%@===ID%@",responseObject,data[@"id"]);
                     //控制器跳转

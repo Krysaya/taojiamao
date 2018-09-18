@@ -174,6 +174,7 @@
 
     self.navBarBgAlpha = @"1.0";
     self.isblack = NO;
+    WeakSelf
     NSString *userid = GetUserDefaults(UID);
         if (userid) {}else{userid = @"";}
     if (userid) {
@@ -197,33 +198,38 @@
             request.httpMethod = kXMHTTPMethodGET;
         } onSuccess:^(id  _Nullable responseObject) {
             NSLog(@"----user-success-===%@",responseObject);
-            self.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.userName.text = self.model.nickname;
-                if ([self.model.level intValue]==0) {
-                    self.userType.image =[UIImage imageNamed:@"vip_p"];
-                }else if ([self.model.level intValue]==1){
-                    self.userType.image =[UIImage imageNamed:@"vip_t"];
+            NSDictionary * data = responseObject[@"data"];
+            SetUserDefaults(data[@"balance"], Balance);
+
+            weakSelf.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
+            [TJAppManager sharedTJAppManager].userData = weakSelf.model;
+            
+            
+                weakSelf.userName.text = weakSelf.model.nickname;
+                if ([weakSelf.model.level intValue]==0) {
+                    weakSelf.userType.image =[UIImage imageNamed:@"vip_p"];
+                }else if ([weakSelf.model.level intValue]==1){
+                    weakSelf.userType.image =[UIImage imageNamed:@"vip_t"];
                     
-                }else if ([self.model.level intValue]==2){
-                    self.userType.image =[UIImage imageNamed:@"vip_y"];
+                }else if ([weakSelf.model.level intValue]==2){
+                    weakSelf.userType.image =[UIImage imageNamed:@"vip_y"];
                     
-                }else{ self.userType.image =[UIImage imageNamed:@"vip_j"];
+                }else{ weakSelf.userType.image =[UIImage imageNamed:@"vip_j"];
                 }
-                [self setHeadTView];// 加还是不加
-                self.tableV.tableHeaderView = self.headTView;
-                [self.topCollectView reloadData];
-                [self.tableV reloadData];
-            });
+                [weakSelf setHeadTView];// 加还是不加
+                weakSelf.tableV.tableHeaderView = weakSelf.headTView;
+                [weakSelf.topCollectView reloadData];
+                [weakSelf.tableV reloadData];
+           
             
             
         } onFailure:^(NSError * _Nullable error) {
-            self.hadLogin = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setHeadTView];
-                self.tableV.tableHeaderView =  self.headTView;
-                [self.tableV reloadData];
-            });
+            weakSelf.hadLogin = NO;
+        
+                [weakSelf setHeadTView];
+                weakSelf.tableV.tableHeaderView =  weakSelf.headTView;
+                [weakSelf.tableV reloadData];
+           
             
         }];
         

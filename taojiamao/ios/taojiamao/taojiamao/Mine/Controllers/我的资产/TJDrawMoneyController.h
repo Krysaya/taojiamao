@@ -11,5 +11,7 @@
 @interface TJDrawMoneyController : TJBaseViewController
 
 @property(nonatomic,copy)NSString * moneyNum;
+@property(nonatomic,copy)NSString * min;
+
 @property (nonatomic, strong) NSString *type_tx;
 @end

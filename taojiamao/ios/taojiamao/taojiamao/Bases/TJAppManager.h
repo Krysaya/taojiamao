@@ -11,11 +11,12 @@
 #import "TJLoginController.h"
 //#import "TJMineOrderController.h"
 @class TJMineOrderController;
+@class TJUserDataModel;
 @interface TJAppManager : NSObject
 singleton_interface(TJAppManager);
 
 
 @property (nonatomic, weak) TJLoginController *loginVC;
 @property (nonatomic, weak) TJMineOrderController *myOrderVC;
-
+@property (nonatomic, strong) TJUserDataModel *userData;
 @end

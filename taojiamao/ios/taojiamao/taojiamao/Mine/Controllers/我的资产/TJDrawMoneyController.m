@@ -8,7 +8,8 @@
 
 #import "TJDrawMoneyController.h"
 #import "TJBalanceDetailsController.h"
-
+#import "TJPersonalController.h"
+#import "TJUserDataModel.h"
 #define MarginLR  20*W_Scale
 
 @interface TJDrawMoneyController ()<TJButtonDelegate>
@@ -73,7 +74,7 @@
         
     }
     
-    self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:nil tag:123 cornerRadius:20];
+     self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:123 cornerRadius:20];
     [self.view addSubview:self.exchangeButton];
     [self.exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.input.mas_bottom).offset(40);
@@ -84,20 +85,39 @@
 }
 -(void)buttonClick:(UIButton *)but{
     
-    if (self.input.text.length<=0) return;
-    NSInteger num = [self.input.text integerValue];
-    NSInteger max = [self.moneyNum integerValue];
-    NSInteger min = 30;
-    if (num>max || num<min) {
-        DSLog(@"数额不正确");
-    }else{
-        DSLog(@"提现喽");
-        
-        [KConnectWorking requestNormalDataParam:@{@"type":@"1",@"balance":@"",} withRequestURL:UserBalanceTiXian withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-            
+//    if (self.input.text.length<=0) return;
+   
+    if ([TJOverallJudge judgeNumInputShouldNumber:self.input.text]) {
+        NSInteger num = [self.input.text integerValue];
+        NSInteger max = [self.moneyNum integerValue];
+        NSInteger min = [self.min integerValue];
+        if (num>max || num<min) {
+            DSLog(@"数额不正确");
+        }else{
+            DSLog(@"提现喽");
+
+        [KConnectWorking requestNormalDataParam:@{@"type":@"1",@"balance":self.input.text,} withRequestURL:UserBalanceTiXian withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            //            DSLog(@"---%@---tixian---",responseObject);
+            [SVProgressHUD showSuccessWithStatus:@"申请提现成功，请耐心等待3~5工作日到账！"];
+            TJPersonalController *vc = [[TJPersonalController alloc]init];
+            [self.navigationController popToViewController:vc animated:YES];
+            //            [];
         } withFailure:^(NSError * _Nullable error) {
+            NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+            NSString  * receive = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding ];
             
+            //字符串再生成NSData
+            NSData *data = [receive dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            //打印出后台给出的错误信息
+            DSLog(@"---%@---tixian---",dict[@"msg"]);
+            [SVProgressHUD showErrorWithStatus:dict[@"msg"]];
         }];
+    }
+      
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"格式不正确"];
+        
     }
 }
 -(void)setUIinputView{

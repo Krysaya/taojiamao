@@ -21,9 +21,7 @@ static NSString * const Bind_WX = @"bind_wx";
 static NSString * const Ali_name = @"ali_true_name";
 static NSString * const Ali_account = @"ali_account";
 static NSString * const Balance = @"balance";
-
 static NSString * const TB_Pid = @"51786779_16868079_62182259";
-
 static NSString * const UserPhone = @"UserPhone";
 //关键字宏
 #define ISFIRST      @"isFirst"
@@ -57,6 +55,10 @@ static NSString * const UserPhone = @"UserPhone";
 #define LoginedUserData          [BASEURL stringByAppendingString:@"/v1/members"]
 //会员中心
 #define MembersCenter            [BASEURL stringByAppendingString:@"/v1/pages/members"]
+
+//会员中心--我的资产
+#define MembersBalance            [BASEURL stringByAppendingString:@"/v1/pages/tixian"]
+
 
 //绑定淘宝
 #define BindTaoBao            [BASEURL stringByAppendingString:@"/v1/members/taobao"]

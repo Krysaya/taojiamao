@@ -58,7 +58,6 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     }];
     MJRefreshAutoStateFooter * footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
         [weakSelf requestHomePageGoodsJingXuanFooterData];
-        DSLog(@"--%ld----34o5o03405o30",(long)weakSelf.page);
     }];
     [footer setTitle:@"我们是有底线的" forState:MJRefreshStateNoMoreData];
     self.tableView.mj_footer = footer;
@@ -116,12 +115,6 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
                 [weakSelf.tableView.mj_header endRefreshing];
                 weakSelf.dataArr_bottom = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
                     [weakSelf.tableView reloadData];
-                if (weakSelf.dataArr_bottom.count<10) {
-                    weakSelf.tableView.mj_footer.hidden = YES;
-                }else{
-                    weakSelf.tableView.mj_footer.hidden = NO;
-                }
-            
                 weakSelf.page++;
             
             } withFailure:^(NSError * _Nullable error) {
@@ -138,13 +131,15 @@ static NSString * const ContentHomeFootShowCell = @"ContentHomeFootShowCell";
     NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
     [KConnectWorking requestNormalDataParam:@{@"cid":self.model.cid,@"page":pag,@"page_num":@"10",} withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         NSArray *arr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        [weakSelf.dataArr_bottom addObjectsFromArray:arr];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        if (arr.count==0) {
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            [weakSelf.dataArr_bottom addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
-        });
-        [weakSelf.tableView.mj_footer endRefreshing];
-
-        weakSelf.page++;
+            [weakSelf.tableView.mj_footer endRefreshing];
+            weakSelf.page++;
+        }
+       
     } withFailure:^(NSError * _Nullable error) {
         [weakSelf.tableView.mj_footer endRefreshing];
     }];

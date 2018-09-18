@@ -57,6 +57,8 @@
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
         [weakSelf loadRequestClassicGoodsList:self.type];
     }];
+    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
+
     self.collectionView.mj_header = header;
     self.collectionView.mj_footer = footer;
     MJRefreshStateHeader *header2 = [MJRefreshStateHeader headerWithRefreshingBlock:^{
@@ -66,7 +68,7 @@
     MJRefreshAutoStateFooter *footer2 = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
         [weakSelf loadRequestClassicGoodsList:self.type];
     }];
-    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
+    [footer2 setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
  
     self.tableView.mj_header = header2;
     self.tableView.mj_footer = footer2;
@@ -152,11 +154,10 @@
         NSDictionary *dict = responseObject[@"data"];
         NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         if (arr.count==0) {
-            
-            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
-            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
-            [weakSelf.tableView.mj_footer resetNoMoreData];
-            [weakSelf.collectionView.mj_footer resetNoMoreData];
+            DSLog(@"----------rt===%@",responseObject);
+
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+            [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
 
         }else{
             [weakSelf.dataArr addObjectsFromArray:arr];

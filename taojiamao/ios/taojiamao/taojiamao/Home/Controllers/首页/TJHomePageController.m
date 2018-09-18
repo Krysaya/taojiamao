@@ -317,12 +317,9 @@
 
         NSArray *array = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         [weakSelf.goodsArr addObjectsFromArray:array];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.tableView.py_height = self.goodsArr.count*160;
-            [weakSelf.tableView reloadData];
-            weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
-        });
-    
+        weakSelf.tableView.py_height = self.goodsArr.count*160;
+        [weakSelf.tableView reloadData];
+        weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
         weakSelf.page++;
     } withFailure:^(NSError * _Nullable error) {
         DSLog(@"error--%@==",error);
