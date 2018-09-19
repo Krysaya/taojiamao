@@ -26,6 +26,8 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @property (nonatomic, strong) NSMutableArray *dataChooseArr;
 
 @property(nonatomic,strong)UICollectionView * collectionView;
+
+@property (nonatomic, strong) NSString *oldStr;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSString *type;
 @end
@@ -33,12 +35,20 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @implementation TJSearchContentController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (![self.strsearch isEqualToString:self.oldStr]) {
+        if (self.collectionView.hidden) {
+            [self.tableView.mj_header beginRefreshing];
+        }else{
+            [self.collectionView.mj_header beginRefreshing];
+        }
+    }
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.type = @"0";
     self.page = 1;
-
+    self.oldStr = self.strsearch;
     self.filtrateView = [[TJFiltrateView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:22];
     self.filtrateView.backgroundColor = [UIColor whiteColor];
     self.filtrateView.deletage = self;
@@ -48,20 +58,20 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     self.tableView.hidden = YES;
     WeakSelf
     MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        [weakSelf requestNormalSearchGoodsWithType:self.type];
+        [weakSelf requestNormalSearchGoodsWithType:weakSelf.type];
     }];
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
-//        [weakSelf loadRequestClassicGoodsList:self.type];
+        [weakSelf requestSearchGoodsWithType:self.type];
     }];
     self.collectionView.mj_header = header;
     self.collectionView.mj_footer = footer;
     [self.collectionView.mj_header beginRefreshing];
     MJRefreshStateHeader *header2 = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        [weakSelf requestNormalSearchGoodsWithType:self.type];
+        [weakSelf requestNormalSearchGoodsWithType:weakSelf.type];
     }];
     
     MJRefreshAutoStateFooter *footer2 = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
-//        [weakSelf loadRequestClassicGoodsList:self.type];
+        [weakSelf requestSearchGoodsWithType:weakSelf.type];
     }];
     [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
     self.tableView.mj_header = header2;

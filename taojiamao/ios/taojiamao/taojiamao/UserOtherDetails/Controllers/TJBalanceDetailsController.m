@@ -7,8 +7,8 @@
 //
 
 #import "TJBalanceDetailsController.h"
-#import "TJBalanceDetailsModel.h"
-#import "TJBalanceDetailsCell.h"
+#import "TJAssetsDetailListModel.h"
+#import "TJDetailListCell.h"
 
 static NSString * const TJUserBalanceDetailsCell = @"TJUserBalanceDetailsCell";
 
@@ -31,20 +31,39 @@ static NSString * const TJUserBalanceDetailsCell = @"TJUserBalanceDetailsCell";
     [self setUI];
     if ([self.title isEqualToString:@"兑换记录"]) {
         DSLog(@"兑换");
-    }else if ([self.title isEqualToString:@"集分明细"]) {
-//        [self networkWithURL:UserJFBDetails];
-    }else if ([self.title isEqualToString:@"余额明细"]){
-//        [self networkWithURL:UserBalanceDetail];
     }else if ([self.title isEqualToString:@"提现记录"]){
         DSLog(@"提现");
+        [self requestDetailWithType:nil];
     }
+}
+- (void)requestDetailWithType:(NSString *)type{
+//    提现
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{@"type":self.tx_type,} withRequestURL:UserBalanceTakeList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        weakSelf.dataArray = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [weakSelf.tableView reloadData];
+
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
+}
+
+- (void)loadMembersList{
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{@"user_type":@"1",@"type":@"3"} withRequestURL:UserBalanceDetail withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        weakSelf.dataArray = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [weakSelf.tableView reloadData];
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
+    
 }
 -(void)setUI{
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[TJBalanceDetailsCell class] forCellReuseIdentifier:TJUserBalanceDetailsCell];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TJDetailListCell" bundle:nil] forCellReuseIdentifier:@"listCell"];
     [self.view addSubview:self.tableView];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -54,32 +73,13 @@ static NSString * const TJUserBalanceDetailsCell = @"TJUserBalanceDetailsCell";
     return 1;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TJBalanceDetailsCell * cell = [tableView dequeueReusableCellWithIdentifier:TJUserBalanceDetailsCell forIndexPath:indexPath];
-    cell.model = self.dataArray[indexPath.section];
+    TJDetailListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listCell" forIndexPath:indexPath];
+    cell.model = self.dataArray[indexPath.row];
     
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 70*H_Scale;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0) {
-        return 10;
-    }else{
-        return 5;
-    }
-}
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0;
-}
--(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return nil;
-}
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return nil;
-}
--(void)networkWithURL:(NSString*)url{
-
+    return 70;
 }
 
 -(NSMutableArray *)dataArray{

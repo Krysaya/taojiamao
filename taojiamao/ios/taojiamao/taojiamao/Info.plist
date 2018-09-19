@@ -47,9 +47,21 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>QQ</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>QQ41E99DD3</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>tencent</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1105829331</string>
 			</array>
 		</dict>
 	</array>

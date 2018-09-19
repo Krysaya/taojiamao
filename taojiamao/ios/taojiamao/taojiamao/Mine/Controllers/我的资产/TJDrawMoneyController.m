@@ -30,6 +30,7 @@
 @property(nonatomic,strong)TJLabel * explain;
 @property(nonatomic,strong)TJLabel * symbol;
 @property(nonatomic,strong)TJTextField * input;
+@property(nonatomic,copy)NSString * min;
 
 @property(nonatomic,strong)TJButton * exchangeButton;
 
@@ -39,7 +40,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:MembersBalance withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+        weakSelf.min = responseObject[@"data"][@"min_money"];
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
     self.title = @"余额提现";
     [self setNavRightItem];
     [self setUIhead];
@@ -66,15 +72,13 @@
     WeakSelf
     
     if ([self.type_tx intValue]==0) {
-        self.exchangeButton.backgroundColor = KALLRGB;
-        self.iconView.image = [UIImage imageNamed:@"balance"];
+ self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:123 cornerRadius:20];        self.iconView.image = [UIImage imageNamed:@"balance"];
     }else{
-        self.exchangeButton.backgroundColor = KKDRGB;
-        self.iconView.image = [UIImage imageNamed:@"kd_money_m"];
+ self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KKDRGB tag:123 cornerRadius:20];        self.iconView.image = [UIImage imageNamed:@"kd_money_m"];
         
     }
     
-     self.exchangeButton =[[TJButton alloc] initWith:@"提现" delegate:self font:17 titleColor:[UIColor whiteColor] backColor:KALLRGB tag:123 cornerRadius:20];
+    
     [self.view addSubview:self.exchangeButton];
     [self.exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.input.mas_bottom).offset(40);
@@ -86,7 +90,6 @@
 -(void)buttonClick:(UIButton *)but{
     
 //    if (self.input.text.length<=0) return;
-   
     if ([TJOverallJudge judgeNumInputShouldNumber:self.input.text]) {
         NSInteger num = [self.input.text integerValue];
         NSInteger max = [self.moneyNum integerValue];
@@ -249,6 +252,7 @@
 
     TJBalanceDetailsController * bdvc = [[TJBalanceDetailsController alloc]init];
     bdvc.title = @"提现记录";
+    bdvc.tx_type = self.type_tx;
     [self.navigationController pushViewController:bdvc animated:YES];
 }
 -(void)dealloc{

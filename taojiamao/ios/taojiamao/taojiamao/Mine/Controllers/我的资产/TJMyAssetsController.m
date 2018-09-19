@@ -67,7 +67,6 @@
 //    提现
     TJDrawMoneyController *vc = [[TJDrawMoneyController alloc]init];
     vc.moneyNum = self.lab_money.text;
-    vc.min = self.minstr;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

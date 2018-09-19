@@ -9,7 +9,7 @@
 #import "TJBaseViewController.h"
 
 @interface TJBalanceDetailsController : TJBaseViewController
-
+@property (nonatomic, strong) NSString *tx_type;
 
 
 @end

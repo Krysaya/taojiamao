@@ -17,6 +17,7 @@
 @property(nonatomic,strong)UIView * naview;
 @property(nonatomic,strong)TJTextField * search;
 @property (nonatomic, strong) ZJContentView *contentView;
+@property (nonatomic, strong) ZJScrollSegmentView *segment;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *dataArr_super;
 @property (nonatomic, strong) NSArray *childVCs;
@@ -52,14 +53,15 @@
     style.scrollLineColor = KALLRGB;
     style.scrollLineSize = CGSizeMake(70, 2);
     style.scrollContentView = NO;
+    
     WeakSelf
     ZJScrollSegmentView *segment = [[ZJScrollSegmentView alloc]initWithFrame:CGRectMake(0, 10+SafeAreaTopHeight, 200, 30) segmentStyle:style delegate:self titles:@[@"本站搜索",@"超级搜索"] titleDidClick:^(ZJTitleView *titleView, NSInteger index) {
         [weakSelf.contentView setContentOffSet:CGPointMake(self.contentView.bounds.size.width * index, 0.0) animated:YES];
     }];
+    self.segment = segment;
     segment.center = CGPointMake(self.view.center.x, 90);
     [self.view addSubview:segment];
-    
-    
+
     ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, SafeAreaTopHeight+30+20, S_W, S_H - SafeAreaTopHeight -50) segmentView:segment parentViewController:self delegate:self];
     self.contentView = content;
     [self.view addSubview:content];
@@ -109,6 +111,7 @@
 }
 - (void)buttonClick:(UIButton *)but{
     DSLog(@"-butttt--%@--",self.searchText);
+    [self.segment setSelectedIndex:0 animated:YES];
     [self.contentView reload];
 //    [self.search resignFirstResponder];
 
@@ -147,8 +150,6 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     self.searchText = textField.text;
-//    [self.contentView reload];
-
     return YES;
 }
 -(void)dealloc{

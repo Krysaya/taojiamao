@@ -54,11 +54,14 @@
 - (void)setModel:(TJKdAgentsInfoModel *)model{
     _model = model;
     if (self.selectBtn==self.btn_jr) {
-        self.lab_dan.text = [NSString stringWithFormat:@"%@",model.today_dan];
-        self.lab_money.text = [NSString stringWithFormat:@"%@",model.today_money];
+        NSString *one = [NSString stringWithFormat:@"%.2f",[model.today_money floatValue]/100];
+
+        self.lab_dan.text = [NSString stringWithFormat:@"%@单",model.today_dan];
+        self.lab_money.text = [NSString stringWithFormat:@"%@元",one];
     }else{
-        self.lab_dan.text = [NSString stringWithFormat:@"%@",model.month_dan];
-        self.lab_money.text = [NSString stringWithFormat:@"%@",model.month_money];
+         NSString *one = [NSString stringWithFormat:@"%.2f",[model.month_money floatValue]/100];
+        self.lab_dan.text = [NSString stringWithFormat:@"%@单",model.month_dan];
+        self.lab_money.text = [NSString stringWithFormat:@"%@元",one];
     }
 }
 @end

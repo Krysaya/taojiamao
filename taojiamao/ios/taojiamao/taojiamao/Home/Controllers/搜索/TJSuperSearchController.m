@@ -25,6 +25,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @property(nonatomic,strong)TJSearchScreenView * superView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property(nonatomic,strong)UICollectionView * collectionView;
+@property (nonatomic, strong) NSString *oldStr;
 
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSString *type;
@@ -34,13 +35,22 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
 @implementation TJSuperSearchController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (![self.strsearch isEqualToString:self.oldStr]) {
+        if (self.collectionView.hidden) {
+            [self.tableView.mj_header beginRefreshing];
+        }else{
+            [self.collectionView.mj_header beginRefreshing];
+        }
+    }else{
+
+    }
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.type = @"0";
     self.page = 1;
-//    [self requestSuperSearchListWithSuperSort:@"0"];
-
+    self.oldStr = self.strsearch;
     self.superView = [[TJSearchScreenView alloc]initWithFrame:CGRectMake(0, 0, S_W, 45) withMargin:20];
     self.superView.backgroundColor  = [UIColor whiteColor];
     self.superView.deletage = self;
@@ -49,10 +59,31 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     [self setUITableView];
     [self setUICollectionView];
     self.tableView.hidden = YES;
+    WeakSelf
+    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf requestNormalSuperListWithSuperSort:self.type];
+    }];
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+        [weakSelf requestSuperListWithSuperSort:weakSelf.type];
+    }];
+    self.collectionView.mj_header = header;
+    self.collectionView.mj_footer = footer;
+    [self.collectionView.mj_header beginRefreshing];
+    MJRefreshStateHeader *header2 = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf requestNormalSuperListWithSuperSort:self.type];
+    }];
+    
+    MJRefreshAutoStateFooter *footer2 = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+        [weakSelf requestSuperListWithSuperSort:weakSelf.type];
+    }];
+    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
+    self.tableView.mj_header = header2;
+    self.tableView.mj_footer = footer2;
+    
     //注册观察者
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(horizontalVerticalTransform:) name:TJHorizontalVerticalTransform object:nil];
 }
-- (void)requestNoemalSuperListWithSuperSort:(NSString *)sort{
+- (void)requestNormalSuperListWithSuperSort:(NSString *)sort{
     self.dataArr = [NSMutableArray array];[SVProgressHUD show];
     self.page = 1;
     NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
@@ -72,12 +103,9 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
             weakSelf.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
             weakSelf.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView reloadData];
-            [weakSelf.collectionView reloadData];
-        });
-        weakSelf.page++;
+         [weakSelf.tableView reloadData];
+         [weakSelf.collectionView reloadData];
+         weakSelf.page++;
     } withFailure:^(NSError * _Nullable error) {
         [SVProgressHUD dismiss];
         [weakSelf endRefrensh];

@@ -120,8 +120,11 @@ static NSString * const UserPhone = @"UserPhone";
 //超级搜索
 #define SuperSearchGoodsList     [BASEURL stringByAppendingString:@"/v1/goods/suppersearch"]
 
-//明细
+//集分明细
 #define UserBalanceDetail        [BASEURL stringByAppendingString:@"/v1/members/jifen"]
+
+//提现记录
+#define UserBalanceTakeList        [BASEURL stringByAppendingString:@"/v1/tixians"]
 
 //足迹
 #define MineFootPrint            [BASEURL stringByAppendingString:@"/v1/foots"]

@@ -72,7 +72,7 @@
 
     WeakSelf
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf requestNewsInfoList:self.aid];
+        [weakSelf requestNewsInfoList:weakSelf.aid];
 
     }];
     [tableView.mj_header beginRefreshing];
@@ -81,94 +81,37 @@
 - (void)requestNewsInfoList:(NSString *)aid{
     self.model = nil;
     self.remodel = nil;
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"id":aid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = [NSString stringWithFormat:@"%@/%@",NewsArticles,aid];
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodGET;
-//                request.parameters = @{@"type":type};
-    } onSuccess:^(id  _Nullable responseObject) {
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{@"id":aid,} withRequestURL:[NSString stringWithFormat:@"%@/%@",NewsArticles,aid] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         DSLog(@"----newsinfo-success-===%@",responseObject);
-        [self.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
         NSDictionary *dict = responseObject[@"data"];
         if (dict.count>0) {
             TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
             TJArticlesListModel *remodel = [TJArticlesListModel mj_objectWithKeyValues:dict[@"relate"]];
-            self.model = model;
-            self.remodel = remodel;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.tableView reloadData];
-            });
+            weakSelf.model = model;
+            weakSelf.remodel = remodel;
+            [weakSelf.tableView reloadData];
         }
-       
-        
-    } onFailure:^(NSError * _Nullable error) {
+    } withFailure:^(NSError * _Nullable error) {
         [SVProgressHUD showInfoWithStatus:@"请重试~"];
-        [self.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
     }];
+
 }
 
 - (void)requestReplyList:(NSString *)aid{
     //
     self.commentArr = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"aid":aid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = CommentsList;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{ @"aid":aid,
-                                };
-    } onSuccess:^(id  _Nullable responseObject) {
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{ @"aid":aid,} withRequestURL:CommentsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         DSLog(@"--pl%@==success==",responseObject);
-
         NSDictionary *dict = responseObject[@"data"];
-            self.commentArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.tableView reloadData];
-            });
-        
-    } onFailure:^(NSError * _Nullable error) {
-
+        weakSelf.commentArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
+        [weakSelf.tableView reloadData];
+    } withFailure:^(NSError * _Nullable error) {
     }];
+    
 }
 
 - (void)buttonClick:(UIButton *)but{
@@ -295,41 +238,15 @@
 
 - (IBAction)sendCollectArticlesRequest:(UIButton *)sender {
 //    收藏文章
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"type":@"2",
-                                @"rid":self.aid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = AddCollect;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"type":@"2",@"rid":self.aid};
-    }onSuccess:^(id  _Nullable responseObject) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-            sender.selected = YES;
-            [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
-//        });
-    }onFailure:^(NSError * _Nullable error) {
+    [KConnectWorking requestNormalDataParam:@{@"type":@"2",@"rid":self.aid} withRequestURL:AddCollect withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        sender.selected = YES;
+        [SVProgressHUD showSuccessWithStatus:@"收藏成功"];
+    } withFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
         [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -358,90 +275,39 @@
     sender.selected = !sender.selected;
     NSString * i = [NSString stringWithFormat:@"%d",sender.selected];
     DSLog(@"--dian-%d---mei-",sender.selected);
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"type":i,
-                                @"aid":self.aid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = CommentsPraises;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"type":i,@"aid":self.aid};
-    }onSuccess:^(id  _Nullable responseObject) {
-//        [SVProgressHUD showInfoWithStatus:@"点赞了~"];
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{@"type":i,@"aid":self.aid} withRequestURL:CommentsPraises withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
         //2.将indexPath添加到数组
         NSArray <NSIndexPath *> *indexPathArray = @[indexPath];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-        });
-    }onFailure:^(NSError * _Nullable error) {
+        [weakSelf.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
+    } withFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
         [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
+   
 }
 #pragma mark - return
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
 //    发布评论
     DSLog(@"send");
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    
+    WeakSelf
     NSString *content = [textField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"content":content,
-                                @"aid":self.aid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = PulishComments;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"content":textField.text,@"aid":self.aid};
-    }onSuccess:^(id  _Nullable responseObject) {
+
+    [KConnectWorking requestNormalDataMD5Param:@{ @"content":content, @"aid":self.aid,} withNormlParams:@{@"content":textField.text,@"aid":self.aid} withRequestURL:PulishComments withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [textField resignFirstResponder];
         [SVProgressHUD showSuccessWithStatus:@"发布成功"];
-        [self requestReplyList:self.aid];
+        [weakSelf requestReplyList:weakSelf.aid];
         NSIndexSet *indexSet= [[NSIndexSet alloc]initWithIndex:2];
-        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-    }onFailure:^(NSError * _Nullable error) {
+        [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    } withFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
         [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
+  
     return YES;
 }
 
@@ -466,45 +332,21 @@
 }
 - (void)sendButtonClick:(UITextField *)textFiled{
     DSLog(@"pl----pl=评论send");
-    NSString *userid = GetUserDefaults(UID);
-    
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    
+    WeakSelf
     NSString *content = [textFiled.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"content":content,
-                                @"aid":self.aid,
-                                @"pid":self.pid,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = PulishComments;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{ @"pid":self.pid,@"content":textFiled.text,@"aid":self.aid};
-    }onSuccess:^(id  _Nullable responseObject) {
+
+    [KConnectWorking requestNormalDataMD5Param:@{@"content":content,@"aid":self.aid,@"pid":self.pid,} withNormlParams:@{ @"pid":self.pid,@"content":textFiled.text,@"aid":self.aid} withRequestURL:PulishComments withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [SVProgressHUD showSuccessWithStatus:@"评论成功"];
         [textFiled resignFirstResponder];
-        [self requestReplyList:self.aid];
+        [weakSelf requestReplyList:weakSelf.aid];
         NSIndexSet *indexSet= [[NSIndexSet alloc]initWithIndex:2];
-        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-    }onFailure:^(NSError * _Nullable error) {
+        [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    } withFailure:^(NSError * _Nullable error) {
         NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
         NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
         [SVProgressHUD showInfoWithStatus:dic_err[@"msg"]];
     }];
+  
 }
 
 #pragma mark - share
@@ -564,8 +406,52 @@
                      break;
              }
          }];
-    }else{
-        [SVProgressHUD showInfoWithStatus:@"暂不支持分享！"];
+    }else if (button.tag==132){
+        //       qq
+        [ShareSDK share:SSDKPlatformSubTypeQQFriend //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else if(button.tag==133){
+        //        qqarz
+        [ShareSDK share:SSDKPlatformSubTypeQZone //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
     }
 }
 
