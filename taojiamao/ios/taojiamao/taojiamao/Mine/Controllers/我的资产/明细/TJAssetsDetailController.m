@@ -48,7 +48,7 @@
     }];
     segment.center = CGPointMake(self.view.center.x, 90);
     [self.view addSubview:segment];
-    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 64+50, S_W, S_H - 64 - SafeAreaBottomHeight) segmentView:segment parentViewController:self delegate:self];
+    ZJContentView *content = [[ZJContentView alloc] initWithFrame:CGRectMake(0.0, 64+50, S_W, S_H - 64) segmentView:segment parentViewController:self delegate:self];
     self.contentView = content;
     [self.view addSubview:content];
  

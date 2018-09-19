@@ -99,8 +99,8 @@
         [KConnectWorking requestNormalDataParam:@{@"type":@"1",@"balance":self.input.text,} withRequestURL:UserBalanceTiXian withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
             //            DSLog(@"---%@---tixian---",responseObject);
             [SVProgressHUD showSuccessWithStatus:@"申请提现成功，请耐心等待3~5工作日到账！"];
-            TJPersonalController *vc = [[TJPersonalController alloc]init];
-            [self.navigationController popToViewController:vc animated:YES];
+//            TJPersonalController *vc = [[TJPersonalController alloc]init];
+            [self.navigationController popViewControllerAnimated:NO];
             //            [];
         } withFailure:^(NSError * _Nullable error) {
             NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
@@ -146,7 +146,7 @@
         make.top.mas_equalTo(weakSelf.explain.mas_bottom).offset(15);
     }];
     
-    self.input = [TJTextField setTextFieldWith:@"每次提现金额不得少于30元" textFont:25 textColor:RGB(151, 151, 151) backColor:nil placeholderFont:13];
+    self.input = [TJTextField setTextFieldWith:[NSString stringWithFormat:@"每次提现金额不得少于%@元",self.min] textFont:25 textColor:RGB(151, 151, 151) backColor:nil placeholderFont:13];
     self.input.keyboardType = UIKeyboardTypePhonePad;
     [self.inputView addSubview:self.input];
     [self.input mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -330,7 +330,7 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
     }else if (indexPath.section==2){
         TJJHSGoodsListModel *model = self.dataArr[0];
-
+        NSString *content = [NSString stringWithFormat:@""];
         self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20-SafeAreaBottomHeight) select:indexPath.section height:S_W-50 info:model.tbk_pwd];
         self.popupView.deletage = self;
         [self.view addSubview:self.popupView];
@@ -552,9 +552,55 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         {
             [SVProgressHUD showSuccessWithStatus:@"已复制"];
         }
-    }else{
-        [SVProgressHUD showInfoWithStatus:@"暂不支持"];
+    }else if (sender==142){
+//       qq
+        [ShareSDK share:SSDKPlatformSubTypeQQFriend //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else if(sender==143){
+//        qqarz
+        [ShareSDK share:SSDKPlatformSubTypeQZone //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
     }
+    
+    
 }
 - (void)getCouponClick:(UIButton *)sender{
     DSLog(@"优惠券");
@@ -574,7 +620,6 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     // 判断要显示的控制器是否是自己
     BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
-    
     [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
 }
 

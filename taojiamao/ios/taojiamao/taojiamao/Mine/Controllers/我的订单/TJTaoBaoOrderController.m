@@ -9,10 +9,7 @@
 
 #import "TJTaoBaoOrderController.h"
 #import "TJTBOrderContentController.h"
-#import <AlibabaAuthSDK/ALBBSDK.h>
-#import <AlibcTradeSDK/AlibcTradeSDK.h>
-#import <AlibcTradeSDK/AlibcTradePageFactory.h>
-#import <AlibcTradeSDK/AlibcTradeService.h>
+
 @interface TJTaoBaoOrderController ()<ZJScrollPageViewDelegate,ZJScrollPageViewChildVcDelegate>
 @property(weak, nonatomic)ZJContentView *contentView;
 @property (nonatomic, strong) ZJScrollSegmentView *segV;
@@ -33,6 +30,7 @@
     style.segmentViewBounces = NO;
     style.selectedTitleColor = KALLRGB;
     style.normalTitleColor = RGB(151, 151, 151);
+    style.scrollLineColor = KALLRGB;
     /// 显示图片 (在显示图片的时候只有下划线的效果可以开启, 其他的'遮盖','渐变',效果会被内部关闭)
 //    style.showImage = YES;
     /// 图片位置
@@ -61,26 +59,7 @@
 //淘宝订单
     // Do any additional setup after loading the view.
 }
-- (void)openTaoBaoOrder{
-    [SVProgressHUD show];
-    [SVProgressHUD dismissWithDelay:3];
-    UIWebView *webV = [[UIWebView alloc]initWithFrame:S_F];
-    [self.view addSubview:webV];
-    //打开我的订单页
-    id<AlibcTradePage> page = [AlibcTradePageFactory myOrdersPage:0 isAllOrder:YES];
-    AlibcTradeShowParams *showParam = [[AlibcTradeShowParams alloc]init];
-    showParam.openType = AlibcOpenTypeH5;
-    AlibcTradeTaokeParams *taoKeParam = [[AlibcTradeTaokeParams alloc]init];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[AlibcTradeSDK sharedInstance].tradeService show:self webView:webV page:page showParams:showParam taoKeParams:taoKeParam trackParam:nil tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable result) {
-//            [SVProgressHUD dismiss];
-        } tradeProcessFailedCallback:^(NSError * _Nullable error) {
-//            [SVProgressHUD dismiss];
 
-        }];
-    });
-    
-}
 
 
 #pragma mark - zj-delegate

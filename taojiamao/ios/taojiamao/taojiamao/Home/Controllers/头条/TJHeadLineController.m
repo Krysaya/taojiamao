@@ -60,6 +60,7 @@
     self.page = 1;
     NSString *pag = [NSString stringWithFormat:@"%d",self.page];
     self.dataArr = [NSMutableArray array];
+    WeakSelf
     NSString *userid = GetUserDefaults(UID);
     
     if (userid) {
@@ -88,20 +89,16 @@
                                  @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
         DSLog(@"---%@--success",responseObject);
-        [self.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
 
         NSDictionary *dict = responseObject[@"data"];
         NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        [self.dataArr addObjectsFromArray:array];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            
-        });
-        
+        [weakSelf.dataArr addObjectsFromArray:array];
+        [weakSelf.tableView reloadData];
        
 //        self.page++;
     } onFailure:^(NSError * _Nullable error) {
-        [self.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
 //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
 //        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
 //        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
@@ -109,9 +106,8 @@
 }
 - (void)loadRequestNewsList{
     NSString *pag = [NSString stringWithFormat:@"%d",self.page];
-
     NSString *userid = GetUserDefaults(UID);
-    
+    WeakSelf
     if (userid) {
     }else{
         userid = @"";
@@ -137,17 +133,15 @@
         request.parameters = @{  @"page_size":@"8",
                                  @"page_no":pag};
     } onSuccess:^(id  _Nullable responseObject) {
-        [self.tableView.mj_footer endRefreshing];
+        [weakSelf.tableView.mj_footer endRefreshing];
 
         NSDictionary *dict = responseObject[@"data"];
         NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        [self.dataArr addObjectsFromArray:array];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+        [weakSelf.dataArr addObjectsFromArray:array];
+        [weakSelf.tableView reloadData];
         
       
-        self.page++;
+        weakSelf.page++;
     } onFailure:^(NSError * _Nullable error) {
         [self.tableView.mj_footer endRefreshing];
 //        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];

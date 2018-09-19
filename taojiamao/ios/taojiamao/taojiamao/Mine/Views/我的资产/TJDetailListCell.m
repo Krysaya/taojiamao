@@ -36,10 +36,12 @@
 //    self.lab_type.text = model.message;
     self.lab_time.text = time;
     
-    if ([model.type intValue]==1) {
+    if ([model.style intValue]==1) {
         self.lab_type.text = @"签到";
     }
-    
+    else if ([model.style intValue]==2) {
+        self.lab_type.text = @"余额";
+    }
 //    if ([model.operate intValue]==1) {
         self.lab_num.text = [NSString stringWithFormat:@"%@",model.point];
 //    }else{

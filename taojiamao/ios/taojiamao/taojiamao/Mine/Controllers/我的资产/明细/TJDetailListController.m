@@ -49,43 +49,15 @@
 
 - (void)loadMembersMingXiList:(NSString *)type withUserType:(NSString *)userType{
     self.dataArr = [NSMutableArray array];
-    NSString *userid = GetUserDefaults(UID);
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"style":type,
-                                @"user_type":userType,
-
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = UserBalanceDetail;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{@"style":type,
-                               @"user_type":userType,
-                               };
-    } onSuccess:^(id  _Nullable responseObject) {
-        DSLog(@"--jjjffffmmmmxxxx-%@",responseObject);
-        self.dataArr = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{ @"style":type,@"user_type":userType,} withRequestURL:UserBalanceDetail withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        DSLog(@"--========-%@====%@",responseObject,type);
+        weakSelf.dataArr = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [weakSelf.tableView reloadData];
+    } withFailure:^(NSError * _Nullable error) {
         
-    } onFailure:^(NSError * _Nullable error) {
-
     }];
+  
 }
 - (void)requestMembersDetailWithIndex:(NSInteger)index{
     

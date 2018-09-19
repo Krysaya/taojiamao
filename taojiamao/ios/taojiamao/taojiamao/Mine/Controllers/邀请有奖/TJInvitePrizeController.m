@@ -60,8 +60,10 @@
 @implementation TJInvitePrizeController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   
+    DSLog(@"+++++appear----%f--%f",_timeInterval,_passTime);
+
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self requestHongBao];[self requestHomePageGoodsJingXuan];
@@ -70,18 +72,17 @@
     [self.collectionV registerNib:[UINib nibWithNibName:@"TJInvitePrizeCell" bundle:nil] forCellWithReuseIdentifier:@"InvitePrizeCell"];
     self.lab_five.hidden = YES;self.lab_four.hidden= YES;
     self.lab_three.hidden = YES;self.lab_two.hidden = YES;
-    DSLog(@"+++++++++-----diddidiididi----%f",_timeInterval);
 
-    if (_timeInterval!=0)
-    {
-      
-    }else{
-        //        [_countdownBackView removeFromSuperview];
-        [_timer invalidate];
-    }
-    
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    DSLog(@"+++++dismiss----%f--%f",_timeInterval,_passTime);
 
+}
+- (void)dealloc{
+    DSLog(@"+++++dealloc----%f--%f",_timeInterval,_passTime);
+
+}
 - (void)requestHomePageGoodsJingXuan{
     //    精选
     self.dataArr = [NSMutableArray array];
@@ -443,10 +444,5 @@
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    
-    DSLog(@"+++++++++---------%f",_timeInterval);
-}
 
 @end

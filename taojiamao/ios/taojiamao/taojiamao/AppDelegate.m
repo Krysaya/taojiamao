@@ -14,7 +14,8 @@
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
-
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
 #import "ViewController.h"
 #import "TJLaunchAdManager.h"
 #import "DHGuidePageHUD.h"
@@ -34,7 +35,8 @@
                                         @(SSDKPlatformTypeMail),
                                         @(SSDKPlatformTypeSMS),
                                         @(SSDKPlatformTypeWechat),
-//                                        @(SSDKPlatformTypeQQ),
+                                        @(SSDKPlatformTypeQQ),
+                                        
                                         ]
                              onImport:^(SSDKPlatformType platformType)
      {
@@ -43,9 +45,9 @@
              case SSDKPlatformTypeWechat:
                  [ShareSDKConnector connectWeChat:[WXApi class]];
                  break;
-//             case SSDKPlatformTypeQQ:
-//                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
-//                 break;
+             case SSDKPlatformTypeQQ:
+                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                 break;
 
              default:
                  break;
@@ -61,11 +63,11 @@
                  [appInfo SSDKSetupWeChatByAppId:@"wxdd6702d275a50e3b"
                                        appSecret:@"b61472da8f8c33a18b4fb8e25daa4cf3"];
                  break;
-//             case SSDKPlatformTypeQQ:
-//                 [appInfo SSDKSetupQQByAppId:@"100371282"
-//                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d"
-//                                    authType:SSDKAuthTypeBoth];
-//                 break;
+             case SSDKPlatformTypeQQ:
+                 [appInfo SSDKSetupQQByAppId:@"1105829331"
+                                      appKey:@"c7394704798a158208a74ab60104f0ba"
+                                    authType:SSDKAuthTypeBoth];
+                 break;
 
 
              default:
@@ -255,7 +257,9 @@
             return YES;
         }
         
-        
+        if ([TencentOAuth HandleOpenURL:url]) {
+            return YES;
+        }
     
         
     }
@@ -305,6 +309,11 @@
         if ([WXApi handleOpenURL:url delegate:vc]) {
             return YES;
         }
+        
+        if ([TencentOAuth HandleOpenURL:url]) {
+            return YES;
+        }
+        
     }
     
     

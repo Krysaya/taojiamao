@@ -202,7 +202,9 @@
             SetUserDefaults(data[@"balance"], Balance);
 
             weakSelf.model = [TJUserDataModel yy_modelWithDictionary:responseObject[@"data"]];
-            [TJAppManager sharedTJAppManager].userData = weakSelf.model;
+            if (weakSelf.model) {
+                [TJAppManager sharedTJAppManager].userData = weakSelf.model;
+            }
             
             
                 weakSelf.userName.text = weakSelf.model.nickname;
