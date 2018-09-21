@@ -40,16 +40,15 @@ static NSString * const PopularizeCollectionCell = @"PopularizeCollectionCell";
     [self setUIimagePicker];
     [self setUIInfoView];
     [self setUIbottom];
-    if (self.imagesData.count==0) {
-        DSLog(@"再次请求下数据（此时用的是上个界面的图片,测试用）");
-    }
-
-    [self.selectImages addObject:self.imagesData[0]];
+//    if (self.imagesData.count==0) {
+//        DSLog(@"再次请求下数据（此时用的是上个界面的图片,测试用）");
+//    }
+//
+//    [self.selectImages addObject:self.imagesData[0]];
 }
 -(void)setUIbottom{
     WeakSelf
     self.bottomShare = [[UIView alloc]init];
-    self.bottomShare.backgroundColor = RandomColor;
     [self.view addSubview:self.bottomShare];
     [self.bottomShare mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(weakSelf.view);
@@ -59,7 +58,7 @@ static NSString * const PopularizeCollectionCell = @"PopularizeCollectionCell";
 -(void)setUIInfoView{
     WeakSelf
     self.infoView = [[UIView alloc]init];
-    self.infoView.backgroundColor = RandomColor;
+//    self.infoView.backgroundColor = RandomColor;
     [self.view addSubview:self.infoView];
     [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(weakSelf.imagePicker.mas_bottom).offset(25);
@@ -68,7 +67,7 @@ static NSString * const PopularizeCollectionCell = @"PopularizeCollectionCell";
     }];
     
     self.texts = [[UIView alloc]initWithFrame:CGRectMake(20, 0, S_W-40, 200)];
-    self.texts.backgroundColor = RandomColor;
+//    self.texts.backgroundColor = RandomColor;
     [self.infoView addSubview:self.texts];
     [self addBorderToLayer:self.texts];
     
@@ -108,7 +107,7 @@ static NSString * const PopularizeCollectionCell = @"PopularizeCollectionCell";
 -(void)setUIimagePicker{
     WeakSelf
     self.imagePicker = [[UIView alloc]init];
-    self.imagePicker.backgroundColor = RandomColor;
+//    self.imagePicker.backgroundColor = RandomColor;
     [self.view addSubview:self.imagePicker];
     
     [self.imagePicker mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -144,7 +143,7 @@ static NSString * const PopularizeCollectionCell = @"PopularizeCollectionCell";
 -(void)setUIhead{
     WeakSelf
     self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight+10, S_W, 50)];
-    self.headView.backgroundColor = RandomColor;
+//    self.headView.backgroundColor = RandomColor;
     [self.view addSubview:self.headView];
     
     self.headLabel = [TJLabel setLabelWith:@"您的佣金预计为￥2.8" font:15 color:RGB(255, 71, 119)];
@@ -201,9 +200,7 @@ static NSString * const PopularizeCollectionCell = @"PopularizeCollectionCell";
 #pragma mark - 文字变色
 -(NSMutableAttributedString*)textChangeColor:(NSString*)str{
     NSMutableAttributedString * attr = [[NSMutableAttributedString alloc]initWithString:str];
-    
     [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(3,2)];
-    
     return attr;
 }
 #pragma mark - lazyloading

@@ -13,7 +13,7 @@
 #import "TJGoodsCollectModel.h"
 #import "TJKallAdImgModel.h"
 #import "TJInvitationView.h"
-
+#import "TJPopularizeController.h"
 @interface TJShareMoneyController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,ShareBtnDelegate>
 
 @property (nonatomic, strong) NSMutableArray *imgArr;
@@ -67,7 +67,6 @@
     [NSMutableArray array];
     
     [KConnectWorking requestNormalDataParam:@{ @"posid":@"18",} withRequestURL:[NSString stringWithFormat:@"%@18",KAllAdPosters] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
-        DSLog(@"---banner-%@",responseObject);
         self.bannerArr = [TJKallAdImgModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         for (TJKallAdImgModel *m in self.bannerArr) {
             [self.imgArr addObject:m.imgurl];
@@ -130,17 +129,19 @@
 }
 
 - (void)shareClick:(UIButton *)sender{
-    TJShareTwoCell *cell = (TJShareTwoCell *)[[sender superview] superview];
-    NSIndexPath  *index = [self.tabelView indexPathForCell:cell];
-    TJGoodsCollectModel *model = self.dataArr[index.row];
-    self.selctM = model;
-    [KConnectWorking requestShareUrlData:@"1" withIDStr:model.itemid withSuccessBlock:^(id  _Nullable responseObject) {
-        self.shareurl = responseObject[@"data"][@"share_url"];
-    }];
-    TJInvitationView *iview = [TJInvitationView invitationView];
-    iview.backgroundColor = RGBA(1, 1, 1, 0.2);
-    iview.frame = CGRectMake(0, 0, S_W, S_H);iview.delegate = self;
-    [self.view addSubview:iview];
+    TJPopularizeController *vc = [[TJPopularizeController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+//    TJShareTwoCell *cell = (TJShareTwoCell *)[[sender superview] superview];
+//    NSIndexPath  *index = [self.tabelView indexPathForCell:cell];
+//    TJGoodsCollectModel *model = self.dataArr[index.row];
+//    self.selctM = model;
+//    [KConnectWorking requestShareUrlData:@"1" withIDStr:model.itemid withSuccessBlock:^(id  _Nullable responseObject) {
+//        self.shareurl = responseObject[@"data"][@"share_url"];
+//    }];
+//    TJInvitationView *iview = [TJInvitationView invitationView];
+//    iview.backgroundColor = RGBA(1, 1, 1, 0.2);
+//    iview.frame = CGRectMake(0, 0, S_W, S_H);iview.delegate = self;
+//    [self.view addSubview:iview];
 }
 
 #pragma mark - share
@@ -236,8 +237,52 @@
         {
             [SVProgressHUD showSuccessWithStatus:@"已复制"];
         }
-    }else{
-        [SVProgressHUD showInfoWithStatus:@"暂不支持"];
+    }else if (sender==142){
+        //       qq
+        [ShareSDK share:SSDKPlatformSubTypeQQFriend //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
+    }else if(sender==143){
+        //        qqarz
+        [ShareSDK share:SSDKPlatformSubTypeQZone //传入分享的平台类型
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) { // 回调处理....
+             switch (state) {
+                 case SSDKResponseStateSuccess:
+                 {
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
+                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     [alertView show];
+                     break;
+                 }
+                 case SSDKResponseStateFail:
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败" message:[NSString stringWithFormat:@"%@",error]   delegate:nil    cancelButtonTitle:@"OK"    otherButtonTitles:nil, nil];
+                     [alert show];
+                     break;
+                 }
+                 default:
+                     break;
+             }
+         }];
     }
 }
 @end

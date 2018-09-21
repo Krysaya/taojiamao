@@ -34,6 +34,9 @@ static NSString * const TJUserBalanceDetailsCell = @"TJUserBalanceDetailsCell";
     }else if ([self.title isEqualToString:@"提现记录"]){
         DSLog(@"提现");
         [self requestDetailWithType:nil];
+    }else if ([self.title isEqualToString:@"余额明细"]){
+        DSLog(@"余额明细");
+        [self loadYueMingXi];
     }
 }
 - (void)requestDetailWithType:(NSString *)type{
@@ -56,7 +59,16 @@ static NSString * const TJUserBalanceDetailsCell = @"TJUserBalanceDetailsCell";
     } withFailure:^(NSError * _Nullable error) {
         
     }];
-    
+}
+
+- (void)loadYueMingXi{
+    WeakSelf
+    [KConnectWorking requestNormalDataParam:@{@"user_type":@"1",@"style":@"1"} withRequestURL:UserBalanceDetail withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        weakSelf.dataArray = [TJAssetsDetailListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [weakSelf.tableView reloadData];
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 -(void)setUI{
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];

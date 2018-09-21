@@ -9,7 +9,7 @@
 #import "TJVipBalanceController.h"
 #import "TJBalanceDetailsController.h"
 #import "TJDrawMoneyController.h"
-
+#import "TJUserDataModel.h"
 #define BalanceDetailsButton  3571
 #define VipDrawMoneyButton    3572
 
@@ -28,6 +28,8 @@
 @property(nonatomic,strong)TJLabel * numLabel;
 @property(nonatomic,strong)TJLabel * rightLabel;
 
+@property (nonatomic, strong) NSString *balance;
+@property (nonatomic, strong) NSString *points;
 @end
 
 @implementation TJVipBalanceController
@@ -46,8 +48,11 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],
                                                                       NSFontAttributeName : [UIFont systemFontOfSize:17]}];
     
-    DSLog(@"%@",self.balance);
-    
+    TJUserDataModel *model = [TJAppManager sharedTJAppManager].userData;
+    NSString *str = [NSString stringWithFormat:@"%@",model.balance];
+    CGFloat i = [str floatValue]/100;
+    NSString *money = [NSString stringWithFormat:@"%.2f",i];
+    self.balance = money;self.points = model.points;
     [self setUIhead];
     [self setUImiddle];
     [self setUIfoot];
@@ -77,7 +82,7 @@
         make.centerY.mas_equalTo(weakSelf.footView);
     }];
     
-    self.numLabel = [TJLabel setLabelWith:@"1000" font:14 color:KALLRGB];
+    self.numLabel = [TJLabel setLabelWith:self.points font:14 color:KALLRGB];
     [self.footView addSubview:self.numLabel];
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(weakSelf.rightLabel.mas_left);
@@ -121,7 +126,7 @@
     self.headView.backgroundColor = KALLRGB;
     [self.view addSubview:self.headView];
     
-    self.intro = [TJLabel setLabelWith:@"可用余额 0（元）" font:15 color:[UIColor whiteColor]];
+    self.intro = [TJLabel setLabelWith:[NSString stringWithFormat:@"可用余额 %@（元）",self.balance] font:15 color:[UIColor whiteColor]];
     [self.headView addSubview:self.intro];
     [self.intro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(weakSelf.headView);

@@ -56,6 +56,7 @@
 #pragma mark -showDifferentViewWithTKL
 -(void)showDifferentViewWithTKL{
     WeakSelf
+    
     TJLabel * title = [TJLabel setLabelWith:@"宝贝淘口令" font:15 color:RGB(77, 77, 77)];
     [self.backView addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -63,16 +64,26 @@
         make.top.mas_equalTo(24);
     }];
     
-    UIView * middle = [[UIView alloc]initWithFrame:CGRectMake(30, 66, S_W-30*W_Scale*2, 180)];
+    UIView * middle = [[UIView alloc]initWithFrame:CGRectMake(30, 66, S_W-30*2, 180)];
     middle.backgroundColor = [UIColor whiteColor];
     [self addBorderToLayer:middle];
     [self.backView addSubview:middle];
     
-    TJLabel * title_content = [TJLabel setLabelWith:self.content font:15 color:RGB(77, 77, 77)];
+//    TJLabel * title_content = [TJLabel setLabelWith:self.content font:15 color:RGB(77, 77, 77)];
+    YYLabel *title_content = [[YYLabel alloc]init];
+    NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:self.content];
+    introText.yy_lineSpacing = 5;introText.yy_color = RGB(151, 151, 151);
+    introText.yy_font = [UIFont systemFontOfSize:15];
+    title_content.attributedText = introText;
+    title_content.numberOfLines = 0;
+    title_content.textAlignment = NSTextAlignmentLeft;
     [middle addSubview:title_content];
     [title_content mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(middle);
-        make.top.mas_equalTo(middle.mas_top).offset(25);
+        make.top.mas_equalTo(middle.mas_top).offset(15);
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
+        make.bottom.mas_equalTo(-10);
+
     }];
     
     TJButton * over = [[TJButton alloc]initWith:@"一键复制" delegate:self font:17*W_Scale titleColor:[UIColor whiteColor] backColor:KALLRGB tag:TKLCopy cornerRadius:20.0];

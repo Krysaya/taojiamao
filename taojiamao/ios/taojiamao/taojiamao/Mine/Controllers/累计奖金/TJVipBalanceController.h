@@ -9,7 +9,4 @@
 #import "TJBaseViewController.h"
 
 @interface TJVipBalanceController : TJBaseViewController
-
-@property(nonatomic,copy)NSString * balance;
-
 @end
