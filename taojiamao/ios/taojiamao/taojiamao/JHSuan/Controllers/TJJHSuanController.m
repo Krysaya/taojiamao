@@ -86,10 +86,8 @@
         [weakSelf  endRefresh];
         NSDictionary *dict = responseObject[@"data"];
         NSArray *Arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
-        [self.dataArr addObjectsFromArray:Arr];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.collectionV reloadData];
-        });
+        [weakSelf.dataArr addObjectsFromArray:Arr];
+        [weakSelf.collectionV reloadData];
         weakSelf.page++;
     } withFailure:^(NSError * _Nullable error) {
         [weakSelf endRefresh];
@@ -132,7 +130,7 @@ forCellWithReuseIdentifier:@"TJJHSuanCell"];
     MJRefreshAutoStateFooter * footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
         [weakSelf requestLoadDataJHSList];
     }];
-    [footer setTitle:@"我们是有底线的" forState:MJRefreshStateNoMoreData];
+    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
     self.collectionV.mj_footer = footer;
     
 }

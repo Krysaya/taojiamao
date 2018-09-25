@@ -46,12 +46,12 @@
                                  @"type":type,};
     } onSuccess:successBlock onFailure:^(NSError * _Nullable error) {
 
-        NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        NSString  * receive = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding ];
-        
-        //字符串再生成NSData
-        NSData *data = [receive dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+//        NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+//        NSString  * receive = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding ];
+//        
+//        //字符串再生成NSData
+//        NSData *data = [receive dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
         //打印出后台给出的错误信息
     }];
 

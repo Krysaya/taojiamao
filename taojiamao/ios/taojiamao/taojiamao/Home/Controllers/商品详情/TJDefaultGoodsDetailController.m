@@ -330,8 +330,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
 
     }else if (indexPath.section==2){
         TJJHSGoodsListModel *model = self.dataArr[0];
-        NSString *content = [NSString stringWithFormat:@"%@\n【在售价】%@元\n【券后价】%@元\n【下单链接】复制这条信息，%@，打开【手机淘宝】即可查看",model.itemtitle,model.itemprice,model.itemendprice,model.tbk_pwd];
-        self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20-SafeAreaBottomHeight) select:indexPath.section height:S_W-50 info:content];
+        NSString *content = [NSString stringWithFormat:@"%@\n【在售价】%@元\n【券后价】%@元\n【下单链接】%@\n--------\n复制这条信息，%@，打开【手机淘宝】即可查看",model.itemtitle,model.itemprice,model.itemendprice,model.coupon_short_url,model.tbk_pwd];
+        self.popupView = [[TJBottomPopupView alloc]initWithFrame:CGRectMake(0, -20, S_W, S_H+20) select:indexPath.section height:350 info:content];
         self.popupView.deletage = self;
         [self.view addSubview:self.popupView];
     }else if (indexPath.section==3){

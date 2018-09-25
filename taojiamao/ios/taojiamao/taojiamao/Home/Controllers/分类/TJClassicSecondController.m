@@ -154,17 +154,13 @@
         NSDictionary *dict = responseObject[@"data"];
         NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         if (arr.count==0) {
-            DSLog(@"----------rt===%@",responseObject);
-
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
             [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
 
         }else{
             [weakSelf.dataArr addObjectsFromArray:arr];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                [weakSelf.collectionView reloadData];
-            });
+            [weakSelf.tableView reloadData];
+            [weakSelf.collectionView reloadData];
             weakSelf.page++;
         }
        

@@ -11,7 +11,7 @@
 
 @interface TJTQGContentController : TJBaseViewController
 
-//@property (nonatomic, strong) NSArray *dataArr;
+@property (nonatomic, strong) TJTqgTimesListModel *model;
 @property (nonatomic, strong) NSString *indexx;
 
 - (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model;

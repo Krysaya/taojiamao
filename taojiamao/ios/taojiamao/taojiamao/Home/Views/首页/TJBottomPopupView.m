@@ -64,7 +64,7 @@
         make.top.mas_equalTo(24);
     }];
     
-    UIView * middle = [[UIView alloc]initWithFrame:CGRectMake(30, 66, S_W-30*2, 180)];
+    UIView * middle = [[UIView alloc]initWithFrame:CGRectMake(30, 55, S_W-30*2, 225)];
     middle.backgroundColor = [UIColor whiteColor];
     [self addBorderToLayer:middle];
     [self.backView addSubview:middle];
@@ -79,7 +79,7 @@
     title_content.textAlignment = NSTextAlignmentLeft;
     [middle addSubview:title_content];
     [title_content mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(middle.mas_top).offset(15);
+        make.top.mas_equalTo(middle.mas_top).offset(8);
         make.left.mas_equalTo(15);
         make.right.mas_equalTo(-15);
         make.bottom.mas_equalTo(-10);

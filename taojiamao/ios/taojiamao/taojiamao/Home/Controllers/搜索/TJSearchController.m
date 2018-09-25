@@ -18,10 +18,9 @@
 @property(nonatomic,strong)TJTextField * search;
 @property (nonatomic, strong) ZJContentView *contentView;
 @property (nonatomic, strong) ZJScrollSegmentView *segment;
-@property (nonatomic, strong) NSMutableArray *dataArr;
-@property (nonatomic, strong) NSMutableArray *dataArr_super;
-@property (nonatomic, strong) NSArray *childVCs;
 
+@property (nonatomic, strong) NSArray *childVCs;
+@property (nonatomic, strong) NSString *indexxx;
 @property (nonatomic, strong) TJSearchContentController *vc1;
 @property (nonatomic, strong) TJSuperSearchController *vc2;
 @end
@@ -39,8 +38,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     TJSearchContentController *vc1 = [[TJSearchContentController alloc]init];
     TJSuperSearchController *vc2 = [[TJSuperSearchController alloc]init];
-    self.vc1 = vc1;
-    self.vc2 = vc2;
+
     self.childVCs = @[vc1,vc2];
     
     ZJSegmentStyle *style = [[ZJSegmentStyle alloc]init];
@@ -110,10 +108,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)buttonClick:(UIButton *)but{
-    DSLog(@"-butttt--%@--",self.searchText);
-    [self.segment setSelectedIndex:0 animated:YES];
+    DSLog(@"-butttt--%@--%ld===%@--indexxxx",self.searchText,self.zj_currentIndex,self.indexxx);
+//    self.zj_currentIndex = [self.indexxx integerValue];
     [self.contentView reload];
-//    [self.search resignFirstResponder];
+    NSInteger index = [self.indexxx integerValue];
+    [self.segment setSelectedIndex:index animated:YES];
+
 
 }
 #pragma mark- ZJScrollPageViewDelegate
@@ -123,7 +123,8 @@
 
 - (UIViewController<ZJScrollPageViewChildVcDelegate> *)childViewController:(UIViewController<ZJScrollPageViewChildVcDelegate> *)reuseViewController forIndex:(NSInteger)index
 {
-  
+    self.indexxx = [NSString stringWithFormat:@"%ld",index];
+   
     if (index==0) {
     
         TJSearchContentController *vc = _childVCs[index];
@@ -137,6 +138,7 @@
     return _childVCs[index];
     
 }
+
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods
 {
     return NO;

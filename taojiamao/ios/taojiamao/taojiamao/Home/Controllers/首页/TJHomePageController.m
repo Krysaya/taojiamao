@@ -289,20 +289,12 @@
         [weakSelf.big_ScrollView.mj_header endRefreshing];
         weakSelf.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
 //        DSLog(@"--success---%@",responseObject);
-//        dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.tableView.py_height = self.goodsArr.count*160;
             [weakSelf.tableView reloadData];
             weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
-//        });
-        
-//        if (weakSelf.dataArr.count<[param[@"page_num"] integerValue]) {
-//                        weakSelf.collectionV.mj_footer.hidden = YES;
-//            }else{
-//                        weakSelf.collectionV.mj_footer.hidden = NO;
-//            }
+
         weakSelf.page++;
     } withFailure:^(NSError * _Nullable error) {
-        DSLog(@"---error---%ld",error.code);
         [weakSelf.big_ScrollView.mj_header endRefreshing];
     }];
     
@@ -316,13 +308,17 @@
         [weakSelf.big_ScrollView.mj_footer endRefreshing];
 
         NSArray *array = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        [weakSelf.goodsArr addObjectsFromArray:array];
-        weakSelf.tableView.py_height = self.goodsArr.count*160;
-        [weakSelf.tableView reloadData];
-        weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
-        weakSelf.page++;
+        if (array.count==0) {
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            [weakSelf.goodsArr addObjectsFromArray:array];
+            weakSelf.tableView.py_height = self.goodsArr.count*160;
+            [weakSelf.tableView reloadData];
+            weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
+            weakSelf.page++;
+        }
+       
     } withFailure:^(NSError * _Nullable error) {
-        DSLog(@"error--%@==",error);
         [weakSelf.big_ScrollView.mj_header endRefreshing];
     }];
 }

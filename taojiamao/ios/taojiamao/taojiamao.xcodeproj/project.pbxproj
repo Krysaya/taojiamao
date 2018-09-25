@@ -206,7 +206,6 @@
 		C74D8932210027FF0098754C /* TJShareTwoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74D8930210027FF0098754C /* TJShareTwoCell.xib */; };
 		C74D894621003C790098754C /* TJMoreCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D894421003C790098754C /* TJMoreCommentsCell.m */; };
 		C74D894721003C790098754C /* TJMoreCommentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74D894521003C790098754C /* TJMoreCommentsCell.xib */; };
-		C74D894B2100769A0098754C /* TJCommentsReplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D89492100769A0098754C /* TJCommentsReplyCell.m */; };
 		C74D894C2100769A0098754C /* TJCommentsReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C74D894A2100769A0098754C /* TJCommentsReplyCell.xib */; };
 		C74D894F21007A5F0098754C /* TJReplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74D894E21007A5F0098754C /* TJReplyController.m */; };
 		C74DFF9C20F73F0200D83ACF /* TJDafultGoodsTitlesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DFF9A20F73F0200D83ACF /* TJDafultGoodsTitlesCell.m */; };
@@ -242,7 +241,6 @@
 		C75891612092D04700AC085E /* TJJHSuanController.m in Sources */ = {isa = PBXBuildFile; fileRef = C75891602092D04700AC085E /* TJJHSuanController.m */; };
 		C758A05C2109B33000DDFDAD /* TJSignListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C758A05B2109B33000DDFDAD /* TJSignListModel.m */; };
 		C758A0622109BD1E00DDFDAD /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = C758A0602109BD1E00DDFDAD /* iCarousel.m */; };
-		C758A0632109BD1E00DDFDAD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C758A0612109BD1E00DDFDAD /* Info.plist */; };
 		C758A0672109D40B00DDFDAD /* TJNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C758A0662109D40A00DDFDAD /* TJNoticeController.m */; };
 		C758CBF520A27B63000F1903 /* TJAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CBF420A27B63000F1903 /* TJAlertController.m */; };
 		C758CBFB20A2C717000F1903 /* TJMyAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C758CBFA20A2C717000F1903 /* TJMyAddressModel.m */; };
@@ -666,7 +664,6 @@
 		C7C72F34210184460087A8CB /* TJInvitationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F33210184460087A8CB /* TJInvitationView.m */; };
 		C7C72F362101845B0087A8CB /* TJInvitationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C72F352101845B0087A8CB /* TJInvitationView.xib */; };
 		C7C72F392101C27D0087A8CB /* TJTqgTimesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F382101C27D0087A8CB /* TJTqgTimesListModel.m */; };
-		C7C72F512101CD0F0087A8CB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7C72F3B2101CD0F0087A8CB /* Info.plist */; };
 		C7C72F522101CD0F0087A8CB /* MJExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F3E2101CD0F0087A8CB /* MJExtensionConst.m */; };
 		C7C72F532101CD0F0087A8CB /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F402101CD0F0087A8CB /* MJFoundation.m */; };
 		C7C72F542101CD0F0087A8CB /* MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C72F422101CD0F0087A8CB /* MJProperty.m */; };
@@ -1134,7 +1131,6 @@
 		C74D894421003C790098754C /* TJMoreCommentsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMoreCommentsCell.m; sourceTree = "<group>"; };
 		C74D894521003C790098754C /* TJMoreCommentsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJMoreCommentsCell.xib; sourceTree = "<group>"; };
 		C74D89482100769A0098754C /* TJCommentsReplyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJCommentsReplyCell.h; sourceTree = "<group>"; };
-		C74D89492100769A0098754C /* TJCommentsReplyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJCommentsReplyCell.m; sourceTree = "<group>"; };
 		C74D894A2100769A0098754C /* TJCommentsReplyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJCommentsReplyCell.xib; sourceTree = "<group>"; };
 		C74D894D21007A5F0098754C /* TJReplyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJReplyController.h; sourceTree = "<group>"; };
 		C74D894E21007A5F0098754C /* TJReplyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJReplyController.m; sourceTree = "<group>"; };
@@ -1205,7 +1201,6 @@
 		C758A05B2109B33000DDFDAD /* TJSignListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSignListModel.m; sourceTree = "<group>"; };
 		C758A05F2109BD1E00DDFDAD /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		C758A0602109BD1E00DDFDAD /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
-		C758A0612109BD1E00DDFDAD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C758A0652109D40A00DDFDAD /* TJNoticeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJNoticeController.h; sourceTree = "<group>"; };
 		C758A0662109D40A00DDFDAD /* TJNoticeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJNoticeController.m; sourceTree = "<group>"; };
 		C758CBF320A27B63000F1903 /* TJAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAlertController.h; sourceTree = "<group>"; };
@@ -1946,7 +1941,6 @@
 		C7C72F352101845B0087A8CB /* TJInvitationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJInvitationView.xib; sourceTree = "<group>"; };
 		C7C72F372101C27D0087A8CB /* TJTqgTimesListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTqgTimesListModel.h; sourceTree = "<group>"; };
 		C7C72F382101C27D0087A8CB /* TJTqgTimesListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTqgTimesListModel.m; sourceTree = "<group>"; };
-		C7C72F3B2101CD0F0087A8CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7C72F3C2101CD0F0087A8CB /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
 		C7C72F3D2101CD0F0087A8CB /* MJExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConst.h; sourceTree = "<group>"; };
 		C7C72F3E2101CD0F0087A8CB /* MJExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConst.m; sourceTree = "<group>"; };
@@ -3528,7 +3522,6 @@
 			children = (
 				C758A05F2109BD1E00DDFDAD /* iCarousel.h */,
 				C758A0602109BD1E00DDFDAD /* iCarousel.m */,
-				C758A0612109BD1E00DDFDAD /* Info.plist */,
 			);
 			path = iCarousel;
 			sourceTree = "<group>";
@@ -3760,7 +3753,6 @@
 				C74D894421003C790098754C /* TJMoreCommentsCell.m */,
 				C74D894521003C790098754C /* TJMoreCommentsCell.xib */,
 				C74D89482100769A0098754C /* TJCommentsReplyCell.h */,
-				C74D89492100769A0098754C /* TJCommentsReplyCell.m */,
 				C74D894A2100769A0098754C /* TJCommentsReplyCell.xib */,
 			);
 			path = "评论";
@@ -5260,7 +5252,6 @@
 		C7C72F3A2101CD0F0087A8CB /* MJExtension */ = {
 			isa = PBXGroup;
 			children = (
-				C7C72F3B2101CD0F0087A8CB /* Info.plist */,
 				C7C72F3C2101CD0F0087A8CB /* MJExtension.h */,
 				C7C72F3D2101CD0F0087A8CB /* MJExtensionConst.h */,
 				C7C72F3E2101CD0F0087A8CB /* MJExtensionConst.m */,
@@ -5482,10 +5473,8 @@
 				C794FFFE21196D3100FB580F /* TJTextFiledCell.xib in Resources */,
 				C7454026214116AF00157D17 /* TJHelpDetailController.xib in Resources */,
 				C7409A002091CF3600DFCC94 /* IQKeyboardManager.bundle in Resources */,
-				C7C72F512101CD0F0087A8CB /* Info.plist in Resources */,
 				C7C72F362101845B0087A8CB /* TJInvitationView.xib in Resources */,
 				C75891412092B85D00AC085E /* Info.plist in Resources */,
-				C758A0632109BD1E00DDFDAD /* Info.plist in Resources */,
 				C781BEC6210B198E00B7BD57 /* Info.plist in Resources */,
 				C77B4448211830E000332147 /* TJBigImageCell.xib in Resources */,
 				C73C5292211AD77E00458587 /* TJPayFailController.xib in Resources */,
@@ -5915,7 +5904,6 @@
 				C713C835209AFFAD000A125B /* TJMiddleModelsCollectionCell.m in Sources */,
 				C74099F82091CF3600DFCC94 /* IQKeyboardManager.m in Sources */,
 				C7B9949720F884B000DFFC98 /* ZJScrollSegmentView.m in Sources */,
-				C74D894B2100769A0098754C /* TJCommentsReplyCell.m in Sources */,
 				C78E5CCB20ABB5E700C9C1BF /* MJRefreshHeader.m in Sources */,
 				C7904F72212431C500E20E4D /* TJKdChooseTimeCell.m in Sources */,
 				C75891432092B85D00AC085E /* MASConstraint.m in Sources */,

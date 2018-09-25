@@ -81,13 +81,14 @@
 - (void)requestHomePageGoodsJingXuan{
     //    精选
     self.dataArr = [NSMutableArray array];
+    WeakSelf;
     NSDictionary *param = @{ @"page":@"1",
                              @"page_num":@"10",};
     [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-        self.dataArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tabelView reloadData];
-        });
+        DSLog(@"rrr345443--%@==",responseObject);
+
+        weakSelf.dataArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [weakSelf.tabelView reloadData];
         
     } withFailure:^(NSError * _Nullable error) {
         DSLog(@"error--%@==",error);
@@ -129,11 +130,13 @@
 }
 
 - (void)shareClick:(UIButton *)sender{
+    TJShareTwoCell *cell = (TJShareTwoCell *)[[sender superview] superview];
+    NSIndexPath  *index = [self.tabelView indexPathForCell:cell];
+    TJGoodsCollectModel *model = self.dataArr[index.row];
     TJPopularizeController *vc = [[TJPopularizeController alloc]init];
+    vc.gid = model.itemid;
     [self.navigationController pushViewController:vc animated:YES];
-//    TJShareTwoCell *cell = (TJShareTwoCell *)[[sender superview] superview];
-//    NSIndexPath  *index = [self.tabelView indexPathForCell:cell];
-//    TJGoodsCollectModel *model = self.dataArr[index.row];
+
 //    self.selctM = model;
 //    [KConnectWorking requestShareUrlData:@"1" withIDStr:model.itemid withSuccessBlock:^(id  _Nullable responseObject) {
 //        self.shareurl = responseObject[@"data"][@"share_url"];

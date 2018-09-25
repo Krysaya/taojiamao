@@ -98,8 +98,12 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         NSDictionary *dict = responseObject[@"data"];
         weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         if (weakSelf.dataArr.count>0) {
-            
+            weakSelf.collectionView.backgroundView = [[UIImageView alloc]init];
+            weakSelf.tableView.backgroundView = [[UIImageView alloc]init];
         }else{
+            weakSelf.tableView.mj_footer.hidden = YES;
+            weakSelf.collectionView.mj_footer.hidden = YES;
+
             weakSelf.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
             weakSelf.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
@@ -154,16 +158,16 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         
         if (arr.count==0) {
-            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
-            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
-            [weakSelf.tableView.mj_footer resetNoMoreData];
-            [weakSelf.collectionView.mj_footer resetNoMoreData];
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+            [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
+//            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
+//            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+//            [weakSelf.tableView.mj_footer resetNoMoreData];
+//            [weakSelf.collectionView.mj_footer resetNoMoreData];
         }else{
             [weakSelf.dataArr addObjectsFromArray:arr];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                [weakSelf.collectionView reloadData];
-            });
+            [weakSelf.tableView reloadData];
+            [weakSelf.collectionView reloadData];
             weakSelf.page++;
         }
     } withFailure:^(NSError * _Nullable error) {

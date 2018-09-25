@@ -33,7 +33,7 @@
     self.tableView = tableView;
 //    TJButton *btn = [[TJButton alloc]initWith:@"添加新地址" delegate:self font:16*W_Scale titleColor:[UIColor whiteColor] backColor:KKDRGB tag:684];
 //    [self.view addSubview:btn];
-    WeakSelf
+//    WeakSelf
 //    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.bottom.left.right.mas_equalTo(weakSelf.view);
 //        make.top.mas_equalTo(tableView.mas_bottom);

@@ -21,11 +21,12 @@
 static NSString * const TQGContentCell = @"GContentCell";
 
 @interface TJTQGContentController ()<UITableViewDelegate,UITableViewDataSource,ShareBtnDelegate>
-@property (nonatomic, strong) NSArray *dataArr;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @property(nonatomic,strong)UITableView *tableView;
 @property (nonatomic, strong) NSString *shareurl;
 
 @property (nonatomic, strong) TJTqgGoodsModel *selectM;
+@property (nonatomic, assign) int page;
 @end
 
 @implementation TJTQGContentController
@@ -35,7 +36,7 @@ static NSString * const TQGContentCell = @"GContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.page = 1;
         UITableView *tabelV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-SafeAreaTopHeight-50) style:UITableViewStylePlain];
         tabelV.delegate = self;
         tabelV.dataSource = self;
@@ -44,26 +45,56 @@ static NSString * const TQGContentCell = @"GContentCell";
         [tabelV registerNib:[UINib nibWithNibName:@"TJTQGCell" bundle:nil] forCellReuseIdentifier:TQGContentCell];
         [self.view addSubview:tabelV];
         self.tableView = tabelV;
-
+    WeakSelf
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+        [weakSelf requestNextGoodsList:weakSelf.model];
+    }];
+    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
+    self.tableView.mj_footer = footer;
 }
 
 
 - (void)requestGoodsListWithModel:(TJTqgTimesListModel *)model{
     //    商品列表
-    self.dataArr  = [NSArray array];
+    self.page = 1;
+    NSString *pag = [NSString stringWithFormat:@"%d",self.page];
+    NSDictionary *param = @{@"page_no":pag,
+                            @"page_size":@"10",
+                            @"start_time": model.arg,
+                            };
+    self.dataArr  = [NSMutableArray array];
     WeakSelf
-    [KConnectWorking requestNormalDataParam:@{ @"start_time": model.arg,} withRequestURL:TQGGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-        NSLog(@"onSuccess:=tjjjjjj==%@",responseObject);
+    [KConnectWorking requestNormalDataParam:param withRequestURL:TQGGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         
         weakSelf.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-            
          [weakSelf.tableView reloadData];
+        weakSelf.page++;
     } withFailure:^(NSError * _Nullable error) {
         
     }];
-   
 }
-
+- (void)requestNextGoodsList:(TJTqgTimesListModel *)model{
+    WeakSelf
+    NSString *pag = [NSString stringWithFormat:@"%d",self.page];
+    NSDictionary *param = @{@"page_no":pag,
+                            @"page_size":@"10",
+                             @"start_time": model.arg,
+                            };
+    [KConnectWorking requestNormalDataParam:param withRequestURL:TQGGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        [weakSelf.tableView.mj_footer endRefreshing];
+        NSArray *array = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        if (array.count==0) {
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            [weakSelf.dataArr addObjectsFromArray:array];
+            [weakSelf.tableView reloadData];
+            weakSelf.page++;
+        }
+       
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -153,8 +184,7 @@ static NSString * const TQGContentCell = @"GContentCell";
              switch (state) {
                  case SSDKResponseStateSuccess:
                  {
-                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
-                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil  delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
                      [alertView show];
                      break;
                  }
@@ -176,8 +206,7 @@ static NSString * const TQGContentCell = @"GContentCell";
              switch (state) {
                  case SSDKResponseStateSuccess:
                  {
-                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil
-                                                                        delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil   delegate:nil  cancelButtonTitle:@"确定"  otherButtonTitles:nil];
                      [alertView show];
                      break;
                  }

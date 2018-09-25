@@ -17,23 +17,29 @@
 @interface TJBargainContentController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataGoodsArr;
+@property (nonatomic, assign) NSInteger page;
+
+@property (nonatomic, strong) NSString *indes;
+@property (nonatomic, strong) NSString *cidd;
 @end
 
 @implementation TJBargainContentController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    NSString *indexx = [NSString stringWithFormat:@"%ld",self.zj_currentIndex];
+    self.indes = indexx;
     if (self.zj_currentIndex==0||self.zj_currentIndex==1||self.zj_currentIndex==2) {
-        NSString *indexx = [NSString stringWithFormat:@"%ld",self.zj_currentIndex];
+      
         [self loadReuqestNormalDataWithType:indexx  withcateType:nil];
     }else{
         TJGoodCatesMainListModel *model = self.dataArr[self.zj_currentIndex-3];
-        NSString *indexx = [NSString stringWithFormat:@"%ld",self.zj_currentIndex];
+        self.cidd = model.cid;
         [self loadReuqestNormalDataWithType:indexx  withcateType:model.cid];
     }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.page = 1;
     UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
     tableView.delegate =self;
     tableView.dataSource =self;
@@ -42,7 +48,12 @@
     [tableView registerNib:[UINib nibWithNibName:@"TJGoodsListCell" bundle:nil] forCellReuseIdentifier:@"goodslistCell"];
     [self.view addSubview:tableView];
     self.tableView = tableView;
-   
+   WeakSelf
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
+        [weakSelf loadReuqestDataWithType:self.indes withcid:self.cidd];
+    }];
+    [footer setTitle:@"----我们是有底线的----" forState:MJRefreshStateNoMoreData];
+    self.tableView.mj_footer = footer;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,62 +62,66 @@
 }
 - (void)loadReuqestNormalDataWithType:(NSString *)type  withcateType:(NSString *)cid{
     self.dataGoodsArr = [NSMutableArray array];
+    self.page = 1;
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+    
     if ([TJOverallJudge sharedJudge].netStatus==0) {
         [SVProgressHUD showInfoWithStatus:@"没有网络啦~"];
     }else{
         [SVProgressHUD show];
         WeakSelf
+        NSMutableDictionary *param = @{}.mutableCopy;
+        param[@"page"] = pag;
+        param[@"page_num"] = @"10";
         if ([type intValue]==0) {//精选
-            
-            [KConnectWorking requestNormalDataParam:@{ @"is_jing":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-                [SVProgressHUD dismiss];
-                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                //            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                
-                //            });
-            } withFailure:^(NSError * _Nullable error) {
-                [SVProgressHUD dismiss];
-            }];
+            param[@"is_jing"] = @"1";
         }else if([type intValue]==1){
             //        9.9
-            [KConnectWorking requestNormalDataParam:nil withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-                [SVProgressHUD dismiss];
-                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                //            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                
-                //            });
-            } withFailure:^(NSError * _Nullable error) {
-                [SVProgressHUD dismiss];
-            }];
-            
         }else if([type intValue]==2){
-            
-            [KConnectWorking requestNormalDataParam:@{ @"is_jiu":@"1",} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-                [SVProgressHUD dismiss];
-                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                //            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                
-                //            });
-            } withFailure:^(NSError * _Nullable error) {
-                [SVProgressHUD dismiss];
-            }];
+            param[@"is_jiu"] = @"1";
         }else{
-            
-            [KConnectWorking requestNormalDataParam:@{@"cid":cid,} withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-                [SVProgressHUD dismiss];
-                weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-                [weakSelf.tableView reloadData];
-            } withFailure:^(NSError * _Nullable error) {
-                [SVProgressHUD dismiss];
-            }];
-            
+            param[@"cid"] = cid;
         }
+        [KConnectWorking requestNormalDataParam:param withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+                    [SVProgressHUD dismiss];
+            weakSelf.dataGoodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+             [weakSelf.tableView reloadData];
+            weakSelf.page++;
+
+            } withFailure:^(NSError * _Nullable error) {
+                            [SVProgressHUD dismiss];
+            }];
+        
     }
-    
-  
+}
+
+- (void)loadReuqestDataWithType:(NSString *)type withcid:(NSString *)cid{
+    NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
+    WeakSelf
+    NSMutableDictionary *param = @{}.mutableCopy;
+    param[@"page"] = pag;
+    param[@"page_num"] = @"10";
+    if ([type intValue]==0) {//精选
+        param[@"is_jing"] = @"1";
+    }else if([type intValue]==1){
+        //        9.9
+    }else if([type intValue]==2){
+        param[@"is_jiu"] = @"1";
+    }else{
+        param[@"cid"] = cid;
+    }
+    [KConnectWorking requestNormalDataParam:param withRequestURL:GoodsJiuJiuList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        NSArray *arr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        if (arr.count==0) {
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            [weakSelf.dataGoodsArr addObjectsFromArray:arr];
+            [weakSelf.tableView reloadData];
+            weakSelf.page++;
+        }
+       
+    } withFailure:^(NSError * _Nullable error) {
+    }];
     
 }
 #pragma mark - tableViewDelgate

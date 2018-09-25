@@ -8,8 +8,9 @@
 
 #import "TJBaseViewController.h"
 
+
+
 @interface TJPopularizeController : TJBaseViewController
 
-@property(nonatomic,strong)NSMutableArray * imagesData;
-
+@property(nonatomic,strong)NSString * gid;
 @end

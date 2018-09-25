@@ -86,9 +86,9 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
     self.goTop = [[TJButton alloc]initDelegate:self backColor:nil tag:DetailsGoTopButton withBackImage:@"goods_bg.jpg" withSelectImage:nil];
     [self.view addSubview:self.goTop];
     [self.goTop mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-20*W_Scale);
-        make.bottom.mas_equalTo(weakSelf.footView.mas_top).offset(-36*H_Scale);
-        make.width.height.mas_equalTo(25*W_Scale);
+        make.right.mas_equalTo(-20);
+        make.bottom.mas_equalTo(weakSelf.footView.mas_top).offset(-36);
+        make.width.height.mas_equalTo(25);
     }];
 }
 -(void)setUIfootView{
@@ -308,7 +308,8 @@ static NSString * const GoodsDetailsImagesCell = @"GoodsDetailsImagesCell";
         DSLog(@"我要推广");
         TJPopularizeController * pvc = [[TJPopularizeController alloc]init];
         pvc.title = @"我要推广";
-        pvc.imagesData = self.imageSSS;
+        
+//        pvc.imagesData = self.imageSSS;
         [self.navigationController pushViewController:pvc animated:YES];
     }else{
         [self.navigationController popViewControllerAnimated:YES];

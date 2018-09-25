@@ -61,7 +61,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         [weakSelf requestNormalSearchGoodsWithType:weakSelf.type];
     }];
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
-        [weakSelf requestSearchGoodsWithType:self.type];
+        [weakSelf requestSearchGoodsWithType:weakSelf.type];
     }];
     self.collectionView.mj_header = header;
     self.collectionView.mj_footer = footer;
@@ -90,19 +90,21 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     NSString *pag = [NSString stringWithFormat:@"%ld",self.page];
     NSString *str = [self.strsearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-    [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str,@"order":type,@"page":pag,
-                                                  @"page_num":@"10",} withNormlParams:@{@"keyword":self.strsearch,@"order":type,@"page":pag,@"page_num":@"10",} withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str,@"order":type,@"page":pag,@"page_num":@"10",} withNormlParams:@{@"keyword":self.strsearch,@"order":type,@"page":pag,@"page_num":@"10",} withRequestURL:SearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [SVProgressHUD dismiss];
         [weakSelf endRefrensh];
 
         NSDictionary *dict = responseObject[@"data"];
-        self.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
             [weakSelf.tableView reloadData];
             [weakSelf.collectionView reloadData];
         
         if (weakSelf.dataArr.count>0) {
-            
+            weakSelf.collectionView.backgroundView = [[UIImageView alloc]init];
+            weakSelf.tableView.backgroundView = [[UIImageView alloc]init];
         }else{
+            weakSelf.tableView.mj_footer.hidden = YES;
+            weakSelf.collectionView.mj_footer.hidden = YES;
             weakSelf.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
             weakSelf.tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nolist"]];
         }
@@ -129,16 +131,14 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
        
         if (arr.count==0) {
-            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
-            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
-            [weakSelf.tableView.mj_footer resetNoMoreData];
-            [weakSelf.collectionView.mj_footer resetNoMoreData];
+//            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
+//            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+            [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
         }else{
             [weakSelf.dataArr addObjectsFromArray:arr];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                [weakSelf.collectionView reloadData];
-            });
+            [weakSelf.tableView reloadData];
+            [weakSelf.collectionView reloadData];
             weakSelf.page++;
         }
     

@@ -155,6 +155,7 @@
 
         TJTqgTimesListModel *model = self.timesArr[indexxx];
         TJTQGContentController * ccvc = self.childVCs[indexxx];
+        ccvc.model = model;
         [ccvc requestGoodsListWithModel:model];
     }
 }
