@@ -25,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"升级代理人";//右上角按扭----规则
     
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H)];
 //    scrollView.
