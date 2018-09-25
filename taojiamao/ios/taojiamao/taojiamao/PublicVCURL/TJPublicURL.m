@@ -35,6 +35,8 @@
 #import "TJKdFabuController.h"//发布
 
 #import "TJKdApplyAgrentController.h"//申请代理
+#import "TJUpgradeAgentController.h"//升级代理
+
 #import "TJOrderClaimController.h"//  订单认领
 #import "TJRankingListController.h"//   排行榜
 #import "TJAssistanceController.h"// 客服帮助
@@ -124,6 +126,11 @@
 //        tbc.delegate = weakSelf;
         [UIApplication  sharedApplication].keyWindow.rootViewController = tbc;
     }
+    
+    if ([identifier isEqualToString: @"upgradeforProxy"]) {//==升级代理
+        TJUpgradeAgentController *vc = [[TJUpgradeAgentController alloc]init];
+        [weakSelf.navigationController pushViewController:vc animated:YES];}
+    
     if ([identifier isEqualToString: @"askforProxy"]) {//快递sh==申请代理
         TJKdApplyAgrentController *vc = [[TJKdApplyAgrentController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}

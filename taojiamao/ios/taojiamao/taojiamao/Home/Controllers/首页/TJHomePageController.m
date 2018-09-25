@@ -344,6 +344,7 @@
     midView.layer.masksToBounds = YES;
     UISearchBar *searchB = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, S_W-100, 30)];
     searchB.delegate = self;
+    searchB.placeholder = @"新品女装";
     searchB.searchBarStyle = UISearchBarStyleDefault;
     [midView addSubview:searchB];
     self.navigationItem.titleView = midView;

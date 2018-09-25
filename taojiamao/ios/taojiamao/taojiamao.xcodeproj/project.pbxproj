@@ -106,6 +106,10 @@
 		C72A72C5209D9BD0001CAC75 /* TJGetVerifyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A72C4209D9BD0001CAC75 /* TJGetVerifyCode.m */; };
 		C732067A20EDE87100E480A8 /* TJTQGContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C732067920EDE87100E480A8 /* TJTQGContentController.m */; };
 		C732067E20EDF43700E480A8 /* TJTQGContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C732067C20EDF43700E480A8 /* TJTQGContentCell.m */; };
+		C734CB4C2159CEC20012A1DC /* TJUpgradeAgentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C734CB4A2159CEC20012A1DC /* TJUpgradeAgentController.m */; };
+		C734CB4D2159CEC20012A1DC /* TJUpgradeAgentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C734CB4B2159CEC20012A1DC /* TJUpgradeAgentController.xib */; };
+		C734CB52215A0DA50012A1DC /* TJUpgradeAgentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C734CB50215A0DA50012A1DC /* TJUpgradeAgentCell.m */; };
+		C734CB53215A0DA50012A1DC /* TJUpgradeAgentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C734CB51215A0DA50012A1DC /* TJUpgradeAgentCell.xib */; };
 		C738FC332111A15600104B69 /* TJArticlesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C738FC322111A15600104B69 /* TJArticlesListModel.m */; };
 		C73C528C211AD41E00458587 /* TJPaySuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73C528A211AD41E00458587 /* TJPaySuccessController.m */; };
 		C73C528D211AD41E00458587 /* TJPaySuccessController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C73C528B211AD41E00458587 /* TJPaySuccessController.xib */; };
@@ -924,6 +928,12 @@
 		C732067920EDE87100E480A8 /* TJTQGContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTQGContentController.m; sourceTree = "<group>"; };
 		C732067B20EDF43700E480A8 /* TJTQGContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTQGContentCell.h; sourceTree = "<group>"; };
 		C732067C20EDF43700E480A8 /* TJTQGContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTQGContentCell.m; sourceTree = "<group>"; };
+		C734CB492159CEC20012A1DC /* TJUpgradeAgentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUpgradeAgentController.h; sourceTree = "<group>"; };
+		C734CB4A2159CEC20012A1DC /* TJUpgradeAgentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUpgradeAgentController.m; sourceTree = "<group>"; };
+		C734CB4B2159CEC20012A1DC /* TJUpgradeAgentController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJUpgradeAgentController.xib; sourceTree = "<group>"; };
+		C734CB4F215A0DA50012A1DC /* TJUpgradeAgentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUpgradeAgentCell.h; sourceTree = "<group>"; };
+		C734CB50215A0DA50012A1DC /* TJUpgradeAgentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUpgradeAgentCell.m; sourceTree = "<group>"; };
+		C734CB51215A0DA50012A1DC /* TJUpgradeAgentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJUpgradeAgentCell.xib; sourceTree = "<group>"; };
 		C738FC312111A15600104B69 /* TJArticlesListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJArticlesListModel.h; sourceTree = "<group>"; };
 		C738FC322111A15600104B69 /* TJArticlesListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJArticlesListModel.m; sourceTree = "<group>"; };
 		C73C5289211AD41E00458587 /* TJPaySuccessController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPaySuccessController.h; sourceTree = "<group>"; };
@@ -2490,6 +2500,26 @@
 			path = Others;
 			sourceTree = "<group>";
 		};
+		C734CB482159CE7F0012A1DC /* 升级代理人 */ = {
+			isa = PBXGroup;
+			children = (
+				C734CB492159CEC20012A1DC /* TJUpgradeAgentController.h */,
+				C734CB4A2159CEC20012A1DC /* TJUpgradeAgentController.m */,
+				C734CB4B2159CEC20012A1DC /* TJUpgradeAgentController.xib */,
+			);
+			path = "升级代理人";
+			sourceTree = "<group>";
+		};
+		C734CB4E215A0D360012A1DC /* 升级代理人 */ = {
+			isa = PBXGroup;
+			children = (
+				C734CB4F215A0DA50012A1DC /* TJUpgradeAgentCell.h */,
+				C734CB50215A0DA50012A1DC /* TJUpgradeAgentCell.m */,
+				C734CB51215A0DA50012A1DC /* TJUpgradeAgentCell.xib */,
+			);
+			path = "升级代理人";
+			sourceTree = "<group>";
+		};
 		C738FC2E2111A13D00104B69 /* 头条 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2857,6 +2887,7 @@
 			children = (
 				C7C1A41F2150F88400035853 /* TJPersonalController.h */,
 				C7C1A41E2150F88300035853 /* TJPersonalController.m */,
+				C734CB482159CE7F0012A1DC /* 升级代理人 */,
 				C7D6880521243D0000555234 /* 申请代理 */,
 				C7FBDFDB212ABBAE000DB8A4 /* 热推top */,
 				C73C5293211ADBD400458587 /* 商户端 */,
@@ -2903,6 +2934,7 @@
 		C73FC79C20901BC700732F2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C734CB4E215A0D360012A1DC /* 升级代理人 */,
 				C7904F622123E32000E20E4D /* 我的抵用券 */,
 				C7904F582123DAAC00E20E4D /* 取件地址 */,
 				C77BACA62122704E00C599DB /* 我的粉丝 */,
@@ -5440,6 +5472,7 @@
 				C75F64B920EF1DE600B55B8B /* TJJHSuanCell.xib in Resources */,
 				C74D894C2100769A0098754C /* TJCommentsReplyCell.xib in Resources */,
 				C77BACA12122684200C599DB /* TJRankingHeaderCell.xib in Resources */,
+				C734CB4D2159CEC20012A1DC /* TJUpgradeAgentController.xib in Resources */,
 				C76BA60120FDA16B006C749B /* TJHeadDetailController.xib in Resources */,
 				C786473520F3410A00995A8F /* TJClassTwoCell.xib in Resources */,
 				C77B44692118667800332147 /* TJCourierTakeController.xib in Resources */,
@@ -5524,6 +5557,7 @@
 				C7904F522123C92500E20E4D /* TJChooseAreaCell.xib in Resources */,
 				C7909AA621390E7A0088B4DE /* TJTaoBaoGoodsCarController.xib in Resources */,
 				C717878D2105D2A4009A2034 /* TJDetailListCell.xib in Resources */,
+				C734CB53215A0DA50012A1DC /* TJUpgradeAgentCell.xib in Resources */,
 				C79400032119734100FB580F /* TJPostageMoneyCell.xib in Resources */,
 				C791B53821269D4200835897 /* ALPLinkPartnerSDK.bundle in Resources */,
 				C77B4443211830CE00332147 /* TJThreeImageCell.xib in Resources */,
@@ -5888,6 +5922,7 @@
 				C758915B2092D01300AC085E /* TJTQGouController.m in Sources */,
 				C7C35077211D9AB5000AFC6C /* TJMineJFBModel.m in Sources */,
 				C7904F5C2123DACC00E20E4D /* TJKdQuAddressCell.m in Sources */,
+				C734CB52215A0DA50012A1DC /* TJUpgradeAgentCell.m in Sources */,
 				C704044820AE6A60001D720A /* NSString+XHWebImageAutoSize.m in Sources */,
 				C781BED4210B198E00B7BD57 /* SDWebImageFrame.m in Sources */,
 				C772AA13210810960029C515 /* TJTqgGoodsModel.m in Sources */,
@@ -5951,6 +5986,7 @@
 				C7B9949E20F88FA300DFFC98 /* TJGoodsCollectController.m in Sources */,
 				C7206C0020A0031A00957A4A /* XHLaunchAdDownloader.m in Sources */,
 				C7ADB496211A922100AD4D95 /* TJOrderInfoCell.m in Sources */,
+				C734CB4C2159CEC20012A1DC /* TJUpgradeAgentController.m in Sources */,
 				C7ADB4A4211A9EF100AD4D95 /* PopoverAction.m in Sources */,
 				C77D0EA120A3ED5B000F794A /* YYTextRunDelegate.m in Sources */,
 				C77B44592118430B00332147 /* TAAbstractDotView.m in Sources */,
