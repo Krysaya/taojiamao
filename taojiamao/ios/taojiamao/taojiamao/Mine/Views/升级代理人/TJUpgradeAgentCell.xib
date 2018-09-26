@@ -64,6 +64,11 @@
                 <constraint firstAttribute="bottom" secondItem="B7C-3V-8Kz" secondAttribute="bottom" id="bjd-xb-YIb"/>
             </constraints>
             <size key="customSize" width="150" height="201"/>
+            <connections>
+                <outlet property="btn" destination="Ewo-Ii-bVy" id="b7l-9q-eKi"/>
+                <outlet property="img" destination="ddm-F1-eQ1" id="wwO-CQ-3V7"/>
+                <outlet property="lab_text" destination="3wv-mW-rit" id="7AD-ak-fFh"/>
+            </connections>
             <point key="canvasLocation" x="-228.80000000000001" y="37.331334332833585"/>
         </collectionViewCell>
     </objects>

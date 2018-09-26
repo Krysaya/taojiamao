@@ -202,6 +202,18 @@ static NSString * const UserPhone = @"UserPhone";
 //添加学校
 #define KdAddSchool             [BASEURL stringByAppendingString:@"/v1/schools/school"]
 
+//会员中心--升级代理人
+#define UpgradeAgent        [BASEURL stringByAppendingString:@"/v1/levels/goods"]
+
+//会员中心--代理人--等级列表
+#define AgenterLevel        [BASEURL stringByAppendingString:@"/v1/levels"]
+
+//会员中心--购买代理--q创建订单
+#define BuyAgentsCreatList        [BASEURL stringByAppendingString:@"/v1/levels/cgoods"]
+
+//会员中心--购买--余额支付
+#define BuyAgentsPay        [BASEURL stringByAppendingString:@"/v1/levels/pay"]
+
 //用户-快递-订单详情
 #define KdUserOrderDetail       [BASEURL stringByAppendingString:@"/v1/kuaidis/detail"]
 

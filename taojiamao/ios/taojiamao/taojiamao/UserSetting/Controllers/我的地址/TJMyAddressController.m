@@ -60,7 +60,8 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
    
 }
 -(void)loadRequestMyAddressList{
-
+WeakSelf
+    
     NSString *userid = GetUserDefaults(UID);
     if (userid) {
     }else{
@@ -84,10 +85,10 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
         request.httpMethod = kXMHTTPMethodPOST;
     } onSuccess:^(id  _Nullable responseObject) {
 //        NSLog(@"----address-success-===%@",responseObject);
-        self.dataArray = [TJMyAddressModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        weakSelf.dataArray = [TJMyAddressModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
+            [weakSelf.tableView reloadData];
         });
         
     } onFailure:^(NSError * _Nullable error) {
@@ -212,14 +213,14 @@ static NSString *const SettingMyAddressCell = @"SettingMyAddressCell";
    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 87*H_Scale;
+    return 87;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0) {
-        return 10;
-    }else{
+//    if (section==0) {
+//        return 10;
+//    }else{
         return 5;
-    }
+//    }
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     return nil;
