@@ -89,6 +89,8 @@
 		C7249B2F20A1843900BB385E /* TJSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B2E20A1843900BB385E /* TJSettingController.m */; };
 		C7249B3220A19EAA00BB385E /* TJCleanCacheCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B3120A19EAA00BB385E /* TJCleanCacheCell.m */; };
 		C7266E0320A521A6005FD81A /* TJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C7266E0220A521A6005FD81A /* TJButton.m */; };
+		C727AF9E215CC47B0052F79C /* TJAgentPromoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = C727AF9C215CC47B0052F79C /* TJAgentPromoteController.m */; };
+		C727AF9F215CC47B0052F79C /* TJAgentPromoteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C727AF9D215CC47B0052F79C /* TJAgentPromoteController.xib */; };
 		C7292A272095556C00073099 /* TJGoodsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A262095556C00073099 /* TJGoodsCategory.m */; };
 		C7292A2E2095566700073099 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A2A2095566700073099 /* NSObject+YYModel.m */; };
 		C7292A2F2095566700073099 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A2C2095566700073099 /* YYClassInfo.m */; };
@@ -900,6 +902,9 @@
 		C7249B3120A19EAA00BB385E /* TJCleanCacheCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJCleanCacheCell.m; sourceTree = "<group>"; };
 		C7266E0120A521A5005FD81A /* TJButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJButton.h; sourceTree = "<group>"; };
 		C7266E0220A521A6005FD81A /* TJButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJButton.m; sourceTree = "<group>"; };
+		C727AF9B215CC47B0052F79C /* TJAgentPromoteController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJAgentPromoteController.h; sourceTree = "<group>"; };
+		C727AF9C215CC47B0052F79C /* TJAgentPromoteController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJAgentPromoteController.m; sourceTree = "<group>"; };
+		C727AF9D215CC47B0052F79C /* TJAgentPromoteController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJAgentPromoteController.xib; sourceTree = "<group>"; };
 		C7292A252095556C00073099 /* TJGoodsCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJGoodsCategory.h; sourceTree = "<group>"; };
 		C7292A262095556C00073099 /* TJGoodsCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJGoodsCategory.m; sourceTree = "<group>"; };
 		C7292A292095566700073099 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
@@ -2477,6 +2482,16 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		C727AF9A215CC23E0052F79C /* 我要推广 */ = {
+			isa = PBXGroup;
+			children = (
+				C727AF9B215CC47B0052F79C /* TJAgentPromoteController.h */,
+				C727AF9C215CC47B0052F79C /* TJAgentPromoteController.m */,
+				C727AF9D215CC47B0052F79C /* TJAgentPromoteController.xib */,
+			);
+			path = "我要推广";
+			sourceTree = "<group>";
+		};
 		C7292A282095566700073099 /* YYModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2562,6 +2577,7 @@
 		C734CB482159CE7F0012A1DC /* 升级代理人 */ = {
 			isa = PBXGroup;
 			children = (
+				C727AF9A215CC23E0052F79C /* 我要推广 */,
 				C72BCEC1215B21680012507F /* 我的地址 */,
 				C734CB492159CEC20012A1DC /* TJUpgradeAgentController.h */,
 				C734CB4A2159CEC20012A1DC /* TJUpgradeAgentController.m */,
@@ -5530,6 +5546,7 @@
 			files = (
 				C71787812105BD42009A2034 /* TJMyAssetsController.xib in Resources */,
 				C76A6C692127BE57000ACD4B /* TJKdOrderPayController.xib in Resources */,
+				C727AF9F215CC47B0052F79C /* TJAgentPromoteController.xib in Resources */,
 				C7904F73212431C500E20E4D /* TJKdChooseTimeCell.xib in Resources */,
 				C76BA5F620FD95DD006C749B /* TJHeadLineThreeCell.xib in Resources */,
 				C75F64B920EF1DE600B55B8B /* TJJHSuanCell.xib in Resources */,
@@ -5920,6 +5937,7 @@
 				C7DE68A9209985DC00160435 /* PGIndexBannerSubiew.m in Sources */,
 				C76E866921259A1400DD8AA5 /* PGDatePicker+TimeAndSecond.m in Sources */,
 				C77B4447211830E000332147 /* TJBigImageCell.m in Sources */,
+				C727AF9E215CC47B0052F79C /* TJAgentPromoteController.m in Sources */,
 				C7B80D9320A5769300C1333B /* TJUserInfoController.m in Sources */,
 				C7206C0320A0031A00957A4A /* XHLaunchAdView.m in Sources */,
 				C7A19D5B2134E47800B35FD8 /* TJAssistanceInfoModel.m in Sources */,

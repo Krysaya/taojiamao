@@ -12,12 +12,15 @@
 #import "TJAgentAdreessCell.h"
 #import "TJMyAddressModel.h"
 #import "TJAgentPayView.h"
+#import "TJAliPayOrderInfo.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface TJAgentAddressController ()<UITableViewDelegate,UITableViewDataSource,TJButtonDelegate,PayTypeBtnDelegate>
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property (nonatomic, retain) NSIndexPath *selectedIndexPath;
 
+@property (nonatomic, strong) TJAgentPayView  *payView;
 @property (nonatomic, strong) NSString *aid;
 @property (nonatomic, strong) NSString *oid;
 
@@ -71,6 +74,7 @@
         payView.delegate = self;
         self.type = 101;
         [self.view addSubview:payView];
+        self.payView = payView;
     }else{
         [SVProgressHUD showInfoWithStatus:@"请选择先地址！"];
     }
@@ -86,12 +90,52 @@
         DSLog(@"yue==pay");
         [KConnectWorking requestNormalDataParam:@{@"oid":self.oid,} withRequestURL:BuyAgentsPay withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
             DSLog(@"--%@--pay-",responseObject);
+            if ([responseObject[@"msg"] isEqualToString:@"ok"]) {
+                [SVProgressHUD showSuccessWithStatus:@"购买成功!"];
+                [self.payView removeFromSuperview];
+            }
+
         } withFailure:^(NSError * _Nullable error) {
-            
+
         }];
     }else{
-        DSLog(@"zfb==pay");
-
+        DSLog(@"zfb==pay");            [SVProgressHUD showProgress:1 status:@"加载中~"];
+        /*
+         *生成订单信息及签名
+         */
+        //将商品信息赋予AlixPayOrder的成员变量
+        TJAliPayOrderInfo* order = [TJAliPayOrderInfo new];
+        // NOTE: 商品数据
+        order.biz_content = [APBizContent new];
+        order.biz_content.body = @"石家庄月雨科技有限公司";
+        order.biz_content.subject = @"购买会员等级";
+        order.biz_content.out_trade_no = self.oid; //订单ID（由商家自行制定）
+        order.biz_content.timeout_express = @"30m"; //超时时间设置
+        order.biz_content.total_amount = self.money; //====0.01商品价格
+        NSString *body = [self encodeingStr:order.biz_content.body];
+        NSString *subj = [self encodeingStr:order.biz_content.subject];
+        [KConnectWorking requestNormalDataMD5Param:@{@"body":body,@"subject":subj,@"out_trade_no":order.biz_content.out_trade_no,@"timeout_express":order.biz_content.timeout_express,@"total_amount":order.biz_content.total_amount,@"type":@"level",} withNormlParams:@{@"body":order.biz_content.body,@"subject":order.biz_content.subject,@"out_trade_no":order.biz_content.out_trade_no,@"timeout_express":order.biz_content.timeout_express,@"total_amount":order.biz_content.total_amount,@"type":@"level",} withRequestURL:KdOrderAliPaySign withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+            [SVProgressHUD dismiss];
+            DSLog(@"--%@--",responseObject);
+            if (responseObject[@"data"]) {
+                NSString *appScheme = @"taojiamaoscheme";
+                NSString *orderString = responseObject[@"data"];
+                // NOTE: 调用支付结果开始支付
+                [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                    NSLog(@"reslut =啥啥啥s's's %@",resultDic);
+                    if ([resultDic[@"resultStatus"] intValue]==9000) {
+                        [SVProgressHUD showSuccessWithStatus:@"支付成功!"];
+                      
+                    }else{
+                        [SVProgressHUD showSuccessWithStatus:resultDic[@"memo"]];
+                    }
+                }];
+            }
+        } withFailure:^(NSError * _Nullable error) {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:@"网络异常，请重试！"];
+        }];
+        
     }
 }
 - (void)addBtnClick:(UIButton *)sender{
@@ -159,6 +203,11 @@
     TJMyAddressModel *model = self.dataArray[indexPath.section];
     self.aid = model.id;
     self.selectedIndexPath = indexPath;
+}
+
+- (NSString *)encodeingStr:(NSString *)str{
+    NSString *codestr = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return codestr;
 }
 
 @end

@@ -214,6 +214,9 @@ static NSString * const UserPhone = @"UserPhone";
 //会员中心--购买--余额支付
 #define BuyAgentsPay        [BASEURL stringByAppendingString:@"/v1/levels/pay"]
 
+//我是代理 - -v1/levels/qrcode
+#define MyAgentLevel       [BASEURL stringByAppendingString:@"/v1/levels/qrcode"]
+
 //用户-快递-订单详情
 #define KdUserOrderDetail       [BASEURL stringByAppendingString:@"/v1/kuaidis/detail"]
 

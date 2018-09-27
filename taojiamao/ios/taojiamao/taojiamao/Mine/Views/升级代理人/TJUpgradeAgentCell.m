@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UILabel *lab_text;
 
+@property (weak, nonatomic) IBOutlet UIButton *btn;
 
 
 @end
@@ -28,5 +29,15 @@
     _model = model;
     [self.img sd_setImageWithURL: [NSURL URLWithString:model.image]];
     
+}
+
+
+- (void)setSelected:(BOOL)selected{
+    [super setSelected:selected];
+    if (selected) {
+        self.btn.selected = YES;
+    }else{
+        self.btn.selected = NO;
+    }
 }
 @end

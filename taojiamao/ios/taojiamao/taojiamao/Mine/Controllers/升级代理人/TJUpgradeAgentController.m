@@ -23,7 +23,6 @@
 @property (nonatomic, strong) UIImageView *img_top;
 @property (nonatomic, strong) UICollectionView *collectV;
 @property (nonatomic, strong) UIScrollView *scrollV;
-@property (nonatomic, retain) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) UIButton *selectBtn;
 @property (nonatomic, strong) NSArray *levelArr;
 @property (nonatomic, strong) NSMutableArray *goodsArr;
@@ -42,7 +41,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.btn_dl.selected = YES;
-    self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     
     self.title = @"升级代理人";//右上角按扭----规则
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-90-SafeAreaTopHeight)];
@@ -78,7 +76,7 @@
     [scrollView addSubview:collectionV];
     self.collectV = collectionV;
    
-    
+  
 }
 - (void)setTopView{
     UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, 49)];
@@ -104,6 +102,24 @@
             
         }
     }
+    WeakSelf
+    self.goodsArr = [NSMutableArray array];
+    TJAgentLevelModel *m = self.levelArr[0];
+    [KConnectWorking requestNormalDataParam:@{@"level_id":m.id,} withRequestURL:UpgradeAgent withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
+        DSLog(@"----goods-1111--%@",responseObject);
+        weakSelf.goodsArr = [TJUpgradeAgentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        [weakSelf.collectV reloadData];
+        TJUpgradeAgentModel *model = self.goodsArr[0];
+        weakSelf.gid = model.id;
+        [weakSelf.img_top sd_setImageWithURL: [NSURL URLWithString:model.image]];
+        NSString *one = [NSString stringWithFormat:@"%.2f",[model.upgrade_price floatValue]/100];
+        weakSelf.money = one;
+        [weakSelf.btn_apply setTitle:[NSString stringWithFormat:@"立即申请(%@)",one] forState:UIControlStateNormal];
+
+//        [weakSelf.collectV selectItemAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
 }
 - (void)btnChooseClick:(UIButton *)btn
 {
@@ -119,9 +135,16 @@
     self.selectBtn = btn;
     TJAgentLevelModel *m = self.levelArr[i];
     [KConnectWorking requestNormalDataParam:@{@"level_id":m.id,} withRequestURL:UpgradeAgent withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-        DSLog(@"----goods---%@",responseObject);
+        DSLog(@"----goods--%ld-%@",(long)btn.tag,responseObject);
         weakSelf.goodsArr = [TJUpgradeAgentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         [weakSelf.collectV reloadData];
+
+        TJUpgradeAgentModel *model = self.goodsArr[0];
+        self.gid = model.id;
+        [self.img_top sd_setImageWithURL: [NSURL URLWithString:model.image]];
+        NSString *one = [NSString stringWithFormat:@"%.2f",[model.upgrade_price floatValue]/100];
+        self.money = one;
+        [self.btn_apply setTitle:[NSString stringWithFormat:@"立即申请(%@)",one] forState:UIControlStateNormal];
 //         [weakSelf.collectV selectItemAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     } withFailure:^(NSError * _Nullable error) {
         
@@ -162,40 +185,36 @@
     
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    self.selectedIndexPath.row = 0;
     TJUpgradeAgentCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UpgradeAgentCell" forIndexPath:indexPath];
-    
-    if ([self.selectedIndexPath isEqual:indexPath]) {
-        cell.btn.selected = YES;
-    }else{
-        cell.btn.selected = NO;
-        
+
+    if (indexPath.row==0) {//指定第一行为选中状态
+        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
     cell.model = self.goodsArr[indexPath.row];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.selectedIndexPath) {
-        TJUpgradeAgentCell * cell = (TJUpgradeAgentCell *)[collectionView cellForItemAtIndexPath:self.selectedIndexPath];
-        cell.btn.selected = NO;
-    }
-    TJUpgradeAgentCell * cell = (TJUpgradeAgentCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.btn.selected = YES;
-    self.selectedIndexPath = indexPath;
+
+
     TJUpgradeAgentModel *model = self.goodsArr[indexPath.row];
     self.gid = model.id;
     [self.img_top sd_setImageWithURL: [NSURL URLWithString:model.image]];
-    NSString *one = [NSString stringWithFormat:@"%.2f",[model.price floatValue]/100];
+    NSString *one = [NSString stringWithFormat:@"%.2f",[model.upgrade_price floatValue]/100];
     self.money = one;
     [self.btn_apply setTitle:[NSString stringWithFormat:@"立即申请(%@)",one] forState:UIControlStateNormal];
-//    if (indexPath.row==0||indexPath.row==2) {
-//        self.img_top.backgroundColor = [UIColor greenColor];
-//    }else{
-//        self.img_top.backgroundColor = [UIColor purpleColor];
-//    }
+
 //    TJGoodCatesMainListModel *model = self.dataArr_top[indexPath.row];
 //    TJClassicSecondController *vc = [[TJClassicSecondController alloc]init];
 //    vc.title_class = model.catname;
 //    [self.navigationController pushViewController:vc animated:YES];
 }
+//- (void)chooseCellIndex:(UIButton *)sender{
+//    if (self.tag) {
+//        UIButton *btn = (UIButton *)[self.view viewWithTag:sender.tag];
+//        btn.selected = NO;
+//    }
+//
+//    sender.selected = YES;
+//    self.tag = sender.tag;
+//}
 @end

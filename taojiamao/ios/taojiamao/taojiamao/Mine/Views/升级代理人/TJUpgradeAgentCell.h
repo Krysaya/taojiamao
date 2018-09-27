@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @class TJUpgradeAgentModel;
 @interface TJUpgradeAgentCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIButton *btn;
 @property (nonatomic, strong) TJUpgradeAgentModel *model;
+//@property (nonatomic, assign) BOOL isSelected;
 @end
 
 NS_ASSUME_NONNULL_END

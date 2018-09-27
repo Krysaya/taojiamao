@@ -197,7 +197,7 @@
     order.biz_content.subject = @"发布订单";
     order.biz_content.out_trade_no = self.model.id; //订单ID（由商家自行制定）
     order.biz_content.timeout_express = @"30m"; //超时时间设置
-    order.biz_content.total_amount = [NSString stringWithFormat:@"%.2f", 0.01]; //商品价格
+    order.biz_content.total_amount = [NSString stringWithFormat:@"%@", self.lab_total.text]; //====0.01商品价格
     NSString *userid = GetUserDefaults(UID);
     if (userid) {}else{userid = @"";}
     KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
