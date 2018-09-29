@@ -26,6 +26,7 @@
 #import "UIView+Frame.h"
 #import "YYModel.h"
 #import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
 #import "SDCycleScrollView.h"
 #import "NewPagedFlowView.h"
 #import "PYSearchViewController.h"

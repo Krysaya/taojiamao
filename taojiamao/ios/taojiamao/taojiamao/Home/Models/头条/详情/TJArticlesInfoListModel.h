@@ -28,7 +28,7 @@
 @property (nonatomic, strong) NSString *sort;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *content;
-
+@property (nonatomic, strong) NSMutableArray *good;
 
 @property (nonatomic, assign) float contentH;
 

@@ -99,7 +99,7 @@
     self.navigationItem.titleView = self.naview;
     
     //    you边按钮
-    TJButton *button_right = [[TJButton alloc]initWith:@"搜索" delegate:self font:15 titleColor:KALLRGB backColor:nil tag:478];
+    TJButton *button_right = [[TJButton alloc]initWith:@"搜索" delegate:self font:16 titleColor:KALLRGB backColor:nil tag:478];
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
     
@@ -146,7 +146,8 @@
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     DSLog(@"%@",textField.text);
-//    self.searchText = textField.text;
+    self.searchText = textField.text;
+    [textField resignFirstResponder];
     return YES;
 }
 

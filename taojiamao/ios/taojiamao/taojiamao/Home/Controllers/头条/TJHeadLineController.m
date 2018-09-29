@@ -61,48 +61,19 @@
     NSString *pag = [NSString stringWithFormat:@"%d",self.page];
     self.dataArr = [NSMutableArray array];
     WeakSelf
-    NSString *userid = GetUserDefaults(UID);
     
-    if (userid) {
-    }else{
-        userid = @"";
-    }
-    KSortingAndMD5 *MD5 = [[KSortingAndMD5 alloc]init];
-    NSString *timeStr = [MD5 timeStr];
-    NSMutableDictionary *md = @{
-                                @"timestamp": timeStr,
-                                @"app": @"ios",
-                                @"uid":userid,
-                                @"page_size":@"8",
-                                @"page_no":pag,
-                                }.mutableCopy;
-    NSString *md5Str = [MD5 sortingAndMD5SignWithParam:md withSecert:SECRET];
-    [XMCenter sendRequest:^(XMRequest * _Nonnull request) {
-        request.url = NewsArticles;
-        request.headers = @{@"timestamp": timeStr,
-                            @"app": @"ios",
-                            @"sign":md5Str,
-                            @"uid":userid,
-                            };
-        request.httpMethod = kXMHTTPMethodPOST;
-        request.parameters = @{  @"page_size":@"8",
-                                 @"page_no":pag};
-    } onSuccess:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataParam:@{ @"page_size":@"8",@"page_no":pag,} withRequestURL:NewsArticles withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         DSLog(@"---%@--success",responseObject);
         [weakSelf.tableView.mj_header endRefreshing];
-
+        
         NSDictionary *dict = responseObject[@"data"];
         NSArray *array = [TJArticlesListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
         [weakSelf.dataArr addObjectsFromArray:array];
         [weakSelf.tableView reloadData];
-       
-//        self.page++;
-    } onFailure:^(NSError * _Nullable error) {
-        [weakSelf.tableView.mj_header endRefreshing];
-//        NSData * errdata = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-//        NSDictionary *dic_err=[NSJSONSerialization JSONObjectWithData:errdata options:NSJSONReadingMutableContainers error:nil];
-//        DSLog(@"--news-≈≈error-msg%@=======dict%@",dic_err[@"msg"],dic_err);
+    } withFailure:^(NSError * _Nullable error) {
+        
     }];
+ 
 }
 - (void)loadRequestNewsList{
     NSString *pag = [NSString stringWithFormat:@"%d",self.page];

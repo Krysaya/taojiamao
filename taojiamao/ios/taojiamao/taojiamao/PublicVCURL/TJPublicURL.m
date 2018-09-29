@@ -18,6 +18,7 @@
 
 #import "TJSearchController.h"//搜索
 
+#import "TJHPFindController.h"//发现
 
 
 /***********会员中心************************************************/
@@ -36,6 +37,7 @@
 
 #import "TJKdApplyAgrentController.h"//申请代理
 #import "TJUpgradeAgentController.h"//升级代理
+#import "TJAgentPromoteController.h"//我是代理
 
 #import "TJOrderClaimController.h"//  订单认领
 #import "TJRankingListController.h"//   排行榜
@@ -76,7 +78,9 @@
      if ([identifier isEqualToString: @"nine"]) {//9.9
         TJBargainController *vc= [[TJBargainController alloc]init];
             [weakSelf.navigationController pushViewController:vc animated:YES];}
-    
+    if ([identifier isEqualToString: @"findGoods"]) {//9.9
+        TJHPFindController *vc= [[TJHPFindController alloc]init];
+        [weakSelf.navigationController pushViewController:vc animated:YES];}
     
     
     
@@ -130,7 +134,9 @@
     if ([identifier isEqualToString: @"upgradeforProxy"]) {//==升级代理
         TJUpgradeAgentController *vc = [[TJUpgradeAgentController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}
-    
+    if ([identifier isEqualToString: @"myforProxy"]) {//==我是代理
+        TJAgentPromoteController *vc = [[TJAgentPromoteController alloc]init];
+        [weakSelf.navigationController pushViewController:vc animated:YES];}
     if ([identifier isEqualToString: @"askforProxy"]) {//快递sh==申请代理
         TJKdApplyAgrentController *vc = [[TJKdApplyAgrentController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];}

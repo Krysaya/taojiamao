@@ -41,11 +41,11 @@
     }
     return self;
 }
--(void)setModels:(TJHomeMiddleModels *)models{
-    _models = models;
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:models.img] placeholderImage:[UIImage imageNamed:@""] options:0];
-    self.name.text = models.name;
-}
+//-(void)setModels:(TJHomeMiddleModels *)models{
+//    _models = models;
+//    [self.icon sd_setImageWithURL:[NSURL URLWithString:models.img] placeholderImage:[UIImage imageNamed:@""] options:0];
+//    self.name.text = models.name;
+//}
 - (UIImageView *)icon{
     if (_icon==nil) {
         _icon = [[UIImageView alloc]init];

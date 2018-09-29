@@ -32,7 +32,7 @@
 - (void)requestData{
     
     
-    [KConnectWorking requestNormalDataParam:@{@"id":self.infoId} withRequestURL:[NSString stringWithFormat:@"%@/%@",MessageNotice,self.infoId] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:[NSString stringWithFormat:@"%@/%@",MessageNotice,self.infoId] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
         DSLog(@"--%@--info",responseObject);
         TJNoticeInfoModel *m = [TJNoticeInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
         self.model = m;

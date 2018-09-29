@@ -55,7 +55,7 @@
     self.lab_time.text = timeS;
 
     if ([TJOverallJudge judgeBlankString:model.re_content]) {
-        DSLog(@"--空");
+//        DSLog(@"--空");
         self.view_bg.hidden = YES;
         self.bottomContraint.constant = 10;
     }else{

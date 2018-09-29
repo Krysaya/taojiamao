@@ -9,7 +9,7 @@
 #import "TJMiddleClickController.h"
 #import "TJSearchView.h"
 #import "TJFiltrateView.h"
-#import "TJHomeFootShowModel.h"
+//#import "TJHomeFootShowModel.h"
 #import "TJHomeFootShowCell.h"
 #import "TJDefaultGoodsDetailController.h"
 
@@ -211,19 +211,19 @@ static NSString * const TJMiddleClickControllerCell = @"TJMiddleClickControllerC
     [self.navigationController pushViewController:gdvc animated:YES];
 }
 #pragma mark - TJHomeFootShowCellDeletage
--(void)deletageWithModel:(TJHomeFootShowModel *)model withCell:(TJHomeFootShowCell *)cell{
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    NSNumber * index = [NSNumber numberWithInteger:indexPath.row];
-    DSLog(@"%@",index);
-    if ([self.shareCells containsObject:index]) {
-        [self.shareCells removeObject:index];
-        self.numberLabel.attributedText = [self textChangeColor:[NSString stringWithFormat:@"已选择%02lu张",(unsigned long)self.shareCells.count]];
-    }else{
-        [self.shareCells addObject:index];
-        self.numberLabel.attributedText = [self textChangeColor:[NSString stringWithFormat:@"已选择%02lu张",(unsigned long)self.shareCells.count]];
-    }
-}
+//-(void)deletageWithModel:(TJHomeFootShowModel *)model withCell:(TJHomeFootShowCell *)cell{
+//    
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+//    NSNumber * index = [NSNumber numberWithInteger:indexPath.row];
+//    DSLog(@"%@",index);
+//    if ([self.shareCells containsObject:index]) {
+//        [self.shareCells removeObject:index];
+//        self.numberLabel.attributedText = [self textChangeColor:[NSString stringWithFormat:@"已选择%02lu张",(unsigned long)self.shareCells.count]];
+//    }else{
+//        [self.shareCells addObject:index];
+//        self.numberLabel.attributedText = [self textChangeColor:[NSString stringWithFormat:@"已选择%02lu张",(unsigned long)self.shareCells.count]];
+//    }
+//}
 #pragma mark - TJSearchViewDelegate,TJFiltrateViewDelegate
 -(void)SearchButtonClick:(NSString *)text{
     DSLog(@"点了搜索%@",text);

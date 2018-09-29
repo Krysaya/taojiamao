@@ -96,7 +96,7 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
         [weakSelf endRefrensh];
         
         NSDictionary *dict = responseObject[@"data"];
-        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        weakSelf.dataArr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict];
         if (weakSelf.dataArr.count>0) {
             weakSelf.collectionView.backgroundView = [[UIImageView alloc]init];
             weakSelf.tableView.backgroundView = [[UIImageView alloc]init];
@@ -155,15 +155,12 @@ static NSString *TJSearchContentCollectionCell = @"TJSearchContentCollectionCell
     [KConnectWorking requestNormalDataMD5Param:@{ @"keyword":str,@"sort":sort,@"page":pag,@"page_num":@"10",} withNormlParams:@{@"keyword":self.strsearch,@"sort":sort,@"page":pag,@"page_num":@"10",} withRequestURL:SuperSearchGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [weakSelf endRefrensh];
         NSDictionary *dict = responseObject[@"data"];
-        NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+        NSArray *arr = [TJJHSGoodsListModel mj_objectArrayWithKeyValuesArray:dict];
         
         if (arr.count==0) {
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
             [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
-//            weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
-//            weakSelf.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
-//            [weakSelf.tableView.mj_footer resetNoMoreData];
-//            [weakSelf.collectionView.mj_footer resetNoMoreData];
+
         }else{
             [weakSelf.dataArr addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];

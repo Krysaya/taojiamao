@@ -7,9 +7,9 @@
 //
 
 #import "TJHomeController.h"
-#import "TJGoodsCategory.h"
+//#import "TJGoodsCategory.h"
 #import "TJContentController.h"
-#import "TJFirstAllController.h"
+//#import "TJFirstAllController.h"
 #import "TJSearchController.h"
 #import "TJNoticeController.h"
 #import "TJHomePageController.h"
@@ -23,7 +23,7 @@
 @interface TJHomeController ()<PYSearchViewControllerDelegate>
 
 @property(nonatomic,strong)NSMutableArray * contents;
-@property(nonatomic,strong)NSMutableArray<TJGoodsCategory*>*category;
+//@property(nonatomic,strong)NSMutableArray<TJGoodsCategory*>*category;
 @property(nonatomic,strong)UIButton * triangleBut;
 @property(nonatomic,strong)UIView * coverView;
 @property (nonatomic, strong) NSArray *hotSearchArr;
@@ -149,12 +149,12 @@
     }
     return _contents;
 }
--(NSMutableArray<TJGoodsCategory *> *)category{
-    if (!_category) {
-        _category = [NSMutableArray array];
-    }
-    return _category;
-}
+//-(NSMutableArray<TJGoodsCategory *> *)category{
+//    if (!_category) {
+//        _category = [NSMutableArray array];
+//    }
+//    return _category;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -13,7 +13,7 @@
 #import "TJHomeFootShowCell.h"
 #import "TJGoodsListCell.h"
 
-#import "TJHomeFootShowModel.h"
+//#import "TJHomeFootShowModel.h"
 #import "TJMiddleClickController.h"
 #import "TJClassicSecondController.h"
 #import "TJGoodCatesMainListModel.h"

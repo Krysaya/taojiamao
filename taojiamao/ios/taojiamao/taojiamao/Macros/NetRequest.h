@@ -149,6 +149,12 @@ static NSString * const UserPhone = @"UserPhone";
 // 头条
 #define NewsArticles             [BASEURL stringByAppendingString:@"/v1/articles"]
 
+// 头条详情
+#define NewsArticlesInfo             [BASEURL stringByAppendingString:@"/v1/topgood/tgdetail"]
+
+//发现-*----
+#define HPFindGoods            [BASEURL stringByAppendingString:@"/v1/findgood/fglist"]
+
 //tqg
 #define TQGTimeChoose            [BASEURL stringByAppendingString:@"/v1/pages/tqg"]
 
@@ -215,7 +221,7 @@ static NSString * const UserPhone = @"UserPhone";
 #define BuyAgentsPay        [BASEURL stringByAppendingString:@"/v1/levels/pay"]
 
 //我是代理 - -v1/levels/qrcode
-#define MyAgentLevel       [BASEURL stringByAppendingString:@"/v1/levels/qrcode"]
+#define MyAgentLevel       [BASEURL stringByAppendingString:@"/v1/levels/materiel"]
 
 //用户-快递-订单详情
 #define KdUserOrderDetail       [BASEURL stringByAppendingString:@"/v1/kuaidis/detail"]

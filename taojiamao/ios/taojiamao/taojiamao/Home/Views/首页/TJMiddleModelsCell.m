@@ -8,7 +8,7 @@
 
 #import "TJMiddleModelsCell.h"
 #import "TJMiddleModelsCollectionCell.h"
-#import "TJHomeMiddleModels.h"
+//#import "TJHomeMiddleModels.h"
 #define COUNT 5
 
 
@@ -44,7 +44,7 @@
     TJMiddleModelsCollectionCell * cell  = [collectionView dequeueReusableCellWithReuseIdentifier:@"MiddleModelsCoCell" forIndexPath:indexPath];
     TJHomeMiddleModels * model = self.dataArray[indexPath.item];
     
-    cell.models = model;
+//    cell.models = model;
 
     return cell;
 }

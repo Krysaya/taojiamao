@@ -8,7 +8,10 @@
 //
 
 #import "TJArticlesInfoListModel.h"
-
+#import "TJGoodsCollectModel.h"
 @implementation TJArticlesInfoListModel
-
++(NSDictionary *)objectClassInArray{
+    // 数组内部是字典,要转成模型
+    return @{@"good":[TJGoodsCollectModel class]};
+}
 @end

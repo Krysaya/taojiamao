@@ -7,10 +7,10 @@
 //  会员版商品详情
 
 #import "TJBaseViewController.h"
-#import "TJHomeFootShowModel.h"
+//#import "TJHomeFootShowModel.h"
 
 @interface TJGoodsDetailsController : TJBaseViewController
 
-@property(nonatomic,strong)TJHomeFootShowModel * model;
+//@property(nonatomic,strong)TJHomeFootShowModel * model;
 
 @end

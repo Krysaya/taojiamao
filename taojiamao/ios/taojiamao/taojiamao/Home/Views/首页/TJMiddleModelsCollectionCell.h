@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TJHomeMiddleModels.h"
+//#import "TJHomeMiddleModels.h"
 
 @interface TJMiddleModelsCollectionCell : UICollectionViewCell
 
-@property(nonatomic,strong)TJHomeMiddleModels * models;
+//@property(nonatomic,strong)TJHomeMiddleModels * models;
 
 @end

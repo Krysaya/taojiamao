@@ -7,6 +7,7 @@
 //
 
 #import "TJHeadDetailController.h"
+#import "TJTouTiaoInfoCell.h"
 #import "TJHeadLineShareCell.h"
 #import "TJMoreCommentsCell.h"
 #import "TJHeadLineThreeCell.h"
@@ -62,7 +63,8 @@
     tableView.dataSource = self;
     tableView.estimatedRowHeight = 200;
     tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineContentCell" bundle:nil] forCellReuseIdentifier:@"contentCell"];
+//     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineContentCell" bundle:nil] forCellReuseIdentifier:@"contentCell"];
+      [tableView registerNib:[UINib nibWithNibName:@"TJTouTiaoInfoCell" bundle:nil] forCellReuseIdentifier:@"contentCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineShareCell" bundle:nil] forCellReuseIdentifier:@"shareCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineThreeCell" bundle:nil] forCellReuseIdentifier:@"tuijianCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJMoreCommentsCell" bundle:nil] forCellReuseIdentifier:@"moreCell"];
@@ -82,21 +84,46 @@
     self.model = nil;
     self.remodel = nil;
     WeakSelf
-    [KConnectWorking requestNormalDataParam:@{@"id":aid,} withRequestURL:[NSString stringWithFormat:@"%@/%@",NewsArticles,aid] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
-        DSLog(@"----newsinfo-success-===%@",responseObject);
-        [weakSelf.tableView.mj_header endRefreshing];
-        NSDictionary *dict = responseObject[@"data"];
-        if (dict.count>0) {
-            TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
-            TJArticlesListModel *remodel = [TJArticlesListModel mj_objectWithKeyValues:dict[@"relate"]];
-            weakSelf.model = model;
-            weakSelf.remodel = remodel;
-            [weakSelf.tableView reloadData];
-        }
+    [KConnectWorking requestNormalDataMD5Param:nil withNormlParams:nil withRequestURL:[NSString stringWithFormat:@"%@/%@",NewsArticlesInfo,aid] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+        
     } withFailure:^(NSError * _Nullable error) {
-        [SVProgressHUD showInfoWithStatus:@"请重试~"];
-        [weakSelf.tableView.mj_header endRefreshing];
+        NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                NSString  * receive = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding ];
+        
+                //字符串再生成NSData
+                NSData *data = [receive dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        
+                //打印出后台给出的错误信息
+                DSLog(@"%@============%@",error,dict[@"msg"]);
     }];
+//    [KConnectWorking requestNormalDataParam:@{@"id":aid} withRequestURL:NewsArticlesInfo withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+//        DSLog(@"----newsinfo-success-===%@",responseObject);
+//        [weakSelf.tableView.mj_header endRefreshing];
+//        NSDictionary *dict = responseObject[@"data"];
+//        if (dict.count>0) {
+//            TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
+//            TJArticlesListModel *remodel = [TJArticlesListModel mj_objectWithKeyValues:dict[@"relate"]];
+//            weakSelf.model = model;
+//            weakSelf.remodel = remodel;
+//            [weakSelf.tableView reloadData];
+//        }
+//    } withFailure:^(NSError * _Nullable error) {
+//        NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+//        NSString  * receive = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding ];
+//
+//        //字符串再生成NSData
+//        NSData *data = [receive dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+//
+//        //打印出后台给出的错误信息
+//        DSLog(@"%@============%@",error,dict[@"msg"]);
+//
+//
+//
+//        [SVProgressHUD showInfoWithStatus:@"请重试~"];
+//        [weakSelf.tableView.mj_header endRefreshing];
+//    }];
 
 }
 
@@ -105,7 +132,7 @@
     self.commentArr = [NSMutableArray array];
     WeakSelf
     [KConnectWorking requestNormalDataParam:@{ @"aid":aid,} withRequestURL:CommentsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-        DSLog(@"--pl%@==success==",responseObject);
+//        DSLog(@"--pl%@==success==",responseObject);
         NSDictionary *dict = responseObject[@"data"];
         weakSelf.commentArr = [TJCommentsListModel mj_objectArrayWithKeyValuesArray:dict];
         [weakSelf.tableView reloadData];
@@ -166,9 +193,9 @@
     if(indexPath.section==0){
         if (indexPath.row==0) {
             //            h5
-            TJHeadLineContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell"];
+            TJTouTiaoInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell"];
                 cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, MAXFLOAT);
-            cell.baseView = tableView;
+//            cell.baseView = tableView;
             cell.model = model;
             
             return cell;
