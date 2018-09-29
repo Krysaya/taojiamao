@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TJFindPopView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="51D-rB-g6x">
+                    <rect key="frame" x="65" y="183.5" width="245" height="300"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="PCx-Mm-kdS"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.2011986301369863" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="51D-rB-g6x" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Lls-TY-5it"/>
+                <constraint firstItem="51D-rB-g6x" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="NL2-Ig-2fW"/>
+                <constraint firstAttribute="trailing" secondItem="51D-rB-g6x" secondAttribute="trailing" constant="65" id="k3F-Zf-mYX"/>
+                <constraint firstItem="51D-rB-g6x" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="pjq-UU-sbY"/>
+            </constraints>
+            <connections>
+                <outlet property="img" destination="51D-rB-g6x" id="Qli-T4-wvf"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="154.27286356821591"/>
+        </view>
+    </objects>
+</document>
