@@ -37,9 +37,11 @@
 - (void)setModel:(TJArticlesInfoListModel *)model{
     _model = model;
     self.lab_title.text = model.title;
-    self.lab_from.text = model.source;
-    self.lab_pl.text = [NSString stringWithFormat:@"%@人评论",model.comment_num];
-    self.lab_zan.text = [NSString stringWithFormat:@"%@赞",model.like_num];
-    self.lab_content.text = model.content;
+//    self.lab_from.text = model.source;
+    self.lab_from.text = [NSString stringWithFormat:@"发布时间：%@",model.created_time];
+//    self.lab_zan.text = [NSString stringWithFormat:@"%@赞",model.like_num];
+    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[ model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    self.lab_content.attributedText = attrStr;
+    self.lab_content.font = [UIFont systemFontOfSize:15];
 }
 @end

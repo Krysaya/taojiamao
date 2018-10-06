@@ -19,7 +19,7 @@
 //@property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *thumb;
 @property (nonatomic, strong) NSString *images;
-@property (nonatomic, strong) NSString *create_time;
+@property (nonatomic, strong) NSString *created_time;
 @property (nonatomic, strong) NSString *update_time;
 @property (nonatomic, strong) NSString *view_num;
 @property (nonatomic, strong) NSString *comment_num;

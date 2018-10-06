@@ -81,14 +81,7 @@
         self.lab_yimai.text = [NSString stringWithFormat:@"%@人已买",model.itemsale];
         NSString *str_coupon = [NSString stringWithFormat:@"%@元券",model.couponmoney];
         [self.btn_quan setTitle:str_coupon forState:UIControlStateNormal];
-//        NSAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-//            make.font([UIFont systemFontOfSize:12.f]).textColor([UIColor whiteColor]);
-//            make.append(str_coupon);
-//            make.rangeEdit(NSMakeRange(3, model.itemprice.length), ^(SJAttributesRangeOperator * _Nonnull make) {
-//                make.font([UIFont systemFontOfSize:19.f]).textColor([UIColor whiteColor]);
-//            });
-//        });
-//        [self.btn_quan setAttributedTitle:str_coupon forState:UIControlStateNormal];
+
     }else{
         TJGoodsCollectModel *model = [arr objectAtIndex:indexPath.row];
         _selectBtn.selected = model.isChecked;

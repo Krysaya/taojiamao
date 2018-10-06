@@ -9,6 +9,7 @@
 
 #import "TJHomePageController.h"
 #import "TJPublicURL.h"
+#import "SGAdvertScrollView.h"
 
 #import "TJHPMidCollectCell.h"
 #import "TJClassOneCell.h"
@@ -34,11 +35,12 @@
 #import "TJHeadLineScrollModel.h"
 #import "TJGoodsCollectModel.h"
 #import "TJAdWebController.h"
+#import "TJHeadDetailController.h"
 
 
 #define AD_H  200
 #define Cloumns_H  165
-#define News_H  55
+#define News_H  45
 #define Class_H  260
 #define TabAd_H  110
 
@@ -328,13 +330,10 @@
 
 //    左边按钮
     TJButton *button_left = [[TJButton alloc]initDelegate:self backColor:nil tag:LEFTBTN withBackImage:@"sign" withSelectImage:nil];
-   
     // 修改导航栏左边的item
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_left];
-
     //    you边按钮
     TJButton *button_right = [[TJButton alloc]initDelegate:self backColor:nil tag:RIGHTBTN withBackImage:@"notice" withSelectImage:nil];
-    
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button_right];
 //    搜索
@@ -379,13 +378,21 @@
 
 - (void)setNewsScroll{
 //TODO:    新闻滚动条
+    UIView *news = [[UIView alloc]initWithFrame:CGRectMake(0,AD_H+Cloumns_H, S_W, News_H)];
+    news.backgroundColor = [UIColor whiteColor];
+    [self.big_ScrollView addSubview:news];
     
-    GYRollingNoticeView *newsScroll = [[GYRollingNoticeView alloc]initWithFrame:CGRectMake(0, AD_H+Cloumns_H, S_W, News_H)];
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 60, 20)];
+    img.image = [UIImage imageNamed:@"headLine_img"];
+    [news addSubview:img];
+//    SGAdvertScrollView *newsScroll = [[SGAdvertScrollView alloc]initWithFrame:CGRectMake(50, 0, S_W-50, 35)];
+    
+    GYRollingNoticeView *newsScroll = [[GYRollingNoticeView alloc]initWithFrame:CGRectMake(80, 8, S_W-80, 35)];
     [newsScroll registerNib:[UINib nibWithNibName:@"TJHeadLineCustomCell" bundle:nil] forCellReuseIdentifier:@"HeadLineCustomCell"];
     newsScroll.delegate = self;
     newsScroll.dataSource = self;
     newsScroll.backgroundColor = [UIColor whiteColor];
-    [self.big_ScrollView addSubview:newsScroll];
+    [news addSubview:newsScroll];
     self.news_scrollView = newsScroll;
 
 }
@@ -539,8 +546,9 @@
 
 #pragma mark - gydelegate
 - (NSInteger)numberOfRowsForRollingNoticeView:(GYRollingNoticeView *)rollingView{
-    int a = ceil(self.newsArr.count/2.0);
-    return a;
+//    int a = ceil(self.newsArr.count/2.0);
+//    return a;
+    return self.newsArr.count;
 }
 - (__kindof GYNoticeViewCell *)rollingNoticeView:(GYRollingNoticeView *)rollingView cellAtIndex:(NSUInteger)index
 {
@@ -551,8 +559,13 @@
 }
 - (void)didClickRollingNoticeView:(GYRollingNoticeView *)rollingView forIndex:(NSUInteger)index
 {
-    TJHeadLineController *vc =[[TJHeadLineController alloc]init];
+    TJHeadLineScrollModel *model  = self.newsArr[index];
+
+    TJHeadDetailController *vc  = [[TJHeadDetailController alloc]init];
+    vc.aid = model.id;vc.title_art = model.title;
     [self.navigationController pushViewController:vc animated:YES];
+//    TJHeadLineController *vc =[[TJHeadLineController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - scrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

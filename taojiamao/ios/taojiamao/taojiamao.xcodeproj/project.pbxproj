@@ -93,6 +93,9 @@
 		C7292A2E2095566700073099 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A2A2095566700073099 /* NSObject+YYModel.m */; };
 		C7292A2F2095566700073099 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A2C2095566700073099 /* YYClassInfo.m */; };
 		C7292A3920955F1A00073099 /* TJContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7292A3820955F1A00073099 /* TJContentController.m */; };
+		C72A3ED22160A46100A6685D /* TJTouTiaoGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A3ED02160A46100A6685D /* TJTouTiaoGoodsCell.m */; };
+		C72A3ED32160A46100A6685D /* TJTouTiaoGoodsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C72A3ED12160A46100A6685D /* TJTouTiaoGoodsCell.xib */; };
+		C72A3ED72160B41100A6685D /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A3ED62160B41000A6685D /* SGAdvertScrollView.m */; };
 		C72A72BB209D54B3001CAC75 /* NSBundle+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A72AE209D54B3001CAC75 /* NSBundle+PYSearchExtension.m */; };
 		C72A72BC209D54B3001CAC75 /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C72A72AF209D54B3001CAC75 /* PYSearch.bundle */; };
 		C72A72BD209D54B3001CAC75 /* PYSearchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C72A72B2209D54B3001CAC75 /* PYSearchConst.m */; };
@@ -916,6 +919,11 @@
 		C7292A2D2095566700073099 /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		C7292A3720955F1A00073099 /* TJContentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJContentController.h; sourceTree = "<group>"; };
 		C7292A3820955F1A00073099 /* TJContentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJContentController.m; sourceTree = "<group>"; };
+		C72A3ECF2160A46100A6685D /* TJTouTiaoGoodsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJTouTiaoGoodsCell.h; sourceTree = "<group>"; };
+		C72A3ED02160A46100A6685D /* TJTouTiaoGoodsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJTouTiaoGoodsCell.m; sourceTree = "<group>"; };
+		C72A3ED12160A46100A6685D /* TJTouTiaoGoodsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TJTouTiaoGoodsCell.xib; sourceTree = "<group>"; };
+		C72A3ED52160B41000A6685D /* SGAdvertScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdvertScrollView.h; sourceTree = "<group>"; };
+		C72A3ED62160B41000A6685D /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
 		C72A72AD209D54B3001CAC75 /* NSBundle+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PYSearchExtension.h"; sourceTree = "<group>"; };
 		C72A72AE209D54B3001CAC75 /* NSBundle+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+PYSearchExtension.m"; sourceTree = "<group>"; };
 		C72A72AF209D54B3001CAC75 /* PYSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYSearch.bundle; sourceTree = "<group>"; };
@@ -2518,6 +2526,15 @@
 			path = YYModel;
 			sourceTree = "<group>";
 		};
+		C72A3ED42160B41000A6685D /* SGAdvertScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				C72A3ED52160B41000A6685D /* SGAdvertScrollView.h */,
+				C72A3ED62160B41000A6685D /* SGAdvertScrollView.m */,
+			);
+			path = SGAdvertScrollView;
+			sourceTree = "<group>";
+		};
 		C72A72AC209D54B3001CAC75 /* PYSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -3134,6 +3151,7 @@
 		C73FC7A520901BC700732F2D /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
+				C72A3ED42160B41000A6685D /* SGAdvertScrollView */,
 				C7988CA3212D604100A88F0E /* DHGuidePageHUD */,
 				C76E861C21259A1400DD8AA5 /* PGDatePicker */,
 				C76E865021259A1400DD8AA5 /* PGPickerView */,
@@ -3936,6 +3954,9 @@
 				C7D08D59215F7CC6002BF1C8 /* TJTouTiaoInfoCell.h */,
 				C7D08D5A215F7CC6002BF1C8 /* TJTouTiaoInfoCell.m */,
 				C7D08D5B215F7CC6002BF1C8 /* TJTouTiaoInfoCell.xib */,
+				C72A3ECF2160A46100A6685D /* TJTouTiaoGoodsCell.h */,
+				C72A3ED02160A46100A6685D /* TJTouTiaoGoodsCell.m */,
+				C72A3ED12160A46100A6685D /* TJTouTiaoGoodsCell.xib */,
 			);
 			path = "详情";
 			sourceTree = "<group>";
@@ -5652,6 +5673,7 @@
 				C7904F672123E34100E20E4D /* TJKdMyQuanCell.xib in Resources */,
 				C772AA46210880800029C515 /* Info.plist in Resources */,
 				C788E5422137A7D100F48EDF /* WeiboSDK.bundle in Resources */,
+				C72A3ED32160A46100A6685D /* TJTouTiaoGoodsCell.xib in Resources */,
 				C7A3FC4121211D5200072A57 /* TJBargainHeadCell.xib in Resources */,
 				C74D894721003C790098754C /* TJMoreCommentsCell.xib in Resources */,
 				C7ADB492211A913300AD4D95 /* TJOrderTypeCell.xib in Resources */,
@@ -5974,6 +5996,7 @@
 				C77B4442211830CE00332147 /* TJThreeImageCell.m in Sources */,
 				C742A31E2099DA260026311A /* MyMaker.m in Sources */,
 				C71D207121217BF200580DA5 /* HanyuPinyinOutputFormat.m in Sources */,
+				C72A3ED72160B41100A6685D /* SGAdvertScrollView.m in Sources */,
 				C71D204C212173A300580DA5 /* TJMyAddressController.m in Sources */,
 				C7B9949920F884B000DFFC98 /* ZJTitleView.m in Sources */,
 				C77D0EB720A421A4000F794A /* TJOCDContentController.m in Sources */,
@@ -6171,6 +6194,7 @@
 				C73FC75D209017FD00732F2D /* AppDelegate.m in Sources */,
 				C717877C2105844E009A2034 /* WMPageController.m in Sources */,
 				C78E5CD020ABB5E700C9C1BF /* MJRefreshBackNormalFooter.m in Sources */,
+				C72A3ED22160A46100A6685D /* TJTouTiaoGoodsCell.m in Sources */,
 				C78E5CD820ABB5E700C9C1BF /* UIScrollView+MJExtension.m in Sources */,
 				C713C838209B0C1C000A125B /* TJRegisterController.m in Sources */,
 				C77D0EA720A3ED5B000F794A /* YYTextTransaction.m in Sources */,

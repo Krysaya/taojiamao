@@ -13,14 +13,14 @@
 #import "TJHeadLineThreeCell.h"
 #import "TJHeadLineContentCell.h"
 #import "TJReplyController.h"
-
+#import "TJTouTiaoGoodsCell.h"
 #import "TJInvitationView.h"
 #import "TJArticlesListModel.h"
 #import "TJArticlesInfoListModel.h"
 #import "TJCommentsListModel.h"
 #import "TJCommentsSendView.h"
-
-
+#import "TJDefaultGoodsDetailController.h"
+#import "TJGoodsCollectModel.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 @interface TJHeadDetailController ()<TJButtonDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SendBtnDelegate,ShareDelegate>
@@ -44,6 +44,16 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    //去掉导航栏底部的黑线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,12 +71,13 @@
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, S_W, S_H-54-SafeAreaTopHeight) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
-    tableView.estimatedRowHeight = 200;
+    tableView.estimatedRowHeight = 100;
+    tableView.rowHeight = UITableViewAutomaticDimension;
     tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-//     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineContentCell" bundle:nil] forCellReuseIdentifier:@"contentCell"];
+     [tableView registerNib:[UINib nibWithNibName:@"TJTouTiaoGoodsCell" bundle:nil] forCellReuseIdentifier:@"GoodsListCell"];
       [tableView registerNib:[UINib nibWithNibName:@"TJTouTiaoInfoCell" bundle:nil] forCellReuseIdentifier:@"contentCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineShareCell" bundle:nil] forCellReuseIdentifier:@"shareCell"];
-    [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineThreeCell" bundle:nil] forCellReuseIdentifier:@"tuijianCell"];
+//    [tableView registerNib:[UINib nibWithNibName:@"TJHeadLineThreeCell" bundle:nil] forCellReuseIdentifier:@"tuijianCell"];
     [tableView registerNib:[UINib nibWithNibName:@"TJMoreCommentsCell" bundle:nil] forCellReuseIdentifier:@"moreCell"];
     self.tableView = tableView;
     [self.view addSubview:tableView];
@@ -84,47 +95,17 @@
     self.model = nil;
     self.remodel = nil;
     WeakSelf
-    [KConnectWorking requestNormalDataMD5Param:nil withNormlParams:nil withRequestURL:[NSString stringWithFormat:@"%@/%@",NewsArticlesInfo,aid] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+    [KConnectWorking requestNormalDataParam:@{@"id":aid} withRequestURL:[NSString stringWithFormat:@"%@/%@",NewsArticlesInfo,aid] withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+        [weakSelf.tableView.mj_header endRefreshing];
+         DSLog(@"----newsinfo-success-===%@",responseObject);
+        TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:responseObject[@"data"]];
+        weakSelf.model = model;
+        [weakSelf.tableView reloadData];
         
     } withFailure:^(NSError * _Nullable error) {
-        NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-                NSString  * receive = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding ];
-        
-                //字符串再生成NSData
-                NSData *data = [receive dataUsingEncoding:NSUTF8StringEncoding];
-                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        
-                //打印出后台给出的错误信息
-                DSLog(@"%@============%@",error,dict[@"msg"]);
-    }];
-//    [KConnectWorking requestNormalDataParam:@{@"id":aid} withRequestURL:NewsArticlesInfo withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
-//        DSLog(@"----newsinfo-success-===%@",responseObject);
-//        [weakSelf.tableView.mj_header endRefreshing];
-//        NSDictionary *dict = responseObject[@"data"];
-//        if (dict.count>0) {
-//            TJArticlesInfoListModel *model = [TJArticlesInfoListModel mj_objectWithKeyValues:dict[@"detail"]];
-//            TJArticlesListModel *remodel = [TJArticlesListModel mj_objectWithKeyValues:dict[@"relate"]];
-//            weakSelf.model = model;
-//            weakSelf.remodel = remodel;
-//            [weakSelf.tableView reloadData];
-//        }
-//    } withFailure:^(NSError * _Nullable error) {
-//        NSData *responseData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-//        NSString  * receive = [[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding ];
-//
-//        //字符串再生成NSData
-//        NSData *data = [receive dataUsingEncoding:NSUTF8StringEncoding];
-//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-//
-//        //打印出后台给出的错误信息
-//        DSLog(@"%@============%@",error,dict[@"msg"]);
-//
-//
-//
-//        [SVProgressHUD showInfoWithStatus:@"请重试~"];
-//        [weakSelf.tableView.mj_header endRefreshing];
-//    }];
+        [weakSelf.tableView.mj_header endRefreshing];
 
+    }];
 }
 
 - (void)requestReplyList:(NSString *)aid{
@@ -158,9 +139,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==2) {
         return self.commentArr.count+1;
+    }else if (section==1){
+        return self.model.good.count+1;
     }
         return 2;
-//    }
 }
 
 //section底部间距
@@ -221,8 +203,8 @@
             return cell;
         }else{
 //推荐
-            TJHeadLineThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tuijianCell"];
-            cell.model = self.remodel;
+            TJTouTiaoGoodsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsListCell"];
+            cell.model = self.model.good[indexPath.row-1];
             return cell;
         }
     }else{
@@ -278,12 +260,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==1) {
-        if (indexPath.row==1) {
-//          推荐
-//            self.aid = self.remodel.id;
-//            self.title = self.remodel.title;
-//
-//            [tableView.mj_header beginRefreshing];
+        if (indexPath.row==0) {
+
+        }else{
+            TJGoodsCollectModel *m = self.model.good[indexPath.row-1];
+            TJDefaultGoodsDetailController *vc = [[TJDefaultGoodsDetailController alloc]init];
+            vc.gid = m.itemid;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }

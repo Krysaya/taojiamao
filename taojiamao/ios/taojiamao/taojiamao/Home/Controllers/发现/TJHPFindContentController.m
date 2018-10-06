@@ -110,7 +110,8 @@
     TJHPFindGoodsModel *model = m.good[sender.tag-200];
     TJFindPopView *popView = [[TJFindPopView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H) withImgURL:model.itempic];
 //    popView
-    [self.view addSubview:popView];
+    [[UIApplication sharedApplication].keyWindow addSubview:popView];
+//    [self.view addSubview:popView];
 }
 - (void)shareClick:(UIButton *)sender{
 //    TJHPFindCell *cell = (TJHPFindCell *)[sender viewWithTag:<#(NSInteger)#>];
