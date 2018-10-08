@@ -33,6 +33,6 @@
 @property (nonatomic, strong) NSString *zk_final_price;//折扣价
 @property (nonatomic, strong) NSString *click_url;
 @property (nonatomic, strong) NSString *total_amount;//总数量
-
+@property (nonatomic, strong) NSString *rebate;
 
 @end

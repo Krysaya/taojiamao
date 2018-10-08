@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *yimai_lab;
 @property (weak, nonatomic) IBOutlet UILabel *quanhou_lab;
 @property (weak, nonatomic) IBOutlet UIButton *btn_quan;
+@property (weak, nonatomic) IBOutlet UILabel *lab_tkmoney;
 
 
 @end
@@ -29,6 +30,18 @@
 
 - (void)setModel:(TJJHSGoodsListModel *)model{
     
+    _model = model;
+    if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"1"]) {
+        DSLog(@"--不显示");
+        self.lab_tkmoney.hidden = YES;
+    }else if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"2"]){
+        self.lab_tkmoney.hidden = NO;
+        self.lab_tkmoney.text = [NSString stringWithFormat:@"约赚 %@",model.rebate];
+        
+    }else{
+        self.lab_tkmoney.hidden = NO;
+        self.lab_tkmoney.text = [NSString stringWithFormat:@"约赚¥%.2f",[model.rebate floatValue]/100];
+    }
     if ([model.shoptype isEqualToString:@"B"]) {
         [self.tb_img setImage: [UIImage imageNamed:@"tb_bs"]];
     }else{
@@ -48,6 +61,6 @@
     self.quanhou_lab.attributedText = attrStr;
     [self.btn_quan setTitle:[NSString stringWithFormat:@"%@元券",model.couponmoney] forState:UIControlStateNormal];
 
-    [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"good_bg.jpg"]];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@_300x300",model.itempic]] placeholderImage:[UIImage imageNamed:@"good_bg.jpg"]];
 }
 @end

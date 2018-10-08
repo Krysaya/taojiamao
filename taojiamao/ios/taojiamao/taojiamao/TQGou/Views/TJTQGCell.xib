@@ -103,11 +103,23 @@
                                 <color key="textColor" red="0.98823529409999999" green="0.27058823529999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thp-96-rf7">
+                                <rect key="frame" x="15" y="93.5" width="65" height="23"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.30029965753424659" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="2R0-4g-2a2"/>
+                                    <constraint firstAttribute="width" constant="65" id="5AJ-Ux-cwD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="tHi-wX-THp" secondAttribute="trailing" constant="15" id="3Y9-RP-kIO"/>
                             <constraint firstItem="L9N-zh-7Z8" firstAttribute="top" secondItem="N56-fd-4Fr" secondAttribute="bottom" constant="10" id="4RF-8u-Ghi"/>
+                            <constraint firstItem="thp-96-rf7" firstAttribute="leading" secondItem="VXE-qu-FGi" secondAttribute="leading" constant="15" id="6La-Bj-cdk"/>
                             <constraint firstItem="N56-fd-4Fr" firstAttribute="centerX" secondItem="L9N-zh-7Z8" secondAttribute="centerX" id="Ju1-C9-Xkk"/>
                             <constraint firstItem="Cbh-qO-m9n" firstAttribute="leading" secondItem="7cd-U6-YoF" secondAttribute="trailing" constant="15" id="UB7-5f-rsp"/>
                             <constraint firstItem="FkZ-ls-dAe" firstAttribute="leading" secondItem="3jS-mS-KUE" secondAttribute="trailing" constant="5" id="Ut2-ch-dWK"/>
@@ -123,6 +135,7 @@
                             <constraint firstItem="Cbh-qO-m9n" firstAttribute="bottom" secondItem="7cd-U6-YoF" secondAttribute="bottom" id="o6T-ZL-eAT"/>
                             <constraint firstItem="M2M-C3-ONK" firstAttribute="bottom" secondItem="7cd-U6-YoF" secondAttribute="bottom" id="pZM-sU-2zA"/>
                             <constraint firstItem="N56-fd-4Fr" firstAttribute="top" secondItem="tHi-wX-THp" secondAttribute="bottom" constant="12" id="vqS-OG-GSH"/>
+                            <constraint firstAttribute="bottom" secondItem="thp-96-rf7" secondAttribute="bottom" constant="35" id="zdd-rQ-5bw"/>
                             <constraint firstItem="tHi-wX-THp" firstAttribute="leading" secondItem="7cd-U6-YoF" secondAttribute="trailing" constant="15" id="zjv-74-Uzd"/>
                             <constraint firstItem="M2M-C3-ONK" firstAttribute="bottom" secondItem="7cC-RC-uaR" secondAttribute="bottom" id="zkq-y7-ANe"/>
                         </constraints>
@@ -140,12 +153,13 @@
                 <outlet property="btn_qiang" destination="M2M-C3-ONK" id="iBh-9A-FGd"/>
                 <outlet property="img" destination="7cd-U6-YoF" id="2eS-1b-auu"/>
                 <outlet property="lab_title" destination="tHi-wX-THp" id="f0l-X3-g7m"/>
+                <outlet property="lab_tkmoney" destination="thp-96-rf7" id="c6u-3j-Q4c"/>
                 <outlet property="lab_xprice" destination="FkZ-ls-dAe" id="gEh-8f-3JE"/>
                 <outlet property="lab_yprice" destination="Cbh-qO-m9n" id="IVp-O3-JPq"/>
                 <outlet property="lab_yq" destination="N56-fd-4Fr" id="rvn-po-KYE"/>
                 <outlet property="pg_yq" destination="L9N-zh-7Z8" id="U10-YJ-DBD"/>
             </connections>
-            <point key="canvasLocation" x="-118.5" y="1"/>
+            <point key="canvasLocation" x="-119.2" y="0.89955022488755632"/>
         </tableViewCell>
     </objects>
     <resources>

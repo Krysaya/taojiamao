@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn_five;
 @property (weak, nonatomic) IBOutlet UIButton *btn_six;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imgViewHeight_one;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imgViewHeight;
 
@@ -56,9 +57,11 @@
     self.lab_content.text = model.content;
     [self.img_head sd_setImageWithURL:[NSURL URLWithString:model.img] placeholderImage: [UIImage imageNamed:@"morentouxiang"]];
     if (model.good.count<=3) {
-        
+        if (model.good.count==0) {
+            self.imgViewHeight_one.constant = 0;
+        }
         self.imgViewHeight.constant = 0;
-    }else{
+    }else {
         self.imgViewHeight.constant = 100;
     }
     

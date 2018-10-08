@@ -48,6 +48,7 @@
 #import "MJRefreshGifHeader.h"
 #import "KConnectWorking.h"
 #import "SDCycleScrollView.h"
+#import "TJBaseUrebate.h"
 
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlibcTradeSDK/AlibcTradeSDK.h>

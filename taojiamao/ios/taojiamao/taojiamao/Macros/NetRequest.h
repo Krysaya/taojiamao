@@ -31,6 +31,9 @@ static NSString * const UserPhone = @"UserPhone";
 
 //1基础接口
 #define BASEURL @"http://dev.api.taojiamao.net"
+//会员返利
+#define BaseUrebate              [BASEURL stringByAppendingString:@"/v1/pages/urebate"]
+
 //2启动页
 #define LaunchImageRequest              [BASEURL stringByAppendingString:@"/api.php?s=index/qad"]
 //3首页

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *pg_yq;
 @property (weak, nonatomic) IBOutlet UILabel *lab_xprice;
 @property (weak, nonatomic) IBOutlet UILabel *lab_yprice;
+@property (weak, nonatomic) IBOutlet UILabel *lab_tkmoney;
 
 
 
@@ -41,7 +42,17 @@
 
 - (void)setModel:(TJTqgGoodsModel *)model{
     _model = model;
-    
+    if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"1"]) {
+        DSLog(@"--不显示");
+        self.lab_tkmoney.hidden = YES;
+    }else if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"2"]){
+        self.lab_tkmoney.hidden = NO;
+        self.lab_tkmoney.text = [NSString stringWithFormat:@"约赚 %@",model.rebate];
+        
+    }else{
+        self.lab_tkmoney.hidden = NO;
+        self.lab_tkmoney.text = [NSString stringWithFormat:@"约赚¥%.2f",[model.rebate floatValue]/100];
+    }
     self.pg_yq.progress = [model.sold_num floatValue]/[model.total_amount floatValue];
     self.lab_xprice.text = model.zk_final_price;
     //中划线
@@ -50,7 +61,7 @@
     
     self.lab_yprice.attributedText = attribt_yuanj;
     
-    [self.img sd_setImageWithURL: [NSURL URLWithString:model.pic_url] placeholderImage:[UIImage imageNamed:@"good_bg.jpg"]];
+    [self.img sd_setImageWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"%@_300x300",model.pic_url]] placeholderImage:[UIImage imageNamed:@"good_bg.jpg"]];
     
     NSAttributedString *string = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
         make.insertImage([UIImage imageNamed:@"tb_bs"], 0, CGPointMake(0, 0), CGSizeMake(23, 11));

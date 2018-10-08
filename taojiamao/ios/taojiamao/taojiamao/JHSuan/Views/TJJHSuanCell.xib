@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -60,6 +60,17 @@
                         <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kj7-YO-FIm">
+                        <rect key="frame" x="0.0" y="149" width="80" height="20"/>
+                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="RCX-nV-PxK"/>
+                            <constraint firstAttribute="width" constant="80" id="wr4-Pf-Ar7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,21 +85,24 @@
                 <constraint firstItem="Q3u-cM-mmV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cYX-qQ-gYO"/>
                 <constraint firstItem="Sgk-nd-9SX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="fur-xm-W7O"/>
                 <constraint firstAttribute="trailing" secondItem="pVA-lc-ukk" secondAttribute="trailing" constant="6" id="l7X-Ol-EKN"/>
+                <constraint firstItem="kj7-YO-FIm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mrC-6s-NuX"/>
                 <constraint firstItem="pVA-lc-ukk" firstAttribute="bottom" secondItem="Sgk-nd-9SX" secondAttribute="bottom" id="nFw-tD-JwM"/>
                 <constraint firstItem="bDM-KS-2pa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="nst-p4-ssB"/>
                 <constraint firstItem="Sgk-nd-9SX" firstAttribute="top" secondItem="oSt-Ow-LJf" secondAttribute="bottom" constant="10" id="oAN-br-NZY"/>
+                <constraint firstItem="bDM-KS-2pa" firstAttribute="top" secondItem="kj7-YO-FIm" secondAttribute="bottom" constant="25" id="ru6-qa-xqc"/>
                 <constraint firstAttribute="trailing" secondItem="Q3u-cM-mmV" secondAttribute="trailing" id="x3z-GH-k36"/>
             </constraints>
             <size key="customSize" width="166" height="193"/>
             <connections>
                 <outlet property="btn_quan" destination="pVA-lc-ukk" id="MDk-QJ-YVo"/>
                 <outlet property="img" destination="Q3u-cM-mmV" id="9ou-vS-5ip"/>
+                <outlet property="lab_tkmoney" destination="kj7-YO-FIm" id="PbM-T4-gvv"/>
                 <outlet property="quanhou_lab" destination="Sgk-nd-9SX" id="ASA-kx-qRN"/>
                 <outlet property="tb_img" destination="bDM-KS-2pa" id="qHY-cD-1s9"/>
                 <outlet property="title_lab" destination="UcT-zL-kMj" id="gjW-8L-lKO"/>
                 <outlet property="yimai_lab" destination="oSt-Ow-LJf" id="SYI-5v-EbP"/>
             </connections>
-            <point key="canvasLocation" x="-279" y="-128"/>
+            <point key="canvasLocation" x="-567.20000000000005" y="-152.47376311844079"/>
         </collectionViewCell>
     </objects>
     <resources>

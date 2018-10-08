@@ -104,7 +104,7 @@
 @property (nonatomic, strong) NSString *activity_etime;//活动结束时间
 @property (nonatomic, strong) NSString *activityid;//活动id
 @property (nonatomic, strong) NSString *addtime;//添加时间
-
+@property (nonatomic, strong) NSString *rebate;
 
 
 @end

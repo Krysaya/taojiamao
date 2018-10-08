@@ -65,7 +65,7 @@ static NSString * const TQGContentCell = @"GContentCell";
     self.dataArr  = [NSMutableArray array];
     WeakSelf
     [KConnectWorking requestNormalDataParam:param withRequestURL:TQGGoodsList withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
-        
+//        没数据判断
         weakSelf.dataArr = [TJTqgGoodsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
          [weakSelf.tableView reloadData];
         weakSelf.page++;

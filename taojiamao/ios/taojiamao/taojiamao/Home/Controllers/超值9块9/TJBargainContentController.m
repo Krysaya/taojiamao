@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.page = 1;
-    UITableView *tableView = [[UITableView alloc]initWithFrame:S_F style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, S_W, S_H-116) style:UITableViewStylePlain];
     tableView.delegate =self;
     tableView.dataSource =self;
     tableView.tableFooterView = [UIView new];

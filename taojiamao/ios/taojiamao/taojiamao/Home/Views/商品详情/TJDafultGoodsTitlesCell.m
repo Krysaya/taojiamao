@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lab_totalprenson;
 @property (weak, nonatomic) IBOutlet UILabel *lab_couponmoneny;
 @property (weak, nonatomic) IBOutlet UIImageView *img_bs;
+@property (weak, nonatomic) IBOutlet UIView *view_yz;
+@property (weak, nonatomic) IBOutlet UILabel *lab_tkmoney;
 
 
 @end
@@ -35,6 +37,19 @@
 }
 
 - (void)setModel_detail:(TJJHSGoodsListModel *)model_detail{
+    
+    _model_detail = model_detail;
+    if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"1"]) {
+        DSLog(@"--不显示");
+        self.view_yz.hidden = YES;
+    }else if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"2"]){
+        self.view_yz.hidden = NO;
+        self.lab_tkmoney.text = [NSString stringWithFormat:@"%@",model_detail.rebate];
+        
+    }else{
+        self.view_yz.hidden = NO;
+        self.lab_tkmoney.text = [NSString stringWithFormat:@"¥%.2f",[model_detail.rebate floatValue]/100];
+    }
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, S_W, 375)];
     [img sd_setImageWithURL:[NSURL URLWithString:model_detail.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
     if ([model_detail.shoptype isEqualToString:@"B"]) {

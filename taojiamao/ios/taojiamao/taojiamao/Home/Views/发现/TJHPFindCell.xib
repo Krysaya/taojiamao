@@ -241,6 +241,7 @@
                 <outlet property="btn_three" destination="fMI-9X-d34" id="e4b-um-b53"/>
                 <outlet property="btn_two" destination="8Tz-wv-B1s" id="zDc-A5-u8u"/>
                 <outlet property="imgViewHeight" destination="aqS-Ru-f1n" id="65Y-zK-Zw2"/>
+                <outlet property="imgViewHeight_one" destination="Guq-xQ-SQS" id="U0W-yc-XSI"/>
                 <outlet property="img_head" destination="0mL-Te-nuO" id="jUf-a6-zuB"/>
                 <outlet property="lab_content" destination="34A-Q0-pLf" id="1PH-Sw-76Q"/>
                 <outlet property="lab_name" destination="FaF-NL-Z5C" id="FGt-mB-tAf"/>

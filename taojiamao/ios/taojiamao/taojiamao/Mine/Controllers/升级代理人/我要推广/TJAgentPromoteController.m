@@ -21,6 +21,7 @@
     [super viewDidLoad];
     self.title = @"我是代理";
     self.carousel.type  = iCarouselTypeLinear;
+    self.carousel.bounces = YES;
     self.carousel.pagingEnabled = YES;
     self.pageC.currentPage = 0;
     [self loadAgentPic];

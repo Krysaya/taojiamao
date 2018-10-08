@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *checkBtnLeading;
 // 如果要整体右移这个值也改下
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightViewTrailing;
+@property (weak, nonatomic) IBOutlet UIView *view_yz;
+@property (weak, nonatomic) IBOutlet UILabel *lab_tkmoney;
 
 @end
 
@@ -30,6 +32,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -56,9 +60,21 @@
     if ([type intValue]==0) {
 //jhs
         TJJHSGoodsListModel *model = [arr objectAtIndex:indexPath.row];
+        if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"1"]) {
+            DSLog(@"--不显示");
+            self.view_yz.hidden = YES;
+        }else if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"2"]){
+//            淘币
+            self.view_yz.hidden = NO;
+            self.lab_tkmoney.text = [NSString stringWithFormat:@"淘币%@",model.rebate];
 
+        }else{
+//            钱
+            self.view_yz.hidden = NO;
+            self.lab_tkmoney.text = [NSString stringWithFormat:@"¥ %.2f",[model.rebate floatValue]/100];
+        }
 //        _selectBtn.selected = model.isChecked;
-        [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
+        [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@_300x300",model.itempic]] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
         UIImage *imgs;
         if ([model.shoptype isEqualToString:@"B"]) {
             imgs = [UIImage imageNamed:@"tb_bs"];
@@ -84,6 +100,17 @@
 
     }else{
         TJGoodsCollectModel *model = [arr objectAtIndex:indexPath.row];
+        if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"1"]) {
+            DSLog(@"--不显示");
+            self.view_yz.hidden = YES;
+        }else if ([[TJAppManager sharedTJAppManager].urbate.show_type isEqual:@"2"]){
+            self.view_yz.hidden = NO;
+            self.lab_tkmoney.text = [NSString stringWithFormat:@"%@",model.rebate];
+            
+        }else{
+            self.view_yz.hidden = NO;
+            self.lab_tkmoney.text = [NSString stringWithFormat:@"¥%.2f",[model.rebate floatValue]/100];
+        }
         _selectBtn.selected = model.isChecked;
         [self.img sd_setImageWithURL:[NSURL URLWithString:model.itempic] placeholderImage:[UIImage imageNamed:@"goods_bg.jpg"]];
         UIImage *imgs;

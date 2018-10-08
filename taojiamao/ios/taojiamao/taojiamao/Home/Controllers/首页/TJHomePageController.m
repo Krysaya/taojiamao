@@ -89,6 +89,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [KConnectWorking requestNormalDataParam:nil withRequestURL:BaseUrebate withMethodType:kXMHTTPMethodGET withSuccessBlock:^(id  _Nullable responseObject) {
+//        DSLog(@"--35sw2325235235235-%@",responseObject);
+        TJBaseUrebate *model = [TJBaseUrebate mj_objectWithKeyValues:responseObject[@"data"]];
+        [TJAppManager sharedTJAppManager].urbate = model;
+    } withFailure:^(NSError * _Nullable error) {
+        
+    }];
+    
     [self setNaviBarAlpha:0];
 
     if (self.menuArr.count>0) {
@@ -107,6 +115,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    
 //    [self setNavBarBgAlpha:@"1"];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:17]}];
 //        [self resetSystemNavibar];
@@ -290,7 +300,7 @@
     [KConnectWorking requestNormalDataParam:param withRequestURL:HomePageGoods withMethodType:kXMHTTPMethodPOST withSuccessBlock:^(id  _Nullable responseObject) {
         [weakSelf.big_ScrollView.mj_header endRefreshing];
         weakSelf.goodsArr = [TJGoodsCollectModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-//        DSLog(@"--success---%@",responseObject);
+        DSLog(@"-jxxxxxx-success---%@",responseObject);
             weakSelf.tableView.py_height = self.goodsArr.count*160;
             [weakSelf.tableView reloadData];
             weakSelf.big_ScrollView.contentSize = CGSizeMake(0, AD_H+Cloumns_H+News_H+Class_H+TabAd_H+75+weakSelf.goodsArr.count*160);
