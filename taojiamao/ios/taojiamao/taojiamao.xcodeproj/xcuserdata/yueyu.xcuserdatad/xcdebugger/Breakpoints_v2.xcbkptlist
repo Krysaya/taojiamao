@@ -19,75 +19,28 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "taojiamao/Mine/Controllers/&#x5347;&#x7ea7;&#x4ee3;&#x7406;&#x4eba;/&#x6211;&#x8981;&#x63a8;&#x5e7f;/TJAgentPromoteController.m"
-            timestampString = "559799910.502084"
+            filePath = "taojiamao/Home/Views/&#x53d1;&#x73b0;/TJHPFindCell.m"
+            timestampString = "560675852.95821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "-loadAgentPic"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-setModel:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TJAgentPromoteController loadAgentPic]"
-                  moduleName = "taojiamao"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/%E5%8D%87%E7%BA%A7%E4%BB%A3%E7%90%86%E4%BA%BA/%E6%88%91%E8%A6%81%E6%8E%A8%E5%B9%BF/TJAgentPromoteController.m"
-                  timestampString = "559794810.386097"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[TJAgentPromoteController loadAgentPic]_block_invoke"
-                  moduleName = "taojiamao"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/%E5%8D%87%E7%BA%A7%E4%BB%A3%E7%90%86%E4%BA%BA/%E6%88%91%E8%A6%81%E6%8E%A8%E5%B9%BF/TJAgentPromoteController.m"
-                  timestampString = "559794810.388191"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "taojiamao"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yueyu/taojiamao0711/taojiamao/Mine/Controllers/%E5%8D%87%E7%BA%A7%E4%BB%A3%E7%90%86%E4%BA%BA/%E6%88%91%E8%A6%81%E6%8E%A8%E5%B9%BF/TJAgentPromoteController.m"
-                  timestampString = "559794810.389801"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "taojiamao/Home/Views/&#x53d1;&#x73b0;/TJHPFindCell.m"
-            timestampString = "559904943.845098"
+            timestampString = "560675852.958272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "-setModel:"
             landmarkType = "7">
          </BreakpointContent>

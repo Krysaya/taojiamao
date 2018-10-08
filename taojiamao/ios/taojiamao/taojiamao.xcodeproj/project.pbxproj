@@ -72,6 +72,7 @@
 		C722E63520A12B1200EE9D61 /* TJBalanceDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C722E63420A12B1200EE9D61 /* TJBalanceDetailsController.m */; };
 		C722E63A20A138F300EE9D61 /* UINavigationController+Cloudox.m in Sources */ = {isa = PBXBuildFile; fileRef = C722E63720A138F200EE9D61 /* UINavigationController+Cloudox.m */; };
 		C722E63B20A138F300EE9D61 /* UIViewController+Cloudox.m in Sources */ = {isa = PBXBuildFile; fileRef = C722E63920A138F300EE9D61 /* UIViewController+Cloudox.m */; };
+		C722F0C221699F3000C60A25 /* TJBaseUrebate.m in Sources */ = {isa = PBXBuildFile; fileRef = C722F0C121699F3000C60A25 /* TJBaseUrebate.m */; };
 		C7249B0320A1402400BB385E /* UIViewController+Nav.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B0120A1402400BB385E /* UIViewController+Nav.m */; };
 		C7249B0620A1411B00BB385E /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B0420A1411A00BB385E /* NSArray+Log.m */; };
 		C7249B0B20A1418500BB385E /* UIImage+TJCircleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C7249B0720A1418400BB385E /* UIImage+TJCircleImage.m */; };
@@ -877,6 +878,8 @@
 		C722E63720A138F200EE9D61 /* UINavigationController+Cloudox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Cloudox.m"; sourceTree = "<group>"; };
 		C722E63820A138F300EE9D61 /* UINavigationController+Cloudox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Cloudox.h"; sourceTree = "<group>"; };
 		C722E63920A138F300EE9D61 /* UIViewController+Cloudox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Cloudox.m"; sourceTree = "<group>"; };
+		C722F0C021699F3000C60A25 /* TJBaseUrebate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBaseUrebate.h; sourceTree = "<group>"; };
+		C722F0C121699F3000C60A25 /* TJBaseUrebate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBaseUrebate.m; sourceTree = "<group>"; };
 		C7249B0120A1402400BB385E /* UIViewController+Nav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Nav.m"; sourceTree = "<group>"; };
 		C7249B0220A1402400BB385E /* UIViewController+Nav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Nav.h"; sourceTree = "<group>"; };
 		C7249B0420A1411A00BB385E /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
@@ -2481,6 +2484,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		C722F0BF21699E7800C60A25 /* basemodel */ = {
+			isa = PBXGroup;
+			children = (
+				C722F0C021699F3000C60A25 /* TJBaseUrebate.h */,
+				C722F0C121699F3000C60A25 /* TJBaseUrebate.m */,
+			);
+			path = basemodel;
+			sourceTree = "<group>";
+		};
 		C7249B1F20A173F000BB385E /* UITableView-FDTemplateLayoutCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3110,6 +3122,7 @@
 		C73FC79F20901BC700732F2D /* Bases */ = {
 			isa = PBXGroup;
 			children = (
+				C722F0BF21699E7800C60A25 /* basemodel */,
 				C7FFCAF4213D392600627FBF /* Singleton.h */,
 				C7266E0120A521A5005FD81A /* TJButton.h */,
 				C7266E0220A521A6005FD81A /* TJButton.m */,
@@ -6070,6 +6083,7 @@
 				C7206C0F20A02DAB00957A4A /* TJLaunchModel.m in Sources */,
 				C742A3102099DA260026311A /* MyBaseLayout.m in Sources */,
 				C772AA37210880800029C515 /* FSCalendar.m in Sources */,
+				C722F0C221699F3000C60A25 /* TJBaseUrebate.m in Sources */,
 				C742A3192099DA260026311A /* MyLayoutMath.m in Sources */,
 				C76EB41720B401F100D297D5 /* TJVipBalanceController.m in Sources */,
 				C78E5CE320AC445300C9C1BF /* TJGoodsDetailsTitleCell.m in Sources */,
